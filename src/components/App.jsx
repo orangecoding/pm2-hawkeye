@@ -9,7 +9,7 @@ import ProcessList from "./ProcessList.jsx";
 import HeroCard from "./HeroCard.jsx";
 import StatsGrid from "./StatsGrid.jsx";
 import LogStream from "./LogStream.jsx";
-import Actions from "./Actions.jsx";
+import UpdateBanner from "./UpdateBanner.jsx";
 
 export default function App() {
     const [csrfToken, setCsrfToken] = useState(null);
@@ -182,6 +182,7 @@ export default function App() {
 
     return (
         <div className="app-shell">
+            <UpdateBanner />
             <ProcessList
                 processes={processes}
                 selectedProcessId={selectedProcessId}

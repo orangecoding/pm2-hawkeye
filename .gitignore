@@ -22,6 +22,7 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 
+public/!.gitkeep
 # Logs
 logs
 *.log

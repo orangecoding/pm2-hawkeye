@@ -1,6 +1,6 @@
 {
   "name": "pm2-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modern web dashboard for PM2 processes, metrics, and log files",
   "type": "module",
   "main": "lib/transport/server.js",
@@ -32,12 +32,14 @@
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
+    "croner": "^10.0.1",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "less": "^4.6.3",
     "pm2": "^6.0.14",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-markdown": "^10.1.0",
     "ws": "^8.19.0"
   },
   "devDependencies": {
