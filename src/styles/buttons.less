@@ -1,0 +1,38 @@
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+
+.ghost-button,
+.primary-button {
+  border-radius: var(--radius-sm);
+  padding: 0.625rem 1rem;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: background-color 150ms ease, border-color 150ms ease;
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+.ghost-button {
+  border: 0.0625rem solid var(--border-strong);
+  background: transparent;
+  color: var(--text);
+
+  &:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+}
+
+.primary-button {
+  border: 0.0625rem solid transparent;
+  background: var(--accent);
+  color: var(--bg-0);
+  font-weight: 700;
+
+  &:hover {
+    background: var(--accent-strong);
+  }
+}

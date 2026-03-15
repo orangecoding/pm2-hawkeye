@@ -1,0 +1,57 @@
+{
+  "name": "pm2-manager",
+  "version": "1.0.0",
+  "description": "Modern web dashboard for PM2 processes, metrics, and log files",
+  "type": "module",
+  "main": "lib/transport/server.js",
+  "scripts": {
+    "build": "esbuild src/main.jsx --bundle --format=iife --target=es2020 --outfile=public/app.js && esbuild src/login.jsx --bundle --format=iife --target=es2020 --outfile=public/login.js && lessc public/styles.less public/styles.css",
+    "start": "npm run build && node lib/transport/server.js",
+    "dev": "node esbuild.dev.mjs",
+    "format": "prettier --write \"**/*.js\"",
+    "format:check": "prettier --check \"**/*.js\"",
+    "lint": "eslint .",
+    "test": "NODE_ENV=test mocha",
+    "copyright": "node ./tools/copyright.js",
+    "release": "node ./tools/release/release.js"
+  },
+  "author": "Christian Kellner",
+  "keywords": [
+    "pm2",
+    "logs",
+    "monitoring",
+    "dashboard"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/orangecoding/pm2-manager/issues"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=7.0.0"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "less": "^4.6.3",
+    "pm2": "^6.0.14",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "chai": "^6.2.2",
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.27.4",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0",
+    "mocha": "^11.7.5",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.1",
+    "supertest": "^7.2.2"
+  }
+}

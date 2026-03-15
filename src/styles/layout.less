@@ -1,0 +1,138 @@
+/* ── Layout shell ───────────────────────────────────────────────────────── */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 18.75rem minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+  gap: 0.0625rem;
+  max-width: 107.5rem;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--border);
+}
+
+.sidebar {
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--bg-1);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.brand-card {
+  padding: 1.5rem;
+  border-bottom: 0.0625rem solid var(--border);
+
+  h1 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+}
+
+.content {
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.0625rem;
+  background: var(--border);
+  min-width: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-card,
+.panel {
+  padding: 1rem 2rem;
+  animation: rise 380ms ease both;
+}
+
+.hero-card {
+  flex-shrink: 0;
+}
+
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.875rem;
+    margin-bottom: 0.75rem;
+
+    h3 {
+      margin: 0;
+    }
+  }
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+
+.app-footer {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .4rem;
+  background: var(--bg-1);
+  border-top: 0.0625rem solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--text-1);
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 70rem) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .sidebar {
+    grid-row: 1;
+    position: static;
+    height: auto;
+    max-height: 50vh;
+  }
+
+  .content {
+    grid-row: 2;
+  }
+
+  .app-footer {
+    grid-row: 3;
+  }
+}
+
+@media (max-width: 47.5rem) {
+  .hero-card,
+  .panel {
+    padding: 1.25rem;
+  }
+
+  .hero-card,
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

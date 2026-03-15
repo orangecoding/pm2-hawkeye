@@ -1,0 +1,4 @@
+file:
+  - test/setup.mjs
+spec: test/**/*.test.js
+exit: true
