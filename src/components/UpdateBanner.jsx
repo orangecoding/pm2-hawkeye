@@ -74,7 +74,6 @@ export default function UpdateBanner() {
           <div className="update-panel-header">
             <div className="update-panel-title">
               <span className="update-panel-tag">v{update.latestVersion}</span>
-              <span className="update-panel-name">{update.releaseName}</span>
             </div>
             <div className="update-panel-meta">
               {published && <span className="update-panel-date">{published}</span>}
