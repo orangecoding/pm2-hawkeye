@@ -55,7 +55,8 @@
 html,
 body {
   margin: 0;
-  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 body {
   font-family: var(--font-ui);
@@ -126,7 +127,7 @@ input:focus-visible {
   grid-template-rows: 1fr auto;
   gap: 0.0625rem;
   max-width: 107.5rem;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   background: var(--border);
 }
@@ -136,9 +137,7 @@ input:focus-visible {
   flex-direction: column;
   gap: 0;
   background: var(--bg-1);
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 .brand-card {
@@ -157,7 +156,7 @@ input:focus-visible {
   gap: 0.0625rem;
   background: var(--border);
   min-width: 0;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 .hero-card,
@@ -186,25 +185,45 @@ input:focus-visible {
 }
 /* ── Footer ────────────────────────────────────────────────────────────── */
 .app-footer {
-  position: sticky;
+  grid-column: 1 / -1;
+  grid-row: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4rem;
+  padding: 0 1.75rem;
+  height: 2.5rem;
   background: var(--bg-1);
   border-top: 0.0625rem solid var(--border);
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+  z-index: 10;
 }
-.app-footer a {
+.app-footer-version {
+  font-family: var(--font-mono);
   color: var(--muted);
+}
+.app-footer-version strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.app-footer-credit {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.app-footer-credit a {
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: opacity 0.15s;
 }
-.app-footer a:hover {
-  color: var(--text-1);
-  text-decoration: underline;
+.app-footer-credit a:hover {
+  opacity: 0.75;
+}
+.app-footer-heart {
+  line-height: 1;
 }
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 70rem) {
@@ -214,9 +233,8 @@ input:focus-visible {
   }
   .sidebar {
     grid-row: 1;
-    position: static;
     height: auto;
-    max-height: 50vh;
+    max-height: 40vh;
   }
   .content {
     grid-row: 2;

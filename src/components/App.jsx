@@ -10,6 +10,7 @@ import HeroCard from "./HeroCard.jsx";
 import StatsGrid from "./StatsGrid.jsx";
 import LogStream from "./LogStream.jsx";
 import UpdateBanner from "./UpdateBanner.jsx";
+import Footer from "./Footer.jsx";
 
 export default function App() {
     const [csrfToken, setCsrfToken] = useState(null);
@@ -19,6 +20,7 @@ export default function App() {
     const [processListStatus, setProcessListStatus] = useState("Loading processes…");
     const [error, setError] = useState("");
     const [wsConnected, setWsConnected] = useState(false);
+    const [appVersion, setAppVersion] = useState(null);
     const [liveLines, setLiveLines] = useState([]);
     const [actions, setActions] = useState([]);
     const logRef = useRef(null);
@@ -45,6 +47,7 @@ export default function App() {
         fetchJson("/api/auth/session")
             .then((payload) => {
                 setCsrfToken(payload.csrfToken);
+                if (payload.version) setAppVersion(payload.version);
             })
             .then(loadProcesses)
             .catch((sessionError) => setError(sessionError.message));
@@ -209,6 +212,7 @@ export default function App() {
                     logRef={logRef}
                 />
             </main>
+            <Footer version={appVersion} />
         </div>
     );
 }
