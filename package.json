@@ -1,6 +1,6 @@
 {
   "name": "pm2-manager",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Modern web dashboard for PM2 processes, metrics, and log files",
   "type": "module",
   "main": "lib/transport/server.js",
