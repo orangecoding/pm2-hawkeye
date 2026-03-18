@@ -41,11 +41,38 @@ export function getStatusTone(status) {
   return 'muted';
 }
 
+/**
+ * Detect the severity level of a log line for CSS class colouring.
+ *
+ * Uses the same structured patterns as the backend `lib/service/logLevel.js`
+ * to avoid false positives from natural-language content (e.g. "getting info
+ * from server" should not match as 'info').
+ *
+ * Returns an empty string (no class) when no level indicator is found.
+ *
+ * @param {string} text
+ * @returns {'error' | 'warn' | 'info' | 'debug' | ''}
+ */
 export function detectLogLevel(text) {
-  const t = text.toLowerCase();
-  if (/\berror\b|\bfatal\b|\bcrit(ical)?\b|\bexception\b|\btrace\b.*error/i.test(t)) return 'error';
-  if (/\bwarn(ing)?\b/i.test(t)) return 'warn';
-  if (/\binfo\b/i.test(t)) return 'info';
-  if (/\bdebug\b|\btrace\b|\bverbose\b/i.test(t)) return 'debug';
+  // -- 1. JSON-style "level" field -----------------------------------------
+  if (/"level"\s*:\s*"(?:error|fatal|critical)"/i.test(text)) return 'error';
+  if (/"level"\s*:\s*"warn(?:ing)?"/i.test(text)) return 'warn';
+  if (/"level"\s*:\s*"info"/i.test(text)) return 'info';
+  if (/"level"\s*:\s*"(?:debug|trace|verbose)"/i.test(text)) return 'debug';
+
+  // -- 2. Bracket notation [LEVEL] / (LEVEL) ---------------------------------
+  // Match only genuine bracket pairs; no spaces in the character class to
+  // avoid false positives like " info " matching as a bracket pattern.
+  if (/\[(?:error|fatal|crit(?:ical)?)\]|\((?:error|fatal|crit(?:ical)?)\)/i.test(text)) return 'error';
+  if (/\[warn(?:ing)?\]|\(warn(?:ing)?\)/i.test(text)) return 'warn';
+  if (/\[info\]|\(info\)/i.test(text)) return 'info';
+  if (/\[(?:debug|trace|verbose)\]|\((?:debug|trace|verbose)\)/i.test(text)) return 'debug';
+
+  // -- 3. Uppercase standalone label (e.g. `ERROR:`, `INFO |`, `WARN `) ----
+  if (/(?:^|[\s|])(?:ERROR|FATAL|CRITICAL|EXCEPTION|CRIT)(?:[:\s|]|$)/.test(text)) return 'error';
+  if (/(?:^|[\s|])WARN(?:ING)?(?:[:\s|]|$)/.test(text)) return 'warn';
+  if (/(?:^|[\s|])INFO(?:[:\s|]|$)/.test(text)) return 'info';
+  if (/(?:^|[\s|])(?:DEBUG|TRACE|VERBOSE)(?:[:\s|]|$)/.test(text)) return 'debug';
+
   return '';
 }

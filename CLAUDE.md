@@ -142,6 +142,7 @@ module.exports = {
 - All code changes must be documented using jsdoc
 - If something is too complicated to do manually, use a lib, but make sure it is still maintained
 - If code was changed, check if documentation or readme must be adapted as well
+- Never use em dash
 ---
 
 ## Testing

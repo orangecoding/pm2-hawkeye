@@ -1,0 +1,215 @@
+/* ── Monitoring notice bar ───────────────────────────────────────────────── */
+
+.monitoring-notice {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 2rem;
+  flex-shrink: 0;
+  border-bottom: 0.0625rem solid var(--border);
+
+  &--active {
+    background: rgba(52, 211, 153, 0.06);
+    border-left: 0.1875rem solid var(--success);
+    align-items: center;
+  }
+
+  &--warning {
+    background: rgba(251, 191, 36, 0.07);
+    border-left: 0.1875rem solid var(--warning);
+    align-items: center;
+  }
+
+  &-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+
+    &--active {
+      background: var(--success);
+      box-shadow: 0 0 0 0.1875rem var(--success-soft);
+    }
+
+    &--warning {
+      background: var(--warning);
+      box-shadow: 0 0 0 0.1875rem var(--warning-soft);
+    }
+  }
+
+  &-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-headline {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--warning);
+    margin-bottom: 0.375rem;
+  }
+
+  &-text {
+    font-size: 0.84rem;
+    color: var(--muted);
+  }
+
+  &-description {
+    margin: 0 0 0.375rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+  }
+
+  &-action {
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    border-radius: var(--radius-sm);
+    transition: opacity 120ms ease, background-color 120ms ease;
+    white-space: nowrap;
+
+    &--primary {
+      padding: 0.5rem 1.25rem;
+      background: var(--warning);
+      color: #000;
+      font-weight: 700;
+      border: none;
+
+      &:hover {
+        opacity: 0.88;
+      }
+    }
+
+    &--ghost {
+      padding: 0.25rem 0.625rem;
+      background: transparent;
+      color: var(--muted);
+      border: 0.0625rem solid var(--border);
+
+      &:hover {
+        color: var(--text);
+        border-color: var(--border-strong);
+      }
+    }
+
+    &--danger {
+      padding: 0.375rem 0.875rem;
+      background: var(--critical);
+      color: #000;
+      font-weight: 700;
+      border: none;
+
+      &:hover {
+        opacity: 0.88;
+      }
+    }
+  }
+}
+
+/* ── Confirm stop-monitoring state ───────────────────────────────────────── */
+
+.monitoring-notice--confirm {
+  background: rgba(248, 113, 113, 0.07);
+  border-left: 0.1875rem solid var(--critical);
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.monitoring-notice-headline--warning {
+  color: var(--critical);
+}
+
+.monitoring-notice-confirm-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ── Welcome / no-process-selected state ─────────────────────────────────── */
+
+.welcome-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 0;
+  overflow: auto;
+  background: var(--bg-1);
+}
+
+.welcome-card {
+  max-width: 34rem;
+  width: 100%;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .subtle {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.welcome-hints {
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-2);
+  border: 0.0625rem solid var(--border);
+
+  &-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  &-list {
+    margin: 0 0 0.875rem;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+
+    li {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+  }
+
+  &-note {
+    margin: 0;
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-sm);
+    background: rgba(251, 191, 36, 0.08);
+    border-left: 0.1875rem solid var(--warning);
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+}

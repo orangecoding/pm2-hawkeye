@@ -82,6 +82,61 @@
   }
 }
 
+.process-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ── Monitoring status tag (read-only indicator) ─────────────────────────── */
+
+.monitor-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 62.5rem;
+  background: var(--accent-soft);
+  border: 0.0625rem solid var(--accent);
+  color: var(--accent);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.monitor-tag-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ── Monitored / orphan process tints ────────────────────────────────────── */
+
+.process-item {
+  &.monitored {
+    border-left: 0.1875rem solid transparent;
+    border-left-color: var(--accent);
+  }
+
+  &.active.monitored {
+    border-left-color: var(--accent);
+  }
+
+  &.orphan {
+    opacity: 0.80;
+
+    .process-status {
+      color: var(--warning);
+    }
+  }
+}
+
 .status-indicator {
   width: 0.5rem;
   height: 0.5rem;

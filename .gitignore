@@ -30,3 +30,5 @@ npm-debug.log*
 
 tools/release/config.json
 .claude
+
+data/*.db*

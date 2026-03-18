@@ -31,6 +31,7 @@
     "npm": ">=7.0.0"
   },
   "dependencies": {
+    "better-sqlite3": "^12.8.0",
     "cookie-parser": "^1.4.7",
     "croner": "^10.0.1",
     "dotenv": "^17.3.1",

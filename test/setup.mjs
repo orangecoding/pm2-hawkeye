@@ -13,6 +13,7 @@
  */
 
 import crypto from 'node:crypto';
+import { initDb } from '../lib/storage/db.js';
 
 const TEST_PASSWORD = 'admin';
 const salt = crypto.randomBytes(16);
@@ -21,3 +22,10 @@ const hash = crypto.scryptSync(TEST_PASSWORD, salt, 64);
 process.env.AUTH_USERNAME = 'admin';
 process.env.AUTH_PASSWORD_SALT = salt.toString('hex');
 process.env.AUTH_PASSWORD_HASH = hash.toString('hex');
+
+// Raise the login rate limit so that the full test suite can run without
+// triggering the sliding-window lockout.
+process.env.LOGIN_MAX_REQUESTS = '100';
+
+// Initialise an in-memory SQLite database for the test suite.
+await initDb(':memory:');

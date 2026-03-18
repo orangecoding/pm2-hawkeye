@@ -1333,7 +1333,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React11 = require_react(), Internals = {
+        var React13 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1351,7 +1351,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React11.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React13.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -2886,7 +2886,7 @@
           "number" === type && getActiveElement(node2.ownerDocument) === node2 || node2.defaultValue === "" + value || (node2.defaultValue = "" + value);
         }
         function validateOptionProps(element3, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React11.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React13.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -18518,14 +18518,14 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React11 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React13 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
         /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
         var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
         /* @__PURE__ */ Symbol.for("react.view_transition");
-        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React11.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React13.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21313,7 +21313,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React11.version;
+          var isomorphicReactPackageVersion = React13.version;
           if ("19.2.4" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21905,18 +21905,18 @@
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React11 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React11.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React13 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React13.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React11 = {
+        React13 = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React11.react_stack_bottom_frame.bind(
-          React11,
+        var unknownOwnerDebugStack = React13.react_stack_bottom_frame.bind(
+          React13,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -22052,11 +22052,11 @@
   });
 
   // src/main.jsx
-  var import_react11 = __toESM(require_react(), 1);
+  var import_react13 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // src/components/App.jsx
-  var import_react10 = __toESM(require_react(), 1);
+  var import_react12 = __toESM(require_react(), 1);
 
   // src/services/api.js
   async function fetchJson(url, options = {}) {
@@ -22110,27 +22110,47 @@
     return "muted";
   }
   function detectLogLevel(text5) {
-    const t = text5.toLowerCase();
-    if (/\berror\b|\bfatal\b|\bcrit(ical)?\b|\bexception\b|\btrace\b.*error/i.test(t)) return "error";
-    if (/\bwarn(ing)?\b/i.test(t)) return "warn";
-    if (/\binfo\b/i.test(t)) return "info";
-    if (/\bdebug\b|\btrace\b|\bverbose\b/i.test(t)) return "debug";
+    if (/"level"\s*:\s*"(?:error|fatal|critical)"/i.test(text5)) return "error";
+    if (/"level"\s*:\s*"warn(?:ing)?"/i.test(text5)) return "warn";
+    if (/"level"\s*:\s*"info"/i.test(text5)) return "info";
+    if (/"level"\s*:\s*"(?:debug|trace|verbose)"/i.test(text5)) return "debug";
+    if (/\[(?:error|fatal|crit(?:ical)?)\]|\((?:error|fatal|crit(?:ical)?)\)/i.test(text5)) return "error";
+    if (/\[warn(?:ing)?\]|\(warn(?:ing)?\)/i.test(text5)) return "warn";
+    if (/\[info\]|\(info\)/i.test(text5)) return "info";
+    if (/\[(?:debug|trace|verbose)\]|\((?:debug|trace|verbose)\)/i.test(text5)) return "debug";
+    if (/(?:^|[\s|])(?:ERROR|FATAL|CRITICAL|EXCEPTION|CRIT)(?:[:\s|]|$)/.test(text5)) return "error";
+    if (/(?:^|[\s|])WARN(?:ING)?(?:[:\s|]|$)/.test(text5)) return "warn";
+    if (/(?:^|[\s|])INFO(?:[:\s|]|$)/.test(text5)) return "info";
+    if (/(?:^|[\s|])(?:DEBUG|TRACE|VERBOSE)(?:[:\s|]|$)/.test(text5)) return "debug";
     return "";
   }
 
   // src/components/ProcessList.jsx
   function ProcessList({ processes, selectedProcessId, status, onSelect, onRefresh }) {
-    return /* @__PURE__ */ import_react.default.createElement("aside", { className: "sidebar section-shell" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "PM2 Inventory"), /* @__PURE__ */ import_react.default.createElement("h1", null, "Command Center"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Monitor processes, inspect logs, and restart services.")), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-toolbar" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onRefresh }, "Refresh"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-status" }, status)), /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length ? processes.map((proc) => /* @__PURE__ */ import_react.default.createElement(
-      "button",
-      {
-        className: `process-item ${String(proc.id) === String(selectedProcessId) ? "active" : ""}`.trim(),
-        type: "button",
-        key: proc.id,
-        onClick: () => onSelect(proc.id)
-      },
-      /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-title" }, proc.name), /* @__PURE__ */ import_react.default.createElement("span", { className: `status-indicator ${getStatusTone(proc.status)}` })),
-      /* @__PURE__ */ import_react.default.createElement("span", { className: "process-status" }, `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`)
-    )) : /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found."))));
+    return /* @__PURE__ */ import_react.default.createElement("aside", { className: "sidebar section-shell" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "PM2 Inventory"), /* @__PURE__ */ import_react.default.createElement("h1", null, "Command Center"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Monitor processes, inspect logs, and restart services.")), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-toolbar" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onRefresh }, "Refresh"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-status" }, status)), /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length ? processes.map((proc) => {
+      const isSelected = String(proc.id ?? proc.name) === String(selectedProcessId);
+      const monitoredClass = proc.isMonitored ? "monitored" : "";
+      const orphanClass = proc.isOrphan ? "orphan" : "";
+      return /* @__PURE__ */ import_react.default.createElement(
+        "div",
+        {
+          className: `process-item ${isSelected ? "active" : ""} ${monitoredClass} ${orphanClass}`.trim(),
+          key: proc.name,
+          role: "option",
+          "aria-selected": isSelected,
+          tabIndex: 0,
+          onClick: () => onSelect(proc.id ?? proc.name),
+          onKeyDown: (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onSelect(proc.id ?? proc.name);
+            }
+          }
+        },
+        /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-title" }, proc.name), /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-controls" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag", title: "Metrics and logs are being stored" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }), "Monitored"), /* @__PURE__ */ import_react.default.createElement("span", { className: `status-indicator ${getStatusTone(proc.status)}` }))),
+        /* @__PURE__ */ import_react.default.createElement("span", { className: "process-status" }, proc.isOrphan ? "orphan \xB7 not in PM2" : `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`)
+      );
+    }) : /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found."))));
   }
 
   // src/components/HeroCard.jsx
@@ -22232,36 +22252,173 @@
   }
 
   // src/components/StatsGrid.jsx
+  var import_react6 = __toESM(require_react(), 1);
+
+  // src/components/Sparkline.jsx
   var import_react5 = __toESM(require_react(), 1);
-  function StatsGrid({ details, error }) {
+  function Sparkline({ samples, width = 120, height = 32, color: color2 = "var(--accent)", formatValue }) {
+    const wrapperRef = (0, import_react5.useRef)(null);
+    const [tooltip, setTooltip] = (0, import_react5.useState)(null);
+    if (!samples || samples.length < 2) return null;
+    const tMin = samples[0].t;
+    const tMax = samples[samples.length - 1].t;
+    const tRange = tMax - tMin || 1;
+    const vals = samples.map((s) => s.v);
+    const vMin = Math.min(...vals);
+    const vMax = Math.max(...vals);
+    const vRange = vMax - vMin || 1;
+    function xPos(t) {
+      return (t - tMin) / tRange * width;
+    }
+    function yPos(v) {
+      return height - (v - vMin) / vRange * (height - 2) - 1;
+    }
+    function toStepPoints(samps) {
+      const result = [];
+      for (let i = 0; i < samps.length; i++) {
+        result.push(samps[i]);
+        if (i < samps.length - 1) {
+          result.push({ t: samps[i + 1].t, v: samps[i].v });
+        }
+      }
+      return result;
+    }
+    const stepPoints = toStepPoints(samples);
+    const points = stepPoints.map((s) => `${xPos(s.t).toFixed(2)},${yPos(s.v).toFixed(2)}`).join(" ");
+    const lastX = xPos(stepPoints[stepPoints.length - 1].t).toFixed(2);
+    const areaPoints = `${points} ${lastX},${height} 0,${height}`;
+    function nearestSample(svgX) {
+      let best = samples[0];
+      let bestDist = Math.abs(xPos(samples[0].t) - svgX);
+      for (const s of samples) {
+        const d = Math.abs(xPos(s.t) - svgX);
+        if (d < bestDist) {
+          bestDist = d;
+          best = s;
+        }
+      }
+      return best;
+    }
+    function handleMouseMove(e) {
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
+      const rect = wrapper.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const svgX = pct * width;
+      const s = nearestSample(svgX);
+      const sPct = xPos(s.t) / width;
+      setTooltip({ pct: sPct, svgX: xPos(s.t), svgY: yPos(s.v), v: s.v, t: s.t });
+    }
+    function handleMouseLeave() {
+      setTooltip(null);
+    }
+    const displayValue = tooltip ? formatValue ? formatValue(tooltip.v) : tooltip.v.toFixed(1) : null;
+    const displayTime = tooltip ? new Date(tooltip.t).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : null;
+    const tooltipShift = tooltip && tooltip.pct > 0.65 ? "translateX(-100%)" : "translateX(-50%)";
+    return /* @__PURE__ */ import_react5.default.createElement(
+      "div",
+      {
+        ref: wrapperRef,
+        className: "sparkline-wrapper",
+        onMouseMove: handleMouseMove,
+        onMouseLeave: handleMouseLeave
+      },
+      /* @__PURE__ */ import_react5.default.createElement(
+        "svg",
+        {
+          width,
+          height,
+          viewBox: `0 0 ${width} ${height}`,
+          "aria-hidden": "true",
+          className: "sparkline",
+          style: { display: "block", width: "100%", height: `${height}px` }
+        },
+        /* @__PURE__ */ import_react5.default.createElement("polygon", { points: areaPoints, fill: color2, opacity: "0.12" }),
+        /* @__PURE__ */ import_react5.default.createElement(
+          "polyline",
+          {
+            points,
+            fill: "none",
+            stroke: color2,
+            strokeWidth: "1.5",
+            strokeLinejoin: "round",
+            strokeLinecap: "round"
+          }
+        ),
+        tooltip && /* @__PURE__ */ import_react5.default.createElement(import_react5.default.Fragment, null, /* @__PURE__ */ import_react5.default.createElement(
+          "line",
+          {
+            x1: tooltip.svgX.toFixed(2),
+            y1: "0",
+            x2: tooltip.svgX.toFixed(2),
+            y2: height,
+            stroke: color2,
+            strokeWidth: "0.75",
+            strokeDasharray: "2 2",
+            opacity: "0.5"
+          }
+        ), /* @__PURE__ */ import_react5.default.createElement("circle", { cx: tooltip.svgX.toFixed(2), cy: tooltip.svgY.toFixed(2), r: "2.5", fill: color2 }))
+      ),
+      tooltip && /* @__PURE__ */ import_react5.default.createElement(
+        "div",
+        {
+          className: "sparkline-tooltip",
+          style: { left: `${(tooltip.pct * 100).toFixed(1)}%`, transform: tooltipShift }
+        },
+        /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-value" }, displayValue),
+        /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-time" }, displayTime)
+      )
+    );
+  }
+
+  // src/components/StatsGrid.jsx
+  function StatsGrid({ details, error, metricsHistory = [], isMonitored = false }) {
     const items = details ? [
-      { label: "CPU", value: `${details.process.cpu}%` },
-      { label: "Memory", value: formatBytes(details.process.memory) },
+      { label: "CPU", value: `${details.process.cpu}%`, sparklineKey: "cpu" },
+      { label: "Memory", value: formatBytes(details.process.memory), sparklineKey: "memory" },
       { label: "Restarts", value: String(details.process.restarts) },
       { label: "Uptime", value: formatRelativeTime(details.process.uptime), sub: formatDate(details.process.uptime) }
     ] : null;
-    return /* @__PURE__ */ import_react5.default.createElement("section", { className: "panel section-shell stats-panel" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "panel-header" }, /* @__PURE__ */ import_react5.default.createElement("div", null, /* @__PURE__ */ import_react5.default.createElement("p", { className: "eyebrow" }, "Dashboard"), /* @__PURE__ */ import_react5.default.createElement("h3", null, "Runtime metrics")), /* @__PURE__ */ import_react5.default.createElement("p", { className: "subtle" }, "Live CPU, memory, uptime, and restart telemetry.")), /* @__PURE__ */ import_react5.default.createElement("div", { className: `stats-grid ${details ? "" : "empty-state"}`.trim() }, items ? items.map((item) => /* @__PURE__ */ import_react5.default.createElement("div", { className: "stat-card", key: item.label }, /* @__PURE__ */ import_react5.default.createElement("span", { className: "stat-label" }, item.label), /* @__PURE__ */ import_react5.default.createElement("strong", { className: "stat-value" }, item.value), item.sub ? /* @__PURE__ */ import_react5.default.createElement("span", { className: "stat-sub" }, item.sub) : null)) : /* @__PURE__ */ import_react5.default.createElement("div", { className: "empty-card" }, /* @__PURE__ */ import_react5.default.createElement("p", null, error || "No process metrics loaded yet."))));
+    const cpuSamples = metricsHistory.map((s) => ({ t: s.sampled_at, v: s.cpu }));
+    const memorySamples = metricsHistory.map((s) => ({ t: s.sampled_at, v: s.memory }));
+    return /* @__PURE__ */ import_react6.default.createElement("section", { className: "panel section-shell stats-panel" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "panel-header" }, /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("p", { className: "eyebrow" }, "Dashboard"), /* @__PURE__ */ import_react6.default.createElement("h3", null, "Runtime metrics")), /* @__PURE__ */ import_react6.default.createElement("p", { className: "subtle" }, "Live CPU, memory, uptime, and restart telemetry.")), /* @__PURE__ */ import_react6.default.createElement("div", { className: `stats-grid ${details ? "" : "empty-state"}`.trim() }, items ? items.map((item) => /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card", key: item.label }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-label" }, item.label), /* @__PURE__ */ import_react6.default.createElement("strong", { className: "stat-value" }, item.value), item.sub ? /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-sub" }, item.sub) : null, item.sparklineKey === "cpu" && cpuSamples.length >= 2 && /* @__PURE__ */ import_react6.default.createElement(
+      Sparkline,
+      {
+        samples: cpuSamples,
+        formatValue: (v) => `${v.toFixed(1)}%`,
+        color: "var(--accent)"
+      }
+    ), item.sparklineKey === "cpu" && !isMonitored && /* @__PURE__ */ import_react6.default.createElement("div", { className: "sparkline-placeholder" }, /* @__PURE__ */ import_react6.default.createElement("span", null, "Enable monitoring for trend history")), item.sparklineKey === "memory" && memorySamples.length >= 2 && /* @__PURE__ */ import_react6.default.createElement(
+      Sparkline,
+      {
+        samples: memorySamples,
+        formatValue: formatBytes,
+        color: "var(--success)"
+      }
+    ), item.sparklineKey === "memory" && !isMonitored && /* @__PURE__ */ import_react6.default.createElement("div", { className: "sparkline-placeholder" }, /* @__PURE__ */ import_react6.default.createElement("span", null, "Enable monitoring for trend history")))) : /* @__PURE__ */ import_react6.default.createElement("div", { className: "empty-card" }, /* @__PURE__ */ import_react6.default.createElement("p", null, error || "No process metrics loaded yet."))));
   }
 
   // src/components/LogStream.jsx
-  var import_react6 = __toESM(require_react(), 1);
+  var import_react7 = __toESM(require_react(), 1);
   function isContinuationLine(text5) {
     return /^\s+at\s/.test(text5);
   }
   function levelToPillClass(level) {
     if (level === "error") return "pill-error";
     if (level === "warn") return "pill-warn";
-    return "pill-info";
+    if (level === "info") return "pill-info";
+    return "pill-log";
   }
   function levelToLabel(level) {
     if (level === "error") return "error";
     if (level === "warn") return "warning";
-    return "info";
+    if (level === "info") return "info";
+    return "log";
   }
-  function LogStream({ details, allLines, logRef }) {
+  function LogStream({ details, allLines, logRef, isMonitored, unreadCount = 0, onScrollToBottom }) {
     const annotatedLines = allLines.map((line) => {
       const continuation = isContinuationLine(line.text);
-      const level = continuation ? "" : detectLogLevel(line.text);
+      const level = continuation ? "" : line.logLevel !== void 0 ? line.logLevel : detectLogLevel(line.text);
       return { ...line, level, isMain: !continuation };
     });
     let currentLevel = "";
@@ -22272,21 +22429,89 @@
         line.inheritedLevel = currentLevel;
       }
     }
-    return /* @__PURE__ */ import_react6.default.createElement("section", { className: "panel section-shell" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "panel-header" }, /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("p", { className: "eyebrow" }, "Log Stream"), /* @__PURE__ */ import_react6.default.createElement("h3", null, "Process logs")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-header-right" }, /* @__PURE__ */ import_react6.default.createElement("p", { className: "subtle" }, details ? `${allLines.length} lines` : "No data"))), /* @__PURE__ */ import_react6.default.createElement("div", { ref: logRef, className: `log-stream ${allLines.length ? "" : "empty-state"}`.trim() }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-stream-header" }, /* @__PURE__ */ import_react6.default.createElement("span", null, "Log output"), /* @__PURE__ */ import_react6.default.createElement("span", { className: "live-badge" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "pulse" }), " Live")), allLines.length ? annotatedLines.map((line, i) => {
-      const effectiveLevel = line.source || line.inheritedLevel || "";
-      return /* @__PURE__ */ import_react6.default.createElement("div", { className: `log-line ${effectiveLevel ? `level-${effectiveLevel}` : ""}`.trim(), key: i }, line.isMain && /* @__PURE__ */ import_react6.default.createElement(
-        Pill,
+    const headerBadge = isMonitored ? /* @__PURE__ */ import_react7.default.createElement("span", { className: "stored-badge" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stored-dot" }), "Stored") : /* @__PURE__ */ import_react7.default.createElement("span", { className: "live-badge live-badge--warning" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "pulse pulse--warning" }), "Live only");
+    const emptyText = isMonitored ? "No log entries stored yet. New log lines will appear here as they are written." : "No log output yet. Note: logs are not being saved \u2014 enable monitoring to persist them.";
+    return /* @__PURE__ */ import_react7.default.createElement("section", { className: "panel section-shell" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "panel-header" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("p", { className: "eyebrow" }, "Log Stream"), /* @__PURE__ */ import_react7.default.createElement("h3", null, "Process logs")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "log-header-right" }, /* @__PURE__ */ import_react7.default.createElement("p", { className: "subtle" }, details ? `${allLines.length} lines` : "No data"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "log-stream-wrapper" }, /* @__PURE__ */ import_react7.default.createElement("div", { ref: logRef, className: `log-stream ${allLines.length ? "" : "empty-state"}`.trim() }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "log-stream-header" }, /* @__PURE__ */ import_react7.default.createElement("span", null, "Log output"), headerBadge), allLines.length ? annotatedLines.map((line, i) => {
+      const effectiveLevel = line.level || line.inheritedLevel || "";
+      return /* @__PURE__ */ import_react7.default.createElement(
+        "div",
         {
-          label: levelToLabel(effectiveLevel || "info"),
-          tone: "neutral",
-          className: `log-source ${levelToPillClass(effectiveLevel || "info")}`
-        }
-      ), !line.isMain && /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-source", style: { display: "inline-block", minWidth: "3.5em" } }), /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-text" }, line.text));
-    }) : /* @__PURE__ */ import_react6.default.createElement("div", { className: "empty-card" }, /* @__PURE__ */ import_react6.default.createElement("p", null, "Log output will appear here once a process is selected."))));
+          className: `log-line ${effectiveLevel ? `level-${effectiveLevel}` : ""}`.trim(),
+          key: i
+        },
+        line.isMain && /* @__PURE__ */ import_react7.default.createElement(
+          Pill,
+          {
+            label: levelToLabel(effectiveLevel),
+            tone: "neutral",
+            className: `log-source ${levelToPillClass(effectiveLevel)}`
+          }
+        ),
+        !line.isMain && /* @__PURE__ */ import_react7.default.createElement(
+          "span",
+          {
+            className: "log-source",
+            style: { display: "inline-block", minWidth: "3.5em" }
+          }
+        ),
+        /* @__PURE__ */ import_react7.default.createElement("span", { className: "log-text" }, line.text)
+      );
+    }) : /* @__PURE__ */ import_react7.default.createElement("div", { className: "empty-card" }, emptyText)), unreadCount > 0 && /* @__PURE__ */ import_react7.default.createElement("button", { type: "button", className: "new-logs-banner", onClick: onScrollToBottom }, unreadCount, " new line", unreadCount !== 1 ? "s" : "", " -- scroll to bottom")));
+  }
+
+  // src/components/MonitoringNotice.jsx
+  var import_react8 = __toESM(require_react(), 1);
+  function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring }) {
+    const [confirmStop, setConfirmStop] = (0, import_react8.useState)(false);
+    (0, import_react8.useEffect)(() => {
+      setConfirmStop(false);
+    }, [pm2Name]);
+    if (isMonitored) {
+      if (confirmStop) {
+        return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--confirm" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--warning" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-content" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "monitoring-notice-headline monitoring-notice-headline--warning" }, "Remove all stored history for ", pm2Name, "?"), /* @__PURE__ */ import_react8.default.createElement("p", { className: "monitoring-notice-description" }, "This will permanently delete all stored metrics and log entries for this process. This cannot be undone."))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-confirm-btns" }, /* @__PURE__ */ import_react8.default.createElement(
+          "button",
+          {
+            className: "monitoring-notice-action monitoring-notice-action--danger",
+            type: "button",
+            onClick: () => {
+              onToggleMonitoring(pm2Name, true);
+              setConfirmStop(false);
+            }
+          },
+          "Yes, remove all history"
+        ), /* @__PURE__ */ import_react8.default.createElement(
+          "button",
+          {
+            className: "monitoring-notice-action monitoring-notice-action--ghost",
+            type: "button",
+            onClick: () => setConfirmStop(false)
+          },
+          "Cancel"
+        )));
+      }
+      return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--active" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--active" }), /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", null, "Monitoring active"), " \u2014 ", "metrics sampled every 20 s (stored 24 h) \xB7 logs stored for 14 days")), /* @__PURE__ */ import_react8.default.createElement(
+        "button",
+        {
+          className: "monitoring-notice-action monitoring-notice-action--ghost",
+          type: "button",
+          onClick: () => setConfirmStop(true)
+        },
+        "Stop Monitoring"
+      ));
+    }
+    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--warning" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--warning" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-content" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "monitoring-notice-headline" }, "Not monitored \u2014 live data only"), /* @__PURE__ */ import_react8.default.createElement("p", { className: "monitoring-notice-description" }, "Real-time values are visible for ", /* @__PURE__ */ import_react8.default.createElement("strong", null, pm2Name), ", but nothing is saved. Click ", /* @__PURE__ */ import_react8.default.createElement("strong", null, "Start Monitoring"), " to persist CPU/memory history (24 h) and logs (14 days)."))), /* @__PURE__ */ import_react8.default.createElement(
+      "button",
+      {
+        className: "monitoring-notice-action monitoring-notice-action--primary",
+        type: "button",
+        onClick: () => onToggleMonitoring(pm2Name, false)
+      },
+      "Start Monitoring"
+    ));
   }
 
   // src/components/UpdateBanner.jsx
-  var import_react8 = __toESM(require_react(), 1);
+  var import_react10 = __toESM(require_react(), 1);
 
   // node_modules/devlop/lib/default.js
   function ok() {
@@ -24161,7 +24386,7 @@
 
   // node_modules/react-markdown/lib/index.js
   var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
-  var import_react7 = __toESM(require_react(), 1);
+  var import_react9 = __toESM(require_react(), 1);
 
   // node_modules/mdast-util-to-string/lib/index.js
   var emptyOptions2 = {};
@@ -30632,10 +30857,10 @@
      *
      * `options` is treated as:
      *
-     * *   `string` or `Uint8Array` - `{value: options}`
-     * *   `URL` - `{path: options}`
-     * *   `VFile` - shallow copies its data over to the new file
-     * *   `object` - all fields are shallow copied over to the new file
+     * *   `string` or `Uint8Array` — `{value: options}`
+     * *   `URL` — `{path: options}`
+     * *   `VFile` — shallow copies its data over to the new file
+     * *   `object` — all fields are shallow copied over to the new file
      *
      * Path related fields are set in the following order (least specific to
      * most specific): `history`, `path`, `basename`, `stem`, `extname`,
@@ -31883,17 +32108,17 @@
 
   // src/components/UpdateBanner.jsx
   function UpdateBanner() {
-    const [update, setUpdate] = (0, import_react8.useState)(null);
-    const [open, setOpen] = (0, import_react8.useState)(false);
-    const [dismissed, setDismiss] = (0, import_react8.useState)(false);
-    const panelRef = (0, import_react8.useRef)(null);
-    (0, import_react8.useEffect)(() => {
+    const [update, setUpdate] = (0, import_react10.useState)(null);
+    const [open, setOpen] = (0, import_react10.useState)(false);
+    const [dismissed, setDismiss] = (0, import_react10.useState)(false);
+    const panelRef = (0, import_react10.useRef)(null);
+    (0, import_react10.useEffect)(() => {
       fetchJson("/api/update").then(({ update: info }) => {
         if (info) setUpdate(info);
       }).catch(() => {
       });
     }, []);
-    (0, import_react8.useEffect)(() => {
+    (0, import_react10.useEffect)(() => {
       if (!open) return;
       const handler = (e) => {
         if (panelRef.current && !panelRef.current.contains(e.target)) {
@@ -31903,7 +32128,7 @@
       document.addEventListener("mousedown", handler);
       return () => document.removeEventListener("mousedown", handler);
     }, [open]);
-    (0, import_react8.useEffect)(() => {
+    (0, import_react10.useEffect)(() => {
       if (!open) return;
       const handler = (e) => {
         if (e.key === "Escape") setOpen(false);
@@ -31913,7 +32138,7 @@
     }, [open]);
     if (!update || dismissed) return null;
     const published = update.publishedAt ? new Date(update.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : null;
-    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "update-root", ref: panelRef }, /* @__PURE__ */ import_react8.default.createElement(
+    return /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-root", ref: panelRef }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         className: "update-pill",
@@ -31921,9 +32146,9 @@
         "aria-expanded": open,
         "aria-label": "New version available"
       },
-      /* @__PURE__ */ import_react8.default.createElement("span", { className: "update-dot" }),
-      /* @__PURE__ */ import_react8.default.createElement("span", null, "v", update.latestVersion, " available")
-    ), open && /* @__PURE__ */ import_react8.default.createElement("div", { className: "update-panel", role: "dialog", "aria-modal": "true", "aria-label": "Release notes" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "update-panel-header" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "update-panel-title" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "update-panel-tag" }, "v", update.latestVersion), /* @__PURE__ */ import_react8.default.createElement("span", { className: "update-panel-name" }, update.releaseName)), /* @__PURE__ */ import_react8.default.createElement("div", { className: "update-panel-meta" }, published && /* @__PURE__ */ import_react8.default.createElement("span", { className: "update-panel-date" }, published), /* @__PURE__ */ import_react8.default.createElement(
+      /* @__PURE__ */ import_react10.default.createElement("span", { className: "update-dot" }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, "v", update.latestVersion, " available")
+    ), open && /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel", role: "dialog", "aria-modal": "true", "aria-label": "Release notes" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-header" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-title" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "update-panel-tag" }, "v", update.latestVersion)), /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-meta" }, published && /* @__PURE__ */ import_react10.default.createElement("span", { className: "update-panel-date" }, published), /* @__PURE__ */ import_react10.default.createElement(
       "a",
       {
         className: "update-panel-link",
@@ -31932,22 +32157,22 @@
         rel: "noopener noreferrer"
       },
       "View on GitHub \u2197"
-    ))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "update-panel-body" }, update.releaseNotes ? /* @__PURE__ */ import_react8.default.createElement(
+    ))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-body" }, update.releaseNotes ? /* @__PURE__ */ import_react10.default.createElement(
       Markdown,
       {
         components: {
           // Open all links in a new tab safely
-          a: ({ href, children }) => /* @__PURE__ */ import_react8.default.createElement("a", { href, target: "_blank", rel: "noopener noreferrer" }, children),
+          a: ({ href, children }) => /* @__PURE__ */ import_react10.default.createElement("a", { href, target: "_blank", rel: "noopener noreferrer" }, children),
           // Map h2/h3 down to h4/h5 so they fit the panel's visual hierarchy
-          h2: ({ children }) => /* @__PURE__ */ import_react8.default.createElement("h4", null, children),
-          h3: ({ children }) => /* @__PURE__ */ import_react8.default.createElement("h5", null, children)
+          h2: ({ children }) => /* @__PURE__ */ import_react10.default.createElement("h4", null, children),
+          h3: ({ children }) => /* @__PURE__ */ import_react10.default.createElement("h5", null, children)
         }
       },
       update.releaseNotes
-    ) : /* @__PURE__ */ import_react8.default.createElement("p", { className: "update-empty" }, "No release notes provided.")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "update-panel-footer" }, /* @__PURE__ */ import_react8.default.createElement("button", { className: "update-dismiss", onClick: () => {
+    ) : /* @__PURE__ */ import_react10.default.createElement("p", { className: "update-empty" }, "No release notes provided.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-footer" }, /* @__PURE__ */ import_react10.default.createElement("button", { className: "update-dismiss", onClick: () => {
       setDismiss(true);
       setOpen(false);
-    } }, "Dismiss"), /* @__PURE__ */ import_react8.default.createElement(
+    } }, "Dismiss"), /* @__PURE__ */ import_react10.default.createElement(
       "a",
       {
         className: "btn btn-primary update-cta",
@@ -31960,26 +32185,42 @@
   }
 
   // src/components/Footer.jsx
-  var import_react9 = __toESM(require_react(), 1);
+  var import_react11 = __toESM(require_react(), 1);
   function Footer({ version }) {
-    return /* @__PURE__ */ import_react9.default.createElement("footer", { className: "app-footer" }, /* @__PURE__ */ import_react9.default.createElement("span", { className: "app-footer-version" }, "pm2-manager", version && /* @__PURE__ */ import_react9.default.createElement(import_react9.default.Fragment, null, " ", /* @__PURE__ */ import_react9.default.createElement("strong", null, "v", version))), /* @__PURE__ */ import_react9.default.createElement("span", { className: "app-footer-credit" }, "Made with ", /* @__PURE__ */ import_react9.default.createElement("span", { className: "app-footer-heart" }, "\u2764\uFE0F"), " by", " ", /* @__PURE__ */ import_react9.default.createElement("a", { href: "https://github.com/orangecoding", target: "_blank", rel: "noopener noreferrer" }, "Christian Kellner")));
+    return /* @__PURE__ */ import_react11.default.createElement("footer", { className: "app-footer" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "app-footer-version" }, "pm2-manager", version && /* @__PURE__ */ import_react11.default.createElement(import_react11.default.Fragment, null, " ", /* @__PURE__ */ import_react11.default.createElement("strong", null, "v", version))), /* @__PURE__ */ import_react11.default.createElement("span", { className: "app-footer-credit" }, "Made with ", /* @__PURE__ */ import_react11.default.createElement("span", { className: "app-footer-heart" }, "\u2764\uFE0F"), " by", " ", /* @__PURE__ */ import_react11.default.createElement("a", { href: "https://github.com/orangecoding", target: "_blank", rel: "noopener noreferrer" }, "Christian Kellner")));
   }
 
   // src/components/App.jsx
+  function convertEntriesToLines(entries) {
+    return entries.slice().reverse().flatMap((entry) => {
+      const logLevel = entry.log_level || "";
+      try {
+        const parsed = JSON.parse(entry.log);
+        return (parsed.lines || []).map((text5) => ({ text: text5, source: "stored", logLevel }));
+      } catch {
+        return [{ text: entry.log, source: "stored", logLevel }];
+      }
+    });
+  }
   function App() {
-    const [csrfToken, setCsrfToken] = (0, import_react10.useState)(null);
-    const [processes, setProcesses] = (0, import_react10.useState)([]);
-    const [selectedProcessId, setSelectedProcessId] = (0, import_react10.useState)(null);
-    const [details, setDetails] = (0, import_react10.useState)(null);
-    const [processListStatus, setProcessListStatus] = (0, import_react10.useState)("Loading processes\u2026");
-    const [error, setError] = (0, import_react10.useState)("");
-    const [wsConnected, setWsConnected] = (0, import_react10.useState)(false);
-    const [appVersion, setAppVersion] = (0, import_react10.useState)(null);
-    const [liveLines, setLiveLines] = (0, import_react10.useState)([]);
-    const [actions, setActions] = (0, import_react10.useState)([]);
-    const logRef = (0, import_react10.useRef)(null);
-    const autoStickRef = (0, import_react10.useRef)(true);
-    const loadProcesses = (0, import_react10.useCallback)(async () => {
+    const [csrfToken, setCsrfToken] = (0, import_react12.useState)(null);
+    const [processes, setProcesses] = (0, import_react12.useState)([]);
+    const [selectedProcessId, setSelectedProcessId] = (0, import_react12.useState)(null);
+    const [details, setDetails] = (0, import_react12.useState)(null);
+    const [processListStatus, setProcessListStatus] = (0, import_react12.useState)("Loading processes\u2026");
+    const [error, setError] = (0, import_react12.useState)("");
+    const [wsConnected, setWsConnected] = (0, import_react12.useState)(false);
+    const [appVersion, setAppVersion] = (0, import_react12.useState)(null);
+    const [liveLines, setLiveLines] = (0, import_react12.useState)([]);
+    const [actions, setActions] = (0, import_react12.useState)([]);
+    const [metricsHistory, setMetricsHistory] = (0, import_react12.useState)([]);
+    const [storedLogs, setStoredLogs] = (0, import_react12.useState)([]);
+    const [storedLogsReady, setStoredLogsReady] = (0, import_react12.useState)(false);
+    const [unreadLogCount, setUnreadLogCount] = (0, import_react12.useState)(0);
+    const logRef = (0, import_react12.useRef)(null);
+    const autoStickRef = (0, import_react12.useRef)(true);
+    const prevLiveLinesLengthRef = (0, import_react12.useRef)(0);
+    const loadProcesses = (0, import_react12.useCallback)(async () => {
       setProcessListStatus("Loading processes\u2026");
       try {
         const payload = await fetchJson("/api/processes");
@@ -31995,13 +32236,13 @@
         setError(loadError.message);
       }
     }, []);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react12.useEffect)(() => {
       fetchJson("/api/auth/session").then((payload) => {
         setCsrfToken(payload.csrfToken);
         if (payload.version) setAppVersion(payload.version);
       }).then(loadProcesses).catch((sessionError) => setError(sessionError.message));
     }, [loadProcesses]);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react12.useEffect)(() => {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const ws = new WebSocket(`${protocol}//${window.location.host}/ws/processes/stream`);
       ws.onmessage = (event) => {
@@ -32011,7 +32252,7 @@
             setProcesses(data.items);
             setProcessListStatus(`${data.processCount} process(es)`);
             setSelectedProcessId(
-              (prev) => data.items.some((item) => String(item.id) === String(prev)) ? prev : data.items[0]?.id ?? null
+              (prev) => data.items.some((item) => String(item.id ?? item.name) === String(prev)) ? prev : data.items[0]?.id ?? data.items[0]?.name ?? null
             );
           }
         } catch {
@@ -32019,13 +32260,41 @@
       };
       return () => ws.close();
     }, []);
-    (0, import_react10.useEffect)(() => {
+    const selectedProcess = (0, import_react12.useMemo)(
+      () => processes.find((item) => String(item.id ?? item.name) === String(selectedProcessId)) || null,
+      [processes, selectedProcessId]
+    );
+    const isSelectedMonitored = selectedProcess?.isMonitored ?? false;
+    (0, import_react12.useEffect)(() => {
+      setStoredLogsReady(false);
+      if (selectedProcessId === null || selectedProcessId === void 0) {
+        setStoredLogs([]);
+        setStoredLogsReady(true);
+        return;
+      }
+      fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/logs/stored`).then((payload) => {
+        setStoredLogs(convertEntriesToLines(payload.entries || []));
+        setStoredLogsReady(true);
+      }).catch(() => {
+        setStoredLogs([]);
+        setStoredLogsReady(true);
+      });
+    }, [selectedProcessId]);
+    (0, import_react12.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0) {
         setDetails(null);
         setLiveLines([]);
         setActions([]);
+        setMetricsHistory([]);
+        setUnreadLogCount(0);
+        prevLiveLinesLengthRef.current = 0;
+        autoStickRef.current = true;
         return;
       }
+      autoStickRef.current = true;
+      setUnreadLogCount(0);
+      setMetricsHistory([]);
+      fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => setMetricsHistory([]));
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`).then((payload) => setActions(payload.actions || [])).catch(() => setActions([]));
       setLiveLines([]);
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
@@ -32044,7 +32313,7 @@
       ws.onerror = () => setError("WebSocket error loading process details");
       return () => ws.close();
     }, [selectedProcessId]);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react12.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0) return void 0;
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const ws = new WebSocket(`${protocol}//${window.location.host}/ws/processes/${encodeURIComponent(selectedProcessId)}/logs`);
@@ -32052,8 +32321,12 @@
       ws.onmessage = (event) => {
         try {
           const { type, data } = JSON.parse(event.data);
-          if (type === "log") {
-            setLiveLines((prev) => [...prev, { text: data.text, source: "live" }].slice(-800));
+          if (type === "snapshot") {
+            setLiveLines(data.lines.map((l) => ({ text: l.text })));
+          } else if (type === "log") {
+            setLiveLines((prev) => [...prev, { text: data.text }].slice(-800));
+          } else if (type === "error") {
+            setError(data.error);
           }
         } catch {
         }
@@ -32065,7 +32338,15 @@
         setWsConnected(false);
       };
     }, [selectedProcessId]);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react12.useEffect)(() => {
+      if (selectedProcessId === null || selectedProcessId === void 0 || !isSelectedMonitored) return;
+      const interval = setInterval(() => {
+        fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => {
+        });
+      }, 2e4);
+      return () => clearInterval(interval);
+    }, [selectedProcessId, isSelectedMonitored]);
+    (0, import_react12.useEffect)(() => {
       const container = logRef.current;
       if (!container) return;
       const onScroll = () => {
@@ -32074,21 +32355,34 @@
       container.addEventListener("scroll", onScroll);
       return () => container.removeEventListener("scroll", onScroll);
     }, []);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react12.useEffect)(() => {
       const container = logRef.current;
       if (container && autoStickRef.current) {
         container.scrollTop = container.scrollHeight;
       }
-    }, [details, liveLines]);
-    const allLines = (0, import_react10.useMemo)(() => [
-      ...(details?.logs?.combinedLines || []).map((line) => ({ text: line.text, source: line.source })),
-      ...liveLines
-    ], [details, liveLines]);
-    const selectedProcess = (0, import_react10.useMemo)(
-      () => processes.find((item) => String(item.id) === String(selectedProcessId)) || null,
-      [processes, selectedProcessId]
-    );
-    const refreshCsrf = (0, import_react10.useCallback)(async () => {
+    }, [details, liveLines, storedLogs]);
+    (0, import_react12.useEffect)(() => {
+      const added = liveLines.length - prevLiveLinesLengthRef.current;
+      prevLiveLinesLengthRef.current = liveLines.length;
+      if (added > 0 && !autoStickRef.current) {
+        setUnreadLogCount((prev) => prev + added);
+      }
+    }, [liveLines]);
+    const scrollToLogBottom = (0, import_react12.useCallback)(() => {
+      const container = logRef.current;
+      if (container) {
+        container.scrollTop = container.scrollHeight;
+        autoStickRef.current = true;
+        setUnreadLogCount(0);
+      }
+    }, []);
+    const allLines = (0, import_react12.useMemo)(() => {
+      if (isSelectedMonitored && storedLogsReady) {
+        return [...storedLogs, ...liveLines];
+      }
+      return liveLines;
+    }, [isSelectedMonitored, storedLogsReady, storedLogs, liveLines]);
+    const refreshCsrf = (0, import_react12.useCallback)(async () => {
       const session = await fetchJson("/api/auth/session");
       setCsrfToken(session.csrfToken);
     }, []);
@@ -32115,7 +32409,41 @@
       }
       window.location.replace("/login");
     };
-    return /* @__PURE__ */ import_react10.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react10.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react10.default.createElement(
+    const onToggleMonitoring = (0, import_react12.useCallback)(async (pm2Name, currentlyMonitored) => {
+      if (!csrfToken) return;
+      try {
+        await fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/monitoring`, {
+          method: "POST",
+          headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json" },
+          body: JSON.stringify({ monitored: !currentlyMonitored })
+        });
+        await refreshCsrf();
+        const newMonitored = !currentlyMonitored;
+        setProcesses(
+          (prev) => prev.map((p) => p.name === pm2Name ? { ...p, isMonitored: newMonitored } : p)
+        );
+        if (newMonitored) {
+          setStoredLogsReady(false);
+          setTimeout(() => {
+            fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => {
+            });
+            fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/logs/stored`).then((payload) => {
+              setStoredLogs(convertEntriesToLines(payload.entries || []));
+              setLiveLines([]);
+              setStoredLogsReady(true);
+            }).catch(() => {
+              setStoredLogsReady(true);
+            });
+          }, 1500);
+        } else {
+          setMetricsHistory([]);
+          setStoredLogs([]);
+          setStoredLogsReady(true);
+        }
+      } catch {
+      }
+    }, [csrfToken, refreshCsrf]);
+    return /* @__PURE__ */ import_react12.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react12.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react12.default.createElement(
       ProcessList,
       {
         processes,
@@ -32124,7 +32452,7 @@
         onSelect: setSelectedProcessId,
         onRefresh: loadProcesses
       }
-    ), /* @__PURE__ */ import_react10.default.createElement("main", { className: "content" }, /* @__PURE__ */ import_react10.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement("main", { className: "content" }, /* @__PURE__ */ import_react12.default.createElement(
       HeroCard,
       {
         selectedProcess,
@@ -32137,18 +32465,28 @@
         csrfToken,
         onCsrfRefresh: refreshCsrf
       }
-    ), /* @__PURE__ */ import_react10.default.createElement(StatsGrid, { details, error }), /* @__PURE__ */ import_react10.default.createElement(
+    ), selectedProcessId != null ? /* @__PURE__ */ import_react12.default.createElement(import_react12.default.Fragment, null, /* @__PURE__ */ import_react12.default.createElement(
+      MonitoringNotice,
+      {
+        isMonitored: isSelectedMonitored,
+        pm2Name: selectedProcess?.name ?? String(selectedProcessId),
+        onToggleMonitoring
+      }
+    ), /* @__PURE__ */ import_react12.default.createElement(StatsGrid, { details, error, metricsHistory, isMonitored: isSelectedMonitored }), /* @__PURE__ */ import_react12.default.createElement(
       LogStream,
       {
         details,
         allLines,
-        logRef
+        logRef,
+        isMonitored: isSelectedMonitored,
+        unreadCount: unreadLogCount,
+        onScrollToBottom: scrollToLogBottom
       }
-    )), /* @__PURE__ */ import_react10.default.createElement(Footer, { version: appVersion }));
+    )) : /* @__PURE__ */ import_react12.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react12.default.createElement("p", { className: "eyebrow" }, "Getting started"), /* @__PURE__ */ import_react12.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react12.default.createElement("p", { className: "subtle" }, "Select a PM2 process from the sidebar to view runtime metrics and logs."), /* @__PURE__ */ import_react12.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react12.default.createElement("p", { className: "welcome-hints-title" }, "Enable monitoring on a process to unlock:"), /* @__PURE__ */ import_react12.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react12.default.createElement("li", null, "CPU and memory history sampled every 20 s, stored for 24 hours"), /* @__PURE__ */ import_react12.default.createElement("li", null, "Log entries stored and searchable for 14 days"), /* @__PURE__ */ import_react12.default.createElement("li", null, "Sparkline trend charts in the metrics panel")), /* @__PURE__ */ import_react12.default.createElement("p", { className: "welcome-hints-note" }, "Without monitoring, you only see live data \u2014 nothing is persisted between page loads."))))), /* @__PURE__ */ import_react12.default.createElement(Footer, { version: appVersion }));
   }
 
   // src/main.jsx
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react11.default.createElement(App, null));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react13.default.createElement(App, null));
 })();
 /*! Bundled license information:
 

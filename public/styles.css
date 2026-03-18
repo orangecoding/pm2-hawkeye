@@ -157,7 +157,7 @@ input:focus-visible {
   background: var(--border);
   min-width: 0;
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
 }
 .hero-card,
 .panel {
@@ -387,6 +387,50 @@ input:focus-visible {
   font-size: 0.78rem;
   color: var(--muted);
 }
+.process-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+/* ── Monitoring status tag (read-only indicator) ─────────────────────────── */
+.monitor-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 62.5rem;
+  background: var(--accent-soft);
+  border: 0.0625rem solid var(--accent);
+  color: var(--accent);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+}
+.monitor-tag-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+/* ── Monitored / orphan process tints ────────────────────────────────────── */
+.process-item.monitored {
+  border-left: 0.1875rem solid transparent;
+  border-left-color: var(--accent);
+}
+.process-item.active.monitored {
+  border-left-color: var(--accent);
+}
+.process-item.orphan {
+  opacity: 0.8;
+}
+.process-item.orphan .process-status {
+  color: var(--warning);
+}
 .status-indicator {
   width: 0.5rem;
   height: 0.5rem;
@@ -518,6 +562,57 @@ input:focus-visible {
   font-weight: 800;
   letter-spacing: -0.03em;
 }
+.sparkline-wrapper {
+  position: relative;
+  margin-top: 0.625rem;
+  cursor: crosshair;
+}
+.sparkline-placeholder {
+  margin-top: 0.625rem;
+  padding: 0.375rem 0;
+  border-top: 0.0625rem dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sparkline-placeholder span {
+  font-size: 0.65rem;
+  color: var(--muted);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+.sparkline {
+  display: block;
+  width: 100%;
+}
+.sparkline-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.375rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-3);
+  border: 0.0625rem solid var(--border-strong);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.4);
+}
+.sparkline-tooltip-value {
+  font-weight: 700;
+  color: var(--text);
+}
+.sparkline-tooltip-time {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
 @media (max-width: 47.5rem) {
   .stats-grid {
     grid-template-columns: 1fr;
@@ -637,6 +732,40 @@ input:focus-visible {
   font-size: 0.82rem;
   line-height: 1.6;
 }
+/* ── Log stream wrapper (positions the new-logs banner) ─────────────────── */
+.log-stream-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+/* ── New-logs indicator ──────────────────────────────────────────────────── */
+.new-logs-banner {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.875rem;
+  border-radius: 62.5rem;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.5);
+  transition: opacity 120ms ease, transform 120ms ease;
+  z-index: 10;
+}
+.new-logs-banner:hover {
+  opacity: 0.88;
+}
 /* ── Log groups ─────────────────────────────────────────────────────────── */
 .log-group.multi-line {
   border-left: 0.1875rem solid var(--border-strong);
@@ -693,6 +822,10 @@ input:focus-visible {
   color: var(--log-info);
   border-color: var(--log-info);
 }
+.log-source.pill-log {
+  color: var(--muted);
+  border-color: var(--border);
+}
 .log-text {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -719,12 +852,34 @@ input:focus-visible {
   font-size: 0.68rem;
   letter-spacing: 0.08em;
 }
+.live-badge--warning {
+  color: var(--warning);
+}
+.stored-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--success);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+.stored-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--success);
+}
 .live-badge .pulse {
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 50%;
   background: var(--success);
   animation: pulse 2s ease infinite;
+}
+.pulse--warning {
+  background: var(--warning) !important;
 }
 @keyframes pulse {
   0%,
@@ -751,6 +906,187 @@ input:focus-visible {
     align-items: flex-end;
     gap: 0.5rem;
   }
+}
+/* ── Monitoring notice bar ───────────────────────────────────────────────── */
+.monitoring-notice {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 2rem;
+  flex-shrink: 0;
+  border-bottom: 0.0625rem solid var(--border);
+}
+.monitoring-notice--active {
+  background: rgba(52, 211, 153, 0.06);
+  border-left: 0.1875rem solid var(--success);
+  align-items: center;
+}
+.monitoring-notice--warning {
+  background: rgba(251, 191, 36, 0.07);
+  border-left: 0.1875rem solid var(--warning);
+  align-items: center;
+}
+.monitoring-notice-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+.monitoring-notice-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.3rem;
+}
+.monitoring-notice-dot--active {
+  background: var(--success);
+  box-shadow: 0 0 0 0.1875rem var(--success-soft);
+}
+.monitoring-notice-dot--warning {
+  background: var(--warning);
+  box-shadow: 0 0 0 0.1875rem var(--warning-soft);
+}
+.monitoring-notice-content {
+  flex: 1;
+  min-width: 0;
+}
+.monitoring-notice-headline {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--warning);
+  margin-bottom: 0.375rem;
+}
+.monitoring-notice-text {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+.monitoring-notice-description {
+  margin: 0 0 0.375rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.monitoring-notice-description:last-child {
+  margin-bottom: 0;
+}
+.monitoring-notice-description strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.monitoring-notice-action {
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  border-radius: var(--radius-sm);
+  transition: opacity 120ms ease, background-color 120ms ease;
+  white-space: nowrap;
+}
+.monitoring-notice-action--primary {
+  padding: 0.5rem 1.25rem;
+  background: var(--warning);
+  color: #000;
+  font-weight: 700;
+  border: none;
+}
+.monitoring-notice-action--primary:hover {
+  opacity: 0.88;
+}
+.monitoring-notice-action--ghost {
+  padding: 0.25rem 0.625rem;
+  background: transparent;
+  color: var(--muted);
+  border: 0.0625rem solid var(--border);
+}
+.monitoring-notice-action--ghost:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.monitoring-notice-action--danger {
+  padding: 0.375rem 0.875rem;
+  background: var(--critical);
+  color: #000;
+  font-weight: 700;
+  border: none;
+}
+.monitoring-notice-action--danger:hover {
+  opacity: 0.88;
+}
+/* ── Confirm stop-monitoring state ───────────────────────────────────────── */
+.monitoring-notice--confirm {
+  background: rgba(248, 113, 113, 0.07);
+  border-left: 0.1875rem solid var(--critical);
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+.monitoring-notice-headline--warning {
+  color: var(--critical);
+}
+.monitoring-notice-confirm-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+/* ── Welcome / no-process-selected state ─────────────────────────────────── */
+.welcome-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 0;
+  overflow: auto;
+  background: var(--bg-1);
+}
+.welcome-card {
+  max-width: 34rem;
+  width: 100%;
+}
+.welcome-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+.welcome-card .subtle {
+  margin-bottom: 1.5rem;
+}
+.welcome-hints {
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-2);
+  border: 0.0625rem solid var(--border);
+}
+.welcome-hints-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.welcome-hints-list {
+  margin: 0 0 0.875rem;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+.welcome-hints-list li {
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+.welcome-hints-note {
+  margin: 0;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius-sm);
+  background: rgba(251, 191, 36, 0.08);
+  border-left: 0.1875rem solid var(--warning);
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
 }
 /* ── Login page ─────────────────────────────────────────────────────────── */
 .login-page {
@@ -949,11 +1285,6 @@ input:focus-visible {
   background: var(--accent-soft);
   border-radius: 999px;
   padding: 0.15em 0.55em;
-}
-.update-panel-name {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text);
 }
 .update-panel-meta {
   display: flex;
