@@ -6,6 +6,21 @@
 import React, { useEffect, useState } from "react";
 
 /**
+ * Format a retention duration in milliseconds to a human-readable string.
+ * Shows days (>= 2 whole days) or hours (whole hours) or minutes otherwise.
+ *
+ * @param {number} ms
+ * @returns {string}
+ */
+function formatRetention(ms) {
+    const days = ms / (24 * 60 * 60 * 1000);
+    if (days >= 2 && Number.isInteger(days)) return `${days} days`;
+    const hours = ms / (60 * 60 * 1000);
+    if (hours >= 1 && Number.isInteger(hours)) return `${hours} h`;
+    return `${Math.round(ms / 60_000)} min`;
+}
+
+/**
  * Full-width notice bar shown between the hero card and the stats grid.
  *
  * **Unmonitored:** amber warning explaining that only live data is visible
@@ -19,9 +34,13 @@ import React, { useEffect, useState } from "react";
  *   isMonitored: boolean,
  *   pm2Name: string,
  *   onToggleMonitoring: (pm2Name: string, currentlyMonitored: boolean) => void,
+ *   metricsRetentionMs: number,
+ *   logsRetentionMs: number,
  * }} props
  */
-export default function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring }) {
+export default function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring, metricsRetentionMs, logsRetentionMs }) {
+    const metricsLabel = formatRetention(metricsRetentionMs ?? 86_400_000);
+    const logsLabel = formatRetention(logsRetentionMs ?? 14 * 24 * 60 * 60 * 1000);
     const [confirmStop, setConfirmStop] = useState(false);
 
     // Reset confirmation state when the selected process changes.
@@ -75,7 +94,7 @@ export default function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitor
                     <span className="monitoring-notice-text">
                         <strong>Monitoring active</strong>
                         {" — "}
-                        metrics sampled every 20 s (stored 24 h) &middot; logs stored for 14 days
+                        metrics sampled every 20 s (stored {metricsLabel}) &middot; logs stored for {logsLabel}!
                     </span>
                 </div>
                 <button
@@ -97,7 +116,7 @@ export default function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitor
                     <strong className="monitoring-notice-headline">Not monitored &mdash; live data only</strong>
                     <p className="monitoring-notice-description">
                         Real-time values are visible for <strong>{pm2Name}</strong>, but nothing is saved.
-                        Click <strong>Start Monitoring</strong> to persist CPU/memory history (24 h) and logs (14 days).
+                        Click <strong>Start Monitoring</strong> to persist CPU/memory history ({metricsLabel}) and logs ({logsLabel}).
                     </p>
                 </div>
             </div>

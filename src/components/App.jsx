@@ -54,6 +54,8 @@ export default function App() {
     const [storedLogs, setStoredLogs] = useState([]);
     const [storedLogsReady, setStoredLogsReady] = useState(false);
     const [unreadLogCount, setUnreadLogCount] = useState(0);
+    const [metricsRetentionMs, setMetricsRetentionMs] = useState(86_400_000);
+    const [logsRetentionMs, setLogsRetentionMs] = useState(14 * 24 * 60 * 60 * 1000);
     const logRef = useRef(null);
     const autoStickRef = useRef(true);
     const prevLiveLinesLengthRef = useRef(0);
@@ -80,6 +82,8 @@ export default function App() {
             .then((payload) => {
                 setCsrfToken(payload.csrfToken);
                 if (payload.version) setAppVersion(payload.version);
+                if (payload.metricsRetentionMs) setMetricsRetentionMs(payload.metricsRetentionMs);
+                if (payload.logsRetentionMs) setLogsRetentionMs(payload.logsRetentionMs);
             })
             .then(loadProcesses)
             .catch((sessionError) => setError(sessionError.message));
@@ -228,12 +232,14 @@ export default function App() {
         return () => container.removeEventListener("scroll", onScroll);
     }, []);
 
+    // Auto-scroll only on process switch / stored-log load, not on each new live line.
+    // New live lines are tracked via unreadLogCount and the scroll-to-bottom button.
     useEffect(() => {
         const container = logRef.current;
         if (container && autoStickRef.current) {
             container.scrollTop = container.scrollHeight;
         }
-    }, [details, liveLines, storedLogs]);
+    }, [details, storedLogs]);
 
     // Track new live lines arriving while the user has scrolled up.
     // Accumulate a count so the indicator can show how many are pending.
@@ -388,6 +394,8 @@ export default function App() {
                             isMonitored={isSelectedMonitored}
                             pm2Name={selectedProcess?.name ?? String(selectedProcessId)}
                             onToggleMonitoring={onToggleMonitoring}
+                            metricsRetentionMs={metricsRetentionMs}
+                            logsRetentionMs={logsRetentionMs}
                         />
                         <StatsGrid details={details} error={error} metricsHistory={metricsHistory} isMonitored={isSelectedMonitored} />
                         <LogStream
