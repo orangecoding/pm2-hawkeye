@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">PM2-Hawk</h1>
+  <h1 align="center">PM2-Hawkeye</h1>
   <p align="center"><strong>A modern, real-time web dashboard for your PM2 processes.</strong></p>
   <p align="center">Monitor, restart, and tail logs - all from a sleek dark-mode UI.</p>
 </p>
@@ -37,7 +37,7 @@
 
 ## 📡 Live vs. Monitored Processes
 
-PM2-Hawk has two modes for each process.
+PM2-Hawkeye has two modes for each process.
 
 **Live only (default)**
 
@@ -45,7 +45,7 @@ When you open a process without enabling monitoring, you see real-time CPU, memo
 
 **Monitored**
 
-Click *Start Monitoring* on any process to enable persistent tracking. PM2-Hawk will:
+Click *Start Monitoring* on any process to enable persistent tracking. PM2-Hawkeye will:
 
 - Sample CPU and memory every 20 seconds and store the history (default: 24 hours)
 - Persist incoming log lines to the database (default: 14 days)
@@ -102,7 +102,7 @@ Open **http://localhost:3030** in your browser.
 
 ### 4. Run as a PM2 process (recommended)
 
-The recommended production setup is to run PM2-Hawk as a PM2 process itself so it is supervised and auto-restarted:
+The recommended production setup is to run PM2-Hawkeye as a PM2 process itself so it is supervised and auto-restarted:
 
 ```bash
 npm run build
@@ -133,7 +133,7 @@ Make the script executable once before first use:
 chmod +x update.sh
 ```
 
-If PM2-Hawk is not running under PM2 when the script finishes, it will print the commands to start it manually.
+If PM2-Hawkeye is not running under PM2 when the script finishes, it will print the commands to start it manually.
 
 > [!NOTE]
 > **Database location** — by default the database is written to `./data/pm2-manager.db` inside the project directory. If you update by replacing the project folder (e.g. re-cloning), this file will be lost. Point `SQLITE_DB_PATH` at a directory outside the project to keep your data safe across updates (`pm2-manager.db` is created inside it automatically):
@@ -143,7 +143,7 @@ If PM2-Hawk is not running under PM2 when the script finishes, it will print the
 > Create the directory first: `mkdir -p /var/lib/pm2-manager`
 
 > [!NOTE]
-> **PM2 timestamps** — PM2-Hawk merges stdout and stderr and sorts log lines chronologically. This requires PM2 to prefix each line with a timestamp. Always start your processes with `--time`:
+> **PM2 timestamps** — PM2-Hawkeye merges stdout and stderr and sorts log lines chronologically. This requires PM2 to prefix each line with a timestamp. Always start your processes with `--time`:
 > ```bash
 > pm2 start app.js --name my-app --time
 > ```
@@ -205,7 +205,7 @@ All settings are read from a `.env` file in the project root. Copy `.env.example
 
 ## ⚡ Custom Actions with tx2
 
-PM2-Hawk can display and trigger custom actions that your app exposes to PM2 via **[tx2](https://github.com/pm2/tx2)**.
+PM2-Hawkeye can display and trigger custom actions that your app exposes to PM2 via **[tx2](https://github.com/pm2/tx2)**.
 
 ### Install tx2
 
@@ -233,9 +233,9 @@ tx2.action('set log level', (level, done) => {
 
 `done()` must always be called - it signals to PM2 that the action has completed and sends the return value back to the dashboard.
 
-### Trigger from PM2-Hawk
+### Trigger from PM2-Hawkeye
 
-Once your process is running, open it in PM2-Hawk. Any registered actions appear as buttons in the **Actions** panel.
+Once your process is running, open it in PM2-Hawkeye. Any registered actions appear as buttons in the **Actions** panel.
 
 **Available tx2 APIs**
 
@@ -251,7 +251,7 @@ Once your process is running, open it in PM2-Hawk. Any registered actions appear
 
 ## Development
 
-PM2-Hawk uses a two-process dev setup: the Node.js backend runs on port 3030 and an esbuild dev server handles the frontend on port 3042 with instant rebuilds and hot module replacement.
+PM2-Hawkeye uses a two-process dev setup: the Node.js backend runs on port 3030 and an esbuild dev server handles the frontend on port 3042 with instant rebuilds and hot module replacement.
 
 ### Start the backend
 
