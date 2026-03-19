@@ -170,12 +170,18 @@ export default function App() {
         prevLiveLinesLengthRef.current = 0;
         autoStickRef.current = true;
 
+        const ws = wsRef.current;
+        const isOpen = ws?.readyState === WebSocket.OPEN;
+
         if (selectedProcessId === null || selectedProcessId === undefined) {
-            wsRef.current?.send(JSON.stringify({type: "deselect"}));
+            if (isOpen) ws.send(JSON.stringify({type: "deselect"}));
             return;
         }
 
-        wsRef.current?.send(JSON.stringify({type: "select", data: {processId: String(selectedProcessId)}}));
+        // Only send if the connection is fully open. When it is still
+        // connecting, wsConnected will flip to true once onopen fires,
+        // which re-runs this effect and sends the message then.
+        if (isOpen) ws.send(JSON.stringify({type: "select", data: {processId: String(selectedProcessId)}}));
 
         fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`)
             .then((payload) => setMetricsHistory(payload.samples || []))
