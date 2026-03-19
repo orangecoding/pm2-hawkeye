@@ -62,7 +62,7 @@ export default function LoginApp() {
       <section className="login-panel">
         <div className="brand-card">
           <p className="eyebrow">Login</p>
-          <h1>PM2 Command Center</h1>
+          <h1>PM2 - Hawkeye </h1>
           <p className="subtle">
             A modern, secure, and lightweight web dashboard for monitoring and managing PM2 processes.
           </p>
