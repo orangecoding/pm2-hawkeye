@@ -1,5 +1,15 @@
 <p align="center">
   <h1 align="center">PM2-Hawkeye</h1>
+
+    <p align="center">
+      <a href="https://orange-coding.net/">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="https://github.com/orangecoding/pm2-hawkeye/blob/master/media/logo.png" width="200">
+        <source media="(prefers-color-scheme: light)" srcset="https://github.com/orangecoding/pm2-hawkeye/blob/master/media/logo.png" width="200">
+      </picture>
+      </a>
+    </p>
+
   <p align="center"><strong>A modern, real-time web dashboard for your PM2 processes.</strong></p>
   <p align="center">Monitor, restart, and tail logs - all from a sleek dark-mode UI.</p>
 </p>
@@ -23,6 +33,7 @@
 - **PM2 custom actions** - trigger any `axm_actions` your processes expose
 - **Secure by default** - scrypt password hashing, CSRF protection, rate limiting, CSP headers
 - **Single WebSocket connection** - no polling, no SSE; all real-time data over one multiplexed stream
+- **Alerting** - webhook and ntfy notifications when monitored processes log errors, with per-process mute and throttle support
 - **Dark-mode UI** - clean, responsive dashboard that works on desktop and mobile
 
 ---
@@ -275,6 +286,54 @@ npm run lint
 npm run format        # write
 npm run format:check  # check only
 ```
+
+---
+
+## 🔔 Alerting
+
+PM2-Hawkeye can send you a notification whenever a monitored process logs something that matches your configured severity threshold - for example, every time an error is written to stderr.
+
+### How it works
+
+Log lines captured from your PM2 processes flow through a detection pipeline:
+
+1. **Level detection** - each line is inspected for a severity prefix (`ERROR`, `WARN`, `INFO`, `DEBUG`). Lines arriving on stderr that carry no detectable prefix are automatically treated as `error`.
+2. **Threshold check** - the detected level is compared against the set of levels you selected in Settings. If the level is not in the set, the line is silently discarded.
+3. **Per-process mute check** - if you have muted a specific process via the megaphone icon (📢) in the sidebar, alerts for that process are skipped.
+4. **Throttle check** - in *throttle* mode a second alert for the same process is suppressed until the configured cool-down window has elapsed. In *every match* mode all qualifying lines trigger a notification.
+5. **Dispatch** - all enabled reporters are called concurrently. A failure in one reporter does not block the others.
+
+### Settings UI
+
+Click the **Settings** button in the sidebar toolbar to open the settings overlay.
+
+- **General** - edit raw `.env` key/value pairs and change your login password. Changes are written to disk; a restart of PM2-Hawkeye is required for them to take effect.
+- **Alerting** - configure the alert mode, log level thresholds, and reporters.
+
+### Reporters
+
+#### Webhook
+
+Sends an HTTP POST request to any URL you choose. You can attach custom request headers and build a fully custom JSON body using key/value pairs with template variables:
+
+| Variable | Replaced with |
+|---|---|
+| `{logLevel}` | Detected log level (`error`, `warn`, `info`, `debug`) |
+| `{log_message}` | The full log line text |
+| `{process_name}` | The PM2 process name |
+
+Variable substitution is JSON-aware: if a value contains `{log_message}` inside a quoted JSON string it is substituted as a raw string; if it appears as an unquoted JSON value the substituted text is JSON-encoded automatically, preventing malformed payloads.
+
+A live curl preview updates in real time as you fill in the form so you can verify the exact request before saving.
+
+#### ntfy
+
+Sends a push notification to an [ntfy](https://ntfy.sh) topic. Configure the server URL, topic, message priority, and an optional auth token. PM2-Hawkeye sets the `Title`, `Priority`, and `Tags` headers automatically.
+
+### Per-process mute
+
+Every monitored process shows a megaphone icon (📢) in the sidebar. Click it to mute alerts for that process - the icon dims to indicate the muted state. Click again to re-enable. The preference is stored in the database and survives restarts.
+
 
 ---
 
