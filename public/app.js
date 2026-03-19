@@ -22147,7 +22147,8 @@
             }
           }
         },
-        /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-title" }, proc.name), /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-controls" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag", title: "Metrics and logs are being stored" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }), "Monitored"), /* @__PURE__ */ import_react.default.createElement("span", { className: `status-indicator ${getStatusTone(proc.status)}` }))),
+        /* @__PURE__ */ import_react.default.createElement("div", { className: "process-item-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-title" }, proc.name), /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-controls" }, /* @__PURE__ */ import_react.default.createElement("span", { className: `status-indicator ${getStatusTone(proc.status)}` }))),
+        proc.isMonitored && /* @__PURE__ */ import_react.default.createElement("div", { className: "monitor-tag-row" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag", title: "Metrics and logs are being stored" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }), "Monitored")),
         /* @__PURE__ */ import_react.default.createElement("span", { className: "process-status" }, proc.isOrphan ? "orphan \xB7 not in PM2" : `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`)
       );
     }) : /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found."))));
@@ -22461,7 +22462,16 @@
 
   // src/components/MonitoringNotice.jsx
   var import_react8 = __toESM(require_react(), 1);
-  function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring }) {
+  function formatRetention(ms) {
+    const days = ms / (24 * 60 * 60 * 1e3);
+    if (days >= 2 && Number.isInteger(days)) return `${days} days`;
+    const hours = ms / (60 * 60 * 1e3);
+    if (hours >= 1 && Number.isInteger(hours)) return `${hours} h`;
+    return `${Math.round(ms / 6e4)} min`;
+  }
+  function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring, metricsRetentionMs, logsRetentionMs }) {
+    const metricsLabel = formatRetention(metricsRetentionMs ?? 864e5);
+    const logsLabel = formatRetention(logsRetentionMs ?? 14 * 24 * 60 * 60 * 1e3);
     const [confirmStop, setConfirmStop] = (0, import_react8.useState)(false);
     (0, import_react8.useEffect)(() => {
       setConfirmStop(false);
@@ -22489,7 +22499,7 @@
           "Cancel"
         )));
       }
-      return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--active" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--active" }), /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", null, "Monitoring active"), " \u2014 ", "metrics sampled every 20 s (stored 24 h) \xB7 logs stored for 14 days")), /* @__PURE__ */ import_react8.default.createElement(
+      return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--active" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--active" }), /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", null, "Monitoring active"), " \u2014 ", "metrics sampled every 20 s (stored ", metricsLabel, ") \xB7 logs stored for ", logsLabel, "!")), /* @__PURE__ */ import_react8.default.createElement(
         "button",
         {
           className: "monitoring-notice-action monitoring-notice-action--ghost",
@@ -22499,7 +22509,7 @@
         "Stop Monitoring"
       ));
     }
-    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--warning" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--warning" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-content" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "monitoring-notice-headline" }, "Not monitored \u2014 live data only"), /* @__PURE__ */ import_react8.default.createElement("p", { className: "monitoring-notice-description" }, "Real-time values are visible for ", /* @__PURE__ */ import_react8.default.createElement("strong", null, pm2Name), ", but nothing is saved. Click ", /* @__PURE__ */ import_react8.default.createElement("strong", null, "Start Monitoring"), " to persist CPU/memory history (24 h) and logs (14 days)."))), /* @__PURE__ */ import_react8.default.createElement(
+    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--warning" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--warning" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-content" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "monitoring-notice-headline" }, "Not monitored \u2014 live data only"), /* @__PURE__ */ import_react8.default.createElement("p", { className: "monitoring-notice-description" }, "Real-time values are visible for ", /* @__PURE__ */ import_react8.default.createElement("strong", null, pm2Name), ", but nothing is saved. Click ", /* @__PURE__ */ import_react8.default.createElement("strong", null, "Start Monitoring"), " to persist CPU/memory history (", metricsLabel, ") and logs (", logsLabel, ")."))), /* @__PURE__ */ import_react8.default.createElement(
       "button",
       {
         className: "monitoring-notice-action monitoring-notice-action--primary",
@@ -32217,9 +32227,12 @@
     const [storedLogs, setStoredLogs] = (0, import_react12.useState)([]);
     const [storedLogsReady, setStoredLogsReady] = (0, import_react12.useState)(false);
     const [unreadLogCount, setUnreadLogCount] = (0, import_react12.useState)(0);
+    const [metricsRetentionMs, setMetricsRetentionMs] = (0, import_react12.useState)(864e5);
+    const [logsRetentionMs, setLogsRetentionMs] = (0, import_react12.useState)(14 * 24 * 60 * 60 * 1e3);
     const logRef = (0, import_react12.useRef)(null);
     const autoStickRef = (0, import_react12.useRef)(true);
     const prevLiveLinesLengthRef = (0, import_react12.useRef)(0);
+    const wsRef = (0, import_react12.useRef)(null);
     const loadProcesses = (0, import_react12.useCallback)(async () => {
       setProcessListStatus("Loading processes\u2026");
       try {
@@ -32240,11 +32253,20 @@
       fetchJson("/api/auth/session").then((payload) => {
         setCsrfToken(payload.csrfToken);
         if (payload.version) setAppVersion(payload.version);
+        if (payload.metricsRetentionMs) setMetricsRetentionMs(payload.metricsRetentionMs);
+        if (payload.logsRetentionMs) setLogsRetentionMs(payload.logsRetentionMs);
       }).then(loadProcesses).catch((sessionError) => setError(sessionError.message));
     }, [loadProcesses]);
     (0, import_react12.useEffect)(() => {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const ws = new WebSocket(`${protocol}//${window.location.host}/ws/processes/stream`);
+      const ws = new WebSocket(`${protocol}//${window.location.host}/ws/stream`);
+      wsRef.current = ws;
+      ws.onopen = () => setWsConnected(true);
+      ws.onclose = () => {
+        setWsConnected(false);
+        wsRef.current = null;
+      };
+      ws.onerror = () => setWsConnected(false);
       ws.onmessage = (event) => {
         try {
           const { type, data } = JSON.parse(event.data);
@@ -32254,11 +32276,22 @@
             setSelectedProcessId(
               (prev) => data.items.some((item) => String(item.id ?? item.name) === String(prev)) ? prev : data.items[0]?.id ?? data.items[0]?.name ?? null
             );
+          } else if (type === "details") {
+            setDetails(data);
+          } else if (type === "snapshot") {
+            setLiveLines(data.lines.map((l) => ({ text: l.text })));
+          } else if (type === "log") {
+            setLiveLines((prev) => [...prev, { text: data.text }].slice(-800));
+          } else if (type === "error") {
+            setError(data.error);
           }
         } catch {
         }
       };
-      return () => ws.close();
+      return () => {
+        ws.close();
+        wsRef.current = null;
+      };
     }, []);
     const selectedProcess = (0, import_react12.useMemo)(
       () => processes.find((item) => String(item.id ?? item.name) === String(selectedProcessId)) || null,
@@ -32281,63 +32314,23 @@
       });
     }, [selectedProcessId]);
     (0, import_react12.useEffect)(() => {
+      setDetails(null);
+      setLiveLines([]);
+      setActions([]);
+      setMetricsHistory([]);
+      setUnreadLogCount(0);
+      prevLiveLinesLengthRef.current = 0;
+      autoStickRef.current = true;
+      const ws = wsRef.current;
+      const isOpen = ws?.readyState === WebSocket.OPEN;
       if (selectedProcessId === null || selectedProcessId === void 0) {
-        setDetails(null);
-        setLiveLines([]);
-        setActions([]);
-        setMetricsHistory([]);
-        setUnreadLogCount(0);
-        prevLiveLinesLengthRef.current = 0;
-        autoStickRef.current = true;
+        if (isOpen) ws.send(JSON.stringify({ type: "deselect" }));
         return;
       }
-      autoStickRef.current = true;
-      setUnreadLogCount(0);
-      setMetricsHistory([]);
+      if (isOpen) ws.send(JSON.stringify({ type: "select", data: { processId: String(selectedProcessId) } }));
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => setMetricsHistory([]));
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`).then((payload) => setActions(payload.actions || [])).catch(() => setActions([]));
-      setLiveLines([]);
-      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const ws = new WebSocket(`${protocol}//${window.location.host}/ws/processes/${encodeURIComponent(selectedProcessId)}/details`);
-      ws.onmessage = (event) => {
-        try {
-          const { type, data } = JSON.parse(event.data);
-          if (type === "details") {
-            setDetails(data);
-          } else if (type === "error") {
-            setError(data.error);
-          }
-        } catch {
-        }
-      };
-      ws.onerror = () => setError("WebSocket error loading process details");
-      return () => ws.close();
-    }, [selectedProcessId]);
-    (0, import_react12.useEffect)(() => {
-      if (selectedProcessId === null || selectedProcessId === void 0) return void 0;
-      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const ws = new WebSocket(`${protocol}//${window.location.host}/ws/processes/${encodeURIComponent(selectedProcessId)}/logs`);
-      ws.onopen = () => setWsConnected(true);
-      ws.onmessage = (event) => {
-        try {
-          const { type, data } = JSON.parse(event.data);
-          if (type === "snapshot") {
-            setLiveLines(data.lines.map((l) => ({ text: l.text })));
-          } else if (type === "log") {
-            setLiveLines((prev) => [...prev, { text: data.text }].slice(-800));
-          } else if (type === "error") {
-            setError(data.error);
-          }
-        } catch {
-        }
-      };
-      ws.onclose = () => setWsConnected(false);
-      ws.onerror = () => setWsConnected(false);
-      return () => {
-        ws.close();
-        setWsConnected(false);
-      };
-    }, [selectedProcessId]);
+    }, [selectedProcessId, wsConnected]);
     (0, import_react12.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0 || !isSelectedMonitored) return;
       const interval = setInterval(() => {
@@ -32360,7 +32353,7 @@
       if (container && autoStickRef.current) {
         container.scrollTop = container.scrollHeight;
       }
-    }, [details, liveLines, storedLogs]);
+    }, [storedLogs]);
     (0, import_react12.useEffect)(() => {
       const added = liveLines.length - prevLiveLinesLengthRef.current;
       prevLiveLinesLengthRef.current = liveLines.length;
@@ -32470,7 +32463,9 @@
       {
         isMonitored: isSelectedMonitored,
         pm2Name: selectedProcess?.name ?? String(selectedProcessId),
-        onToggleMonitoring
+        onToggleMonitoring,
+        metricsRetentionMs,
+        logsRetentionMs
       }
     ), /* @__PURE__ */ import_react12.default.createElement(StatsGrid, { details, error, metricsHistory, isMonitored: isSelectedMonitored }), /* @__PURE__ */ import_react12.default.createElement(
       LogStream,
@@ -32545,3 +32540,4 @@ react/cjs/react-jsx-runtime.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
+//# sourceMappingURL=app.js.map

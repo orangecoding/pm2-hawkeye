@@ -54,18 +54,21 @@ export default function ProcessList({processes, selectedProcessId, status, onSel
                                 }
                             }}
                         >
-                            <span className="process-item-top">
+
+                            <div className="process-item-top">
                                 <span className="process-title">{proc.name}</span>
                                 <span className="process-item-controls">
-                                    {proc.isMonitored && (
-                                        <span className="monitor-tag" title="Metrics and logs are being stored">
-                                            <span className="monitor-tag-dot"/>
-                                            Monitored
-                                        </span>
-                                    )}
                                     <span className={`status-indicator ${getStatusTone(proc.status)}`}/>
                                 </span>
-                            </span>
+                            </div>
+                            {proc.isMonitored && (
+                                <div className="monitor-tag-row">
+                                    <span className="monitor-tag" title="Metrics and logs are being stored">
+                                        <span className="monitor-tag-dot"/>
+                                        Monitored
+                                    </span>
+                                </div>
+                            )}
                             <span className="process-status">
                                 {proc.isOrphan
                                     ? "orphan \u00b7 not in PM2"
