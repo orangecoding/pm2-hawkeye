@@ -781,32 +781,31 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
  */
 function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
   const logRef = useRef(null);
+  const confirmRef = useRef(null);
   const isDone = currentStage === 'done' && status === 'success';
   const isError = status === 'error';
   const isConfirming = status === 'confirm';
 
-  // Auto-scroll as new lines arrive.
+  // Auto-scroll log as new lines arrive.
   useEffect(() => {
     const el = logRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [lines]);
+
+  // Scroll the confirm box into view whenever it appears.
+  useEffect(() => {
+    if (isConfirming && confirmRef.current) {
+      confirmRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [isConfirming]);
 
   return (
     <>
       <div className="deploy-modal-body">
         <StagePillBar visibleStages={visibleStages} currentStage={currentStage} status={status} />
 
-        <div className="deploy-log" ref={logRef}>
-          {lines.map((entry, i) => (
-            <span key={i} className={entry.status === 'error' ? 'deploy-log-line--error' : undefined}>
-              {entry.line}
-            </span>
-          ))}
-          {!isDone && !isError && !isConfirming && <span style={{ color: 'var(--muted)' }}>...</span>}
-        </div>
-
         {isConfirming && confirmChanges && (
-          <div className="deploy-confirm-box">
+          <div className="deploy-confirm-box" ref={confirmRef}>
             <p className="deploy-confirm-msg">
               The deploy directory has local changes that would prevent <code>git pull</code> from succeeding.
               Discard them to continue, or cancel the deployment.
@@ -822,6 +821,15 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose, c
             </div>
           </div>
         )}
+
+        <div className="deploy-log" ref={logRef}>
+          {lines.map((entry, i) => (
+            <span key={i} className={entry.status === 'error' ? 'deploy-log-line--error' : undefined}>
+              {entry.line}
+            </span>
+          ))}
+          {!isDone && !isError && !isConfirming && <span style={{ color: 'var(--muted)' }}>...</span>}
+        </div>
 
         {isDone && (
           <div className="deploy-success-banner">

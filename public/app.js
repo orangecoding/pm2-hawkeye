@@ -33314,15 +33314,22 @@
       submitting ? "Saving..." : "Save & Redeploy"
     ), error && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-error-msg" }, error)));
   }
-  function DeployProgress({ lines, currentStage, status, visibleStages, onClose }) {
+  function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
     const logRef = (0, import_react15.useRef)(null);
+    const confirmRef = (0, import_react15.useRef)(null);
     const isDone = currentStage === "done" && status === "success";
     const isError = status === "error";
+    const isConfirming = status === "confirm";
     (0, import_react15.useEffect)(() => {
       const el = logRef.current;
       if (el) el.scrollTop = el.scrollHeight;
     }, [lines]);
-    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-modal-body" }, /* @__PURE__ */ import_react15.default.createElement(StagePillBar, { visibleStages, currentStage, status }), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-log", ref: logRef }, lines.map((entry, i) => /* @__PURE__ */ import_react15.default.createElement("span", { key: i, className: entry.status === "error" ? "deploy-log-line--error" : void 0 }, entry.line)), !isDone && !isError && /* @__PURE__ */ import_react15.default.createElement("span", { style: { color: "var(--muted)" } }, "...")), isDone && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-success-banner" }, "Deployment complete. The process is now running in PM2 and visible in the sidebar."), isError && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-error-banner" }, "Deployment failed. See the log above for details. Fix the issue and use Redeploy to retry.")), (isDone || isError) && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-submit-btn", onClick: onClose }, "Close")));
+    (0, import_react15.useEffect)(() => {
+      if (isConfirming && confirmRef.current) {
+        confirmRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }, [isConfirming]);
+    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-modal-body" }, /* @__PURE__ */ import_react15.default.createElement(StagePillBar, { visibleStages, currentStage, status }), isConfirming && confirmChanges && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-confirm-box", ref: confirmRef }, /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-confirm-msg" }, "The deploy directory has local changes that would prevent ", /* @__PURE__ */ import_react15.default.createElement("code", null, "git pull"), " from succeeding. Discard them to continue, or cancel the deployment."), /* @__PURE__ */ import_react15.default.createElement("pre", { className: "deploy-confirm-changes" }, confirmChanges), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-confirm-actions" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-submit-btn", onClick: () => onConfirmDeploy(true) }, "Discard & Continue"), /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-cancel-btn", onClick: () => onConfirmDeploy(false) }, "Cancel Deployment"))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-log", ref: logRef }, lines.map((entry, i) => /* @__PURE__ */ import_react15.default.createElement("span", { key: i, className: entry.status === "error" ? "deploy-log-line--error" : void 0 }, entry.line)), !isDone && !isError && !isConfirming && /* @__PURE__ */ import_react15.default.createElement("span", { style: { color: "var(--muted)" } }, "...")), isDone && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-success-banner" }, "Deployment complete. The process is now running in PM2 and visible in the sidebar."), isError && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-error-banner" }, "Deployment failed. See the log above for details. Fix the issue and use Redeploy to retry.")), (isDone || isError) && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-submit-btn", onClick: onClose }, "Close")));
   }
   function DeployModal({
     csrfToken,
@@ -33335,7 +33342,9 @@
     activeDeploymentId,
     editingDeployment,
     onEditSaved,
-    onSaveAndRedeploy
+    onSaveAndRedeploy,
+    confirmChanges,
+    onConfirmDeploy
   }) {
     const isEdit = Boolean(editingDeployment);
     const showProgress = !isEdit && activeDeploymentId !== null;
@@ -33353,7 +33362,9 @@
         currentStage: deployProgressStage,
         status: deployProgressStatus,
         visibleStages,
-        onClose
+        onClose,
+        confirmChanges,
+        onConfirmDeploy
       }
     ) : /* @__PURE__ */ import_react15.default.createElement(
       DeployForm,
@@ -33406,6 +33417,7 @@
     const [deployProgressStage, setDeployProgressStage] = (0, import_react16.useState)(null);
     const [deployProgressStatus, setDeployProgressStatus] = (0, import_react16.useState)(null);
     const [editingDeployment, setEditingDeployment] = (0, import_react16.useState)(null);
+    const [deployConfirmChanges, setDeployConfirmChanges] = (0, import_react16.useState)(null);
     const logRef = (0, import_react16.useRef)(null);
     const autoStickRef = (0, import_react16.useRef)(true);
     const prevLiveLinesLengthRef = (0, import_react16.useRef)(0);
@@ -33468,6 +33480,11 @@
           } else if (type === "error") {
             setError(data.error);
           } else if (type === "deploy_progress") {
+            if (data.status === "confirm") {
+              setDeployConfirmChanges(data.line);
+            } else {
+              setDeployConfirmChanges(null);
+            }
             setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
             setDeployProgressStage(data.stage);
             setDeployProgressStatus(data.status);
@@ -33607,6 +33624,23 @@
         setDeployProgressStatus("error");
       }
     }, [refreshCsrf]);
+    const onConfirmDeploy = (0, import_react16.useCallback)(async (confirmed) => {
+      if (!activeDeploymentId) return;
+      setDeployConfirmChanges(null);
+      try {
+        const freshToken = await refreshCsrf();
+        await fetchJson(`/api/deployments/${activeDeploymentId}/confirm`, {
+          method: "POST",
+          headers: { "X-CSRF-Token": freshToken, "Content-Type": "application/json" },
+          body: JSON.stringify({ confirmed })
+        });
+        await refreshCsrf();
+      } catch (err) {
+        setDeployProgressLines((prev) => [...prev, { stage: "error", line: err.message, status: "error" }]);
+        setDeployProgressStage("error");
+        setDeployProgressStatus("error");
+      }
+    }, [activeDeploymentId, refreshCsrf]);
     const onEditDeployment = (0, import_react16.useCallback)((pm2Name) => {
       const dep = deployments.find((d) => d.pm2_name === pm2Name);
       if (!dep) return;
@@ -33808,6 +33842,7 @@
           setDeployOpen(false);
           setActiveDeploymentId(null);
           setEditingDeployment(null);
+          setDeployConfirmChanges(null);
         },
         onDeployStarted,
         deployProgressLines,
@@ -33816,7 +33851,9 @@
         activeDeploymentId,
         editingDeployment,
         onEditSaved,
-        onSaveAndRedeploy
+        onSaveAndRedeploy,
+        confirmChanges: deployConfirmChanges,
+        onConfirmDeploy
       }
     ));
   }
@@ -33881,4 +33918,3 @@ react/cjs/react-jsx-runtime.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
-//# sourceMappingURL=app.js.map
