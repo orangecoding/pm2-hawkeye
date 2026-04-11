@@ -170,6 +170,29 @@ export default function App() {
         [deployments, selectedProcess]
     );
 
+    /**
+     * Deployments that exist in the DB but have no corresponding running PM2 process.
+     * Each entry is annotated with a `displayStatus` field:
+     *   - 'deploying' : a deploy is currently in progress
+     *   - 'broken'    : first deploy failed, process never ran (last_deployed_at is null)
+     *   - 'offline'   : was successfully deployed before, but is no longer in PM2
+     *
+     * @type {{ id: string, pm2_name: string, displayStatus: string }[]}
+     */
+    const offlineDeployments = useMemo(() => {
+        const runningNames = new Set(processes.map((p) => p.name));
+        return deployments
+            .filter((d) => !runningNames.has(d.pm2_name))
+            .map((d) => ({
+                ...d,
+                displayStatus: d.deploying
+                    ? 'deploying'
+                    : d.last_deployed_at == null
+                        ? 'broken'
+                        : 'offline',
+            }));
+    }, [deployments, processes]);
+
     // Fetch stored logs whenever the selected process changes, regardless of monitoring
     // state.  storedLogsReady gates the switch in allLines so combinedLines remain
     // visible until the fetch settles - preventing a blank flash on load.
@@ -358,6 +381,26 @@ export default function App() {
     }, [deployments]);
 
     /**
+     * Delete a deployment record from the DB without touching PM2.
+     * Used for offline deployments (broken or missing from PM2).
+     *
+     * @param {string} deploymentId - UUID of the deployment record.
+     */
+    const onDeleteDeployment = useCallback(async (deploymentId) => {
+        if (!csrfToken) return;
+        try {
+            await fetchJson(`/api/deployments/${deploymentId}`, {
+                method: 'DELETE',
+                headers: { 'X-CSRF-Token': csrfToken },
+            });
+            await refreshCsrf();
+            loadDeployments();
+        } catch (err) {
+            setError(err.message);
+        }
+    }, [csrfToken, refreshCsrf, loadDeployments]);
+
+    /**
      * Called after a deployment record has been successfully edited.
      * Refreshes the CSRF token, reloads the deployments list, and closes the modal.
      */
@@ -540,6 +583,8 @@ export default function App() {
                 deployments={deployments}
                 onEditDeployment={onEditDeployment}
                 onRemoveOrphan={onRemoveOrphan}
+                offlineDeployments={offlineDeployments}
+                onDeleteDeployment={onDeleteDeployment}
             />
             <main className="content">
                 <HeroCard

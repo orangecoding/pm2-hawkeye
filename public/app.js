@@ -22126,12 +22126,22 @@
   }
 
   // src/components/ProcessList.jsx
-  function ProcessList({ processes, selectedProcessId, status, onSelect, onOpenSettings, onOpenDeploy, onToggleAlert, deployments = [], onEditDeployment, onRemoveOrphan }) {
+  function statusTooltip(status) {
+    const s = String(status).toLowerCase();
+    if (s === "online") return "Running normally";
+    if (s === "launching") return "Starting up";
+    if (s === "stopped") return "Stopped (not running)";
+    if (s === "errored") return "Crashed or encountered an error";
+    if (s === "one-launch-status") return "Exited after a single launch";
+    if (s === "orphan") return "No longer running in PM2, but still tracked by Hawkeye";
+    return `Status: ${status}`;
+  }
+  function ProcessList({ processes, selectedProcessId, status, onSelect, onOpenSettings, onOpenDeploy, onToggleAlert, deployments = [], onEditDeployment, onRemoveOrphan, offlineDeployments = [], onDeleteDeployment }) {
     const deployedNames = (0, import_react.useMemo)(
       () => new Set(deployments.map((d) => d.pm2_name)),
       [deployments]
     );
-    return /* @__PURE__ */ import_react.default.createElement("aside", { className: "sidebar section-shell" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "PM2 Inventory"), /* @__PURE__ */ import_react.default.createElement("h1", null, "Command Center"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Monitor processes, inspect logs, and restart services.")), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-toolbar" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenSettings }, "Settings"), /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenDeploy }, "Deploy"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-status" }, status)), /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length ? processes.map((proc) => {
+    return /* @__PURE__ */ import_react.default.createElement("aside", { className: "sidebar section-shell" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "PM2 Inventory"), /* @__PURE__ */ import_react.default.createElement("h1", null, "Command Center"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Monitor processes, inspect logs, and restart services.")), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-toolbar" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenSettings }, "Settings"), /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenDeploy }, "Deploy"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-status" }, status)), /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length === 0 && offlineDeployments.length === 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found.")), processes.map((proc) => {
       const isSelected = String(proc.id ?? proc.name) === String(selectedProcessId);
       const monitoredClass = proc.isMonitored ? "monitored" : "";
       const orphanClass = proc.isOrphan ? "orphan" : "";
@@ -22163,8 +22173,14 @@
             "aria-label": "Toggle alerts"
           },
           "\u{1F4E2}"
-        ), /* @__PURE__ */ import_react.default.createElement("span", { className: `status-indicator ${getStatusTone(proc.status)}` }))),
-        (proc.isMonitored || deployedNames.has(proc.name)) && /* @__PURE__ */ import_react.default.createElement("div", { className: "monitor-tag-row" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag", title: "Metrics and logs are being stored" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }), "Monitored"), deployedNames.has(proc.name) && /* @__PURE__ */ import_react.default.createElement(
+        ), /* @__PURE__ */ import_react.default.createElement(
+          "span",
+          {
+            className: `status-indicator ${getStatusTone(proc.status)}`,
+            title: statusTooltip(proc.status)
+          }
+        ))),
+        (proc.isMonitored || deployedNames.has(proc.name)) && /* @__PURE__ */ import_react.default.createElement("div", { className: "monitor-tag-row" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag", title: "Hawkeye is collecting and storing CPU/memory metrics and log entries for this process. History is available even after restarts." }, /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }), "Monitored"), deployedNames.has(proc.name) && /* @__PURE__ */ import_react.default.createElement(
           "button",
           {
             className: "edit-deploy-btn",
@@ -22180,16 +22196,41 @@
           "button",
           {
             className: "process-item-orphan",
-            title: "Remove monitoring record for this process",
+            title: "This process is no longer running in PM2, but Hawkeye still has a monitoring record for it. Click to remove the record.",
             onClick: (e) => {
               e.stopPropagation();
               onRemoveOrphan(proc.name);
             }
           },
           "Orphan (Remove)"
-        ) : `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`)
+        ) : /* @__PURE__ */ import_react.default.createElement("span", { title: statusTooltip(proc.status) }, `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`))
       );
-    }) : /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found."))));
+    }), offlineDeployments.length > 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-section" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-header" }, "Offline deployments"), offlineDeployments.map((dep) => /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-item", key: dep.id }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-title" }, dep.pm2_name), /* @__PURE__ */ import_react.default.createElement(
+      "span",
+      {
+        className: `offline-deploy-badge offline-deploy-badge--${dep.displayStatus}`,
+        title: dep.displayStatus === "deploying" ? "A deployment is currently in progress for this app." : dep.displayStatus === "broken" ? "The initial deployment failed before the process ever ran successfully. Edit the configuration and redeploy to fix it." : "This app was successfully deployed before, but is no longer running in PM2. It may have been stopped or removed manually."
+      },
+      dep.displayStatus === "deploying" && "Deploying\u2026",
+      dep.displayStatus === "broken" && "Broken",
+      dep.displayStatus === "offline" && "Not running in PM2"
+    )), /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-actions" }, /* @__PURE__ */ import_react.default.createElement(
+      "button",
+      {
+        className: "edit-deploy-btn",
+        title: "Edit configuration or trigger a redeploy",
+        onClick: () => onEditDeployment(dep.pm2_name)
+      },
+      "Edit / Redeploy"
+    ), /* @__PURE__ */ import_react.default.createElement(
+      "button",
+      {
+        className: "offline-deploy-delete-btn",
+        title: "Delete this deployment record",
+        onClick: () => onDeleteDeployment(dep.id)
+      },
+      "Delete"
+    )))))));
   }
 
   // src/components/HeroCard.jsx
@@ -33049,7 +33090,7 @@
         title: "Environment",
         info: "Variables injected into the process environment. You can point to a .env file already present in the repo, add explicit key-value pairs, or both. Explicit variables always take precedence over file values."
       },
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Env file", hint: "Relative path to a .env file inside the repo, e.g. .env.production. Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored." }, /* @__PURE__ */ import_react15.default.createElement(
+      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Env file", hint: "Path to a .env file: relative to the repo root (e.g. .env.production) or absolute on the server (e.g. /etc/myapp/.env). Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored." }, /* @__PURE__ */ import_react15.default.createElement(
         "input",
         {
           className: "settings-input",
@@ -33451,6 +33492,13 @@
       () => deployments.find((d) => d.pm2_name === selectedProcess?.name) ?? null,
       [deployments, selectedProcess]
     );
+    const offlineDeployments = (0, import_react16.useMemo)(() => {
+      const runningNames = new Set(processes.map((p) => p.name));
+      return deployments.filter((d) => !runningNames.has(d.pm2_name)).map((d) => ({
+        ...d,
+        displayStatus: d.deploying ? "deploying" : d.last_deployed_at == null ? "broken" : "offline"
+      }));
+    }, [deployments, processes]);
     (0, import_react16.useEffect)(() => {
       setStoredLogsReady(false);
       if (selectedProcessId === null || selectedProcessId === void 0) {
@@ -33565,6 +33613,19 @@
       setEditingDeployment(dep);
       setDeployOpen(true);
     }, [deployments]);
+    const onDeleteDeployment = (0, import_react16.useCallback)(async (deploymentId) => {
+      if (!csrfToken) return;
+      try {
+        await fetchJson(`/api/deployments/${deploymentId}`, {
+          method: "DELETE",
+          headers: { "X-CSRF-Token": csrfToken }
+        });
+        await refreshCsrf();
+        loadDeployments();
+      } catch (err) {
+        setError(err.message);
+      }
+    }, [csrfToken, refreshCsrf, loadDeployments]);
     const onEditSaved = (0, import_react16.useCallback)(async () => {
       await refreshCsrf();
       loadDeployments();
@@ -33691,7 +33752,9 @@
         onToggleAlert,
         deployments,
         onEditDeployment,
-        onRemoveOrphan
+        onRemoveOrphan,
+        offlineDeployments,
+        onDeleteDeployment
       }
     ), /* @__PURE__ */ import_react16.default.createElement("main", { className: "content" }, /* @__PURE__ */ import_react16.default.createElement(
       HeroCard,

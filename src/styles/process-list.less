@@ -160,6 +160,100 @@
   }
 }
 
+/* ── Offline deployments section ─────────────────────────────────────────── */
+
+.offline-deployments-section {
+  border-top: 0.0625rem solid var(--border-strong);
+  margin-top: auto;
+  padding-top: 0;
+}
+
+.offline-deployments-header {
+  padding: 0.5rem 1rem 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  user-select: none;
+}
+
+.offline-deployment-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 0.0625rem solid var(--border);
+  opacity: 0.90;
+}
+
+.offline-deployment-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.offline-deployment-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* ── Offline deployment status badges ────────────────────────────────────── */
+
+.offline-deploy-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 62.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  user-select: none;
+  flex-shrink: 0;
+
+  &--broken {
+    background: var(--critical-soft);
+    border: 0.0625rem solid rgba(248, 113, 113, 0.35);
+    color: var(--critical);
+  }
+
+  &--offline {
+    background: var(--warning-soft);
+    border: 0.0625rem solid rgba(251, 191, 36, 0.35);
+    color: var(--warning);
+  }
+
+  &--deploying {
+    background: var(--info-soft);
+    border: 0.0625rem solid rgba(59, 130, 246, 0.35);
+    color: var(--info);
+  }
+}
+
+/* ── Delete button for offline deployments ───────────────────────────────── */
+
+.offline-deploy-delete-btn {
+  background: var(--critical-soft);
+  border: 0.0625rem solid rgba(248, 113, 113, 0.35);
+  color: var(--critical);
+  cursor: pointer;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-sm);
+  transition: opacity 150ms ease;
+  white-space: nowrap;
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+
+  &:hover {
+    opacity: 0.80;
+  }
+}
+
 .status-indicator {
   width: 0.5rem;
   height: 0.5rem;
