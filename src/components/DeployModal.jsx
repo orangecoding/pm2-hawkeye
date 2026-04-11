@@ -768,10 +768,22 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
  *   onClose: () => void,
  * }} props
  */
-function DeployProgress({ lines, currentStage, status, visibleStages, onClose }) {
+/**
+ * @param {{
+ *   lines: { stage: string, line: string, status: string }[],
+ *   currentStage: string | null,
+ *   status: string | null,
+ *   visibleStages: string[],
+ *   onClose: () => void,
+ *   confirmChanges: string | null,
+ *   onConfirmDeploy: (confirmed: boolean) => void,
+ * }} props
+ */
+function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
   const logRef = useRef(null);
   const isDone = currentStage === 'done' && status === 'success';
   const isError = status === 'error';
+  const isConfirming = status === 'confirm';
 
   // Auto-scroll as new lines arrive.
   useEffect(() => {
@@ -790,8 +802,26 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose })
               {entry.line}
             </span>
           ))}
-          {!isDone && !isError && <span style={{ color: 'var(--muted)' }}>...</span>}
+          {!isDone && !isError && !isConfirming && <span style={{ color: 'var(--muted)' }}>...</span>}
         </div>
+
+        {isConfirming && confirmChanges && (
+          <div className="deploy-confirm-box">
+            <p className="deploy-confirm-msg">
+              The deploy directory has local changes that would prevent <code>git pull</code> from succeeding.
+              Discard them to continue, or cancel the deployment.
+            </p>
+            <pre className="deploy-confirm-changes">{confirmChanges}</pre>
+            <div className="deploy-confirm-actions">
+              <button type="button" className="deploy-submit-btn" onClick={() => onConfirmDeploy(true)}>
+                Discard &amp; Continue
+              </button>
+              <button type="button" className="deploy-cancel-btn" onClick={() => onConfirmDeploy(false)}>
+                Cancel Deployment
+              </button>
+            </div>
+          </div>
+        )}
 
         {isDone && (
           <div className="deploy-success-banner">
@@ -840,6 +870,8 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose })
  *   onEditSaved?: () => Promise<void>,
  *   onSaveAndRedeploy?: (deploymentId: string) => Promise<void>,
  *   onCsrfRefresh: () => Promise<string>,
+ *   confirmChanges?: string | null,
+ *   onConfirmDeploy?: (confirmed: boolean) => void,
  * }} props
  */
 export default function DeployModal({
@@ -854,6 +886,8 @@ export default function DeployModal({
   editingDeployment,
   onEditSaved,
   onSaveAndRedeploy,
+  confirmChanges,
+  onConfirmDeploy,
 }) {
   const isEdit = Boolean(editingDeployment);
   const showProgress = !isEdit && activeDeploymentId !== null;
@@ -888,6 +922,8 @@ export default function DeployModal({
             status={deployProgressStatus}
             visibleStages={visibleStages}
             onClose={onClose}
+            confirmChanges={confirmChanges}
+            onConfirmDeploy={onConfirmDeploy}
           />
         ) : (
           <DeployForm

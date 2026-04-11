@@ -1,6 +1,6 @@
 {
   "name": "pm2-hawkeye",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Modern web dashboard for PM2 processes, metrics, and log files",
   "type": "module",
   "main": "lib/transport/server.js",

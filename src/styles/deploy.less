@@ -433,6 +433,66 @@
   color: var(--critical);
 }
 
+// Confirmation prompt (local changes before git pull) ───────────────────────
+
+.deploy-confirm-box {
+  background: var(--warning-soft);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.deploy-confirm-msg {
+  font-size: 0.875rem;
+  color: var(--warning);
+  margin: 0 0 0.75rem;
+
+  code {
+    background: rgba(251, 191, 36, 0.15);
+    border-radius: 3px;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.82rem;
+  }
+}
+
+.deploy-confirm-changes {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  margin: 0 0 0.875rem;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--text);
+  max-height: 8rem;
+  overflow-y: auto;
+}
+
+.deploy-confirm-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.deploy-cancel-btn {
+  background: transparent;
+  border: 1px solid var(--critical);
+  color: var(--critical);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+
+  &:hover {
+    opacity: 0.80;
+  }
+}
+
 // Edit/Redeploy button and modal action button in ProcessList / deploy modal ─
 // Uses a slightly darker blue than --log-info (#60a5fa) to sit visually
 // between the muted ghost buttons and the bright accent colour.

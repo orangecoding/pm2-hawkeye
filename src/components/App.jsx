@@ -68,6 +68,8 @@ export default function App() {
     const [deployProgressStatus, setDeployProgressStatus] = useState(null);
     /** @type {[object|null, React.Dispatch<object|null>]} deployment record being edited, or null */
     const [editingDeployment, setEditingDeployment] = useState(null);
+    /** @type {[string|null, React.Dispatch<string|null>]} git status --porcelain output when a deploy is waiting for confirmation */
+    const [deployConfirmChanges, setDeployConfirmChanges] = useState(null);
     const logRef = useRef(null);
     const autoStickRef = useRef(true);
     const prevLiveLinesLengthRef = useRef(0);
@@ -139,6 +141,13 @@ export default function App() {
                 } else if (type === "error") {
                     setError(data.error);
                 } else if (type === "deploy_progress") {
+                    if (data.status === 'confirm') {
+                        // Deployment is paused waiting for the user to approve discarding local changes.
+                        setDeployConfirmChanges(data.line);
+                    } else {
+                        // Any other progress clears a stale confirmation prompt.
+                        setDeployConfirmChanges(null);
+                    }
                     setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
                     setDeployProgressStage(data.stage);
                     setDeployProgressStatus(data.status);
@@ -367,6 +376,30 @@ export default function App() {
             setDeployProgressStatus('error');
         }
     }, [refreshCsrf]);
+
+    /**
+     * Resolve a pending deployment confirmation from the deploy progress view.
+     * Sends the user's decision (discard changes or cancel) to the server.
+     *
+     * @param {boolean} confirmed - True to discard local changes and continue; false to cancel.
+     */
+    const onConfirmDeploy = useCallback(async (confirmed) => {
+        if (!activeDeploymentId) return;
+        setDeployConfirmChanges(null);
+        try {
+            const freshToken = await refreshCsrf();
+            await fetchJson(`/api/deployments/${activeDeploymentId}/confirm`, {
+                method: 'POST',
+                headers: { 'X-CSRF-Token': freshToken, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ confirmed }),
+            });
+            await refreshCsrf();
+        } catch (err) {
+            setDeployProgressLines((prev) => [...prev, { stage: 'error', line: err.message, status: 'error' }]);
+            setDeployProgressStage('error');
+            setDeployProgressStatus('error');
+        }
+    }, [activeDeploymentId, refreshCsrf]);
 
     /**
      * Open the deploy modal in edit mode for the given PM2 process name.
@@ -656,7 +689,7 @@ export default function App() {
                 <DeployModal
                     csrfToken={csrfToken}
                     onCsrfRefresh={refreshCsrf}
-                    onClose={() => { setDeployOpen(false); setActiveDeploymentId(null); setEditingDeployment(null); }}
+                    onClose={() => { setDeployOpen(false); setActiveDeploymentId(null); setEditingDeployment(null); setDeployConfirmChanges(null); }}
                     onDeployStarted={onDeployStarted}
                     deployProgressLines={deployProgressLines}
                     deployProgressStage={deployProgressStage}
@@ -665,6 +698,8 @@ export default function App() {
                     editingDeployment={editingDeployment}
                     onEditSaved={onEditSaved}
                     onSaveAndRedeploy={onSaveAndRedeploy}
+                    confirmChanges={deployConfirmChanges}
+                    onConfirmDeploy={onConfirmDeploy}
                 />
             )}
         </div>
