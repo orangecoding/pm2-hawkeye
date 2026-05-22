@@ -1,0 +1,106 @@
+/* ── Host metrics bar ───────────────────────────────────────────────────── */
+
+/*
+ * The host-metrics-bar sits in the same CSS Grid row as .sidebar-header
+ * (grid-row 1 / grid-column 2).  Its height is fixed so the row stays compact
+ * (the cards otherwise grow the auto row well past the sidebar-header height);
+ * overflow:hidden keeps the inner flex content clipped to that height.
+ */
+
+.host-metrics-bar {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  height: 8.5rem;
+  padding: 0.75rem 1.25rem;
+  gap: 0.4rem;
+  border-bottom: 0.0625rem solid var(--border);
+  background: var(--bg-1);
+  min-width: 0;
+  overflow: hidden;
+
+  .eyebrow {
+    margin: 0;
+  }
+}
+
+/*
+ * Inner card grid — reuses .stat-card, .stat-label, .stat-value, and
+ * .sparkline-wrapper from stats.less so the host metrics look identical to
+ * the per-process Runtime metrics panel.
+ */
+
+.host-metrics-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.625rem;
+  flex: 1;
+  min-height: 0;
+
+  // Make each card a flex column so the sparkline fills the remaining height.
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0.625rem 0.875rem;
+
+    .stat-label {
+      margin-bottom: 0.15rem;
+    }
+
+    // The value carries a longer "XGB/YGB used (Z%)" string for RAM/Disk, so
+    // scale it down from the per-process 1.5rem and let it shrink on narrow
+    // viewports rather than forcing a wrap that would squeeze the sparkline.
+    .stat-value {
+      font-size: clamp(0.72rem, 1.3vw, 1rem);
+      line-height: 1.2;
+    }
+
+    // Negative side/bottom margins widen the chart toward the card edges while
+    // leaving a small (~0.375rem) gap.  No padding here on purpose: the wrapper
+    // box then equals the rendered SVG box, so the Sparkline's hover math (which
+    // measures this element) lines up exactly with what is drawn.
+    .sparkline-wrapper {
+      flex: 1;
+      min-height: 1.25rem;
+      position: relative;
+      margin: 0.25rem -0.5rem -0.375rem;
+      padding: 0;
+      cursor: crosshair;
+    }
+
+    .sparkline-placeholder {
+      flex: 1;
+      min-height: 1.25rem;
+      margin: 0.25rem -0.5rem -0.375rem;
+      padding: 0;
+      border-top: none;
+    }
+  }
+}
+
+@media (max-width: 70rem) {
+  .host-metrics-bar {
+    grid-column: 1;
+    grid-row: 3;
+    height: auto;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 47.5rem) {
+  .host-metrics-bar {
+    padding: 0.75rem 1rem;
+  }
+
+  .host-metrics-cards {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .host-metrics-cards {
+    gap: 0.375rem;
+  }
+}

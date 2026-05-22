@@ -12,15 +12,11 @@ import config from '../lib/config.js';
 
 /** Log in with the test credentials and return the session cookie + CSRF token. */
 async function getAuthSession() {
-  const loginRes = await request(app)
-    .post('/api/auth/login')
-    .send({ username: 'admin', password: 'admin' });
+  const loginRes = await request(app).post('/api/auth/login').send({ username: 'admin', password: 'admin' });
 
   const cookie = loginRes.headers['set-cookie'][0];
 
-  const sessionRes = await request(app)
-    .get('/api/auth/session')
-    .set('Cookie', cookie);
+  const sessionRes = await request(app).get('/api/auth/session').set('Cookie', cookie);
 
   return { cookie, csrfToken: sessionRes.body.csrfToken };
 }
@@ -50,9 +46,7 @@ describe('API Integration Tests', () => {
     });
 
     it('should return 401 for wrong credentials', async () => {
-      const res = await request(app)
-        .post('/api/auth/login')
-        .send({ username: 'admin', password: 'wrongpassword' });
+      const res = await request(app).post('/api/auth/login').send({ username: 'admin', password: 'wrongpassword' });
       expect(res.status).to.equal(401);
     });
 
@@ -101,10 +95,7 @@ describe('API Integration Tests', () => {
   describe('POST /api/auth/logout', () => {
     it('should return 403 when CSRF token is missing', async () => {
       const { cookie } = await getAuthSession();
-      const res = await request(app)
-        .post('/api/auth/logout')
-        .set('Cookie', cookie)
-        .send({});
+      const res = await request(app).post('/api/auth/logout').set('Cookie', cookie).send({});
       expect(res.status).to.equal(403);
     });
 
@@ -123,11 +114,26 @@ describe('API Integration Tests', () => {
   describe('Process ID validation', () => {
     it('should return 400 for an ID containing invalid characters', async () => {
       const { cookie } = await getAuthSession();
-      const res = await request(app)
-        .get('/api/processes/bad!!id')
-        .set('Cookie', cookie);
+      const res = await request(app).get('/api/processes/bad!!id').set('Cookie', cookie);
       expect(res.status).to.equal(400);
       expect(res.body.error).to.include('Invalid');
+    });
+  });
+
+  describe('GET /api/host-metrics', () => {
+    it('should return 401 when unauthenticated', async () => {
+      const res = await request(app).get('/api/host-metrics');
+      expect(res.status).to.equal(401);
+    });
+
+    it('should return samples array and current reading when authenticated', async () => {
+      const { cookie } = await getAuthSession();
+      const res = await request(app).get('/api/host-metrics').set('Cookie', cookie);
+      expect(res.status).to.equal(200);
+      expect(res.body).to.have.property('samples').that.is.an('array');
+      // `current` carries the latest used/total bytes; it is null until the
+      // scheduler has produced a reading (as in this test environment).
+      expect(res.body).to.have.property('current');
     });
   });
 });

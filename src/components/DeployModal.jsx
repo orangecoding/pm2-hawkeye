@@ -83,7 +83,11 @@ function Field({ label, hint, required, children }) {
     <div className="deploy-field">
       <label>
         {label}
-        {required && <span className="deploy-required" aria-label="required">*</span>}
+        {required && (
+          <span className="deploy-required" aria-label="required">
+            *
+          </span>
+        )}
       </label>
       {children}
       {hint && <p className="deploy-hint">{hint}</p>}
@@ -178,7 +182,6 @@ function pm2OptsFromStored(opts) {
  * the app name becomes read-only, and saving issues a PUT instead of a POST.
  *
  * @param {{
- *   csrfToken: string,
  *   onCsrfRefresh: () => Promise<string>,
  *   onDeployStarted: (id: string) => void,
  *   editingDeployment?: object | null,
@@ -186,7 +189,7 @@ function pm2OptsFromStored(opts) {
  *   onSaveAndRedeploy?: (deploymentId: string) => Promise<void>,
  * }} props
  */
-function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployment, onEditSaved, onSaveAndRedeploy }) {
+function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditSaved, onSaveAndRedeploy }) {
   const isEdit = Boolean(editingDeployment);
 
   const [appName, setAppName] = useState(() => editingDeployment?.pm2_name ?? '');
@@ -240,7 +243,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
       listen_timeout: Number(pm2Opts.listen_timeout) || 3000,
       min_uptime: pm2Opts.min_uptime ? Number(pm2Opts.min_uptime) : undefined,
       ignore_watch: pm2Opts.ignore_watch
-        ? pm2Opts.ignore_watch.split('\n').map((s) => s.trim()).filter(Boolean)
+        ? pm2Opts.ignore_watch
+            .split('\n')
+            .map((s) => s.trim())
+            .filter(Boolean)
         : ['node_modules'],
     };
     return {
@@ -254,7 +260,18 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
       envVars: envVarsObj,
       pm2Options,
     };
-  }, [envVars, pm2Opts, repoUrl, branch, startScript, installCmd, installArgs, buildCmd, preSetupScript, postSetupScript]);
+  }, [
+    envVars,
+    pm2Opts,
+    repoUrl,
+    branch,
+    startScript,
+    installCmd,
+    installArgs,
+    buildCmd,
+    preSetupScript,
+    postSetupScript,
+  ]);
 
   const onSubmit = useCallback(
     async (e) => {
@@ -316,7 +333,6 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
   return (
     <>
       <form id="deploy-form" className="deploy-modal-body" onSubmit={onSubmit}>
-
         {/* How it works -- shown only on new deployments */}
         {!isEdit && (
           <div className="deploy-how-it-works">
@@ -330,10 +346,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
               ))}
             </div>
             <p>
-              Hawkeye runs these steps on this server and streams all output in real time. Once done,
-              the process appears in the sidebar. A <strong>Redeploy</strong> button lets you run{' '}
-              <code>git pull</code> + restart at any time. Only public HTTPS repos are supported
-              out of the box -- for private repos the server needs an SSH key or credential helper.
+              Hawkeye runs these steps on this server and streams all output in real time. Once done, the process
+              appears in the sidebar. A <strong>Redeploy</strong> button lets you run <code>git pull</code> + restart at
+              any time. Only public HTTPS repos are supported out of the box -- for private repos the server needs an
+              SSH key or credential helper.
             </p>
           </div>
         )}
@@ -351,9 +367,11 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
           <Field
             label="App name"
             required={!isEdit}
-            hint={isEdit
-              ? 'The app name is tied to the deploy path and cannot be changed after initial deployment.'
-              : 'Unique PM2 process name. Used as the directory name under the deploy base path. Alphanumeric, dashes and underscores only, max 64 characters.'}
+            hint={
+              isEdit
+                ? 'The app name is tied to the deploy path and cannot be changed after initial deployment.'
+                : 'Unique PM2 process name. Used as the directory name under the deploy base path. Alphanumeric, dashes and underscores only, max 64 characters.'
+            }
           >
             <input
               className="settings-input"
@@ -366,7 +384,11 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
               onChange={isEdit ? undefined : (e) => setAppName(e.target.value)}
             />
           </Field>
-          <Field label="Repo URL" required hint="HTTPS URL (e.g. https://github.com/owner/repo) or SSH URL (e.g. git@github.com:owner/repo.git). For private repos the server needs an SSH key or credential helper configured.">
+          <Field
+            label="Repo URL"
+            required
+            hint="HTTPS URL (e.g. https://github.com/owner/repo) or SSH URL (e.g. git@github.com:owner/repo.git). For private repos the server needs an SSH key or credential helper configured."
+          >
             <input
               className="settings-input"
               type="text"
@@ -393,7 +415,11 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
           info="How PM2 should launch your application. The start script is the only required field here. All other fields default to standard Node.js settings."
           defaultOpen
         >
-          <Field label="Start script" required hint="Entry point relative to the repo root, e.g. src/server.js or dist/index.js.">
+          <Field
+            label="Start script"
+            required
+            hint="Entry point relative to the repo root, e.g. src/server.js or dist/index.js."
+          >
             <input
               className="settings-input"
               type="text"
@@ -404,7 +430,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             />
           </Field>
           <div className="deploy-two-col">
-            <Field label="Interpreter" hint="Runtime binary. Leave as 'node' for standard Node.js. Use an absolute path for a custom binary.">
+            <Field
+              label="Interpreter"
+              hint="Runtime binary. Leave as 'node' for standard Node.js. Use an absolute path for a custom binary."
+            >
               <input
                 className="settings-input"
                 type="text"
@@ -413,7 +442,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
                 onChange={(e) => setOpt('interpreter', e.target.value)}
               />
             </Field>
-            <Field label="Interpreter args" hint="Flags passed to Node.js before the script, e.g. --max-old-space-size=4096.">
+            <Field
+              label="Interpreter args"
+              hint="Flags passed to Node.js before the script, e.g. --max-old-space-size=4096."
+            >
               <input
                 className="settings-input"
                 type="text"
@@ -433,7 +465,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             />
           </Field>
           <div className="deploy-two-col">
-            <Field label="Exec mode" hint="fork: runs as a single process. cluster: uses Node.js cluster to spawn multiple workers sharing one port. Cluster requires your app to work with the cluster module.">
+            <Field
+              label="Exec mode"
+              hint="fork: runs as a single process. cluster: uses Node.js cluster to spawn multiple workers sharing one port. Cluster requires your app to work with the cluster module."
+            >
               <select
                 className="settings-select"
                 value={pm2Opts.exec_mode}
@@ -443,7 +478,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
                 <option value="cluster">cluster</option>
               </select>
             </Field>
-            <Field label="Instances" hint="Number of processes to launch. Set to -1 to use all available CPU cores. Values above 1 require cluster mode.">
+            <Field
+              label="Instances"
+              hint="Number of processes to launch. Set to -1 to use all available CPU cores. Values above 1 require cluster mode."
+            >
               <input
                 className="settings-input"
                 type="number"
@@ -461,11 +499,7 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
           info="Commands and scripts that run during the deployment sequence. Pre-setup runs before cloning (useful for system dependency checks). Post-setup runs after building and before PM2 start (useful for database migrations or file permissions). Both scripts have full shell access."
         >
           <Field label="Install command" hint="Package manager command run after cloning to install dependencies.">
-            <select
-              className="settings-select"
-              value={installCmd}
-              onChange={(e) => setInstallCmd(e.target.value)}
-            >
+            <select className="settings-select" value={installCmd} onChange={(e) => setInstallCmd(e.target.value)}>
               <option value="npm install">npm install</option>
               <option value="npm ci">npm ci (clean install, recommended for CI)</option>
               <option value="yarn">yarn</option>
@@ -475,7 +509,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             </select>
           </Field>
           {installCmd !== 'skip' && (
-            <Field label="Extra install flags" hint="Additional flags appended to the install command, e.g. --prod or --frozen-lockfile.">
+            <Field
+              label="Extra install flags"
+              hint="Additional flags appended to the install command, e.g. --prod or --frozen-lockfile."
+            >
               <input
                 className="settings-input"
                 type="text"
@@ -485,7 +522,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
               />
             </Field>
           )}
-          <Field label="Build command" hint="Optional build step after installing, e.g. npm run build or tsc. Leave blank to skip.">
+          <Field
+            label="Build command"
+            hint="Optional build step after installing, e.g. npm run build or tsc. Leave blank to skip."
+          >
             <input
               className="settings-input"
               type="text"
@@ -494,17 +534,25 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
               onChange={(e) => setBuildCmd(e.target.value)}
             />
           </Field>
-          <Field label="Pre-setup script" hint="Shell script run before cloning, in the deploy base directory. Use it to install system packages, check that required tools are available, or prepare the environment.">
+          <Field
+            label="Pre-setup script"
+            hint="Shell script run before cloning, in the deploy base directory. Use it to install system packages, check that required tools are available, or prepare the environment."
+          >
             <textarea
               className="settings-input"
               rows={4}
-              placeholder={'#!/bin/sh\n# e.g. check for required tools\nwhich ffmpeg || (echo "ffmpeg not found" && exit 1)'}
+              placeholder={
+                '#!/bin/sh\n# e.g. check for required tools\nwhich ffmpeg || (echo "ffmpeg not found" && exit 1)'
+              }
               value={preSetupScript}
               onChange={(e) => setPreSetupScript(e.target.value)}
               style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem', resize: 'vertical' }}
             />
           </Field>
-          <Field label="Post-setup script" hint="Shell script run after building, inside the cloned repo directory, before PM2 starts the process. Use it for database migrations, writing config files, or setting file permissions.">
+          <Field
+            label="Post-setup script"
+            hint="Shell script run after building, inside the cloned repo directory, before PM2 starts the process. Use it for database migrations, writing config files, or setting file permissions."
+          >
             <textarea
               className="settings-input"
               rows={4}
@@ -521,7 +569,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
           title="Environment"
           info="Variables injected into the process environment. You can point to a .env file already present in the repo, add explicit key-value pairs, or both. Explicit variables always take precedence over file values."
         >
-          <Field label="Env file" hint="Path to a .env file: relative to the repo root (e.g. .env.production) or absolute on the server (e.g. /etc/myapp/.env). Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored.">
+          <Field
+            label="Env file"
+            hint="Path to a .env file: relative to the repo root (e.g. .env.production) or absolute on the server (e.g. /etc/myapp/.env). Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored."
+          >
             <input
               className="settings-input"
               type="text"
@@ -532,7 +583,9 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
           </Field>
           <div className="deploy-field">
             <label>Environment variables</label>
-            <p className="deploy-hint">Explicit key-value pairs injected at start time. These override values loaded from the env file above.</p>
+            <p className="deploy-hint">
+              Explicit key-value pairs injected at start time. These override values loaded from the env file above.
+            </p>
             {envVars.map((row, i) => (
               <div className="env-var-row" key={i}>
                 <input
@@ -549,12 +602,19 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
                   value={row.value}
                   onChange={(e) => updateEnvVar(i, 'value', e.target.value)}
                 />
-                <button type="button" className="env-remove-btn" onClick={() => removeEnvVar(i)} aria-label="Remove variable">
+                <button
+                  type="button"
+                  className="env-remove-btn"
+                  onClick={() => removeEnvVar(i)}
+                  aria-label="Remove variable"
+                >
                   &times;
                 </button>
               </div>
             ))}
-            <button type="button" className="env-add-btn" onClick={addEnvVar}>+ Add variable</button>
+            <button type="button" className="env-add-btn" onClick={addEnvVar}>
+              + Add variable
+            </button>
           </div>
         </Section>
 
@@ -570,7 +630,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             onChange={(v) => setOpt('autorestart', v)}
           />
           <div className="deploy-two-col">
-            <Field label="Max memory restart" hint="Restart the process when its heap exceeds this value, e.g. 200M or 1G. Leave blank to disable memory-based restarts.">
+            <Field
+              label="Max memory restart"
+              hint="Restart the process when its heap exceeds this value, e.g. 200M or 1G. Leave blank to disable memory-based restarts."
+            >
               <input
                 className="settings-input"
                 type="text"
@@ -579,7 +642,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
                 onChange={(e) => setOpt('max_memory_restart', e.target.value)}
               />
             </Field>
-            <Field label="Max restarts" hint="Maximum consecutive restarts before PM2 considers the app errored and stops retrying. PM2 resets this counter after the process has been stable for min_uptime.">
+            <Field
+              label="Max restarts"
+              hint="Maximum consecutive restarts before PM2 considers the app errored and stops retrying. PM2 resets this counter after the process has been stable for min_uptime."
+            >
               <input
                 className="settings-input"
                 type="number"
@@ -590,7 +656,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             </Field>
           </div>
           <div className="deploy-two-col">
-            <Field label="Restart delay (ms)" hint="Milliseconds to wait between consecutive restart attempts. Use this to avoid hammering a downstream dependency on repeated crashes.">
+            <Field
+              label="Restart delay (ms)"
+              hint="Milliseconds to wait between consecutive restart attempts. Use this to avoid hammering a downstream dependency on repeated crashes."
+            >
               <input
                 className="settings-input"
                 type="number"
@@ -599,7 +668,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
                 onChange={(e) => setOpt('restart_delay', e.target.value)}
               />
             </Field>
-            <Field label="Min uptime (ms)" hint="Minimum time in ms the process must stay up to be counted as a stable start. If it exits before this threshold the restart counter increments. Leave blank for PM2 default.">
+            <Field
+              label="Min uptime (ms)"
+              hint="Minimum time in ms the process must stay up to be counted as a stable start. If it exits before this threshold the restart counter increments. Leave blank for PM2 default."
+            >
               <input
                 className="settings-input"
                 type="number"
@@ -611,7 +683,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             </Field>
           </div>
           <div className="deploy-two-col">
-            <Field label="Kill timeout (ms)" hint="Milliseconds PM2 waits for the process to exit after sending SIGINT before escalating to SIGKILL. Increase if your app needs more time for graceful shutdown.">
+            <Field
+              label="Kill timeout (ms)"
+              hint="Milliseconds PM2 waits for the process to exit after sending SIGINT before escalating to SIGKILL. Increase if your app needs more time for graceful shutdown."
+            >
               <input
                 className="settings-input"
                 type="number"
@@ -620,7 +695,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
                 onChange={(e) => setOpt('kill_timeout', e.target.value)}
               />
             </Field>
-            <Field label="Cron restart" hint="Schedule automatic restarts using a cron expression, e.g. 0 2 * * * restarts every night at 2 AM. Leave blank to disable.">
+            <Field
+              label="Cron restart"
+              hint="Schedule automatic restarts using a cron expression, e.g. 0 2 * * * restarts every night at 2 AM. Leave blank to disable."
+            >
               <input
                 className="settings-input"
                 type="text"
@@ -637,7 +715,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             onChange={(v) => setOpt('wait_ready', v)}
           />
           {pm2Opts.wait_ready && (
-            <Field label="Listen timeout (ms)" hint="Maximum milliseconds to wait for the ready signal. If the signal is not received within this time PM2 considers the start a failure.">
+            <Field
+              label="Listen timeout (ms)"
+              hint="Maximum milliseconds to wait for the ready signal. If the signal is not received within this time PM2 considers the start a failure."
+            >
               <input
                 className="settings-input"
                 type="number"
@@ -673,7 +754,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             onChange={(v) => setOpt('combine_logs', v)}
           />
           <div className="deploy-two-col">
-            <Field label="Stdout log file" hint="Custom absolute path for the stdout log. Leave blank to use the PM2 default (~/.pm2/logs/name-out.log).">
+            <Field
+              label="Stdout log file"
+              hint="Custom absolute path for the stdout log. Leave blank to use the PM2 default (~/.pm2/logs/name-out.log)."
+            >
               <input
                 className="settings-input"
                 type="text"
@@ -682,7 +766,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
                 onChange={(e) => setOpt('out_file', e.target.value)}
               />
             </Field>
-            <Field label="Stderr log file" hint="Custom absolute path for the stderr log. Leave blank to use the PM2 default (~/.pm2/logs/name-error.log).">
+            <Field
+              label="Stderr log file"
+              hint="Custom absolute path for the stderr log. Leave blank to use the PM2 default (~/.pm2/logs/name-error.log)."
+            >
               <input
                 className="settings-input"
                 type="text"
@@ -706,7 +793,10 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             onChange={(v) => setOpt('watch', v)}
           />
           {pm2Opts.watch && (
-            <Field label="Ignore watch patterns" hint="Files or directories to exclude from watching, one pattern per line. node_modules is excluded by default.">
+            <Field
+              label="Ignore watch patterns"
+              hint="Files or directories to exclude from watching, one pattern per line. node_modules is excluded by default."
+            >
               <textarea
                 className="settings-input"
                 rows={3}
@@ -730,22 +820,14 @@ function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployme
             onChange={(v) => setOpt('source_map_support', v)}
           />
         </Section>
-
       </form>
 
       <div className="deploy-action-row">
         <button type="submit" form="deploy-form" className="deploy-submit-btn" disabled={submitting}>
-          {submitting
-            ? (isEdit ? 'Saving...' : 'Starting deployment...')
-            : (isEdit ? 'Save changes' : 'Deploy')}
+          {submitting ? (isEdit ? 'Saving...' : 'Starting deployment...') : isEdit ? 'Save changes' : 'Deploy'}
         </button>
         {isEdit && (
-          <button
-            type="button"
-            className="deploy-redeploy-btn"
-            disabled={submitting}
-            onClick={onRedeployClick}
-          >
+          <button type="button" className="deploy-redeploy-btn" disabled={submitting} onClick={onRedeployClick}>
             {submitting ? 'Saving...' : 'Save & Redeploy'}
           </button>
         )}
@@ -807,8 +889,8 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose, c
         {isConfirming && confirmChanges && (
           <div className="deploy-confirm-box" ref={confirmRef}>
             <p className="deploy-confirm-msg">
-              The deploy directory has local changes that would prevent <code>git pull</code> from succeeding.
-              Discard them to continue, or cancel the deployment.
+              The deploy directory has local changes that would prevent <code>git pull</code> from succeeding. Discard
+              them to continue, or cancel the deployment.
             </p>
             <pre className="deploy-confirm-changes">{confirmChanges}</pre>
             <div className="deploy-confirm-actions">
@@ -845,7 +927,9 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose, c
 
       {(isDone || isError) && (
         <div className="deploy-action-row">
-          <button type="button" className="deploy-submit-btn" onClick={onClose}>Close</button>
+          <button type="button" className="deploy-submit-btn" onClick={onClose}>
+            Close
+          </button>
         </div>
       )}
     </>
@@ -904,9 +988,7 @@ export default function DeployModal({
   // Visible stages: always show clone/install/start; show pre/post/build only
   // if they actually appear in the received progress lines.
   const visibleStages = ALL_STAGES.filter(
-    (s) =>
-      s === 'clone' || s === 'install' || s === 'start' ||
-      (deployProgressLines || []).some((l) => l.stage === s),
+    (s) => s === 'clone' || s === 'install' || s === 'start' || (deployProgressLines || []).some((l) => l.stage === s),
   );
 
   let title = 'Deploy from GitHub';
@@ -919,7 +1001,9 @@ export default function DeployModal({
         <div className="deploy-modal-header">
           <h2>{title}</h2>
           {(!showProgress || isDoneOrError) && (
-            <button type="button" onClick={onClose}>Close</button>
+            <button type="button" onClick={onClose}>
+              Close
+            </button>
           )}
         </div>
 

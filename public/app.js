@@ -1333,7 +1333,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React17 = require_react(), Internals = {
+        var React18 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1351,7 +1351,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React17.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -2886,7 +2886,7 @@
           "number" === type && getActiveElement(node2.ownerDocument) === node2 || node2.defaultValue === "" + value || (node2.defaultValue = "" + value);
         }
         function validateOptionProps(element3, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React17.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React18.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -18518,14 +18518,14 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React17 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React18 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
         /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
         var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
         /* @__PURE__ */ Symbol.for("react.view_transition");
-        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React17.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21313,7 +21313,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React17.version;
+          var isomorphicReactPackageVersion = React18.version;
           if ("19.2.4" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.4\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21905,18 +21905,18 @@
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React17 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React17.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React18 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React17 = {
+        React18 = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React17.react_stack_bottom_frame.bind(
-          React17,
+        var unknownOwnerDebugStack = React18.react_stack_bottom_frame.bind(
+          React18,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -22052,11 +22052,11 @@
   });
 
   // src/main.jsx
-  var import_react17 = __toESM(require_react(), 1);
+  var import_react18 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // src/components/App.jsx
-  var import_react16 = __toESM(require_react(), 1);
+  var import_react17 = __toESM(require_react(), 1);
 
   // src/services/api.js
   async function fetchJson(url, options = {}) {
@@ -22136,12 +22136,22 @@
     if (s === "orphan") return "No longer running in PM2, but still tracked by Hawkeye";
     return `Status: ${status}`;
   }
-  function ProcessList({ processes, selectedProcessId, status, onSelect, onOpenSettings, onOpenDeploy, onToggleAlert, deployments = [], onEditDeployment, onRemoveOrphan, offlineDeployments = [], onDeleteDeployment }) {
-    const deployedNames = (0, import_react.useMemo)(
-      () => new Set(deployments.map((d) => d.pm2_name)),
-      [deployments]
-    );
-    return /* @__PURE__ */ import_react.default.createElement("aside", { className: "sidebar section-shell" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "PM2 Inventory"), /* @__PURE__ */ import_react.default.createElement("h1", null, "Command Center"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Monitor processes, inspect logs, and restart services.")), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-toolbar" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenSettings }, "Settings"), /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenDeploy }, "Deploy"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-status" }, status)), /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length === 0 && offlineDeployments.length === 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found.")), processes.map((proc) => {
+  function ProcessList({
+    processes,
+    selectedProcessId,
+    status,
+    onSelect,
+    onOpenSettings,
+    onOpenDeploy,
+    onToggleAlert,
+    deployments = [],
+    onEditDeployment,
+    onRemoveOrphan,
+    offlineDeployments = [],
+    onDeleteDeployment
+  }) {
+    const deployedNames = (0, import_react.useMemo)(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
+    return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-header" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "PM2 Inventory"), /* @__PURE__ */ import_react.default.createElement("h1", null, "Command Center"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Monitor processes, inspect logs, and restart services.")), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-toolbar" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenSettings }, "Settings"), /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenDeploy }, "Deploy"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-status" }, status))), /* @__PURE__ */ import_react.default.createElement("aside", { className: "sidebar-body section-shell" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length === 0 && offlineDeployments.length === 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found.")), processes.map((proc) => {
       const isSelected = String(proc.id ?? proc.name) === String(selectedProcessId);
       const monitoredClass = proc.isMonitored ? "monitored" : "";
       const orphanClass = proc.isOrphan ? "orphan" : "";
@@ -22180,7 +22190,15 @@
             title: statusTooltip(proc.status)
           }
         ))),
-        (proc.isMonitored || deployedNames.has(proc.name)) && /* @__PURE__ */ import_react.default.createElement("div", { className: "monitor-tag-row" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag", title: "Hawkeye is collecting and storing CPU/memory metrics and log entries for this process. History is available even after restarts." }, /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }), "Monitored"), deployedNames.has(proc.name) && /* @__PURE__ */ import_react.default.createElement(
+        (proc.isMonitored || deployedNames.has(proc.name)) && /* @__PURE__ */ import_react.default.createElement("div", { className: "monitor-tag-row" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement(
+          "span",
+          {
+            className: "monitor-tag",
+            title: "Hawkeye is collecting and storing CPU/memory metrics and log entries for this process. History is available even after restarts."
+          },
+          /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }),
+          "Monitored"
+        ), deployedNames.has(proc.name) && /* @__PURE__ */ import_react.default.createElement(
           "button",
           {
             className: "edit-deploy-btn",
@@ -22203,7 +22221,13 @@
             }
           },
           "Orphan (Remove)"
-        ) : /* @__PURE__ */ import_react.default.createElement("span", { title: statusTooltip(proc.status) }, `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`))
+        ) : /* @__PURE__ */ import_react.default.createElement(
+          "span",
+          {
+            title: statusTooltip(proc.status)
+          },
+          `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`
+        ))
       );
     }), offlineDeployments.length > 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-section" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-header" }, "Offline deployments"), offlineDeployments.map((dep) => /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-item", key: dep.id }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-title" }, dep.pm2_name), /* @__PURE__ */ import_react.default.createElement(
       "span",
@@ -22230,7 +22254,7 @@
         onClick: () => onDeleteDeployment(dep.id)
       },
       "Delete"
-    )))))));
+    ))))))));
   }
 
   // src/components/HeroCard.jsx
@@ -22360,10 +22384,27 @@
 
   // src/components/Sparkline.jsx
   var import_react5 = __toESM(require_react(), 1);
-  function Sparkline({ samples, width = 120, height = 32, color: color2 = "var(--accent)", formatValue }) {
+  function Sparkline({ samples, height = 32, color: color2 = "var(--accent)", formatValue }) {
     const wrapperRef = (0, import_react5.useRef)(null);
     const [tooltip, setTooltip] = (0, import_react5.useState)(null);
+    const [dims, setDims] = (0, import_react5.useState)({ w: 0, h: 0 });
+    (0, import_react5.useLayoutEffect)(() => {
+      const el = wrapperRef.current;
+      if (!el) return void 0;
+      const measure = () => {
+        const rect = el.getBoundingClientRect();
+        setDims((prev) => prev.w === rect.width && prev.h === rect.height ? prev : { w: rect.width, h: rect.height });
+      };
+      measure();
+      const ro = new ResizeObserver(measure);
+      ro.observe(el);
+      return () => ro.disconnect();
+    }, []);
+    const heightStyle = typeof height === "number" ? `${height}px` : height;
     if (!samples || samples.length < 2) return null;
+    const w = dims.w;
+    const h = dims.h;
+    const ready = w > 1 && h > 1;
     const tMin = samples[0].t;
     const tMax = samples[samples.length - 1].t;
     const tRange = tMax - tMin || 1;
@@ -22372,10 +22413,10 @@
     const vMax = Math.max(...vals);
     const vRange = vMax - vMin || 1;
     function xPos(t) {
-      return (t - tMin) / tRange * width;
+      return (t - tMin) / tRange * w;
     }
     function yPos(v) {
-      return height - (v - vMin) / vRange * (height - 2) - 1;
+      return h - (v - vMin) / vRange * (h - 2) - 1;
     }
     function toStepPoints(samps) {
       const result = [];
@@ -22390,7 +22431,7 @@
     const stepPoints = toStepPoints(samples);
     const points = stepPoints.map((s) => `${xPos(s.t).toFixed(2)},${yPos(s.v).toFixed(2)}`).join(" ");
     const lastX = xPos(stepPoints[stepPoints.length - 1].t).toFixed(2);
-    const areaPoints = `${points} ${lastX},${height} 0,${height}`;
+    const areaPoints = `${points} ${lastX},${h} 0,${h}`;
     function nearestSample(svgX) {
       let best = samples[0];
       let bestDist = Math.abs(xPos(samples[0].t) - svgX);
@@ -22404,14 +22445,13 @@
       return best;
     }
     function handleMouseMove(e) {
-      const wrapper = wrapperRef.current;
-      if (!wrapper) return;
-      const rect = wrapper.getBoundingClientRect();
+      const el = wrapperRef.current;
+      if (!el || !ready) return;
+      const rect = el.getBoundingClientRect();
       const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      const svgX = pct * width;
+      const svgX = pct * w;
       const s = nearestSample(svgX);
-      const sPct = xPos(s.t) / width;
-      setTooltip({ pct: sPct, svgX: xPos(s.t), svgY: yPos(s.v), v: s.v, t: s.t });
+      setTooltip({ pct: xPos(s.t) / w, svgX: xPos(s.t), svgY: yPos(s.v), v: s.v, t: s.t });
     }
     function handleMouseLeave() {
       setTooltip(null);
@@ -22419,60 +22459,51 @@
     const displayValue = tooltip ? formatValue ? formatValue(tooltip.v) : tooltip.v.toFixed(1) : null;
     const displayTime = tooltip ? new Date(tooltip.t).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : null;
     const tooltipShift = tooltip && tooltip.pct > 0.65 ? "translateX(-100%)" : "translateX(-50%)";
-    return /* @__PURE__ */ import_react5.default.createElement(
+    return /* @__PURE__ */ import_react5.default.createElement("div", { ref: wrapperRef, className: "sparkline-wrapper", onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave }, /* @__PURE__ */ import_react5.default.createElement(
+      "svg",
+      {
+        width: "100%",
+        height: heightStyle,
+        viewBox: `0 0 ${Math.max(w, 1)} ${Math.max(h, 1)}`,
+        preserveAspectRatio: "none",
+        "aria-hidden": "true",
+        className: "sparkline",
+        style: { display: "block", width: "100%", height: heightStyle }
+      },
+      ready && /* @__PURE__ */ import_react5.default.createElement(import_react5.default.Fragment, null, /* @__PURE__ */ import_react5.default.createElement("polygon", { points: areaPoints, fill: color2, opacity: "0.12" }), /* @__PURE__ */ import_react5.default.createElement(
+        "polyline",
+        {
+          points,
+          fill: "none",
+          stroke: color2,
+          strokeWidth: "1.5",
+          strokeLinejoin: "round",
+          strokeLinecap: "round",
+          vectorEffect: "non-scaling-stroke"
+        }
+      ), tooltip && /* @__PURE__ */ import_react5.default.createElement(import_react5.default.Fragment, null, /* @__PURE__ */ import_react5.default.createElement(
+        "line",
+        {
+          x1: tooltip.svgX.toFixed(2),
+          y1: "0",
+          x2: tooltip.svgX.toFixed(2),
+          y2: h,
+          stroke: color2,
+          strokeWidth: "0.75",
+          strokeDasharray: "2 2",
+          opacity: "0.5",
+          vectorEffect: "non-scaling-stroke"
+        }
+      ), /* @__PURE__ */ import_react5.default.createElement("circle", { cx: tooltip.svgX.toFixed(2), cy: tooltip.svgY.toFixed(2), r: "2.5", fill: color2 })))
+    ), ready && tooltip && /* @__PURE__ */ import_react5.default.createElement(
       "div",
       {
-        ref: wrapperRef,
-        className: "sparkline-wrapper",
-        onMouseMove: handleMouseMove,
-        onMouseLeave: handleMouseLeave
+        className: "sparkline-tooltip",
+        style: { left: `${(tooltip.pct * 100).toFixed(1)}%`, transform: tooltipShift }
       },
-      /* @__PURE__ */ import_react5.default.createElement(
-        "svg",
-        {
-          width,
-          height,
-          viewBox: `0 0 ${width} ${height}`,
-          "aria-hidden": "true",
-          className: "sparkline",
-          style: { display: "block", width: "100%", height: `${height}px` }
-        },
-        /* @__PURE__ */ import_react5.default.createElement("polygon", { points: areaPoints, fill: color2, opacity: "0.12" }),
-        /* @__PURE__ */ import_react5.default.createElement(
-          "polyline",
-          {
-            points,
-            fill: "none",
-            stroke: color2,
-            strokeWidth: "1.5",
-            strokeLinejoin: "round",
-            strokeLinecap: "round"
-          }
-        ),
-        tooltip && /* @__PURE__ */ import_react5.default.createElement(import_react5.default.Fragment, null, /* @__PURE__ */ import_react5.default.createElement(
-          "line",
-          {
-            x1: tooltip.svgX.toFixed(2),
-            y1: "0",
-            x2: tooltip.svgX.toFixed(2),
-            y2: height,
-            stroke: color2,
-            strokeWidth: "0.75",
-            strokeDasharray: "2 2",
-            opacity: "0.5"
-          }
-        ), /* @__PURE__ */ import_react5.default.createElement("circle", { cx: tooltip.svgX.toFixed(2), cy: tooltip.svgY.toFixed(2), r: "2.5", fill: color2 }))
-      ),
-      tooltip && /* @__PURE__ */ import_react5.default.createElement(
-        "div",
-        {
-          className: "sparkline-tooltip",
-          style: { left: `${(tooltip.pct * 100).toFixed(1)}%`, transform: tooltipShift }
-        },
-        /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-value" }, displayValue),
-        /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-time" }, displayTime)
-      )
-    );
+      /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-value" }, displayValue),
+      /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-time" }, displayTime)
+    ));
   }
 
   // src/components/StatsGrid.jsx
@@ -32801,7 +32832,7 @@
       ignore_watch: ignore2
     };
   }
-  function DeployForm({ csrfToken, onCsrfRefresh, onDeployStarted, editingDeployment, onEditSaved, onSaveAndRedeploy }) {
+  function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditSaved, onSaveAndRedeploy }) {
     const isEdit = Boolean(editingDeployment);
     const [appName, setAppName] = (0, import_react15.useState)(() => editingDeployment?.pm2_name ?? "");
     const [repoUrl, setRepoUrl] = (0, import_react15.useState)(() => editingDeployment?.repo_url ?? "");
@@ -32860,7 +32891,18 @@
         envVars: envVarsObj,
         pm2Options
       };
-    }, [envVars, pm2Opts, repoUrl, branch, startScript, installCmd, installArgs, buildCmd, preSetupScript, postSetupScript]);
+    }, [
+      envVars,
+      pm2Opts,
+      repoUrl,
+      branch,
+      startScript,
+      installCmd,
+      installArgs,
+      buildCmd,
+      preSetupScript,
+      postSetupScript
+    ]);
     const onSubmit = (0, import_react15.useCallback)(
       async (e) => {
         e.preventDefault();
@@ -32907,7 +32949,7 @@
         setSubmitting(false);
       }
     }, [editingDeployment, onCsrfRefresh, buildPayload, onSaveAndRedeploy]);
-    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("form", { id: "deploy-form", className: "deploy-modal-body", onSubmit }, !isEdit && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-it-works" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-title" }, "How deployment works"), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-steps" }, ["pre-setup", "git clone", "install", "build", "post-setup", "pm2 start"].map((s, i) => /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, { key: s }, i > 0 && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-how-arrow" }, "\u203A"), /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-how-step" }, s)))), /* @__PURE__ */ import_react15.default.createElement("p", null, "Hawkeye runs these steps on this server and streams all output in real time. Once done, the process appears in the sidebar. A ", /* @__PURE__ */ import_react15.default.createElement("strong", null, "Redeploy"), " button lets you run", " ", /* @__PURE__ */ import_react15.default.createElement("code", null, "git pull"), " + restart at any time. Only public HTTPS repos are supported out of the box -- for private repos the server needs an SSH key or credential helper.")), /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-required-note" }, "Fields marked ", /* @__PURE__ */ import_react15.default.createElement("span", null, "*"), " are required."), /* @__PURE__ */ import_react15.default.createElement(
+    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("form", { id: "deploy-form", className: "deploy-modal-body", onSubmit }, !isEdit && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-it-works" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-title" }, "How deployment works"), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-steps" }, ["pre-setup", "git clone", "install", "build", "post-setup", "pm2 start"].map((s, i) => /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, { key: s }, i > 0 && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-how-arrow" }, "\u203A"), /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-how-step" }, s)))), /* @__PURE__ */ import_react15.default.createElement("p", null, "Hawkeye runs these steps on this server and streams all output in real time. Once done, the process appears in the sidebar. A ", /* @__PURE__ */ import_react15.default.createElement("strong", null, "Redeploy"), " button lets you run ", /* @__PURE__ */ import_react15.default.createElement("code", null, "git pull"), " + restart at any time. Only public HTTPS repos are supported out of the box -- for private repos the server needs an SSH key or credential helper.")), /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-required-note" }, "Fields marked ", /* @__PURE__ */ import_react15.default.createElement("span", null, "*"), " are required."), /* @__PURE__ */ import_react15.default.createElement(
       Section,
       {
         title: "Repository",
@@ -32935,17 +32977,25 @@
           }
         )
       ),
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Repo URL", required: true, hint: "HTTPS URL (e.g. https://github.com/owner/repo) or SSH URL (e.g. git@github.com:owner/repo.git). For private repos the server needs an SSH key or credential helper configured." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+      /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
+          label: "Repo URL",
           required: true,
-          placeholder: "https://github.com/owner/repo or git@github.com:owner/repo.git",
-          value: repoUrl,
-          onChange: (e) => setRepoUrl(e.target.value)
-        }
-      )),
+          hint: "HTTPS URL (e.g. https://github.com/owner/repo) or SSH URL (e.g. git@github.com:owner/repo.git). For private repos the server needs an SSH key or credential helper configured."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            required: true,
+            placeholder: "https://github.com/owner/repo or git@github.com:owner/repo.git",
+            value: repoUrl,
+            onChange: (e) => setRepoUrl(e.target.value)
+          }
+        )
+      ),
       /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Branch", hint: "Git branch to clone and pull from on each redeploy." }, /* @__PURE__ */ import_react15.default.createElement(
         "input",
         {
@@ -32963,36 +33013,58 @@
         info: "How PM2 should launch your application. The start script is the only required field here. All other fields default to standard Node.js settings.",
         defaultOpen: true
       },
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Start script", required: true, hint: "Entry point relative to the repo root, e.g. src/server.js or dist/index.js." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+      /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
+          label: "Start script",
           required: true,
-          placeholder: "index.js",
-          value: startScript,
-          onChange: (e) => setStartScript(e.target.value)
-        }
+          hint: "Entry point relative to the repo root, e.g. src/server.js or dist/index.js."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            required: true,
+            placeholder: "index.js",
+            value: startScript,
+            onChange: (e) => setStartScript(e.target.value)
+          }
+        )
+      ),
+      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
+        Field,
+        {
+          label: "Interpreter",
+          hint: "Runtime binary. Leave as 'node' for standard Node.js. Use an absolute path for a custom binary."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "node",
+            value: pm2Opts.interpreter,
+            onChange: (e) => setOpt("interpreter", e.target.value)
+          }
+        )
+      ), /* @__PURE__ */ import_react15.default.createElement(
+        Field,
+        {
+          label: "Interpreter args",
+          hint: "Flags passed to Node.js before the script, e.g. --max-old-space-size=4096."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "--max-old-space-size=4096",
+            value: pm2Opts.interpreter_args,
+            onChange: (e) => setOpt("interpreter_args", e.target.value)
+          }
+        )
       )),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Interpreter", hint: "Runtime binary. Leave as 'node' for standard Node.js. Use an absolute path for a custom binary." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
-        {
-          className: "settings-input",
-          type: "text",
-          placeholder: "node",
-          value: pm2Opts.interpreter,
-          onChange: (e) => setOpt("interpreter", e.target.value)
-        }
-      )), /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Interpreter args", hint: "Flags passed to Node.js before the script, e.g. --max-old-space-size=4096." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
-        {
-          className: "settings-input",
-          type: "text",
-          placeholder: "--max-old-space-size=4096",
-          value: pm2Opts.interpreter_args,
-          onChange: (e) => setOpt("interpreter_args", e.target.value)
-        }
-      ))),
       /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Script args", hint: "CLI arguments forwarded to your application, e.g. --port 8080." }, /* @__PURE__ */ import_react15.default.createElement(
         "input",
         {
@@ -33003,103 +33075,139 @@
           onChange: (e) => setOpt("args", e.target.value)
         }
       )),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Exec mode", hint: "fork: runs as a single process. cluster: uses Node.js cluster to spawn multiple workers sharing one port. Cluster requires your app to work with the cluster module." }, /* @__PURE__ */ import_react15.default.createElement(
-        "select",
+      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-select",
-          value: pm2Opts.exec_mode,
-          onChange: (e) => setOpt("exec_mode", e.target.value)
+          label: "Exec mode",
+          hint: "fork: runs as a single process. cluster: uses Node.js cluster to spawn multiple workers sharing one port. Cluster requires your app to work with the cluster module."
         },
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "fork" }, "fork (default)"),
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "cluster" }, "cluster")
-      )), /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Instances", hint: "Number of processes to launch. Set to -1 to use all available CPU cores. Values above 1 require cluster mode." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+        /* @__PURE__ */ import_react15.default.createElement(
+          "select",
+          {
+            className: "settings-select",
+            value: pm2Opts.exec_mode,
+            onChange: (e) => setOpt("exec_mode", e.target.value)
+          },
+          /* @__PURE__ */ import_react15.default.createElement("option", { value: "fork" }, "fork (default)"),
+          /* @__PURE__ */ import_react15.default.createElement("option", { value: "cluster" }, "cluster")
+        )
+      ), /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "number",
-          min: "-1",
-          value: pm2Opts.instances,
-          onChange: (e) => setOpt("instances", e.target.value)
-        }
-      )))
+          label: "Instances",
+          hint: "Number of processes to launch. Set to -1 to use all available CPU cores. Values above 1 require cluster mode."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "number",
+            min: "-1",
+            value: pm2Opts.instances,
+            onChange: (e) => setOpt("instances", e.target.value)
+          }
+        )
+      ))
     ), /* @__PURE__ */ import_react15.default.createElement(
       Section,
       {
         title: "Setup",
         info: "Commands and scripts that run during the deployment sequence. Pre-setup runs before cloning (useful for system dependency checks). Post-setup runs after building and before PM2 start (useful for database migrations or file permissions). Both scripts have full shell access."
       },
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Install command", hint: "Package manager command run after cloning to install dependencies." }, /* @__PURE__ */ import_react15.default.createElement(
-        "select",
+      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Install command", hint: "Package manager command run after cloning to install dependencies." }, /* @__PURE__ */ import_react15.default.createElement("select", { className: "settings-select", value: installCmd, onChange: (e) => setInstallCmd(e.target.value) }, /* @__PURE__ */ import_react15.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "npm ci" }, "npm ci (clean install, recommended for CI)"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "skip" }, "Skip (no install)"))),
+      installCmd !== "skip" && /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-select",
-          value: installCmd,
-          onChange: (e) => setInstallCmd(e.target.value)
+          label: "Extra install flags",
+          hint: "Additional flags appended to the install command, e.g. --prod or --frozen-lockfile."
         },
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "npm install" }, "npm install"),
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "npm ci" }, "npm ci (clean install, recommended for CI)"),
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "yarn" }, "yarn"),
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "yarn install" }, "yarn install"),
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "pnpm install" }, "pnpm install"),
-        /* @__PURE__ */ import_react15.default.createElement("option", { value: "skip" }, "Skip (no install)")
-      )),
-      installCmd !== "skip" && /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Extra install flags", hint: "Additional flags appended to the install command, e.g. --prod or --frozen-lockfile." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "e.g. --prod",
+            value: installArgs,
+            onChange: (e) => setInstallArgs(e.target.value)
+          }
+        )
+      ),
+      /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
-          placeholder: "e.g. --prod",
-          value: installArgs,
-          onChange: (e) => setInstallArgs(e.target.value)
-        }
-      )),
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Build command", hint: "Optional build step after installing, e.g. npm run build or tsc. Leave blank to skip." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+          label: "Build command",
+          hint: "Optional build step after installing, e.g. npm run build or tsc. Leave blank to skip."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "npm run build",
+            value: buildCmd,
+            onChange: (e) => setBuildCmd(e.target.value)
+          }
+        )
+      ),
+      /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
-          placeholder: "npm run build",
-          value: buildCmd,
-          onChange: (e) => setBuildCmd(e.target.value)
-        }
-      )),
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Pre-setup script", hint: "Shell script run before cloning, in the deploy base directory. Use it to install system packages, check that required tools are available, or prepare the environment." }, /* @__PURE__ */ import_react15.default.createElement(
-        "textarea",
+          label: "Pre-setup script",
+          hint: "Shell script run before cloning, in the deploy base directory. Use it to install system packages, check that required tools are available, or prepare the environment."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "textarea",
+          {
+            className: "settings-input",
+            rows: 4,
+            placeholder: '#!/bin/sh\n# e.g. check for required tools\nwhich ffmpeg || (echo "ffmpeg not found" && exit 1)',
+            value: preSetupScript,
+            onChange: (e) => setPreSetupScript(e.target.value),
+            style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
+          }
+        )
+      ),
+      /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          rows: 4,
-          placeholder: '#!/bin/sh\n# e.g. check for required tools\nwhich ffmpeg || (echo "ffmpeg not found" && exit 1)',
-          value: preSetupScript,
-          onChange: (e) => setPreSetupScript(e.target.value),
-          style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
-        }
-      )),
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Post-setup script", hint: "Shell script run after building, inside the cloned repo directory, before PM2 starts the process. Use it for database migrations, writing config files, or setting file permissions." }, /* @__PURE__ */ import_react15.default.createElement(
-        "textarea",
-        {
-          className: "settings-input",
-          rows: 4,
-          placeholder: "#!/bin/sh\n# e.g. run database migrations\nnode scripts/migrate.js",
-          value: postSetupScript,
-          onChange: (e) => setPostSetupScript(e.target.value),
-          style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
-        }
-      ))
+          label: "Post-setup script",
+          hint: "Shell script run after building, inside the cloned repo directory, before PM2 starts the process. Use it for database migrations, writing config files, or setting file permissions."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "textarea",
+          {
+            className: "settings-input",
+            rows: 4,
+            placeholder: "#!/bin/sh\n# e.g. run database migrations\nnode scripts/migrate.js",
+            value: postSetupScript,
+            onChange: (e) => setPostSetupScript(e.target.value),
+            style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
+          }
+        )
+      )
     ), /* @__PURE__ */ import_react15.default.createElement(
       Section,
       {
         title: "Environment",
         info: "Variables injected into the process environment. You can point to a .env file already present in the repo, add explicit key-value pairs, or both. Explicit variables always take precedence over file values."
       },
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Env file", hint: "Path to a .env file: relative to the repo root (e.g. .env.production) or absolute on the server (e.g. /etc/myapp/.env). Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+      /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
-          placeholder: ".env.production",
-          value: pm2Opts.env_file,
-          onChange: (e) => setOpt("env_file", e.target.value)
-        }
-      )),
+          label: "Env file",
+          hint: "Path to a .env file: relative to the repo root (e.g. .env.production) or absolute on the server (e.g. /etc/myapp/.env). Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: ".env.production",
+            value: pm2Opts.env_file,
+            onChange: (e) => setOpt("env_file", e.target.value)
+          }
+        )
+      ),
       /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-field" }, /* @__PURE__ */ import_react15.default.createElement("label", null, "Environment variables"), /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-hint" }, "Explicit key-value pairs injected at start time. These override values loaded from the env file above."), envVars.map((row, i) => /* @__PURE__ */ import_react15.default.createElement("div", { className: "env-var-row", key: i }, /* @__PURE__ */ import_react15.default.createElement(
         "input",
         {
@@ -33118,7 +33226,16 @@
           value: row.value,
           onChange: (e) => updateEnvVar(i, "value", e.target.value)
         }
-      ), /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "env-remove-btn", onClick: () => removeEnvVar(i), "aria-label": "Remove variable" }, "\xD7"))), /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "env-add-btn", onClick: addEnvVar }, "+ Add variable"))
+      ), /* @__PURE__ */ import_react15.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "env-remove-btn",
+          onClick: () => removeEnvVar(i),
+          "aria-label": "Remove variable"
+        },
+        "\xD7"
+      ))), /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "env-add-btn", onClick: addEnvVar }, "+ Add variable"))
     ), /* @__PURE__ */ import_react15.default.createElement(
       Section,
       {
@@ -33134,64 +33251,106 @@
           onChange: (v) => setOpt("autorestart", v)
         }
       ),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Max memory restart", hint: "Restart the process when its heap exceeds this value, e.g. 200M or 1G. Leave blank to disable memory-based restarts." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
-          placeholder: "200M",
-          value: pm2Opts.max_memory_restart,
-          onChange: (e) => setOpt("max_memory_restart", e.target.value)
-        }
-      )), /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Max restarts", hint: "Maximum consecutive restarts before PM2 considers the app errored and stops retrying. PM2 resets this counter after the process has been stable for min_uptime." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+          label: "Max memory restart",
+          hint: "Restart the process when its heap exceeds this value, e.g. 200M or 1G. Leave blank to disable memory-based restarts."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "200M",
+            value: pm2Opts.max_memory_restart,
+            onChange: (e) => setOpt("max_memory_restart", e.target.value)
+          }
+        )
+      ), /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.max_restarts,
-          onChange: (e) => setOpt("max_restarts", e.target.value)
-        }
-      ))),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Restart delay (ms)", hint: "Milliseconds to wait between consecutive restart attempts. Use this to avoid hammering a downstream dependency on repeated crashes." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+          label: "Max restarts",
+          hint: "Maximum consecutive restarts before PM2 considers the app errored and stops retrying. PM2 resets this counter after the process has been stable for min_uptime."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.max_restarts,
+            onChange: (e) => setOpt("max_restarts", e.target.value)
+          }
+        )
+      )),
+      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.restart_delay,
-          onChange: (e) => setOpt("restart_delay", e.target.value)
-        }
-      )), /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Min uptime (ms)", hint: "Minimum time in ms the process must stay up to be counted as a stable start. If it exits before this threshold the restart counter increments. Leave blank for PM2 default." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+          label: "Restart delay (ms)",
+          hint: "Milliseconds to wait between consecutive restart attempts. Use this to avoid hammering a downstream dependency on repeated crashes."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.restart_delay,
+            onChange: (e) => setOpt("restart_delay", e.target.value)
+          }
+        )
+      ), /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "number",
-          min: "0",
-          placeholder: "1000",
-          value: pm2Opts.min_uptime,
-          onChange: (e) => setOpt("min_uptime", e.target.value)
-        }
-      ))),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Kill timeout (ms)", hint: "Milliseconds PM2 waits for the process to exit after sending SIGINT before escalating to SIGKILL. Increase if your app needs more time for graceful shutdown." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+          label: "Min uptime (ms)",
+          hint: "Minimum time in ms the process must stay up to be counted as a stable start. If it exits before this threshold the restart counter increments. Leave blank for PM2 default."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "number",
+            min: "0",
+            placeholder: "1000",
+            value: pm2Opts.min_uptime,
+            onChange: (e) => setOpt("min_uptime", e.target.value)
+          }
+        )
+      )),
+      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.kill_timeout,
-          onChange: (e) => setOpt("kill_timeout", e.target.value)
-        }
-      )), /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Cron restart", hint: "Schedule automatic restarts using a cron expression, e.g. 0 2 * * * restarts every night at 2 AM. Leave blank to disable." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+          label: "Kill timeout (ms)",
+          hint: "Milliseconds PM2 waits for the process to exit after sending SIGINT before escalating to SIGKILL. Increase if your app needs more time for graceful shutdown."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.kill_timeout,
+            onChange: (e) => setOpt("kill_timeout", e.target.value)
+          }
+        )
+      ), /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
-          placeholder: "0 2 * * *",
-          value: pm2Opts.cron_restart,
-          onChange: (e) => setOpt("cron_restart", e.target.value)
-        }
-      ))),
+          label: "Cron restart",
+          hint: "Schedule automatic restarts using a cron expression, e.g. 0 2 * * * restarts every night at 2 AM. Leave blank to disable."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "0 2 * * *",
+            value: pm2Opts.cron_restart,
+            onChange: (e) => setOpt("cron_restart", e.target.value)
+          }
+        )
+      )),
       /* @__PURE__ */ import_react15.default.createElement(
         Toggle,
         {
@@ -33201,16 +33360,23 @@
           onChange: (v) => setOpt("wait_ready", v)
         }
       ),
-      pm2Opts.wait_ready && /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Listen timeout (ms)", hint: "Maximum milliseconds to wait for the ready signal. If the signal is not received within this time PM2 considers the start a failure." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+      pm2Opts.wait_ready && /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.listen_timeout,
-          onChange: (e) => setOpt("listen_timeout", e.target.value)
-        }
-      )),
+          label: "Listen timeout (ms)",
+          hint: "Maximum milliseconds to wait for the ready signal. If the signal is not received within this time PM2 considers the start a failure."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.listen_timeout,
+            onChange: (e) => setOpt("listen_timeout", e.target.value)
+          }
+        )
+      ),
       /* @__PURE__ */ import_react15.default.createElement(
         Toggle,
         {
@@ -33244,25 +33410,39 @@
           onChange: (v) => setOpt("combine_logs", v)
         }
       ),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Stdout log file", hint: "Custom absolute path for the stdout log. Leave blank to use the PM2 default (~/.pm2/logs/name-out.log)." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
-          placeholder: "/var/log/my-app/out.log",
-          value: pm2Opts.out_file,
-          onChange: (e) => setOpt("out_file", e.target.value)
-        }
-      )), /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Stderr log file", hint: "Custom absolute path for the stderr log. Leave blank to use the PM2 default (~/.pm2/logs/name-error.log)." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
+          label: "Stdout log file",
+          hint: "Custom absolute path for the stdout log. Leave blank to use the PM2 default (~/.pm2/logs/name-out.log)."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "/var/log/my-app/out.log",
+            value: pm2Opts.out_file,
+            onChange: (e) => setOpt("out_file", e.target.value)
+          }
+        )
+      ), /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          type: "text",
-          placeholder: "/var/log/my-app/error.log",
-          value: pm2Opts.error_file,
-          onChange: (e) => setOpt("error_file", e.target.value)
-        }
-      )))
+          label: "Stderr log file",
+          hint: "Custom absolute path for the stderr log. Leave blank to use the PM2 default (~/.pm2/logs/name-error.log)."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "input",
+          {
+            className: "settings-input",
+            type: "text",
+            placeholder: "/var/log/my-app/error.log",
+            value: pm2Opts.error_file,
+            onChange: (e) => setOpt("error_file", e.target.value)
+          }
+        )
+      ))
     ), /* @__PURE__ */ import_react15.default.createElement(
       Section,
       {
@@ -33278,16 +33458,23 @@
           onChange: (v) => setOpt("watch", v)
         }
       ),
-      pm2Opts.watch && /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Ignore watch patterns", hint: "Files or directories to exclude from watching, one pattern per line. node_modules is excluded by default." }, /* @__PURE__ */ import_react15.default.createElement(
-        "textarea",
+      pm2Opts.watch && /* @__PURE__ */ import_react15.default.createElement(
+        Field,
         {
-          className: "settings-input",
-          rows: 3,
-          value: pm2Opts.ignore_watch,
-          onChange: (e) => setOpt("ignore_watch", e.target.value),
-          style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
-        }
-      ))
+          label: "Ignore watch patterns",
+          hint: "Files or directories to exclude from watching, one pattern per line. node_modules is excluded by default."
+        },
+        /* @__PURE__ */ import_react15.default.createElement(
+          "textarea",
+          {
+            className: "settings-input",
+            rows: 3,
+            value: pm2Opts.ignore_watch,
+            onChange: (e) => setOpt("ignore_watch", e.target.value),
+            style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
+          }
+        )
+      )
     ), /* @__PURE__ */ import_react15.default.createElement(
       Section,
       {
@@ -33303,16 +33490,7 @@
           onChange: (v) => setOpt("source_map_support", v)
         }
       )
-    )), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "submit", form: "deploy-form", className: "deploy-submit-btn", disabled: submitting }, submitting ? isEdit ? "Saving..." : "Starting deployment..." : isEdit ? "Save changes" : "Deploy"), isEdit && /* @__PURE__ */ import_react15.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "deploy-redeploy-btn",
-        disabled: submitting,
-        onClick: onRedeployClick
-      },
-      submitting ? "Saving..." : "Save & Redeploy"
-    ), error && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-error-msg" }, error)));
+    )), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "submit", form: "deploy-form", className: "deploy-submit-btn", disabled: submitting }, submitting ? isEdit ? "Saving..." : "Starting deployment..." : isEdit ? "Save changes" : "Deploy"), isEdit && /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-redeploy-btn", disabled: submitting, onClick: onRedeployClick }, submitting ? "Saving..." : "Save & Redeploy"), error && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-error-msg" }, error)));
   }
   function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
     const logRef = (0, import_react15.useRef)(null);
@@ -33379,6 +33557,53 @@
     )));
   }
 
+  // src/components/HostMetrics.jsx
+  var import_react16 = __toESM(require_react(), 1);
+  function formatGb(bytes) {
+    if (typeof bytes !== "number" || !isFinite(bytes)) return null;
+    const gb = bytes / 1024 ** 3;
+    return gb >= 10 ? String(Math.round(gb)) : gb.toFixed(1);
+  }
+  function byteValue(used, total, percent) {
+    const usedGb = formatGb(used);
+    const totalGb = formatGb(total);
+    if (usedGb == null || totalGb == null) {
+      return percent != null ? `${percent.toFixed(1)}%` : "\u2014";
+    }
+    const pct = percent != null ? ` (${percent.toFixed(1)}%)` : "";
+    return `${usedGb}GB/${totalGb}GB used${pct}`;
+  }
+  function HostMetrics({ samples = [], current = null }) {
+    const latest = samples.length > 0 ? samples[samples.length - 1] : null;
+    const cpuPct = current?.cpu ?? latest?.cpu ?? null;
+    const ramPct = current?.ram ?? latest?.ram ?? null;
+    const diskPct = current?.disk ?? latest?.disk ?? null;
+    const cards = [
+      {
+        label: "CPU",
+        value: cpuPct != null ? `${cpuPct.toFixed(1)}%` : "\u2014",
+        samples: samples.map((s) => ({ t: s.sampled_at, v: s.cpu })),
+        color: "var(--accent)",
+        formatValue: (v) => `${v.toFixed(1)}%`
+      },
+      {
+        label: "RAM",
+        value: byteValue(current?.ramUsed, current?.ramTotal, ramPct),
+        samples: samples.map((s) => ({ t: s.sampled_at, v: s.ram })),
+        color: "var(--success)",
+        formatValue: (v) => `${v.toFixed(1)}%`
+      },
+      {
+        label: "Disk",
+        value: byteValue(current?.diskUsed, current?.diskTotal, diskPct),
+        samples: samples.map((s) => ({ t: s.sampled_at, v: s.disk })),
+        color: "var(--info)",
+        formatValue: (v) => `${v.toFixed(1)}%`
+      }
+    ];
+    return /* @__PURE__ */ import_react16.default.createElement("div", { className: "host-metrics-bar" }, /* @__PURE__ */ import_react16.default.createElement("p", { className: "eyebrow" }, "Host"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "host-metrics-cards" }, cards.map((card) => /* @__PURE__ */ import_react16.default.createElement("div", { className: "stat-card", key: card.label }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "stat-label" }, card.label), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "stat-value" }, card.value), card.samples.length >= 2 ? /* @__PURE__ */ import_react16.default.createElement(Sparkline, { samples: card.samples, formatValue: card.formatValue, color: card.color, height: "100%" }) : /* @__PURE__ */ import_react16.default.createElement("div", { className: "sparkline-placeholder" }, /* @__PURE__ */ import_react16.default.createElement("span", null, "No data yet"))))));
+  }
+
   // src/components/App.jsx
   function convertEntriesToLines(entries) {
     return entries.slice().reverse().flatMap((entry) => {
@@ -33392,37 +33617,39 @@
     });
   }
   function App() {
-    const [csrfToken, setCsrfToken] = (0, import_react16.useState)(null);
-    const [processes, setProcesses] = (0, import_react16.useState)([]);
-    const [selectedProcessId, setSelectedProcessId] = (0, import_react16.useState)(null);
-    const [details, setDetails] = (0, import_react16.useState)(null);
-    const [processListStatus, setProcessListStatus] = (0, import_react16.useState)("Loading processes\u2026");
-    const [error, setError] = (0, import_react16.useState)("");
-    const [wsConnected, setWsConnected] = (0, import_react16.useState)(false);
-    const [appVersion, setAppVersion] = (0, import_react16.useState)(null);
-    const [liveLines, setLiveLines] = (0, import_react16.useState)([]);
-    const [actions, setActions] = (0, import_react16.useState)([]);
-    const [metricsHistory, setMetricsHistory] = (0, import_react16.useState)([]);
-    const [storedLogs, setStoredLogs] = (0, import_react16.useState)([]);
-    const [storedLogsReady, setStoredLogsReady] = (0, import_react16.useState)(false);
-    const [unreadLogCount, setUnreadLogCount] = (0, import_react16.useState)(0);
-    const [metricsRetentionMs, setMetricsRetentionMs] = (0, import_react16.useState)(864e5);
-    const [logsRetentionMs, setLogsRetentionMs] = (0, import_react16.useState)(14 * 24 * 60 * 60 * 1e3);
-    const [settingsOpen, setSettingsOpen] = (0, import_react16.useState)(false);
-    const [appConfig, setAppConfig] = (0, import_react16.useState)(null);
-    const [deployOpen, setDeployOpen] = (0, import_react16.useState)(false);
-    const [deployments, setDeployments] = (0, import_react16.useState)([]);
-    const [activeDeploymentId, setActiveDeploymentId] = (0, import_react16.useState)(null);
-    const [deployProgressLines, setDeployProgressLines] = (0, import_react16.useState)([]);
-    const [deployProgressStage, setDeployProgressStage] = (0, import_react16.useState)(null);
-    const [deployProgressStatus, setDeployProgressStatus] = (0, import_react16.useState)(null);
-    const [editingDeployment, setEditingDeployment] = (0, import_react16.useState)(null);
-    const [deployConfirmChanges, setDeployConfirmChanges] = (0, import_react16.useState)(null);
-    const logRef = (0, import_react16.useRef)(null);
-    const autoStickRef = (0, import_react16.useRef)(true);
-    const prevLiveLinesLengthRef = (0, import_react16.useRef)(0);
-    const wsRef = (0, import_react16.useRef)(null);
-    const loadProcesses = (0, import_react16.useCallback)(async () => {
+    const [csrfToken, setCsrfToken] = (0, import_react17.useState)(null);
+    const [processes, setProcesses] = (0, import_react17.useState)([]);
+    const [selectedProcessId, setSelectedProcessId] = (0, import_react17.useState)(null);
+    const [details, setDetails] = (0, import_react17.useState)(null);
+    const [processListStatus, setProcessListStatus] = (0, import_react17.useState)("Loading processes\u2026");
+    const [error, setError] = (0, import_react17.useState)("");
+    const [wsConnected, setWsConnected] = (0, import_react17.useState)(false);
+    const [appVersion, setAppVersion] = (0, import_react17.useState)(null);
+    const [liveLines, setLiveLines] = (0, import_react17.useState)([]);
+    const [actions, setActions] = (0, import_react17.useState)([]);
+    const [metricsHistory, setMetricsHistory] = (0, import_react17.useState)([]);
+    const [hostMetrics, setHostMetrics] = (0, import_react17.useState)([]);
+    const [hostCurrent, setHostCurrent] = (0, import_react17.useState)(null);
+    const [storedLogs, setStoredLogs] = (0, import_react17.useState)([]);
+    const [storedLogsReady, setStoredLogsReady] = (0, import_react17.useState)(false);
+    const [unreadLogCount, setUnreadLogCount] = (0, import_react17.useState)(0);
+    const [metricsRetentionMs, setMetricsRetentionMs] = (0, import_react17.useState)(864e5);
+    const [logsRetentionMs, setLogsRetentionMs] = (0, import_react17.useState)(14 * 24 * 60 * 60 * 1e3);
+    const [settingsOpen, setSettingsOpen] = (0, import_react17.useState)(false);
+    const [appConfig, setAppConfig] = (0, import_react17.useState)(null);
+    const [deployOpen, setDeployOpen] = (0, import_react17.useState)(false);
+    const [deployments, setDeployments] = (0, import_react17.useState)([]);
+    const [activeDeploymentId, setActiveDeploymentId] = (0, import_react17.useState)(null);
+    const [deployProgressLines, setDeployProgressLines] = (0, import_react17.useState)([]);
+    const [deployProgressStage, setDeployProgressStage] = (0, import_react17.useState)(null);
+    const [deployProgressStatus, setDeployProgressStatus] = (0, import_react17.useState)(null);
+    const [editingDeployment, setEditingDeployment] = (0, import_react17.useState)(null);
+    const [deployConfirmChanges, setDeployConfirmChanges] = (0, import_react17.useState)(null);
+    const logRef = (0, import_react17.useRef)(null);
+    const autoStickRef = (0, import_react17.useRef)(true);
+    const prevLiveLinesLengthRef = (0, import_react17.useRef)(0);
+    const wsRef = (0, import_react17.useRef)(null);
+    const loadProcesses = (0, import_react17.useCallback)(async () => {
       setProcessListStatus("Loading processes\u2026");
       try {
         const payload = await fetchJson("/api/processes");
@@ -33438,21 +33665,32 @@
         setError(loadError.message);
       }
     }, []);
-    const loadDeployments = (0, import_react16.useCallback)(() => {
+    const loadDeployments = (0, import_react17.useCallback)(() => {
       fetchJson("/api/deployments").then((payload) => setDeployments(payload.deployments || [])).catch(() => {
       });
     }, []);
-    (0, import_react16.useEffect)(() => {
+    const loadHostMetrics = (0, import_react17.useCallback)(() => {
+      fetchJson("/api/host-metrics").then((payload) => {
+        setHostMetrics(payload.samples || []);
+        setHostCurrent(payload.current || null);
+      }).catch(() => {
+      });
+    }, []);
+    (0, import_react17.useEffect)(() => {
       fetchJson("/api/auth/session").then((payload) => {
         setCsrfToken(payload.csrfToken);
         if (payload.version) setAppVersion(payload.version);
         if (payload.metricsRetentionMs) setMetricsRetentionMs(payload.metricsRetentionMs);
         if (payload.logsRetentionMs) setLogsRetentionMs(payload.logsRetentionMs);
         if (payload.config) setAppConfig(payload.config);
-        return Promise.all([loadProcesses(), loadDeployments()]);
+        return Promise.all([loadProcesses(), loadDeployments(), loadHostMetrics()]);
       }).catch((sessionError) => setError(sessionError.message));
-    }, [loadProcesses, loadDeployments]);
-    (0, import_react16.useEffect)(() => {
+    }, [loadProcesses, loadDeployments, loadHostMetrics]);
+    (0, import_react17.useEffect)(() => {
+      const interval = setInterval(loadHostMetrics, 2e4);
+      return () => clearInterval(interval);
+    }, [loadHostMetrics]);
+    (0, import_react17.useEffect)(() => {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const ws = new WebSocket(`${protocol}//${window.location.host}/ws/stream`);
       wsRef.current = ws;
@@ -33471,6 +33709,7 @@
             setSelectedProcessId(
               (prev) => data.items.some((item) => String(item.id ?? item.name) === String(prev)) ? prev : data.items[0]?.id ?? data.items[0]?.name ?? null
             );
+            if (data.hostCurrent !== void 0) setHostCurrent(data.hostCurrent);
           } else if (type === "details") {
             setDetails(data);
           } else if (type === "snapshot") {
@@ -33500,23 +33739,23 @@
         wsRef.current = null;
       };
     }, []);
-    const selectedProcess = (0, import_react16.useMemo)(
+    const selectedProcess = (0, import_react17.useMemo)(
       () => processes.find((item) => String(item.id ?? item.name) === String(selectedProcessId)) || null,
       [processes, selectedProcessId]
     );
     const isSelectedMonitored = selectedProcess?.isMonitored ?? false;
-    const selectedDeployment = (0, import_react16.useMemo)(
+    const selectedDeployment = (0, import_react17.useMemo)(
       () => deployments.find((d) => d.pm2_name === selectedProcess?.name) ?? null,
       [deployments, selectedProcess]
     );
-    const offlineDeployments = (0, import_react16.useMemo)(() => {
+    const offlineDeployments = (0, import_react17.useMemo)(() => {
       const runningNames = new Set(processes.map((p) => p.name));
       return deployments.filter((d) => !runningNames.has(d.pm2_name)).map((d) => ({
         ...d,
         displayStatus: d.deploying ? "deploying" : d.last_deployed_at == null ? "broken" : "offline"
       }));
     }, [deployments, processes]);
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       setStoredLogsReady(false);
       if (selectedProcessId === null || selectedProcessId === void 0) {
         setStoredLogs([]);
@@ -33531,7 +33770,7 @@
         setStoredLogsReady(true);
       });
     }, [selectedProcessId]);
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       setDetails(null);
       setLiveLines([]);
       setActions([]);
@@ -33549,7 +33788,7 @@
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => setMetricsHistory([]));
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`).then((payload) => setActions(payload.actions || [])).catch(() => setActions([]));
     }, [selectedProcessId, wsConnected]);
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0 || !isSelectedMonitored) return;
       const interval = setInterval(() => {
         fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => {
@@ -33557,7 +33796,7 @@
       }, 2e4);
       return () => clearInterval(interval);
     }, [selectedProcessId, isSelectedMonitored]);
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       const container = logRef.current;
       if (!container) return;
       const onScroll = () => {
@@ -33566,20 +33805,20 @@
       container.addEventListener("scroll", onScroll);
       return () => container.removeEventListener("scroll", onScroll);
     }, []);
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       const container = logRef.current;
       if (container && autoStickRef.current) {
         container.scrollTop = container.scrollHeight;
       }
     }, [storedLogs]);
-    (0, import_react16.useEffect)(() => {
+    (0, import_react17.useEffect)(() => {
       const added = liveLines.length - prevLiveLinesLengthRef.current;
       prevLiveLinesLengthRef.current = liveLines.length;
       if (added > 0 && !autoStickRef.current) {
         setUnreadLogCount((prev) => prev + added);
       }
     }, [liveLines]);
-    const scrollToLogBottom = (0, import_react16.useCallback)(() => {
+    const scrollToLogBottom = (0, import_react17.useCallback)(() => {
       const container = logRef.current;
       if (container) {
         container.scrollTop = container.scrollHeight;
@@ -33587,80 +33826,95 @@
         setUnreadLogCount(0);
       }
     }, []);
-    const allLines = (0, import_react16.useMemo)(() => {
+    const allLines = (0, import_react17.useMemo)(() => {
       if (isSelectedMonitored && storedLogsReady) {
         return [...storedLogs, ...liveLines];
       }
       return liveLines;
     }, [isSelectedMonitored, storedLogsReady, storedLogs, liveLines]);
-    const refreshCsrf = (0, import_react16.useCallback)(async () => {
+    const refreshCsrf = (0, import_react17.useCallback)(async () => {
       const session = await fetchJson("/api/auth/session");
       setCsrfToken(session.csrfToken);
       return session.csrfToken;
     }, []);
-    const onDeployStarted = (0, import_react16.useCallback)((deploymentId) => {
-      setDeployProgressLines([]);
-      setDeployProgressStage("clone");
-      setDeployProgressStatus("running");
-      setActiveDeploymentId(deploymentId);
-      refreshCsrf();
-    }, [refreshCsrf]);
-    const onSaveAndRedeploy = (0, import_react16.useCallback)(async (deploymentId) => {
-      const newToken = await refreshCsrf();
-      setEditingDeployment(null);
-      setDeployProgressLines([]);
-      setDeployProgressStage("clone");
-      setDeployProgressStatus("running");
-      setActiveDeploymentId(deploymentId);
-      try {
-        await fetchJson(`/api/deployments/${deploymentId}/redeploy`, {
-          method: "POST",
-          headers: { "X-CSRF-Token": newToken }
-        });
-        await refreshCsrf();
-      } catch (err) {
-        setDeployProgressLines((prev) => [...prev, { stage: "error", line: err.message, status: "error" }]);
-        setDeployProgressStage("error");
-        setDeployProgressStatus("error");
-      }
-    }, [refreshCsrf]);
-    const onConfirmDeploy = (0, import_react16.useCallback)(async (confirmed) => {
-      if (!activeDeploymentId) return;
-      setDeployConfirmChanges(null);
-      try {
-        const freshToken = await refreshCsrf();
-        await fetchJson(`/api/deployments/${activeDeploymentId}/confirm`, {
-          method: "POST",
-          headers: { "X-CSRF-Token": freshToken, "Content-Type": "application/json" },
-          body: JSON.stringify({ confirmed })
-        });
-        await refreshCsrf();
-      } catch (err) {
-        setDeployProgressLines((prev) => [...prev, { stage: "error", line: err.message, status: "error" }]);
-        setDeployProgressStage("error");
-        setDeployProgressStatus("error");
-      }
-    }, [activeDeploymentId, refreshCsrf]);
-    const onEditDeployment = (0, import_react16.useCallback)((pm2Name) => {
-      const dep = deployments.find((d) => d.pm2_name === pm2Name);
-      if (!dep) return;
-      setEditingDeployment(dep);
-      setDeployOpen(true);
-    }, [deployments]);
-    const onDeleteDeployment = (0, import_react16.useCallback)(async (deploymentId) => {
-      if (!csrfToken) return;
-      try {
-        await fetchJson(`/api/deployments/${deploymentId}`, {
-          method: "DELETE",
-          headers: { "X-CSRF-Token": csrfToken }
-        });
-        await refreshCsrf();
-        loadDeployments();
-      } catch (err) {
-        setError(err.message);
-      }
-    }, [csrfToken, refreshCsrf, loadDeployments]);
-    const onEditSaved = (0, import_react16.useCallback)(async () => {
+    const onDeployStarted = (0, import_react17.useCallback)(
+      (deploymentId) => {
+        setDeployProgressLines([]);
+        setDeployProgressStage("clone");
+        setDeployProgressStatus("running");
+        setActiveDeploymentId(deploymentId);
+        refreshCsrf();
+      },
+      [refreshCsrf]
+    );
+    const onSaveAndRedeploy = (0, import_react17.useCallback)(
+      async (deploymentId) => {
+        const newToken = await refreshCsrf();
+        setEditingDeployment(null);
+        setDeployProgressLines([]);
+        setDeployProgressStage("clone");
+        setDeployProgressStatus("running");
+        setActiveDeploymentId(deploymentId);
+        try {
+          await fetchJson(`/api/deployments/${deploymentId}/redeploy`, {
+            method: "POST",
+            headers: { "X-CSRF-Token": newToken }
+          });
+          await refreshCsrf();
+        } catch (err) {
+          setDeployProgressLines((prev) => [...prev, { stage: "error", line: err.message, status: "error" }]);
+          setDeployProgressStage("error");
+          setDeployProgressStatus("error");
+        }
+      },
+      [refreshCsrf]
+    );
+    const onConfirmDeploy = (0, import_react17.useCallback)(
+      async (confirmed) => {
+        if (!activeDeploymentId) return;
+        setDeployConfirmChanges(null);
+        try {
+          const freshToken = await refreshCsrf();
+          await fetchJson(`/api/deployments/${activeDeploymentId}/confirm`, {
+            method: "POST",
+            headers: { "X-CSRF-Token": freshToken, "Content-Type": "application/json" },
+            body: JSON.stringify({ confirmed })
+          });
+          await refreshCsrf();
+        } catch (err) {
+          setDeployProgressLines((prev) => [...prev, { stage: "error", line: err.message, status: "error" }]);
+          setDeployProgressStage("error");
+          setDeployProgressStatus("error");
+        }
+      },
+      [activeDeploymentId, refreshCsrf]
+    );
+    const onEditDeployment = (0, import_react17.useCallback)(
+      (pm2Name) => {
+        const dep = deployments.find((d) => d.pm2_name === pm2Name);
+        if (!dep) return;
+        setEditingDeployment(dep);
+        setDeployOpen(true);
+      },
+      [deployments]
+    );
+    const onDeleteDeployment = (0, import_react17.useCallback)(
+      async (deploymentId) => {
+        if (!csrfToken) return;
+        try {
+          await fetchJson(`/api/deployments/${deploymentId}`, {
+            method: "DELETE",
+            headers: { "X-CSRF-Token": csrfToken }
+          });
+          await refreshCsrf();
+          loadDeployments();
+        } catch (err) {
+          setError(err.message);
+        }
+      },
+      [csrfToken, refreshCsrf, loadDeployments]
+    );
+    const onEditSaved = (0, import_react17.useCallback)(async () => {
       await refreshCsrf();
       loadDeployments();
       setDeployOpen(false);
@@ -33719,59 +33973,59 @@
       }
       window.location.replace("/login");
     };
-    const onToggleMonitoring = (0, import_react16.useCallback)(async (pm2Name, currentlyMonitored) => {
-      if (!csrfToken) return;
-      try {
-        await fetchJson(`/api/monitoring`, {
-          method: "POST",
-          headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json" },
-          body: JSON.stringify({ pm2Name, monitored: !currentlyMonitored })
-        });
-        await refreshCsrf();
-        const newMonitored = !currentlyMonitored;
-        setProcesses(
-          (prev) => prev.map((p) => p.name === pm2Name ? { ...p, isMonitored: newMonitored } : p)
-        );
-        if (newMonitored) {
-          setStoredLogsReady(false);
-          setTimeout(() => {
-            fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => {
-            });
-            fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/logs/stored`).then((payload) => {
-              setStoredLogs(convertEntriesToLines(payload.entries || []));
-              setLiveLines([]);
-              setStoredLogsReady(true);
-            }).catch(() => {
-              setStoredLogsReady(true);
-            });
-          }, 1500);
-        } else {
-          setMetricsHistory([]);
-          setStoredLogs([]);
-          setStoredLogsReady(true);
+    const onToggleMonitoring = (0, import_react17.useCallback)(
+      async (pm2Name, currentlyMonitored) => {
+        if (!csrfToken) return;
+        try {
+          await fetchJson(`/api/monitoring`, {
+            method: "POST",
+            headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json" },
+            body: JSON.stringify({ pm2Name, monitored: !currentlyMonitored })
+          });
+          await refreshCsrf();
+          const newMonitored = !currentlyMonitored;
+          setProcesses((prev) => prev.map((p) => p.name === pm2Name ? { ...p, isMonitored: newMonitored } : p));
+          if (newMonitored) {
+            setStoredLogsReady(false);
+            setTimeout(() => {
+              fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => {
+              });
+              fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/logs/stored`).then((payload) => {
+                setStoredLogs(convertEntriesToLines(payload.entries || []));
+                setLiveLines([]);
+                setStoredLogsReady(true);
+              }).catch(() => {
+                setStoredLogsReady(true);
+              });
+            }, 1500);
+          } else {
+            setMetricsHistory([]);
+            setStoredLogs([]);
+            setStoredLogsReady(true);
+          }
+        } catch {
         }
-      } catch {
-      }
-    }, [csrfToken, refreshCsrf]);
-    const onToggleAlert = (0, import_react16.useCallback)(async (pm2Name, currentlyEnabled) => {
-      if (!csrfToken) return;
-      setProcesses(
-        (prev) => prev.map((p) => p.name === pm2Name ? { ...p, alertsEnabled: !currentlyEnabled } : p)
-      );
-      try {
-        await fetchJson("/api/notification-prefs", {
-          method: "POST",
-          headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json" },
-          body: JSON.stringify({ pm2Name, alertsEnabled: !currentlyEnabled })
-        });
-        await refreshCsrf();
-      } catch {
-        setProcesses(
-          (prev) => prev.map((p) => p.name === pm2Name ? { ...p, alertsEnabled: currentlyEnabled } : p)
-        );
-      }
-    }, [csrfToken, refreshCsrf]);
-    return /* @__PURE__ */ import_react16.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react16.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react16.default.createElement(
+      },
+      [csrfToken, refreshCsrf]
+    );
+    const onToggleAlert = (0, import_react17.useCallback)(
+      async (pm2Name, currentlyEnabled) => {
+        if (!csrfToken) return;
+        setProcesses((prev) => prev.map((p) => p.name === pm2Name ? { ...p, alertsEnabled: !currentlyEnabled } : p));
+        try {
+          await fetchJson("/api/notification-prefs", {
+            method: "POST",
+            headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json" },
+            body: JSON.stringify({ pm2Name, alertsEnabled: !currentlyEnabled })
+          });
+          await refreshCsrf();
+        } catch {
+          setProcesses((prev) => prev.map((p) => p.name === pm2Name ? { ...p, alertsEnabled: currentlyEnabled } : p));
+        }
+      },
+      [csrfToken, refreshCsrf]
+    );
+    return /* @__PURE__ */ import_react17.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react17.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react17.default.createElement(
       ProcessList,
       {
         processes,
@@ -33790,7 +34044,7 @@
         offlineDeployments,
         onDeleteDeployment
       }
-    ), /* @__PURE__ */ import_react16.default.createElement("main", { className: "content" }, /* @__PURE__ */ import_react16.default.createElement(
+    ), /* @__PURE__ */ import_react17.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent }), /* @__PURE__ */ import_react17.default.createElement("main", { className: "content" }, /* @__PURE__ */ import_react17.default.createElement(
       HeroCard,
       {
         selectedProcess,
@@ -33806,7 +34060,7 @@
         csrfToken,
         onCsrfRefresh: refreshCsrf
       }
-    ), selectedProcessId != null ? /* @__PURE__ */ import_react16.default.createElement(import_react16.default.Fragment, null, /* @__PURE__ */ import_react16.default.createElement(
+    ), selectedProcessId != null ? /* @__PURE__ */ import_react17.default.createElement(import_react17.default.Fragment, null, /* @__PURE__ */ import_react17.default.createElement(
       MonitoringNotice,
       {
         isMonitored: isSelectedMonitored,
@@ -33815,7 +34069,15 @@
         metricsRetentionMs,
         logsRetentionMs
       }
-    ), /* @__PURE__ */ import_react16.default.createElement(StatsGrid, { details, error, metricsHistory, isMonitored: isSelectedMonitored }), /* @__PURE__ */ import_react16.default.createElement(
+    ), /* @__PURE__ */ import_react17.default.createElement(
+      StatsGrid,
+      {
+        details,
+        error,
+        metricsHistory,
+        isMonitored: isSelectedMonitored
+      }
+    ), /* @__PURE__ */ import_react17.default.createElement(
       LogStream,
       {
         details,
@@ -33825,7 +34087,7 @@
         unreadCount: unreadLogCount,
         onScrollToBottom: scrollToLogBottom
       }
-    )) : /* @__PURE__ */ import_react16.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react16.default.createElement("p", { className: "eyebrow" }, "Getting started"), /* @__PURE__ */ import_react16.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react16.default.createElement("p", { className: "subtle" }, "Select a PM2 process from the sidebar to view runtime metrics and logs."), /* @__PURE__ */ import_react16.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react16.default.createElement("p", { className: "welcome-hints-title" }, "Enable monitoring on a process to unlock:"), /* @__PURE__ */ import_react16.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react16.default.createElement("li", null, "CPU and memory history sampled every 20 s, stored for 24 hours"), /* @__PURE__ */ import_react16.default.createElement("li", null, "Log entries stored and searchable for 14 days"), /* @__PURE__ */ import_react16.default.createElement("li", null, "Sparkline trend charts in the metrics panel")), /* @__PURE__ */ import_react16.default.createElement("p", { className: "welcome-hints-note" }, "Without monitoring, you only see live data - nothing is persisted between page loads."))))), /* @__PURE__ */ import_react16.default.createElement(Footer, { version: appVersion }), settingsOpen && /* @__PURE__ */ import_react16.default.createElement(
+    )) : /* @__PURE__ */ import_react17.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react17.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react17.default.createElement("p", { className: "eyebrow" }, "Getting started"), /* @__PURE__ */ import_react17.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react17.default.createElement("p", { className: "subtle" }, "Select a PM2 process from the sidebar to view runtime metrics and logs."), /* @__PURE__ */ import_react17.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react17.default.createElement("p", { className: "welcome-hints-title" }, "Enable monitoring on a process to unlock:"), /* @__PURE__ */ import_react17.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react17.default.createElement("li", null, "CPU and memory history sampled every 20 s, stored for 24 hours"), /* @__PURE__ */ import_react17.default.createElement("li", null, "Log entries stored and searchable for 14 days"), /* @__PURE__ */ import_react17.default.createElement("li", null, "Sparkline trend charts in the metrics panel")), /* @__PURE__ */ import_react17.default.createElement("p", { className: "welcome-hints-note" }, "Without monitoring, you only see live data - nothing is persisted between page loads."))))), /* @__PURE__ */ import_react17.default.createElement(Footer, { version: appVersion }), settingsOpen && /* @__PURE__ */ import_react17.default.createElement(
       Settings,
       {
         onClose: () => setSettingsOpen(false),
@@ -33833,7 +34095,7 @@
         onCsrfRefresh: refreshCsrf,
         appConfig
       }
-    ), deployOpen && /* @__PURE__ */ import_react16.default.createElement(
+    ), deployOpen && /* @__PURE__ */ import_react17.default.createElement(
       DeployModal,
       {
         csrfToken,
@@ -33859,7 +34121,7 @@
   }
 
   // src/main.jsx
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react17.default.createElement(App, null));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react18.default.createElement(App, null));
 })();
 /*! Bundled license information:
 
@@ -33918,3 +34180,4 @@ react/cjs/react-jsx-runtime.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
+//# sourceMappingURL=app.js.map
