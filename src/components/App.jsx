@@ -47,7 +47,6 @@ export default function App() {
   const [processes, setProcesses] = useState([]);
   const [selectedProcessId, setSelectedProcessId] = useState(null);
   const [details, setDetails] = useState(null);
-  const [processListStatus, setProcessListStatus] = useState('Loading processes…');
   const [error, setError] = useState('');
   const [wsConnected, setWsConnected] = useState(false);
   const [appVersion, setAppVersion] = useState(null);
@@ -59,8 +58,6 @@ export default function App() {
   const [storedLogs, setStoredLogs] = useState([]);
   const [storedLogsReady, setStoredLogsReady] = useState(false);
   const [unreadLogCount, setUnreadLogCount] = useState(0);
-  const [metricsRetentionMs, setMetricsRetentionMs] = useState(86_400_000);
-  const [logsRetentionMs, setLogsRetentionMs] = useState(14 * 24 * 60 * 60 * 1000);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [appConfig, setAppConfig] = useState(null);
   const [deployOpen, setDeployOpen] = useState(false);
@@ -73,24 +70,28 @@ export default function App() {
   const [editingDeployment, setEditingDeployment] = useState(null);
   /** @type {[string|null, React.Dispatch<string|null>]} git status --porcelain output when a deploy is waiting for confirmation */
   const [deployConfirmChanges, setDeployConfirmChanges] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  /** @type {[Set<string>, React.Dispatch<Set<string>>]} active log level filters */
+  const [logFilters, setLogFilters] = useState(new Set(['info', 'warn', 'error']));
+  const [logSearch, setLogSearch] = useState('');
+  const [logPaused, setLogPaused] = useState(false);
+  /** @type {[string|null, React.Dispatch<string|null>]} id of the currently expanded MetricChip, or null */
+  const [expandedChip, setExpandedChip] = useState(null);
   const logRef = useRef(null);
   const autoStickRef = useRef(true);
   const prevLiveLinesLengthRef = useRef(0);
   const wsRef = useRef(null);
 
   const loadProcesses = useCallback(async () => {
-    setProcessListStatus('Loading processes…');
     try {
       const payload = await fetchJson('/api/processes');
       setProcesses(payload.items);
-      setProcessListStatus(`${payload.processCount} process(es)`);
       setSelectedProcessId((prev) =>
         payload.items.some((item) => String(item.id) === String(prev)) ? prev : (payload.items[0]?.id ?? null),
       );
     } catch (loadError) {
       setProcesses([]);
       setSelectedProcessId(null);
-      setProcessListStatus(loadError.message);
       setError(loadError.message);
     }
   }, []);
@@ -115,8 +116,6 @@ export default function App() {
       .then((payload) => {
         setCsrfToken(payload.csrfToken);
         if (payload.version) setAppVersion(payload.version);
-        if (payload.metricsRetentionMs) setMetricsRetentionMs(payload.metricsRetentionMs);
-        if (payload.logsRetentionMs) setLogsRetentionMs(payload.logsRetentionMs);
         if (payload.config) setAppConfig(payload.config);
         return Promise.all([loadProcesses(), loadDeployments(), loadHostMetrics()]);
       })
@@ -147,7 +146,6 @@ export default function App() {
         const { type, data } = JSON.parse(event.data);
         if (type === 'processes') {
           setProcesses(data.items);
-          setProcessListStatus(`${data.processCount} process(es)`);
           setSelectedProcessId((prev) =>
             data.items.some((item) => String(item.id ?? item.name) === String(prev))
               ? prev
@@ -255,6 +253,9 @@ export default function App() {
     setUnreadLogCount(0);
     prevLiveLinesLengthRef.current = 0;
     autoStickRef.current = true;
+    setExpandedChip(null);
+    setLogSearch('');
+    setDrawerOpen(false);
 
     const ws = wsRef.current;
     const isOpen = ws?.readyState === WebSocket.OPEN;
@@ -612,53 +613,67 @@ export default function App() {
     [csrfToken, refreshCsrf],
   );
 
-  /**
-   * Toggle alert notifications for a monitored process.
-   * Applies an optimistic local update, rolls back on failure.
-   *
-   * @param {string} pm2Name - The PM2 process name.
-   * @param {boolean} currentlyEnabled - Current alerts_enabled state.
-   */
-  const onToggleAlert = useCallback(
-    async (pm2Name, currentlyEnabled) => {
-      if (!csrfToken) return;
-      setProcesses((prev) => prev.map((p) => (p.name === pm2Name ? { ...p, alertsEnabled: !currentlyEnabled } : p)));
-      try {
-        await fetchJson('/api/notification-prefs', {
-          method: 'POST',
-          headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pm2Name, alertsEnabled: !currentlyEnabled }),
-        });
-        await refreshCsrf();
-      } catch {
-        // Roll back optimistic update.
-        setProcesses((prev) => prev.map((p) => (p.name === pm2Name ? { ...p, alertsEnabled: currentlyEnabled } : p)));
-      }
-    },
-    [csrfToken, refreshCsrf],
-  );
-
   return (
     <div className="app-shell">
       <UpdateBanner />
+      <header className="app-topbar">
+        <button
+          className="topbar-menu-btn"
+          type="button"
+          aria-label="Toggle sidebar"
+          onClick={() => setDrawerOpen((o) => !o)}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+            <path d="M2 4h12M2 8h12M2 12h12" />
+          </svg>
+        </button>
+        <a className="topbar-brand" href="/" aria-label="PM2 Hawkeye home">
+          <span className="topbar-brand-logo">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" strokeWidth="1.6" aria-hidden="true">
+              <circle cx="8" cy="8" r="5" />
+              <circle cx="8" cy="8" r="1.5" fill="var(--accent)" stroke="none" />
+              <path d="M2 8h2M12 8h2M8 2v2M8 12v2" strokeLinecap="round" />
+            </svg>
+          </span>
+          <span className="topbar-brand-wordmark">
+            <span className="brand-pm2">pm2</span><span className="brand-hawkeye">-hawkeye</span>
+          </span>
+          {appVersion && <span className="topbar-brand-version">v{appVersion}</span>}
+        </a>
+        <HostMetrics samples={hostMetrics} current={hostCurrent} />
+        <span className="topbar-spacer" />
+        <div className="topbar-actions">
+          <button
+            className="topbar-btn"
+            type="button"
+            onClick={() => { setActiveDeploymentId(null); setDeployOpen(true); }}
+          >
+            Deploy
+          </button>
+          <button
+            className="topbar-btn"
+            type="button"
+            onClick={() => setSettingsOpen(true)}
+          >
+            Settings
+          </button>
+        </div>
+      </header>
+      {drawerOpen && (
+        <div
+          className="topbar-drawer-overlay"
+          onClick={() => setDrawerOpen(false)}
+        />
+      )}
       <ProcessList
         processes={processes}
         selectedProcessId={selectedProcessId}
-        status={processListStatus}
-        onSelect={setSelectedProcessId}
-        onOpenSettings={() => setSettingsOpen(true)}
-        onOpenDeploy={() => {
-          setActiveDeploymentId(null);
-          setDeployOpen(true);
-        }}
-        onToggleAlert={onToggleAlert}
-        deployments={deployments}
+        onSelect={(id) => { setSelectedProcessId(id); setDrawerOpen(false); }}
         onEditDeployment={onEditDeployment}
-        onRemoveOrphan={onRemoveOrphan}
         offlineDeployments={offlineDeployments}
         onDeleteDeployment={onDeleteDeployment}
+        drawerOpen={drawerOpen}
       />
-      <HostMetrics samples={hostMetrics} current={hostCurrent} />
       <main className="content">
         <HeroCard
           selectedProcess={selectedProcess}
@@ -680,14 +695,14 @@ export default function App() {
               isMonitored={isSelectedMonitored}
               pm2Name={selectedProcess?.name ?? String(selectedProcessId)}
               onToggleMonitoring={onToggleMonitoring}
-              metricsRetentionMs={metricsRetentionMs}
-              logsRetentionMs={logsRetentionMs}
             />
             <StatsGrid
               details={details}
               error={error}
               metricsHistory={metricsHistory}
               isMonitored={isSelectedMonitored}
+              expandedChip={expandedChip}
+              onExpandChip={setExpandedChip}
             />
             <LogStream
               details={details}
@@ -696,6 +711,18 @@ export default function App() {
               isMonitored={isSelectedMonitored}
               unreadCount={unreadLogCount}
               onScrollToBottom={scrollToLogBottom}
+              logFilters={logFilters}
+              onToggleFilter={(level) =>
+                setLogFilters((prev) => {
+                  const next = new Set(prev);
+                  if (next.has(level)) next.delete(level); else next.add(level);
+                  return next;
+                })
+              }
+              logSearch={logSearch}
+              onSearchChange={setLogSearch}
+              logPaused={logPaused}
+              onTogglePause={() => setLogPaused((p) => !p)}
             />
           </>
         ) : (

@@ -13,10 +13,19 @@ html, body {
 // On narrow viewports the layout switches to a single-column stack that the
 // browser viewport scrolls natively. Override the desktop overflow lock so the
 // page is actually scrollable.
-@media (max-width: 70rem) {
+@media (max-width: 45rem) {
   html, body {
     height: auto;
     overflow: auto;
+  }
+}
+
+// On desktop viewports that are too short, unlock the body scroll so the full
+// shell is reachable rather than being silently clipped by the overflow lock.
+@media (min-width: 45.0625rem) and (max-height: 40rem) {
+  html, body {
+    height: auto;
+    overflow-y: auto;
   }
 }
 

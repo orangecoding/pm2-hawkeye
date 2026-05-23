@@ -3,32 +3,14 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 /**
- * Format a retention duration in milliseconds to a human-readable string.
- * Shows days (>= 2 whole days) or hours (whole hours) or minutes otherwise.
+ * Compact inline monitoring strip rendered below the process header.
  *
- * @param {number} ms
- * @returns {string}
- */
-function formatRetention(ms) {
-    const days = ms / (24 * 60 * 60 * 1000);
-    if (days >= 2 && Number.isInteger(days)) return `${days} days`;
-    const hours = ms / (60 * 60 * 1000);
-    if (hours >= 1 && Number.isInteger(hours)) return `${hours} h`;
-    return `${Math.round(ms / 60_000)} min`;
-}
-
-/**
- * Full-width notice bar shown between the hero card and the stats grid.
- *
- * **Unmonitored:** amber warning explaining that only live data is visible
- * and nothing is persisted, with a prominent "Start Monitoring" CTA.
- *
- * **Monitored:** compact green confirmation showing what is being stored,
- * with a "Stop Monitoring" button that asks for confirmation before removing
- * all stored history.
+ * Active (green tint): monitoring on, logs and metrics persisted.
+ * Inactive (neutral): live data only, nothing stored.
+ * Shows a confirmation prompt before disabling to warn about history deletion.
  *
  * @param {{
  *   isMonitored: boolean,
@@ -38,95 +20,49 @@ function formatRetention(ms) {
  *   logsRetentionMs: number,
  * }} props
  */
-export default function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring, metricsRetentionMs, logsRetentionMs }) {
-    const metricsLabel = formatRetention(metricsRetentionMs ?? 86_400_000);
-    const logsLabel = formatRetention(logsRetentionMs ?? 14 * 24 * 60 * 60 * 1000);
-    const [confirmStop, setConfirmStop] = useState(false);
+export default function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring }) {
+  const [confirmStop, setConfirmStop] = useState(false);
 
-    // Reset confirmation state when the selected process changes.
-    useEffect(() => {
-        setConfirmStop(false);
-    }, [pm2Name]);
+  useEffect(() => {
+    setConfirmStop(false);
+  }, [pm2Name]);
 
-    if (isMonitored) {
-        if (confirmStop) {
-            return (
-                <div className="monitoring-notice monitoring-notice--confirm">
-                    <div className="monitoring-notice-body">
-                        <span className="monitoring-notice-dot monitoring-notice-dot--warning" />
-                        <div className="monitoring-notice-content">
-                            <strong className="monitoring-notice-headline monitoring-notice-headline--warning">
-                                Remove all stored history for {pm2Name}?
-                            </strong>
-                            <p className="monitoring-notice-description">
-                                This will permanently delete all stored metrics and log entries for this
-                                process. This cannot be undone.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="monitoring-notice-confirm-btns">
-                        <button
-                            className="monitoring-notice-action monitoring-notice-action--danger"
-                            type="button"
-                            onClick={() => {
-                                onToggleMonitoring(pm2Name, true);
-                                setConfirmStop(false);
-                            }}
-                        >
-                            Yes, remove all history
-                        </button>
-                        <button
-                            className="monitoring-notice-action monitoring-notice-action--ghost"
-                            type="button"
-                            onClick={() => setConfirmStop(false)}
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div className="monitoring-notice monitoring-notice--active">
-                <div className="monitoring-notice-body">
-                    <span className="monitoring-notice-dot monitoring-notice-dot--active" />
-                    <span className="monitoring-notice-text">
-                        <strong>Monitoring active</strong>
-                        {" - "}
-                        metrics sampled every 20 s (stored {metricsLabel}) &middot; logs stored for {logsLabel}!
-                    </span>
-                </div>
-                <button
-                    className="monitoring-notice-action monitoring-notice-action--ghost"
-                    type="button"
-                    onClick={() => setConfirmStop(true)}
-                >
-                    Stop Monitoring
-                </button>
-            </div>
-        );
-    }
-
+  if (confirmStop) {
     return (
-        <div className="monitoring-notice monitoring-notice--warning">
-            <div className="monitoring-notice-body">
-                <span className="monitoring-notice-dot monitoring-notice-dot--warning" />
-                <div className="monitoring-notice-content">
-                    <strong className="monitoring-notice-headline">Not monitored &mdash; live data only</strong>
-                    <p className="monitoring-notice-description">
-                        Real-time values are visible for <strong>{pm2Name}</strong>, but nothing is saved.
-                        Click <strong>Start Monitoring</strong> to persist CPU/memory history ({metricsLabel}) and logs ({logsLabel}).
-                    </p>
-                </div>
-            </div>
-            <button
-                className="monitoring-notice-action monitoring-notice-action--primary"
-                type="button"
-                onClick={() => onToggleMonitoring(pm2Name, false)}
-            >
-                Start Monitoring
-            </button>
-        </div>
+      <div className="monitoring-strip" data-active="true">
+        <span className="monitoring-strip-dot" />
+        <span className="monitoring-strip-label">Remove all stored history for {pm2Name}?</span>
+        <button
+          className="monitoring-strip-btn"
+          type="button"
+          onClick={() => { onToggleMonitoring(pm2Name, true); setConfirmStop(false); }}
+        >
+          Yes, remove
+        </button>
+        <button
+          className="monitoring-strip-btn"
+          type="button"
+          onClick={() => setConfirmStop(false)}
+        >
+          Cancel
+        </button>
+      </div>
     );
+  }
+
+  return (
+    <div className="monitoring-strip" data-active={isMonitored}>
+      <span className="monitoring-strip-dot" />
+      <span className="monitoring-strip-label">
+        {isMonitored ? 'Monitoring active' : 'Not monitored'}
+      </span>
+      <button
+        className="monitoring-strip-btn"
+        type="button"
+        onClick={() => isMonitored ? setConfirmStop(true) : onToggleMonitoring(pm2Name, false)}
+      >
+        {isMonitored ? 'Disable' : 'Enable'}
+      </button>
+    </div>
+  );
 }

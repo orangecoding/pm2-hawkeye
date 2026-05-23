@@ -3,78 +3,127 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React from "react";
-import { formatBytes, formatRelativeTime, formatDate } from "../services/format.js";
-import Sparkline from "./Sparkline.jsx";
+import React from 'react';
+import { formatBytes, formatRelativeTime, formatDate } from '../services/format.js';
+import Sparkline from './Sparkline.jsx';
 
 /**
- * Runtime metrics dashboard.
+ * Single expandable metric chip.
  *
- * Shows CPU, memory, restart count, and uptime for the selected process.
- * When `metricsHistory` contains at least two samples, CPU and memory stat
- * cards render a time-proportional step-function sparkline with a hover
- * tooltip.  When the process is not monitored, a placeholder hint is shown in
- * the sparkline area instead.
+ * Collapsed: shows label + value in a small pill button.
+ * Expanded: shows label + value + inline sparkline.
+ * Only one chip can be expanded at a time (controlled externally via expandedChip/onExpandChip).
  *
- * @param {{ details: object | null, error: string, metricsHistory: object[], isMonitored: boolean }} props
+ * @param {{
+ *   label: string,
+ *   value: string,
+ *   sub?: string,
+ *   samples?: { t: number, v: number }[],
+ *   formatValue?: (v: number) => string,
+ *   color?: string,
+ *   isExpanded: boolean,
+ *   onToggle: () => void,
+ * }} props
  */
-export default function StatsGrid({ details, error, metricsHistory = [], isMonitored = false }) {
-  const items = details
-    ? [
-        { label: "CPU", value: `${details.process.cpu}%`, sparklineKey: "cpu" },
-        { label: "Memory", value: formatBytes(details.process.memory), sparklineKey: "memory" },
-        { label: "Restarts", value: String(details.process.restarts) },
-        { label: "Uptime", value: formatRelativeTime(details.process.uptime), sub: formatDate(details.process.uptime) },
-      ]
-    : null;
+function MetricChip({ label, value, sub, samples = [], formatValue, color = 'var(--accent)', isExpanded, onToggle }) {
+  const hasSpark = samples.length >= 2;
 
+  return (
+    <button
+      className={`metric-chip${isExpanded ? ' metric-chip--expanded' : ''}`}
+      type="button"
+      onClick={onToggle}
+      aria-expanded={isExpanded}
+    >
+      <span className="metric-chip-head">
+        <span className="metric-chip-label">{label}</span>
+        <strong className="metric-chip-value">{value}</strong>
+        {sub && !isExpanded && <span className="metric-chip-sub">{sub}</span>}
+      </span>
+      {isExpanded && (
+        <div className="metric-chip-spark">
+          {hasSpark ? (
+            <Sparkline samples={samples} formatValue={formatValue || String} color={color} height="100%" />
+          ) : (
+            <span className="metric-chip-no-data">No history yet</span>
+          )}
+        </div>
+      )}
+      {isExpanded && sub && <span className="metric-chip-sub metric-chip-sub--expanded">{sub}</span>}
+    </button>
+  );
+}
+
+/**
+ * Row of expandable MetricChips for CPU, Memory, Restarts, and Uptime.
+ *
+ * Clicking a chip expands it to show a sparkline; clicking again (or another
+ * chip) collapses it. Only one chip is expanded at a time.
+ *
+ * @param {{
+ *   details: object | null,
+ *   error: string,
+ *   metricsHistory: object[],
+ *   expandedChip: string | null,
+ *   onExpandChip: (id: string | null) => void,
+ * }} props
+ */
+export default function StatsGrid({ details, error, metricsHistory = [], expandedChip, onExpandChip }) {
   const cpuSamples = metricsHistory.map((s) => ({ t: s.sampled_at, v: s.cpu }));
   const memorySamples = metricsHistory.map((s) => ({ t: s.sampled_at, v: s.memory }));
 
-  return (
-    <section className="panel section-shell stats-panel">
-      <div className="panel-header">
-        <div>
-          <p className="eyebrow">Dashboard</p>
-          <h3>Runtime metrics</h3>
+  const chips = details
+    ? [
+        {
+          id: 'cpu',
+          label: 'CPU',
+          value: `${details.process.cpu}%`,
+          samples: cpuSamples,
+          formatValue: (v) => `${v.toFixed(1)}%`,
+          color: 'var(--accent)',
+        },
+        {
+          id: 'mem',
+          label: 'Memory',
+          value: formatBytes(details.process.memory),
+          samples: memorySamples,
+          formatValue: formatBytes,
+          color: 'var(--success)',
+        },
+        {
+          id: 'restarts',
+          label: 'Restarts',
+          value: String(details.process.restarts),
+        },
+        {
+          id: 'uptime',
+          label: 'Uptime',
+          value: formatRelativeTime(details.process.uptime),
+          sub: formatDate(details.process.uptime),
+        },
+      ]
+    : null;
+
+  if (!chips) {
+    return (
+      <div className="metric-chips-row">
+        <div className="empty-card compact">
+          <p>{error || 'No process metrics loaded yet.'}</p>
         </div>
-        <p className="subtle">Live CPU, memory, uptime, and restart telemetry.</p>
       </div>
-      <div className={`stats-grid ${details ? "" : "empty-state"}`.trim()}>
-        {items ? items.map((item) => (
-          <div className="stat-card" key={item.label}>
-            <span className="stat-label">{item.label}</span>
-            <strong className="stat-value">{item.value}</strong>
-            {item.sub ? <span className="stat-sub">{item.sub}</span> : null}
-            {item.sparklineKey === "cpu" && cpuSamples.length >= 2 && (
-              <Sparkline
-                samples={cpuSamples}
-                formatValue={(v) => `${v.toFixed(1)}%`}
-                color="var(--accent)"
-              />
-            )}
-            {item.sparklineKey === "cpu" && !isMonitored && (
-              <div className="sparkline-placeholder">
-                <span>Enable monitoring for trend history</span>
-              </div>
-            )}
-            {item.sparklineKey === "memory" && memorySamples.length >= 2 && (
-              <Sparkline
-                samples={memorySamples}
-                formatValue={formatBytes}
-                color="var(--success)"
-              />
-            )}
-            {item.sparklineKey === "memory" && !isMonitored && (
-              <div className="sparkline-placeholder">
-                <span>Enable monitoring for trend history</span>
-              </div>
-            )}
-          </div>
-        )) : (
-          <div className="empty-card"><p>{error || "No process metrics loaded yet."}</p></div>
-        )}
-      </div>
-    </section>
+    );
+  }
+
+  return (
+    <div className="metric-chips-row">
+      {chips.map((chip) => (
+        <MetricChip
+          key={chip.id}
+          {...chip}
+          isExpanded={expandedChip === chip.id}
+          onToggle={() => onExpandChip(expandedChip === chip.id ? null : chip.id)}
+        />
+      ))}
+    </div>
   );
 }

@@ -1333,7 +1333,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React18 = require_react(), Internals = {
+        var React17 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1351,7 +1351,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), ReactSharedInternals = React17.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -2886,7 +2886,7 @@
           "number" === type && getActiveElement(node2.ownerDocument) === node2 || node2.defaultValue === "" + value || (node2.defaultValue = "" + value);
         }
         function validateOptionProps(element3, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React18.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React17.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -18518,14 +18518,14 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React18 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React17 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity");
         /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
         var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel");
         /* @__PURE__ */ Symbol.for("react.view_transition");
-        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React17.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21313,7 +21313,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React18.version;
+          var isomorphicReactPackageVersion = React17.version;
           if ("19.2.6" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.6\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21905,18 +21905,18 @@
         function isValidElement(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React18 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React18.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React17 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React17.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React18 = {
+        React17 = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React18.react_stack_bottom_frame.bind(
-          React18,
+        var unknownOwnerDebugStack = React17.react_stack_bottom_frame.bind(
+          React17,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -22052,11 +22052,11 @@
   });
 
   // src/main.jsx
-  var import_react18 = __toESM(require_react(), 1);
+  var import_react17 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // src/components/App.jsx
-  var import_react17 = __toESM(require_react(), 1);
+  var import_react16 = __toESM(require_react(), 1);
 
   // src/services/api.js
   async function fetchJson(url, options = {}) {
@@ -22103,12 +22103,6 @@
   function formatDate(timestamp) {
     return timestamp ? new Date(timestamp).toLocaleString("en-GB") : "---";
   }
-  function getStatusTone(status) {
-    const s = String(status).toLowerCase();
-    if (["online", "launching"].includes(s)) return "healthy";
-    if (["stopped", "errored", "one-launch-status"].includes(s)) return "critical";
-    return "muted";
-  }
   function detectLogLevel(text5) {
     if (/"level"\s*:\s*"(?:error|fatal|critical)"/i.test(text5)) return "error";
     if (/"level"\s*:\s*"warn(?:ing)?"/i.test(text5)) return "warn";
@@ -22126,123 +22120,61 @@
   }
 
   // src/components/ProcessList.jsx
-  function statusTooltip(status) {
-    const s = String(status).toLowerCase();
-    if (s === "online") return "Running normally";
-    if (s === "launching") return "Starting up";
-    if (s === "stopped") return "Stopped (not running)";
-    if (s === "errored") return "Crashed or encountered an error";
-    if (s === "one-launch-status") return "Exited after a single launch";
-    if (s === "orphan") return "No longer running in PM2, but still tracked by Hawkeye";
-    return `Status: ${status}`;
+  function MegaphoneIcon({ size = 12, color: color2 = "#d4a259" }) {
+    return /* @__PURE__ */ import_react.default.createElement("svg", { width: size, height: size, viewBox: "0 0 12 12", fill: "none", "aria-hidden": "true" }, /* @__PURE__ */ import_react.default.createElement("path", { d: "M1.5 4.5h2l3-2.5v7.5l-3-2.5h-2a.5.5 0 0 1-.5-.5v-1.5a.5.5 0 0 1 .5-.5Z", fill: color2 }), /* @__PURE__ */ import_react.default.createElement("path", { d: "M8 4.2a2.5 2.5 0 0 1 0 3.6", stroke: color2, strokeWidth: "1", strokeLinecap: "round" }));
+  }
+  function RecIcon({ size = 7, color: color2 = "#e07a5f" }) {
+    return /* @__PURE__ */ import_react.default.createElement("svg", { width: size, height: size, viewBox: "0 0 8 8", fill: "none", "aria-hidden": "true" }, /* @__PURE__ */ import_react.default.createElement("circle", { cx: "4", cy: "4", r: "3", fill: color2 }));
+  }
+  function ProcRow({ proc, isSelected, onSelect }) {
+    const id = proc.id ?? proc.name;
+    const status = String(proc.status ?? "").toLowerCase();
+    const classes = [
+      "process-item",
+      isSelected ? "active" : "",
+      proc.isOrphan ? "orphan" : ""
+    ].filter(Boolean).join(" ");
+    return /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        className: classes,
+        role: "option",
+        "aria-selected": isSelected,
+        tabIndex: 0,
+        onClick: () => onSelect(id),
+        onKeyDown: (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onSelect(id);
+          }
+        }
+      },
+      /* @__PURE__ */ import_react.default.createElement("div", { className: "process-item-main-row" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-dot", "data-status": status }), /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-name" }, proc.name), proc.alertsEnabled !== false && proc.isMonitored && /* @__PURE__ */ import_react.default.createElement(MegaphoneIcon, null)),
+      /* @__PURE__ */ import_react.default.createElement("div", { className: "process-item-sub-row" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-status-text", "data-status": status }, status), proc.cpu != null && /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-cpu" }, proc.cpu.toFixed(1), "%"), proc.memory != null && /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-mem" }, formatBytes(proc.memory)), proc.isMonitored && /* @__PURE__ */ import_react.default.createElement(RecIcon, null))
+    );
   }
   function ProcessList({
     processes,
     selectedProcessId,
-    status,
     onSelect,
-    onOpenSettings,
-    onOpenDeploy,
-    onToggleAlert,
-    deployments = [],
     onEditDeployment,
-    onRemoveOrphan,
     offlineDeployments = [],
-    onDeleteDeployment
+    onDeleteDeployment,
+    drawerOpen = false
   }) {
-    const deployedNames = (0, import_react.useMemo)(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
-    return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-header" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "PM2 Inventory"), /* @__PURE__ */ import_react.default.createElement("h1", null, "Command Center"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Monitor processes, inspect logs, and restart services.")), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-toolbar" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenSettings }, "Settings"), /* @__PURE__ */ import_react.default.createElement("button", { className: "ghost-button", type: "button", onClick: onOpenDeploy }, "Deploy"), /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-status" }, status))), /* @__PURE__ */ import_react.default.createElement("aside", { className: "sidebar-body section-shell" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length === 0 && offlineDeployments.length === 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found.")), processes.map((proc) => {
-      const isSelected = String(proc.id ?? proc.name) === String(selectedProcessId);
-      const monitoredClass = proc.isMonitored ? "monitored" : "";
-      const orphanClass = proc.isOrphan ? "orphan" : "";
-      return /* @__PURE__ */ import_react.default.createElement(
-        "div",
-        {
-          className: `process-item ${isSelected ? "active" : ""} ${monitoredClass} ${orphanClass}`.trim(),
-          key: proc.name,
-          role: "option",
-          "aria-selected": isSelected,
-          tabIndex: 0,
-          onClick: () => onSelect(proc.id ?? proc.name),
-          onKeyDown: (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              onSelect(proc.id ?? proc.name);
-            }
-          }
-        },
-        /* @__PURE__ */ import_react.default.createElement("div", { className: "process-item-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-title" }, proc.name), /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-controls" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement(
-          "button",
-          {
-            className: `bell-btn${proc.alertsEnabled === false ? " bell-disabled" : ""}`,
-            title: proc.alertsEnabled === false ? "Alerts muted - click to enable" : "Alerts active - click to mute",
-            onClick: (e) => {
-              e.stopPropagation();
-              onToggleAlert(proc.name, proc.alertsEnabled ?? true);
-            },
-            "aria-label": "Toggle alerts"
-          },
-          "\u{1F4E2}"
-        ), /* @__PURE__ */ import_react.default.createElement(
-          "span",
-          {
-            className: `status-indicator ${getStatusTone(proc.status)}`,
-            title: statusTooltip(proc.status)
-          }
-        ))),
-        (proc.isMonitored || deployedNames.has(proc.name)) && /* @__PURE__ */ import_react.default.createElement("div", { className: "monitor-tag-row" }, proc.isMonitored && /* @__PURE__ */ import_react.default.createElement(
-          "span",
-          {
-            className: "monitor-tag",
-            title: "Hawkeye is collecting and storing CPU/memory metrics and log entries for this process. History is available even after restarts."
-          },
-          /* @__PURE__ */ import_react.default.createElement("span", { className: "monitor-tag-dot" }),
-          "Monitored"
-        ), deployedNames.has(proc.name) && /* @__PURE__ */ import_react.default.createElement(
-          "button",
-          {
-            className: "edit-deploy-btn",
-            title: "Edit configuration or trigger a redeploy",
-            onClick: (e) => {
-              e.stopPropagation();
-              onEditDeployment(proc.name);
-            }
-          },
-          "Edit / Redeploy"
-        )),
-        /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-status" }, proc.isOrphan ? /* @__PURE__ */ import_react.default.createElement(
-          "button",
-          {
-            className: "process-item-orphan",
-            title: "This process is no longer running in PM2, but Hawkeye still has a monitoring record for it. Click to remove the record.",
-            onClick: (e) => {
-              e.stopPropagation();
-              onRemoveOrphan(proc.name);
-            }
-          },
-          "Orphan (Remove)"
-        ) : /* @__PURE__ */ import_react.default.createElement(
-          "span",
-          {
-            title: statusTooltip(proc.status)
-          },
-          `${proc.status} \xB7 ${proc.cpu}% CPU \xB7 ${formatBytes(proc.memory)}`
-        ))
-      );
-    }), offlineDeployments.length > 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-section" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-header" }, "Offline deployments"), offlineDeployments.map((dep) => /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-item", key: dep.id }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-title" }, dep.pm2_name), /* @__PURE__ */ import_react.default.createElement(
-      "span",
+    const selectedIdStr = String(selectedProcessId);
+    return /* @__PURE__ */ import_react.default.createElement("aside", { className: "app-sidebar section-shell", "data-open": drawerOpen }, /* @__PURE__ */ import_react.default.createElement("div", { className: "sidebar-title-row" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "sidebar-title-label" }, "Processes"), /* @__PURE__ */ import_react.default.createElement("span", { className: "sidebar-title-count" }, processes.length)), /* @__PURE__ */ import_react.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, processes.length === 0 && offlineDeployments.length === 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react.default.createElement("p", null, "No PM2 processes found.")), processes.map((proc) => /* @__PURE__ */ import_react.default.createElement(
+      ProcRow,
       {
-        className: `offline-deploy-badge offline-deploy-badge--${dep.displayStatus}`,
-        title: dep.displayStatus === "deploying" ? "A deployment is currently in progress for this app." : dep.displayStatus === "broken" ? "The initial deployment failed before the process ever ran successfully. Edit the configuration and redeploy to fix it." : "This app was successfully deployed before, but is no longer running in PM2. It may have been stopped or removed manually."
-      },
-      dep.displayStatus === "deploying" && "Deploying\u2026",
-      dep.displayStatus === "broken" && "Broken",
-      dep.displayStatus === "offline" && "Not running in PM2"
-    )), /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-actions" }, /* @__PURE__ */ import_react.default.createElement(
+        key: proc.name,
+        proc,
+        isSelected: String(proc.id ?? proc.name) === selectedIdStr,
+        onSelect
+      }
+    )), offlineDeployments.length > 0 && /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-section" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployments-header" }, "Offline deployments"), offlineDeployments.map((dep) => /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-item", key: dep.id }, /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-top" }, /* @__PURE__ */ import_react.default.createElement("span", { className: "process-item-name" }, dep.pm2_name), /* @__PURE__ */ import_react.default.createElement("span", { className: `offline-deploy-badge offline-deploy-badge--${dep.displayStatus}` }, dep.displayStatus === "deploying" && "Deploying\u2026", dep.displayStatus === "broken" && "Broken", dep.displayStatus === "offline" && "Offline")), /* @__PURE__ */ import_react.default.createElement("div", { className: "offline-deployment-actions" }, /* @__PURE__ */ import_react.default.createElement(
       "button",
       {
         className: "edit-deploy-btn",
-        title: "Edit configuration or trigger a redeploy",
         onClick: () => onEditDeployment(dep.pm2_name)
       },
       "Edit / Redeploy"
@@ -22250,30 +22182,23 @@
       "button",
       {
         className: "offline-deploy-delete-btn",
-        title: "Delete this deployment record",
         onClick: () => onDeleteDeployment(dep.id)
       },
       "Delete"
-    ))))))));
+    )))))));
   }
 
   // src/components/HeroCard.jsx
-  var import_react4 = __toESM(require_react(), 1);
-
-  // src/components/Pill.jsx
-  var import_react2 = __toESM(require_react(), 1);
-  function Pill({ label, tone = "muted", className = "" }) {
-    return /* @__PURE__ */ import_react2.default.createElement("span", { className: `pill ${tone} ${className}`.trim() }, label);
-  }
+  var import_react3 = __toESM(require_react(), 1);
 
   // src/components/Actions.jsx
-  var import_react3 = __toESM(require_react(), 1);
+  var import_react2 = __toESM(require_react(), 1);
   function Actions({ actions, selectedProcessId, csrfToken, onCsrfRefresh }) {
-    const [selectedAction, setSelectedAction] = (0, import_react3.useState)("");
-    const [confirming, setConfirming] = (0, import_react3.useState)(false);
-    const [triggering, setTriggering] = (0, import_react3.useState)(false);
-    const [successMsg, setSuccessMsg] = (0, import_react3.useState)("");
-    const [actionParams, setActionParams] = (0, import_react3.useState)("");
+    const [selectedAction, setSelectedAction] = (0, import_react2.useState)("");
+    const [confirming, setConfirming] = (0, import_react2.useState)(false);
+    const [triggering, setTriggering] = (0, import_react2.useState)(false);
+    const [successMsg, setSuccessMsg] = (0, import_react2.useState)("");
+    const [actionParams, setActionParams] = (0, import_react2.useState)("");
     const selectedActionMeta = actions.find((a) => (typeof a === "object" ? a.name : a) === selectedAction);
     const actionRequiresParams = selectedActionMeta && typeof selectedActionMeta === "object" && selectedActionMeta.params && selectedActionMeta.params.length > 0;
     const handleActionSelect = (e) => {
@@ -22315,7 +22240,7 @@
       setActionParams("");
     };
     if (actions.length === 0) return null;
-    return /* @__PURE__ */ import_react3.default.createElement("div", { className: "actions-dropdown" }, /* @__PURE__ */ import_react3.default.createElement("p", { className: "eyebrow actions-eyebrow" }, "Trigger Actions"), successMsg && /* @__PURE__ */ import_react3.default.createElement("div", { className: "action-success" }, successMsg), confirming ? /* @__PURE__ */ import_react3.default.createElement("div", { className: "action-confirm" }, /* @__PURE__ */ import_react3.default.createElement("span", null, "Trigger ", /* @__PURE__ */ import_react3.default.createElement("strong", null, selectedAction), "?"), actionRequiresParams && /* @__PURE__ */ import_react3.default.createElement(
+    return /* @__PURE__ */ import_react2.default.createElement("div", { className: "actions-dropdown" }, /* @__PURE__ */ import_react2.default.createElement("p", { className: "eyebrow actions-eyebrow" }, "Trigger Actions"), successMsg && /* @__PURE__ */ import_react2.default.createElement("div", { className: "action-success" }, successMsg), confirming ? /* @__PURE__ */ import_react2.default.createElement("div", { className: "action-confirm" }, /* @__PURE__ */ import_react2.default.createElement("span", null, "Trigger ", /* @__PURE__ */ import_react2.default.createElement("strong", null, selectedAction), "?"), actionRequiresParams && /* @__PURE__ */ import_react2.default.createElement(
       "input",
       {
         type: "text",
@@ -22325,50 +22250,63 @@
         onChange: (e) => setActionParams(e.target.value),
         disabled: triggering
       }
-    ), /* @__PURE__ */ import_react3.default.createElement("div", { className: "action-confirm-buttons" }, /* @__PURE__ */ import_react3.default.createElement("button", { className: "btn btn-sm btn-confirm", onClick: handleConfirm, disabled: triggering }, triggering ? "Triggering\u2026" : "Yes"), /* @__PURE__ */ import_react3.default.createElement("button", { className: "btn btn-sm btn-cancel", onClick: handleCancel, disabled: triggering }, "No"))) : /* @__PURE__ */ import_react3.default.createElement("select", { value: selectedAction, onChange: handleActionSelect, className: "action-select" }, /* @__PURE__ */ import_react3.default.createElement("option", { value: "" }, "PM2 Actions\u2026"), actions.map((action) => {
+    ), /* @__PURE__ */ import_react2.default.createElement("div", { className: "action-confirm-buttons" }, /* @__PURE__ */ import_react2.default.createElement("button", { className: "btn btn-sm btn-confirm", onClick: handleConfirm, disabled: triggering }, triggering ? "Triggering\u2026" : "Yes"), /* @__PURE__ */ import_react2.default.createElement("button", { className: "btn btn-sm btn-cancel", onClick: handleCancel, disabled: triggering }, "No"))) : /* @__PURE__ */ import_react2.default.createElement("select", { value: selectedAction, onChange: handleActionSelect, className: "action-select" }, /* @__PURE__ */ import_react2.default.createElement("option", { value: "" }, "PM2 Actions\u2026"), actions.map((action) => {
       const name2 = typeof action === "object" ? action.name : action;
-      return /* @__PURE__ */ import_react3.default.createElement("option", { key: name2, value: name2 }, name2);
+      return /* @__PURE__ */ import_react2.default.createElement("option", { key: name2, value: name2 }, name2);
     })));
   }
 
   // src/components/HeroCard.jsx
-  function HeroCard({ selectedProcess, details, sseConnected, onLogout, onRestart, onDelete, onRemoveOrphan, selectedDeployment, actions, selectedProcessId, csrfToken, onCsrfRefresh }) {
-    const [confirmingRestart, setConfirmingRestart] = (0, import_react4.useState)(false);
-    const [confirmingDelete, setConfirmingDelete] = (0, import_react4.useState)(false);
-    const [confirmingRemoveOrphan, setConfirmingRemoveOrphan] = (0, import_react4.useState)(false);
-    const handleRestartClick = () => {
-      setConfirmingRestart(true);
-    };
-    const handleRestartConfirm = async () => {
+  function HeroCard({
+    selectedProcess,
+    details,
+    onRestart,
+    onDelete,
+    onRemoveOrphan,
+    selectedDeployment,
+    actions,
+    selectedProcessId,
+    csrfToken,
+    onCsrfRefresh
+  }) {
+    const [confirmingRestart, setConfirmingRestart] = (0, import_react3.useState)(false);
+    const [confirmingDelete, setConfirmingDelete] = (0, import_react3.useState)(false);
+    const [confirmingRemoveOrphan, setConfirmingRemoveOrphan] = (0, import_react3.useState)(false);
+    const isOrphan = selectedProcess?.isOrphan ?? false;
+    const status = selectedProcess?.status ?? "";
+    const statusLower = status.toLowerCase();
+    const isDeletable = !isOrphan && selectedProcess && ["stopped", "errored", "error", "one-launch-status"].includes(statusLower);
+    if (!selectedProcess) {
+      return /* @__PURE__ */ import_react3.default.createElement("header", { className: "hero-card" }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "hero-empty" }, /* @__PURE__ */ import_react3.default.createElement("p", { className: "hero-empty-hint" }, "Select a process from the sidebar")));
+    }
+    const pid = details?.process?.pid;
+    const script = selectedProcess?.pm2_env?.pm_exec_path ?? selectedProcess?.script ?? "";
+    const scriptShort = script.split("/").pop() || script;
+    return /* @__PURE__ */ import_react3.default.createElement("header", { className: "hero-card" }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "hero-header-row" }, /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-status-dot", "data-status": statusLower }), /* @__PURE__ */ import_react3.default.createElement("h1", { className: "hero-process-name" }, selectedProcess.name), selectedProcess.alertsEnabled !== false && selectedProcess.isMonitored && /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-alert-badge" }, "alert"), /* @__PURE__ */ import_react3.default.createElement("div", { className: "hero-subline" }, /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-status-text", "data-status": statusLower }, status), pid != null && /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-meta" }, "PID ", pid), scriptShort && /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-meta" }, scriptShort)), /* @__PURE__ */ import_react3.default.createElement("div", { className: "hero-action-btns" }, confirmingRestart ? /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-confirm" }, "Restart?", /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn hero-confirm-btn--yes", onClick: async () => {
       setConfirmingRestart(false);
       await onRestart();
-    };
-    const handleRestartCancel = () => {
-      setConfirmingRestart(false);
-    };
-    const handleDeleteClick = () => {
-      setConfirmingDelete(true);
-    };
-    const handleDeleteConfirm = async (withDeploy) => {
-      setConfirmingDelete(false);
-      await onDelete(withDeploy);
-    };
-    const handleDeleteCancel = () => {
-      setConfirmingDelete(false);
-    };
-    const handleRemoveOrphanClick = () => {
-      setConfirmingRemoveOrphan(true);
-    };
-    const handleRemoveOrphanConfirm = async () => {
+    } }, "Yes"), /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn", onClick: () => setConfirmingRestart(false) }, "No")) : /* @__PURE__ */ import_react3.default.createElement(
+      "button",
+      {
+        className: "ghost-button",
+        type: "button",
+        disabled: !selectedProcess,
+        onClick: () => setConfirmingRestart(true)
+      },
+      "Restart"
+    ), isOrphan && (confirmingRemoveOrphan ? /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-confirm" }, "Remove orphan?", /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn hero-confirm-btn--yes", onClick: async () => {
       setConfirmingRemoveOrphan(false);
       await onRemoveOrphan(selectedProcess.name);
-    };
-    const handleRemoveOrphanCancel = () => {
-      setConfirmingRemoveOrphan(false);
-    };
-    const isOrphan = selectedProcess?.isOrphan ?? false;
-    const isDeletable = !isOrphan && selectedProcess && ["stopped", "errored", "error", "one-launch-status"].includes(selectedProcess.status);
-    return /* @__PURE__ */ import_react4.default.createElement("header", { className: "hero-card section-shell" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "hero-copy" }, /* @__PURE__ */ import_react4.default.createElement("p", { className: "eyebrow" }, "Selected Process"), /* @__PURE__ */ import_react4.default.createElement("h2", null, selectedProcess?.name || "No process selected"), /* @__PURE__ */ import_react4.default.createElement("p", { className: "subtle" }, selectedProcess ? `Status: ${selectedProcess.status} \xB7 PID: ${details?.process?.pid ?? "n/a"} \xB7 Up since: ${details?.process?.uptime ? formatDate(details.process.uptime) : ""}` : "Choose a PM2 process from the sidebar."), /* @__PURE__ */ import_react4.default.createElement("div", { className: "selection-badges" }, selectedProcess ? /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement(Pill, { label: selectedProcess.status || "unknown", tone: getStatusTone(selectedProcess.status) }), /* @__PURE__ */ import_react4.default.createElement(Pill, { label: `${selectedProcess.cpu}% CPU`, tone: "neutral" }), /* @__PURE__ */ import_react4.default.createElement(Pill, { label: formatBytes(selectedProcess.memory), tone: "neutral" })) : /* @__PURE__ */ import_react4.default.createElement(Pill, { label: "Waiting for selection", tone: "muted" }))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "hero-rail" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "signal-card" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: `signal-dot ${sseConnected ? "connected" : "disconnected"}` }), /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("span", { className: "signal-label" }, "Live stream"), /* @__PURE__ */ import_react4.default.createElement("strong", null, sseConnected ? "Connected" : "Disconnected"))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "hero-actions" }, confirmingRestart ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "action-confirm" }, /* @__PURE__ */ import_react4.default.createElement("span", null, "Restart ", /* @__PURE__ */ import_react4.default.createElement("strong", null, selectedProcess?.name), "?"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "action-confirm-buttons" }, /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-confirm", onClick: handleRestartConfirm }, "Yes"), /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-cancel", onClick: handleRestartCancel }, "No"))) : /* @__PURE__ */ import_react4.default.createElement("button", { className: "primary-button", type: "button", disabled: !selectedProcess, onClick: handleRestartClick }, "Restart process"), isOrphan && (confirmingRemoveOrphan ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "action-confirm" }, /* @__PURE__ */ import_react4.default.createElement("span", null, "Remove ", /* @__PURE__ */ import_react4.default.createElement("strong", null, selectedProcess?.name), " from hawkeye?"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "action-confirm-buttons" }, /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-confirm", onClick: handleRemoveOrphanConfirm }, "Yes"), /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-cancel", onClick: handleRemoveOrphanCancel }, "No"))) : /* @__PURE__ */ import_react4.default.createElement("button", { className: "ghost-button danger-button", type: "button", onClick: handleRemoveOrphanClick }, "Remove orphan")), isDeletable && (confirmingDelete ? /* @__PURE__ */ import_react4.default.createElement("div", { className: "action-confirm" }, /* @__PURE__ */ import_react4.default.createElement("span", null, "Delete ", /* @__PURE__ */ import_react4.default.createElement("strong", null, selectedProcess?.name), " from PM2?"), selectedDeployment && /* @__PURE__ */ import_react4.default.createElement("p", { className: "action-confirm-hint" }, "This process was deployed by hawkeye. Also delete the deployment record and the directory on disk (", selectedDeployment.deploy_path, ")?"), /* @__PURE__ */ import_react4.default.createElement("div", { className: "action-confirm-buttons" }, selectedDeployment ? /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-confirm", onClick: () => handleDeleteConfirm(true) }, "Yes, incl. disk data"), /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-cancel-soft", onClick: () => handleDeleteConfirm(false) }, "Yes, PM2 only"), /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-cancel", onClick: handleDeleteCancel }, "No")) : /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-confirm", onClick: () => handleDeleteConfirm(false) }, "Yes"), /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn-sm btn-cancel", onClick: handleDeleteCancel }, "No")))) : /* @__PURE__ */ import_react4.default.createElement("button", { className: "ghost-button danger-button", type: "button", onClick: handleDeleteClick }, "Delete from PM2")), /* @__PURE__ */ import_react4.default.createElement("button", { className: "ghost-button", type: "button", onClick: onLogout }, "Sign out")), /* @__PURE__ */ import_react4.default.createElement(
+    } }, "Yes"), /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn", onClick: () => setConfirmingRemoveOrphan(false) }, "No")) : /* @__PURE__ */ import_react3.default.createElement("button", { className: "ghost-button danger-button", type: "button", onClick: () => setConfirmingRemoveOrphan(true) }, "Remove orphan")), isDeletable && (confirmingDelete ? /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-confirm" }, "Delete from PM2?", selectedDeployment ? /* @__PURE__ */ import_react3.default.createElement(import_react3.default.Fragment, null, /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn hero-confirm-btn--yes", onClick: async () => {
+      setConfirmingDelete(false);
+      await onDelete(true);
+    } }, "Yes, incl. disk"), /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn hero-confirm-btn--yes", onClick: async () => {
+      setConfirmingDelete(false);
+      await onDelete(false);
+    } }, "PM2 only")) : /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn hero-confirm-btn--yes", onClick: async () => {
+      setConfirmingDelete(false);
+      await onDelete(false);
+    } }, "Yes"), /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn", onClick: () => setConfirmingDelete(false) }, "No")) : /* @__PURE__ */ import_react3.default.createElement("button", { className: "ghost-button danger-button", type: "button", onClick: () => setConfirmingDelete(true) }, "Delete")))), actions.length > 0 && /* @__PURE__ */ import_react3.default.createElement(
       Actions,
       {
         actions,
@@ -22376,19 +22314,19 @@
         csrfToken,
         onCsrfRefresh
       }
-    )));
+    ));
   }
 
   // src/components/StatsGrid.jsx
-  var import_react6 = __toESM(require_react(), 1);
+  var import_react5 = __toESM(require_react(), 1);
 
   // src/components/Sparkline.jsx
-  var import_react5 = __toESM(require_react(), 1);
+  var import_react4 = __toESM(require_react(), 1);
   function Sparkline({ samples, height = 32, color: color2 = "var(--accent)", formatValue }) {
-    const wrapperRef = (0, import_react5.useRef)(null);
-    const [tooltip, setTooltip] = (0, import_react5.useState)(null);
-    const [dims, setDims] = (0, import_react5.useState)({ w: 0, h: 0 });
-    (0, import_react5.useLayoutEffect)(() => {
+    const wrapperRef = (0, import_react4.useRef)(null);
+    const [tooltip, setTooltip] = (0, import_react4.useState)(null);
+    const [dims, setDims] = (0, import_react4.useState)({ w: 0, h: 0 });
+    (0, import_react4.useLayoutEffect)(() => {
       const el = wrapperRef.current;
       if (!el) return void 0;
       const measure = () => {
@@ -22459,7 +22397,7 @@
     const displayValue = tooltip ? formatValue ? formatValue(tooltip.v) : tooltip.v.toFixed(1) : null;
     const displayTime = tooltip ? new Date(tooltip.t).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : null;
     const tooltipShift = tooltip && tooltip.pct > 0.65 ? "translateX(-100%)" : "translateX(-50%)";
-    return /* @__PURE__ */ import_react5.default.createElement("div", { ref: wrapperRef, className: "sparkline-wrapper", onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave }, /* @__PURE__ */ import_react5.default.createElement(
+    return /* @__PURE__ */ import_react4.default.createElement("div", { ref: wrapperRef, className: "sparkline-wrapper", onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave }, /* @__PURE__ */ import_react4.default.createElement(
       "svg",
       {
         width: "100%",
@@ -22470,7 +22408,7 @@
         className: "sparkline",
         style: { display: "block", width: "100%", height: heightStyle }
       },
-      ready && /* @__PURE__ */ import_react5.default.createElement(import_react5.default.Fragment, null, /* @__PURE__ */ import_react5.default.createElement("polygon", { points: areaPoints, fill: color2, opacity: "0.12" }), /* @__PURE__ */ import_react5.default.createElement(
+      ready && /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("polygon", { points: areaPoints, fill: color2, opacity: "0.12" }), /* @__PURE__ */ import_react4.default.createElement(
         "polyline",
         {
           points,
@@ -22481,7 +22419,7 @@
           strokeLinecap: "round",
           vectorEffect: "non-scaling-stroke"
         }
-      ), tooltip && /* @__PURE__ */ import_react5.default.createElement(import_react5.default.Fragment, null, /* @__PURE__ */ import_react5.default.createElement(
+      ), tooltip && /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement(
         "line",
         {
           x1: tooltip.svgX.toFixed(2),
@@ -22494,168 +22432,246 @@
           opacity: "0.5",
           vectorEffect: "non-scaling-stroke"
         }
-      ), /* @__PURE__ */ import_react5.default.createElement("circle", { cx: tooltip.svgX.toFixed(2), cy: tooltip.svgY.toFixed(2), r: "2.5", fill: color2 })))
-    ), ready && tooltip && /* @__PURE__ */ import_react5.default.createElement(
+      ), /* @__PURE__ */ import_react4.default.createElement("circle", { cx: tooltip.svgX.toFixed(2), cy: tooltip.svgY.toFixed(2), r: "2.5", fill: color2 })))
+    ), ready && tooltip && /* @__PURE__ */ import_react4.default.createElement(
       "div",
       {
         className: "sparkline-tooltip",
         style: { left: `${(tooltip.pct * 100).toFixed(1)}%`, transform: tooltipShift }
       },
-      /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-value" }, displayValue),
-      /* @__PURE__ */ import_react5.default.createElement("span", { className: "sparkline-tooltip-time" }, displayTime)
+      /* @__PURE__ */ import_react4.default.createElement("span", { className: "sparkline-tooltip-value" }, displayValue),
+      /* @__PURE__ */ import_react4.default.createElement("span", { className: "sparkline-tooltip-time" }, displayTime)
     ));
   }
 
   // src/components/StatsGrid.jsx
-  function StatsGrid({ details, error, metricsHistory = [], isMonitored = false }) {
-    const items = details ? [
-      { label: "CPU", value: `${details.process.cpu}%`, sparklineKey: "cpu" },
-      { label: "Memory", value: formatBytes(details.process.memory), sparklineKey: "memory" },
-      { label: "Restarts", value: String(details.process.restarts) },
-      { label: "Uptime", value: formatRelativeTime(details.process.uptime), sub: formatDate(details.process.uptime) }
-    ] : null;
+  function MetricChip({ label, value, sub, samples = [], formatValue, color: color2 = "var(--accent)", isExpanded, onToggle }) {
+    const hasSpark = samples.length >= 2;
+    return /* @__PURE__ */ import_react5.default.createElement(
+      "button",
+      {
+        className: `metric-chip${isExpanded ? " metric-chip--expanded" : ""}`,
+        type: "button",
+        onClick: onToggle,
+        "aria-expanded": isExpanded
+      },
+      /* @__PURE__ */ import_react5.default.createElement("span", { className: "metric-chip-head" }, /* @__PURE__ */ import_react5.default.createElement("span", { className: "metric-chip-label" }, label), /* @__PURE__ */ import_react5.default.createElement("strong", { className: "metric-chip-value" }, value), sub && !isExpanded && /* @__PURE__ */ import_react5.default.createElement("span", { className: "metric-chip-sub" }, sub)),
+      isExpanded && /* @__PURE__ */ import_react5.default.createElement("div", { className: "metric-chip-spark" }, hasSpark ? /* @__PURE__ */ import_react5.default.createElement(Sparkline, { samples, formatValue: formatValue || String, color: color2, height: "100%" }) : /* @__PURE__ */ import_react5.default.createElement("span", { className: "metric-chip-no-data" }, "No history yet")),
+      isExpanded && sub && /* @__PURE__ */ import_react5.default.createElement("span", { className: "metric-chip-sub metric-chip-sub--expanded" }, sub)
+    );
+  }
+  function StatsGrid({ details, error, metricsHistory = [], expandedChip, onExpandChip }) {
     const cpuSamples = metricsHistory.map((s) => ({ t: s.sampled_at, v: s.cpu }));
     const memorySamples = metricsHistory.map((s) => ({ t: s.sampled_at, v: s.memory }));
-    return /* @__PURE__ */ import_react6.default.createElement("section", { className: "panel section-shell stats-panel" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "panel-header" }, /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("p", { className: "eyebrow" }, "Dashboard"), /* @__PURE__ */ import_react6.default.createElement("h3", null, "Runtime metrics")), /* @__PURE__ */ import_react6.default.createElement("p", { className: "subtle" }, "Live CPU, memory, uptime, and restart telemetry.")), /* @__PURE__ */ import_react6.default.createElement("div", { className: `stats-grid ${details ? "" : "empty-state"}`.trim() }, items ? items.map((item) => /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card", key: item.label }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-label" }, item.label), /* @__PURE__ */ import_react6.default.createElement("strong", { className: "stat-value" }, item.value), item.sub ? /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-sub" }, item.sub) : null, item.sparklineKey === "cpu" && cpuSamples.length >= 2 && /* @__PURE__ */ import_react6.default.createElement(
-      Sparkline,
+    const chips = details ? [
       {
+        id: "cpu",
+        label: "CPU",
+        value: `${details.process.cpu}%`,
         samples: cpuSamples,
         formatValue: (v) => `${v.toFixed(1)}%`,
         color: "var(--accent)"
-      }
-    ), item.sparklineKey === "cpu" && !isMonitored && /* @__PURE__ */ import_react6.default.createElement("div", { className: "sparkline-placeholder" }, /* @__PURE__ */ import_react6.default.createElement("span", null, "Enable monitoring for trend history")), item.sparklineKey === "memory" && memorySamples.length >= 2 && /* @__PURE__ */ import_react6.default.createElement(
-      Sparkline,
+      },
       {
+        id: "mem",
+        label: "Memory",
+        value: formatBytes(details.process.memory),
         samples: memorySamples,
         formatValue: formatBytes,
         color: "var(--success)"
+      },
+      {
+        id: "restarts",
+        label: "Restarts",
+        value: String(details.process.restarts)
+      },
+      {
+        id: "uptime",
+        label: "Uptime",
+        value: formatRelativeTime(details.process.uptime),
+        sub: formatDate(details.process.uptime)
       }
-    ), item.sparklineKey === "memory" && !isMonitored && /* @__PURE__ */ import_react6.default.createElement("div", { className: "sparkline-placeholder" }, /* @__PURE__ */ import_react6.default.createElement("span", null, "Enable monitoring for trend history")))) : /* @__PURE__ */ import_react6.default.createElement("div", { className: "empty-card" }, /* @__PURE__ */ import_react6.default.createElement("p", null, error || "No process metrics loaded yet."))));
+    ] : null;
+    if (!chips) {
+      return /* @__PURE__ */ import_react5.default.createElement("div", { className: "metric-chips-row" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "empty-card compact" }, /* @__PURE__ */ import_react5.default.createElement("p", null, error || "No process metrics loaded yet.")));
+    }
+    return /* @__PURE__ */ import_react5.default.createElement("div", { className: "metric-chips-row" }, chips.map((chip) => /* @__PURE__ */ import_react5.default.createElement(
+      MetricChip,
+      {
+        key: chip.id,
+        ...chip,
+        isExpanded: expandedChip === chip.id,
+        onToggle: () => onExpandChip(expandedChip === chip.id ? null : chip.id)
+      }
+    )));
   }
 
   // src/components/LogStream.jsx
-  var import_react7 = __toESM(require_react(), 1);
+  var import_react6 = __toESM(require_react(), 1);
   function isContinuationLine(text5) {
     return /^\s+at\s/.test(text5);
   }
-  function levelToPillClass(level) {
-    if (level === "error") return "pill-error";
-    if (level === "warn") return "pill-warn";
-    if (level === "info") return "pill-info";
-    return "pill-log";
+  function levelClass(level) {
+    if (level === "error") return "level-error";
+    if (level === "warn") return "level-warn";
+    if (level === "info") return "level-info";
+    return "";
   }
-  function levelToLabel(level) {
-    if (level === "error") return "error";
-    if (level === "warn") return "warning";
-    if (level === "info") return "info";
-    return "log";
+  function levelLabel(level) {
+    if (level === "error") return "ERR";
+    if (level === "warn") return "WRN";
+    if (level === "info") return "INF";
+    return "LOG";
   }
-  function LogStream({ details, allLines, logRef, isMonitored, unreadCount = 0, onScrollToBottom }) {
-    const annotatedLines = allLines.map((line) => {
-      const continuation = isContinuationLine(line.text);
-      const level = continuation ? "" : line.logLevel !== void 0 ? line.logLevel : detectLogLevel(line.text);
-      return { ...line, level, isMain: !continuation };
-    });
-    let currentLevel = "";
-    for (const line of annotatedLines) {
-      if (line.isMain) {
-        currentLevel = line.level;
-      } else {
-        line.inheritedLevel = currentLevel;
+  function extractTime(text5) {
+    const m = text5.match(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/);
+    if (!m) return "";
+    return m[1].slice(11, 19);
+  }
+  function LogStream({
+    details,
+    allLines,
+    logRef,
+    isMonitored,
+    unreadCount = 0,
+    onScrollToBottom,
+    logFilters = /* @__PURE__ */ new Set(["info", "warn", "error"]),
+    onToggleFilter,
+    logSearch = "",
+    onSearchChange,
+    logPaused = false,
+    onTogglePause
+  }) {
+    const annotatedLines = (0, import_react6.useMemo)(() => {
+      const result = [];
+      let currentLevel = "";
+      for (const line of allLines) {
+        const continuation = isContinuationLine(line.text);
+        const level = continuation ? "" : line.logLevel !== void 0 ? line.logLevel : detectLogLevel(line.text);
+        if (!continuation) currentLevel = level;
+        result.push({ ...line, level, isMain: !continuation, inheritedLevel: continuation ? currentLevel : level });
       }
-    }
-    const headerBadge = isMonitored ? /* @__PURE__ */ import_react7.default.createElement("span", { className: "stored-badge" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stored-dot" }), "Stored") : /* @__PURE__ */ import_react7.default.createElement("span", { className: "live-badge live-badge--warning" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "pulse pulse--warning" }), "Live only");
-    const emptyText = isMonitored ? "No log entries stored yet. New log lines will appear here as they are written." : "No log output yet. Note: logs are not being saved - enable monitoring to persist them.";
-    return /* @__PURE__ */ import_react7.default.createElement("section", { className: "panel section-shell" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "panel-header" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("p", { className: "eyebrow" }, "Log Stream"), /* @__PURE__ */ import_react7.default.createElement("h3", null, "Process logs")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "log-header-right" }, /* @__PURE__ */ import_react7.default.createElement("p", { className: "subtle" }, details ? `${allLines.length} lines` : "No data"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "log-stream-wrapper" }, /* @__PURE__ */ import_react7.default.createElement("div", { ref: logRef, className: `log-stream ${allLines.length ? "" : "empty-state"}`.trim() }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "log-stream-header" }, /* @__PURE__ */ import_react7.default.createElement("span", null, "Log output"), headerBadge), allLines.length ? annotatedLines.map((line, i) => {
-      const effectiveLevel = line.level || line.inheritedLevel || "";
-      return /* @__PURE__ */ import_react7.default.createElement(
-        "div",
-        {
-          className: `log-line ${effectiveLevel ? `level-${effectiveLevel}` : ""}`.trim(),
-          key: i
-        },
-        line.isMain && /* @__PURE__ */ import_react7.default.createElement(
-          Pill,
+      return result;
+    }, [allLines]);
+    const filteredLines = (0, import_react6.useMemo)(() => {
+      return annotatedLines.filter((line) => {
+        const effectiveLevel = line.level || line.inheritedLevel || "";
+        if (!logFilters.has(effectiveLevel) && logFilters.size < 3) {
+          if (effectiveLevel && !logFilters.has(effectiveLevel)) return false;
+        }
+        if (logSearch && !line.text.toLowerCase().includes(logSearch.toLowerCase())) return false;
+        return true;
+      });
+    }, [annotatedLines, logFilters, logSearch]);
+    const emptyText = isMonitored ? "No log entries stored yet." : "No log output yet. Enable monitoring to persist logs.";
+    const copyLogs = () => {
+      const text5 = filteredLines.map((l) => l.text).join("\n");
+      navigator.clipboard?.writeText(text5).catch(() => {
+      });
+    };
+    const downloadLogs = () => {
+      const text5 = filteredLines.map((l) => l.text).join("\n");
+      const blob = new Blob([text5], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${details?.name ?? "logs"}.log`;
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+    return /* @__PURE__ */ import_react6.default.createElement("section", { className: "panel section-shell log-section" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-toolbar" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-filter-pills" }, ["info", "warn", "error"].map((level) => /* @__PURE__ */ import_react6.default.createElement(
+      "button",
+      {
+        key: level,
+        className: `log-filter-pill log-filter-pill--${level}${logFilters.has(level) ? " active" : ""}`,
+        type: "button",
+        onClick: () => onToggleFilter(level)
+      },
+      levelLabel(level)
+    ))), /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-search-wrap" }, /* @__PURE__ */ import_react6.default.createElement("svg", { className: "log-search-icon", width: "12", height: "12", viewBox: "0 0 12 12", fill: "none", "aria-hidden": "true" }, /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "5", cy: "5", r: "3.5", stroke: "currentColor", strokeWidth: "1.25" }), /* @__PURE__ */ import_react6.default.createElement("line", { x1: "7.8", y1: "7.8", x2: "10.5", y2: "10.5", stroke: "currentColor", strokeWidth: "1.25", strokeLinecap: "round" })), /* @__PURE__ */ import_react6.default.createElement(
+      "input",
+      {
+        className: "log-search-input",
+        type: "text",
+        placeholder: "Search logs...",
+        value: logSearch,
+        onChange: (e) => onSearchChange(e.target.value)
+      }
+    )), /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-toolbar-actions" }, /* @__PURE__ */ import_react6.default.createElement(
+      "button",
+      {
+        className: `log-icon-btn${logPaused ? " log-icon-btn--active" : ""}`,
+        type: "button",
+        title: logPaused ? "Resume" : "Pause",
+        onClick: onTogglePause
+      },
+      logPaused ? "\u25B6" : "\u23F8"
+    ), /* @__PURE__ */ import_react6.default.createElement("button", { className: "log-icon-btn", type: "button", title: "Copy logs", onClick: copyLogs }, /* @__PURE__ */ import_react6.default.createElement("svg", { width: "13", height: "13", viewBox: "0 0 13 13", fill: "none", "aria-hidden": "true" }, /* @__PURE__ */ import_react6.default.createElement("rect", { x: "1", y: "4", width: "8", height: "8", rx: "1.5", stroke: "currentColor", strokeWidth: "1.25" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 4V3a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H9", stroke: "currentColor", strokeWidth: "1.25", strokeLinecap: "round" }))), /* @__PURE__ */ import_react6.default.createElement("button", { className: "log-icon-btn", type: "button", title: "Download logs", onClick: downloadLogs }, /* @__PURE__ */ import_react6.default.createElement("svg", { width: "13", height: "13", viewBox: "0 0 13 13", fill: "none", "aria-hidden": "true" }, /* @__PURE__ */ import_react6.default.createElement("path", { d: "M6.5 2v7M4 7l2.5 2.5L9 7", stroke: "currentColor", strokeWidth: "1.25", strokeLinecap: "round", strokeLinejoin: "round" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M2 10.5h9", stroke: "currentColor", strokeWidth: "1.25", strokeLinecap: "round" }))))), /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-stream-wrapper" }, /* @__PURE__ */ import_react6.default.createElement(
+      "div",
+      {
+        ref: logRef,
+        className: `log-stream${filteredLines.length ? "" : " empty-state"}`
+      },
+      filteredLines.length ? filteredLines.map((line, i) => {
+        const effectiveLevel = line.level || line.inheritedLevel || "";
+        const timeStr = extractTime(line.text);
+        return /* @__PURE__ */ import_react6.default.createElement(
+          "div",
           {
-            label: levelToLabel(effectiveLevel),
-            tone: "neutral",
-            className: `log-source ${levelToPillClass(effectiveLevel)}`
-          }
-        ),
-        !line.isMain && /* @__PURE__ */ import_react7.default.createElement(
-          "span",
-          {
-            className: "log-source",
-            style: { display: "inline-block", minWidth: "3.5em" }
-          }
-        ),
-        /* @__PURE__ */ import_react7.default.createElement("span", { className: "log-text" }, line.text)
-      );
-    }) : /* @__PURE__ */ import_react7.default.createElement("div", { className: "empty-card" }, emptyText)), unreadCount > 0 && /* @__PURE__ */ import_react7.default.createElement("button", { type: "button", className: "new-logs-banner", onClick: onScrollToBottom }, unreadCount, " new line", unreadCount !== 1 ? "s" : "", " -- scroll to bottom")));
+            className: `log-line${effectiveLevel ? ` ${levelClass(effectiveLevel)}` : ""}`,
+            key: i
+          },
+          timeStr && /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-time" }, timeStr),
+          line.isMain && effectiveLevel && /* @__PURE__ */ import_react6.default.createElement("span", { className: `log-level-badge log-level-badge--${effectiveLevel}` }, levelLabel(effectiveLevel)),
+          !line.isMain && /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-level-badge log-level-badge--spacer" }),
+          /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-text" }, line.text)
+        );
+      }) : /* @__PURE__ */ import_react6.default.createElement("div", { className: "empty-card" }, emptyText)
+    ), unreadCount > 0 && /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "new-logs-banner", onClick: onScrollToBottom }, unreadCount, " new line", unreadCount !== 1 ? "s" : "", " -- scroll to bottom")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "log-footer" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-footer-dot", "data-paused": logPaused }), /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-footer-status" }, logPaused ? "Paused" : "Live"), /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-footer-count" }, filteredLines.length === allLines.length ? `${allLines.length} lines` : `${filteredLines.length} / ${allLines.length} lines`), details?.name && /* @__PURE__ */ import_react6.default.createElement("span", { className: "log-footer-cmd" }, "tail -f ", details.name)));
   }
 
   // src/components/MonitoringNotice.jsx
-  var import_react8 = __toESM(require_react(), 1);
-  function formatRetention(ms) {
-    const days = ms / (24 * 60 * 60 * 1e3);
-    if (days >= 2 && Number.isInteger(days)) return `${days} days`;
-    const hours = ms / (60 * 60 * 1e3);
-    if (hours >= 1 && Number.isInteger(hours)) return `${hours} h`;
-    return `${Math.round(ms / 6e4)} min`;
-  }
-  function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring, metricsRetentionMs, logsRetentionMs }) {
-    const metricsLabel = formatRetention(metricsRetentionMs ?? 864e5);
-    const logsLabel = formatRetention(logsRetentionMs ?? 14 * 24 * 60 * 60 * 1e3);
-    const [confirmStop, setConfirmStop] = (0, import_react8.useState)(false);
-    (0, import_react8.useEffect)(() => {
+  var import_react7 = __toESM(require_react(), 1);
+  function MonitoringNotice({ isMonitored, pm2Name, onToggleMonitoring }) {
+    const [confirmStop, setConfirmStop] = (0, import_react7.useState)(false);
+    (0, import_react7.useEffect)(() => {
       setConfirmStop(false);
     }, [pm2Name]);
-    if (isMonitored) {
-      if (confirmStop) {
-        return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--confirm" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--warning" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-content" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "monitoring-notice-headline monitoring-notice-headline--warning" }, "Remove all stored history for ", pm2Name, "?"), /* @__PURE__ */ import_react8.default.createElement("p", { className: "monitoring-notice-description" }, "This will permanently delete all stored metrics and log entries for this process. This cannot be undone."))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-confirm-btns" }, /* @__PURE__ */ import_react8.default.createElement(
-          "button",
-          {
-            className: "monitoring-notice-action monitoring-notice-action--danger",
-            type: "button",
-            onClick: () => {
-              onToggleMonitoring(pm2Name, true);
-              setConfirmStop(false);
-            }
-          },
-          "Yes, remove all history"
-        ), /* @__PURE__ */ import_react8.default.createElement(
-          "button",
-          {
-            className: "monitoring-notice-action monitoring-notice-action--ghost",
-            type: "button",
-            onClick: () => setConfirmStop(false)
-          },
-          "Cancel"
-        )));
-      }
-      return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--active" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--active" }), /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", null, "Monitoring active"), " - ", "metrics sampled every 20 s (stored ", metricsLabel, ") \xB7 logs stored for ", logsLabel, "!")), /* @__PURE__ */ import_react8.default.createElement(
+    if (confirmStop) {
+      return /* @__PURE__ */ import_react7.default.createElement("div", { className: "monitoring-strip", "data-active": "true" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "monitoring-strip-dot" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "monitoring-strip-label" }, "Remove all stored history for ", pm2Name, "?"), /* @__PURE__ */ import_react7.default.createElement(
         "button",
         {
-          className: "monitoring-notice-action monitoring-notice-action--ghost",
+          className: "monitoring-strip-btn",
           type: "button",
-          onClick: () => setConfirmStop(true)
+          onClick: () => {
+            onToggleMonitoring(pm2Name, true);
+            setConfirmStop(false);
+          }
         },
-        "Stop Monitoring"
+        "Yes, remove"
+      ), /* @__PURE__ */ import_react7.default.createElement(
+        "button",
+        {
+          className: "monitoring-strip-btn",
+          type: "button",
+          onClick: () => setConfirmStop(false)
+        },
+        "Cancel"
       ));
     }
-    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice monitoring-notice--warning" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-body" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "monitoring-notice-dot monitoring-notice-dot--warning" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "monitoring-notice-content" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "monitoring-notice-headline" }, "Not monitored \u2014 live data only"), /* @__PURE__ */ import_react8.default.createElement("p", { className: "monitoring-notice-description" }, "Real-time values are visible for ", /* @__PURE__ */ import_react8.default.createElement("strong", null, pm2Name), ", but nothing is saved. Click ", /* @__PURE__ */ import_react8.default.createElement("strong", null, "Start Monitoring"), " to persist CPU/memory history (", metricsLabel, ") and logs (", logsLabel, ")."))), /* @__PURE__ */ import_react8.default.createElement(
+    return /* @__PURE__ */ import_react7.default.createElement("div", { className: "monitoring-strip", "data-active": isMonitored }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "monitoring-strip-dot" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "monitoring-strip-label" }, isMonitored ? "Monitoring active" : "Not monitored"), /* @__PURE__ */ import_react7.default.createElement(
       "button",
       {
-        className: "monitoring-notice-action monitoring-notice-action--primary",
+        className: "monitoring-strip-btn",
         type: "button",
-        onClick: () => onToggleMonitoring(pm2Name, false)
+        onClick: () => isMonitored ? setConfirmStop(true) : onToggleMonitoring(pm2Name, false)
       },
-      "Start Monitoring"
+      isMonitored ? "Disable" : "Enable"
     ));
   }
 
   // src/components/UpdateBanner.jsx
-  var import_react10 = __toESM(require_react(), 1);
+  var import_react9 = __toESM(require_react(), 1);
 
   // node_modules/devlop/lib/default.js
   function ok() {
@@ -24530,7 +24546,7 @@
 
   // node_modules/react-markdown/lib/index.js
   var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
-  var import_react9 = __toESM(require_react(), 1);
+  var import_react8 = __toESM(require_react(), 1);
 
   // node_modules/mdast-util-to-string/lib/index.js
   var emptyOptions2 = {};
@@ -32252,17 +32268,17 @@
 
   // src/components/UpdateBanner.jsx
   function UpdateBanner() {
-    const [update, setUpdate] = (0, import_react10.useState)(null);
-    const [open, setOpen] = (0, import_react10.useState)(false);
-    const [dismissed, setDismiss] = (0, import_react10.useState)(false);
-    const panelRef = (0, import_react10.useRef)(null);
-    (0, import_react10.useEffect)(() => {
+    const [update, setUpdate] = (0, import_react9.useState)(null);
+    const [open, setOpen] = (0, import_react9.useState)(false);
+    const [dismissed, setDismiss] = (0, import_react9.useState)(false);
+    const panelRef = (0, import_react9.useRef)(null);
+    (0, import_react9.useEffect)(() => {
       fetchJson("/api/update").then(({ update: info }) => {
         if (info) setUpdate(info);
       }).catch(() => {
       });
     }, []);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react9.useEffect)(() => {
       if (!open) return;
       const handler = (e) => {
         if (panelRef.current && !panelRef.current.contains(e.target)) {
@@ -32272,7 +32288,7 @@
       document.addEventListener("mousedown", handler);
       return () => document.removeEventListener("mousedown", handler);
     }, [open]);
-    (0, import_react10.useEffect)(() => {
+    (0, import_react9.useEffect)(() => {
       if (!open) return;
       const handler = (e) => {
         if (e.key === "Escape") setOpen(false);
@@ -32282,7 +32298,7 @@
     }, [open]);
     if (!update || dismissed) return null;
     const published = update.publishedAt ? new Date(update.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : null;
-    return /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-root", ref: panelRef }, /* @__PURE__ */ import_react10.default.createElement(
+    return /* @__PURE__ */ import_react9.default.createElement("div", { className: "update-root", ref: panelRef }, /* @__PURE__ */ import_react9.default.createElement(
       "button",
       {
         className: "update-pill",
@@ -32290,9 +32306,9 @@
         "aria-expanded": open,
         "aria-label": "New version available"
       },
-      /* @__PURE__ */ import_react10.default.createElement("span", { className: "update-dot" }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, "v", update.latestVersion, " available")
-    ), open && /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel", role: "dialog", "aria-modal": "true", "aria-label": "Release notes" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-header" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-title" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "update-panel-tag" }, "v", update.latestVersion)), /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-meta" }, published && /* @__PURE__ */ import_react10.default.createElement("span", { className: "update-panel-date" }, published), /* @__PURE__ */ import_react10.default.createElement(
+      /* @__PURE__ */ import_react9.default.createElement("span", { className: "update-dot" }),
+      /* @__PURE__ */ import_react9.default.createElement("span", null, "v", update.latestVersion, " available")
+    ), open && /* @__PURE__ */ import_react9.default.createElement("div", { className: "update-panel", role: "dialog", "aria-modal": "true", "aria-label": "Release notes" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "update-panel-header" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "update-panel-title" }, /* @__PURE__ */ import_react9.default.createElement("span", { className: "update-panel-tag" }, "v", update.latestVersion)), /* @__PURE__ */ import_react9.default.createElement("div", { className: "update-panel-meta" }, published && /* @__PURE__ */ import_react9.default.createElement("span", { className: "update-panel-date" }, published), /* @__PURE__ */ import_react9.default.createElement(
       "a",
       {
         className: "update-panel-link",
@@ -32301,22 +32317,22 @@
         rel: "noopener noreferrer"
       },
       "View on GitHub \u2197"
-    ))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-body" }, update.releaseNotes ? /* @__PURE__ */ import_react10.default.createElement(
+    ))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "update-panel-body" }, update.releaseNotes ? /* @__PURE__ */ import_react9.default.createElement(
       Markdown,
       {
         components: {
           // Open all links in a new tab safely
-          a: ({ href, children }) => /* @__PURE__ */ import_react10.default.createElement("a", { href, target: "_blank", rel: "noopener noreferrer" }, children),
+          a: ({ href, children }) => /* @__PURE__ */ import_react9.default.createElement("a", { href, target: "_blank", rel: "noopener noreferrer" }, children),
           // Map h2/h3 down to h4/h5 so they fit the panel's visual hierarchy
-          h2: ({ children }) => /* @__PURE__ */ import_react10.default.createElement("h4", null, children),
-          h3: ({ children }) => /* @__PURE__ */ import_react10.default.createElement("h5", null, children)
+          h2: ({ children }) => /* @__PURE__ */ import_react9.default.createElement("h4", null, children),
+          h3: ({ children }) => /* @__PURE__ */ import_react9.default.createElement("h5", null, children)
         }
       },
       update.releaseNotes
-    ) : /* @__PURE__ */ import_react10.default.createElement("p", { className: "update-empty" }, "No release notes provided.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "update-panel-footer" }, /* @__PURE__ */ import_react10.default.createElement("button", { className: "update-dismiss", onClick: () => {
+    ) : /* @__PURE__ */ import_react9.default.createElement("p", { className: "update-empty" }, "No release notes provided.")), /* @__PURE__ */ import_react9.default.createElement("div", { className: "update-panel-footer" }, /* @__PURE__ */ import_react9.default.createElement("button", { className: "update-dismiss", onClick: () => {
       setDismiss(true);
       setOpen(false);
-    } }, "Dismiss"), /* @__PURE__ */ import_react10.default.createElement(
+    } }, "Dismiss"), /* @__PURE__ */ import_react9.default.createElement(
       "a",
       {
         className: "btn btn-primary update-cta",
@@ -32329,24 +32345,24 @@
   }
 
   // src/components/Footer.jsx
-  var import_react11 = __toESM(require_react(), 1);
+  var import_react10 = __toESM(require_react(), 1);
   function Footer({ version }) {
-    return /* @__PURE__ */ import_react11.default.createElement("footer", { className: "app-footer" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "app-footer-version" }, "pm2-hawkeye", version && /* @__PURE__ */ import_react11.default.createElement(import_react11.default.Fragment, null, " ", /* @__PURE__ */ import_react11.default.createElement("strong", null, "v", version))), /* @__PURE__ */ import_react11.default.createElement("span", { className: "app-footer-credit" }, "Made with ", /* @__PURE__ */ import_react11.default.createElement("span", { className: "app-footer-heart" }, "\u2764\uFE0F"), " by", " ", /* @__PURE__ */ import_react11.default.createElement("a", { href: "https://github.com/orangecoding", target: "_blank", rel: "noopener noreferrer" }, "Christian Kellner")));
+    return /* @__PURE__ */ import_react10.default.createElement("footer", { className: "app-footer" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "app-footer-version" }, "pm2-hawkeye", version && /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, " ", /* @__PURE__ */ import_react10.default.createElement("strong", null, "v", version))), /* @__PURE__ */ import_react10.default.createElement("span", { className: "app-footer-credit" }, "Made with ", /* @__PURE__ */ import_react10.default.createElement("span", { className: "app-footer-heart" }, "\u2764\uFE0F"), " by", " ", /* @__PURE__ */ import_react10.default.createElement("a", { href: "https://github.com/orangecoding", target: "_blank", rel: "noopener noreferrer" }, "Christian Kellner")));
   }
 
   // src/components/Settings.jsx
-  var import_react14 = __toESM(require_react(), 1);
+  var import_react13 = __toESM(require_react(), 1);
 
   // src/components/settings/GeneralSettings.jsx
-  var import_react12 = __toESM(require_react(), 1);
+  var import_react11 = __toESM(require_react(), 1);
   var PASSWORD_KEYS = /* @__PURE__ */ new Set(["AUTH_PASSWORD_SALT", "AUTH_PASSWORD_HASH"]);
   function GeneralSettings({ csrfToken, onCsrfRefresh }) {
-    const [fields, setFields] = (0, import_react12.useState)(null);
-    const [loading, setLoading] = (0, import_react12.useState)(true);
-    const [newPassword, setNewPassword] = (0, import_react12.useState)("");
-    const [saving, setSaving] = (0, import_react12.useState)(false);
-    const [notice, setNotice] = (0, import_react12.useState)(null);
-    (0, import_react12.useEffect)(() => {
+    const [fields, setFields] = (0, import_react11.useState)(null);
+    const [loading, setLoading] = (0, import_react11.useState)(true);
+    const [newPassword, setNewPassword] = (0, import_react11.useState)("");
+    const [saving, setSaving] = (0, import_react11.useState)(false);
+    const [notice, setNotice] = (0, import_react11.useState)(null);
+    (0, import_react11.useEffect)(() => {
       fetchJson("/api/settings/general").then((payload) => {
         setFields(payload.settings ?? {});
       }).catch((err) => {
@@ -32381,10 +32397,10 @@
       }
     }
     if (loading) {
-      return /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("h2", { className: "settings-page-title" }, "General Settings"), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-hint" }, "Loading..."));
+      return /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("h2", { className: "settings-page-title" }, "General Settings"), /* @__PURE__ */ import_react11.default.createElement("p", { className: "settings-hint" }, "Loading..."));
     }
     const keys2 = fields ? Object.keys(fields) : [];
-    return /* @__PURE__ */ import_react12.default.createElement("form", { onSubmit: handleSave }, /* @__PURE__ */ import_react12.default.createElement("h2", { className: "settings-page-title" }, "General Settings"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-notice" }, "Changes are written to your .env file. A restart of pm2-hawkeye is required for them to take effect."), notice && /* @__PURE__ */ import_react12.default.createElement("div", { className: `settings-notice settings-notice--${notice.type}` }, notice.text), keys2.length === 0 && /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-hint" }, "No .env file found. Fields will be created when you save."), keys2.map((key) => /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field", key }, /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: `gs-${key}` }, key), /* @__PURE__ */ import_react12.default.createElement(
+    return /* @__PURE__ */ import_react11.default.createElement("form", { onSubmit: handleSave }, /* @__PURE__ */ import_react11.default.createElement("h2", { className: "settings-page-title" }, "General Settings"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "settings-notice" }, "Changes are written to your .env file. A restart of pm2-hawkeye is required for them to take effect."), notice && /* @__PURE__ */ import_react11.default.createElement("div", { className: `settings-notice settings-notice--${notice.type}` }, notice.text), keys2.length === 0 && /* @__PURE__ */ import_react11.default.createElement("p", { className: "settings-hint" }, "No .env file found. Fields will be created when you save."), keys2.map((key) => /* @__PURE__ */ import_react11.default.createElement("div", { className: "settings-field", key }, /* @__PURE__ */ import_react11.default.createElement("label", { htmlFor: `gs-${key}` }, key), /* @__PURE__ */ import_react11.default.createElement(
       "input",
       {
         id: `gs-${key}`,
@@ -32394,7 +32410,7 @@
         onChange: (e) => set(key, e.target.value),
         autoComplete: "off"
       }
-    ))), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-section-title" }, "Change Password"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: "gs-new-password" }, "New password"), /* @__PURE__ */ import_react12.default.createElement(
+    ))), /* @__PURE__ */ import_react11.default.createElement("p", { className: "settings-section-title" }, "Change Password"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react11.default.createElement("label", { htmlFor: "gs-new-password" }, "New password"), /* @__PURE__ */ import_react11.default.createElement(
       "input",
       {
         id: "gs-new-password",
@@ -32405,11 +32421,11 @@
         onChange: (e) => setNewPassword(e.target.value),
         autoComplete: "new-password"
       }
-    ), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-hint" }, "A new salt and hash will be derived automatically. The plaintext password is never stored.")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-save-row" }, /* @__PURE__ */ import_react12.default.createElement("button", { className: "ghost-button", type: "submit", disabled: saving || loading }, saving ? "Saving..." : "Save Changes")));
+    ), /* @__PURE__ */ import_react11.default.createElement("p", { className: "settings-hint" }, "A new salt and hash will be derived automatically. The plaintext password is never stored.")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "settings-save-row" }, /* @__PURE__ */ import_react11.default.createElement("button", { className: "ghost-button", type: "submit", disabled: saving || loading }, saving ? "Saving..." : "Save Changes")));
   }
 
   // src/components/settings/AlertingSettings.jsx
-  var import_react13 = __toESM(require_react(), 1);
+  var import_react12 = __toESM(require_react(), 1);
   var TEMPLATE_VARS = [
     { name: "{logLevel}", description: "Detected log level (e.g. error, warn, info)" },
     { name: "{log_message}", description: "The full raw log line text" },
@@ -32481,11 +32497,11 @@
     const ntfyTopic = settings["reporter.ntfy.topic"] ?? "";
     const ntfyPriority = settings["reporter.ntfy.priority"] ?? "default";
     const ntfyToken = settings["reporter.ntfy.token"] ?? "";
-    const [showNtfyToken, setShowNtfyToken] = (0, import_react13.useState)(false);
-    const [webhookTestResult, setWebhookTestResult] = (0, import_react13.useState)(null);
-    const [webhookTesting, setWebhookTesting] = (0, import_react13.useState)(false);
-    const [ntfyTestResult, setNtfyTestResult] = (0, import_react13.useState)(null);
-    const [ntfyTesting, setNtfyTesting] = (0, import_react13.useState)(false);
+    const [showNtfyToken, setShowNtfyToken] = (0, import_react12.useState)(false);
+    const [webhookTestResult, setWebhookTestResult] = (0, import_react12.useState)(null);
+    const [webhookTesting, setWebhookTesting] = (0, import_react12.useState)(false);
+    const [ntfyTestResult, setNtfyTestResult] = (0, import_react12.useState)(null);
+    const [ntfyTesting, setNtfyTesting] = (0, import_react12.useState)(false);
     function set(key, value) {
       onChange({ ...settings, [key]: value });
     }
@@ -32549,7 +32565,7 @@
         setNtfyTesting(false);
       }
     }
-    return /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("h2", { className: "settings-page-title" }, "Alerting"), saveError && /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-notice settings-notice--error" }, saveError), /* @__PURE__ */ import_react13.default.createElement("p", { className: "settings-section-title" }, "When to alert"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "alert-mode-options" }, /* @__PURE__ */ import_react13.default.createElement("label", null, /* @__PURE__ */ import_react13.default.createElement("input", { type: "radio", name: "alert-mode", value: "every", checked: mode === "every", onChange: () => set("alert.mode", "every") }), "Alert on every match"), /* @__PURE__ */ import_react13.default.createElement("label", null, /* @__PURE__ */ import_react13.default.createElement("input", { type: "radio", name: "alert-mode", value: "throttle", checked: mode === "throttle", onChange: () => set("alert.mode", "throttle") }), "Alert once, then wait")), mode === "throttle" && /* @__PURE__ */ import_react13.default.createElement("div", { className: "throttle-row" }, /* @__PURE__ */ import_react13.default.createElement(
+    return /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("h2", { className: "settings-page-title" }, "Alerting"), saveError && /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-notice settings-notice--error" }, saveError), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-section-title" }, "When to alert"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "alert-mode-options" }, /* @__PURE__ */ import_react12.default.createElement("label", null, /* @__PURE__ */ import_react12.default.createElement("input", { type: "radio", name: "alert-mode", value: "every", checked: mode === "every", onChange: () => set("alert.mode", "every") }), "Alert on every match"), /* @__PURE__ */ import_react12.default.createElement("label", null, /* @__PURE__ */ import_react12.default.createElement("input", { type: "radio", name: "alert-mode", value: "throttle", checked: mode === "throttle", onChange: () => set("alert.mode", "throttle") }), "Alert once, then wait")), mode === "throttle" && /* @__PURE__ */ import_react12.default.createElement("div", { className: "throttle-row" }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         className: "settings-input",
@@ -32558,21 +32574,21 @@
         value: throttleMinutes,
         onChange: (e) => set("alert.throttleMinutes", e.target.value)
       }
-    ), /* @__PURE__ */ import_react13.default.createElement("span", null, "minutes before alerting again")), /* @__PURE__ */ import_react13.default.createElement("p", { className: "settings-section-title" }, "Log level threshold"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "level-checkboxes" }, ["error", "warn", "info", "debug"].map((level) => /* @__PURE__ */ import_react13.default.createElement("label", { key: level }, /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement("span", null, "minutes before alerting again")), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-section-title" }, "Log level threshold"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "level-checkboxes" }, ["error", "warn", "info", "debug"].map((level) => /* @__PURE__ */ import_react12.default.createElement("label", { key: level }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         type: "checkbox",
         checked: logLevelThreshold.includes(level),
         onChange: () => toggleLevel(level)
       }
-    ), level))), /* @__PURE__ */ import_react13.default.createElement("p", { className: "settings-hint" }, "An alert fires when a log line matches any of the selected levels."), /* @__PURE__ */ import_react13.default.createElement("p", { className: "settings-section-title" }, "Reporters"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "reporter-card" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "reporter-card-header" }, /* @__PURE__ */ import_react13.default.createElement("strong", null, "Webhook"), /* @__PURE__ */ import_react13.default.createElement("label", { className: "toggle-switch", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ import_react13.default.createElement(
+    ), level))), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-hint" }, "An alert fires when a log line matches any of the selected levels."), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-section-title" }, "Reporters"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "reporter-card" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "reporter-card-header" }, /* @__PURE__ */ import_react12.default.createElement("strong", null, "Webhook"), /* @__PURE__ */ import_react12.default.createElement("label", { className: "toggle-switch", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         type: "checkbox",
         checked: webhookEnabled,
         onChange: (e) => set("reporter.webhook.enabled", e.target.checked ? "1" : "0")
       }
-    ), /* @__PURE__ */ import_react13.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react13.default.createElement("span", { className: "toggle-label" }, webhookEnabled ? "Enabled" : "Disabled"))), webhookEnabled && /* @__PURE__ */ import_react13.default.createElement("div", { className: "reporter-card-body" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react13.default.createElement("label", { htmlFor: "wh-url" }, "URL"), /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react12.default.createElement("span", { className: "toggle-label" }, webhookEnabled ? "Enabled" : "Disabled"))), webhookEnabled && /* @__PURE__ */ import_react12.default.createElement("div", { className: "reporter-card-body" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: "wh-url" }, "URL"), /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         id: "wh-url",
@@ -32582,7 +32598,7 @@
         placeholder: "https://hooks.example.com/alert",
         onChange: (e) => set("reporter.webhook.url", e.target.value)
       }
-    )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react13.default.createElement("label", null, "Headers"), webhookHeaders.map((header, i) => /* @__PURE__ */ import_react13.default.createElement("div", { className: "header-row", key: i }, /* @__PURE__ */ import_react13.default.createElement(
+    )), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", null, "Headers"), webhookHeaders.map((header, i) => /* @__PURE__ */ import_react12.default.createElement("div", { className: "header-row", key: i }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         className: "settings-input",
@@ -32590,7 +32606,7 @@
         value: header.key,
         onChange: (e) => updateWebhookHeader(i, "key", e.target.value)
       }
-    ), /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         className: "settings-input",
@@ -32598,7 +32614,7 @@
         value: header.value,
         onChange: (e) => updateWebhookHeader(i, "value", e.target.value)
       }
-    ), /* @__PURE__ */ import_react13.default.createElement("button", { type: "button", onClick: () => removeWebhookHeader(i), title: "Remove header" }, "x"))), /* @__PURE__ */ import_react13.default.createElement("button", { type: "button", className: "add-header-btn", onClick: addWebhookHeader }, "+ Add header")), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react13.default.createElement("label", null, "Body params"), webhookBody.map((param, i) => /* @__PURE__ */ import_react13.default.createElement("div", { className: "header-row", key: i }, /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement("button", { type: "button", onClick: () => removeWebhookHeader(i), title: "Remove header" }, "x"))), /* @__PURE__ */ import_react12.default.createElement("button", { type: "button", className: "add-header-btn", onClick: addWebhookHeader }, "+ Add header")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", null, "Body params"), webhookBody.map((param, i) => /* @__PURE__ */ import_react12.default.createElement("div", { className: "header-row", key: i }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         className: "settings-input",
@@ -32606,7 +32622,7 @@
         value: param.key,
         onChange: (e) => updateWebhookBodyParam(i, "key", e.target.value)
       }
-    ), /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         className: "settings-input",
@@ -32614,14 +32630,14 @@
         value: param.value,
         onChange: (e) => updateWebhookBodyParam(i, "value", e.target.value)
       }
-    ), /* @__PURE__ */ import_react13.default.createElement("button", { type: "button", onClick: () => removeWebhookBodyParam(i), title: "Remove param" }, "x"))), /* @__PURE__ */ import_react13.default.createElement("button", { type: "button", className: "add-header-btn", onClick: addWebhookBodyParam }, "+ Add body param"), /* @__PURE__ */ import_react13.default.createElement("p", { className: "settings-hint" }, "Body values are sent as-is when they are plain strings. If a value is valid JSON (object, array, number, boolean) it is embedded directly into the body rather than wrapped in quotes. Variable substitution is applied before JSON parsing. Available variables:"), /* @__PURE__ */ import_react13.default.createElement("table", { className: "template-vars-table" }, /* @__PURE__ */ import_react13.default.createElement("tbody", null, TEMPLATE_VARS.map(({ name: name2, description }) => /* @__PURE__ */ import_react13.default.createElement("tr", { key: name2 }, /* @__PURE__ */ import_react13.default.createElement("td", null, /* @__PURE__ */ import_react13.default.createElement("code", null, name2)), /* @__PURE__ */ import_react13.default.createElement("td", null, description)))))), /* @__PURE__ */ import_react13.default.createElement("p", { className: "curl-preview-label" }, "This is what the POST request will look like:"), /* @__PURE__ */ import_react13.default.createElement("pre", { className: "curl-preview" }, buildCurlPreview(webhookUrl, webhookHeaders, webhookBody)), /* @__PURE__ */ import_react13.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react13.default.createElement("button", { type: "button", className: "ghost-button", onClick: sendWebhookTest, disabled: webhookTesting || !webhookUrl }, webhookTesting ? "Sending..." : "Send Test"), webhookTestResult && /* @__PURE__ */ import_react13.default.createElement("span", { className: `test-result test-result--${webhookTestResult.ok ? "ok" : "error"}` }, webhookTestResult.ok ? `Success (HTTP ${webhookTestResult.status})` : `Failed: ${webhookTestResult.error ?? `HTTP ${webhookTestResult.status}`}`)))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "reporter-card" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "reporter-card-header" }, /* @__PURE__ */ import_react13.default.createElement("strong", null, "ntfy"), /* @__PURE__ */ import_react13.default.createElement("label", { className: "toggle-switch", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement("button", { type: "button", onClick: () => removeWebhookBodyParam(i), title: "Remove param" }, "x"))), /* @__PURE__ */ import_react12.default.createElement("button", { type: "button", className: "add-header-btn", onClick: addWebhookBodyParam }, "+ Add body param"), /* @__PURE__ */ import_react12.default.createElement("p", { className: "settings-hint" }, "Body values are sent as-is when they are plain strings. If a value is valid JSON (object, array, number, boolean) it is embedded directly into the body rather than wrapped in quotes. Variable substitution is applied before JSON parsing. Available variables:"), /* @__PURE__ */ import_react12.default.createElement("table", { className: "template-vars-table" }, /* @__PURE__ */ import_react12.default.createElement("tbody", null, TEMPLATE_VARS.map(({ name: name2, description }) => /* @__PURE__ */ import_react12.default.createElement("tr", { key: name2 }, /* @__PURE__ */ import_react12.default.createElement("td", null, /* @__PURE__ */ import_react12.default.createElement("code", null, name2)), /* @__PURE__ */ import_react12.default.createElement("td", null, description)))))), /* @__PURE__ */ import_react12.default.createElement("p", { className: "curl-preview-label" }, "This is what the POST request will look like:"), /* @__PURE__ */ import_react12.default.createElement("pre", { className: "curl-preview" }, buildCurlPreview(webhookUrl, webhookHeaders, webhookBody)), /* @__PURE__ */ import_react12.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react12.default.createElement("button", { type: "button", className: "ghost-button", onClick: sendWebhookTest, disabled: webhookTesting || !webhookUrl }, webhookTesting ? "Sending..." : "Send Test"), webhookTestResult && /* @__PURE__ */ import_react12.default.createElement("span", { className: `test-result test-result--${webhookTestResult.ok ? "ok" : "error"}` }, webhookTestResult.ok ? `Success (HTTP ${webhookTestResult.status})` : `Failed: ${webhookTestResult.error ?? `HTTP ${webhookTestResult.status}`}`)))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "reporter-card" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "reporter-card-header" }, /* @__PURE__ */ import_react12.default.createElement("strong", null, "ntfy"), /* @__PURE__ */ import_react12.default.createElement("label", { className: "toggle-switch", onClick: (e) => e.stopPropagation() }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         type: "checkbox",
         checked: ntfyEnabled,
         onChange: (e) => set("reporter.ntfy.enabled", e.target.checked ? "1" : "0")
       }
-    ), /* @__PURE__ */ import_react13.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react13.default.createElement("span", { className: "toggle-label" }, ntfyEnabled ? "Enabled" : "Disabled"))), ntfyEnabled && /* @__PURE__ */ import_react13.default.createElement("div", { className: "reporter-card-body" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react13.default.createElement("label", { htmlFor: "ntfy-server" }, "Server URL"), /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react12.default.createElement("span", { className: "toggle-label" }, ntfyEnabled ? "Enabled" : "Disabled"))), ntfyEnabled && /* @__PURE__ */ import_react12.default.createElement("div", { className: "reporter-card-body" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: "ntfy-server" }, "Server URL"), /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         id: "ntfy-server",
@@ -32630,7 +32646,7 @@
         value: ntfyServerUrl,
         onChange: (e) => set("reporter.ntfy.serverUrl", e.target.value)
       }
-    )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react13.default.createElement("label", { htmlFor: "ntfy-topic" }, "Topic"), /* @__PURE__ */ import_react13.default.createElement(
+    )), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: "ntfy-topic" }, "Topic"), /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         id: "ntfy-topic",
@@ -32639,7 +32655,7 @@
         placeholder: "my-alerts",
         onChange: (e) => set("reporter.ntfy.topic", e.target.value)
       }
-    )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react13.default.createElement("label", { htmlFor: "ntfy-priority" }, "Priority"), /* @__PURE__ */ import_react13.default.createElement(
+    )), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: "ntfy-priority" }, "Priority"), /* @__PURE__ */ import_react12.default.createElement(
       "select",
       {
         id: "ntfy-priority",
@@ -32647,12 +32663,12 @@
         value: ntfyPriority,
         onChange: (e) => set("reporter.ntfy.priority", e.target.value)
       },
-      /* @__PURE__ */ import_react13.default.createElement("option", { value: "min" }, "min"),
-      /* @__PURE__ */ import_react13.default.createElement("option", { value: "low" }, "low"),
-      /* @__PURE__ */ import_react13.default.createElement("option", { value: "default" }, "default"),
-      /* @__PURE__ */ import_react13.default.createElement("option", { value: "high" }, "high"),
-      /* @__PURE__ */ import_react13.default.createElement("option", { value: "urgent" }, "urgent")
-    )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react13.default.createElement("label", { htmlFor: "ntfy-token" }, "Auth token (optional)"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "token-row" }, /* @__PURE__ */ import_react13.default.createElement(
+      /* @__PURE__ */ import_react12.default.createElement("option", { value: "min" }, "min"),
+      /* @__PURE__ */ import_react12.default.createElement("option", { value: "low" }, "low"),
+      /* @__PURE__ */ import_react12.default.createElement("option", { value: "default" }, "default"),
+      /* @__PURE__ */ import_react12.default.createElement("option", { value: "high" }, "high"),
+      /* @__PURE__ */ import_react12.default.createElement("option", { value: "urgent" }, "urgent")
+    )), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-field" }, /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: "ntfy-token" }, "Auth token (optional)"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "token-row" }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         id: "ntfy-token",
@@ -32663,7 +32679,7 @@
         onChange: (e) => set("reporter.ntfy.token", e.target.value),
         autoComplete: "off"
       }
-    ), /* @__PURE__ */ import_react13.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement(
       "button",
       {
         type: "button",
@@ -32671,20 +32687,20 @@
         onClick: () => setShowNtfyToken((v) => !v)
       },
       showNtfyToken ? "Hide" : "Show"
-    ))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react13.default.createElement("button", { type: "button", className: "ghost-button", onClick: sendNtfyTest, disabled: ntfyTesting || !ntfyTopic }, ntfyTesting ? "Sending..." : "Send Test"), ntfyTestResult && /* @__PURE__ */ import_react13.default.createElement("span", { className: `test-result test-result--${ntfyTestResult.ok ? "ok" : "error"}` }, ntfyTestResult.ok ? `Success (HTTP ${ntfyTestResult.status})` : `Failed: ${ntfyTestResult.error ?? `HTTP ${ntfyTestResult.status}`}`)))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-save-row" }, /* @__PURE__ */ import_react13.default.createElement("button", { className: "ghost-button", type: "button", onClick: onSave, disabled: saving }, saving ? "Saving..." : "Save Changes")));
+    ))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react12.default.createElement("button", { type: "button", className: "ghost-button", onClick: sendNtfyTest, disabled: ntfyTesting || !ntfyTopic }, ntfyTesting ? "Sending..." : "Send Test"), ntfyTestResult && /* @__PURE__ */ import_react12.default.createElement("span", { className: `test-result test-result--${ntfyTestResult.ok ? "ok" : "error"}` }, ntfyTestResult.ok ? `Success (HTTP ${ntfyTestResult.status})` : `Failed: ${ntfyTestResult.error ?? `HTTP ${ntfyTestResult.status}`}`)))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "settings-save-row" }, /* @__PURE__ */ import_react12.default.createElement("button", { className: "ghost-button", type: "button", onClick: onSave, disabled: saving }, saving ? "Saving..." : "Save Changes")));
   }
 
   // src/components/Settings.jsx
   var PAGES = ["General", "Alerting"];
   function Settings({ onClose, csrfToken, onCsrfRefresh }) {
-    const [activePage, setActivePage] = (0, import_react14.useState)("General");
-    const [alertingSettings, setAlertingSettings] = (0, import_react14.useState)({});
-    const [alertingSettingsLoaded, setAlertingSettingsLoaded] = (0, import_react14.useState)(false);
-    const [isDirty, setIsDirty] = (0, import_react14.useState)(false);
-    const [saving, setSaving] = (0, import_react14.useState)(false);
-    const [saveError, setSaveError] = (0, import_react14.useState)(null);
-    const [saveSuccess, setSaveSuccess] = (0, import_react14.useState)(false);
-    (0, import_react14.useEffect)(() => {
+    const [activePage, setActivePage] = (0, import_react13.useState)("General");
+    const [alertingSettings, setAlertingSettings] = (0, import_react13.useState)({});
+    const [alertingSettingsLoaded, setAlertingSettingsLoaded] = (0, import_react13.useState)(false);
+    const [isDirty, setIsDirty] = (0, import_react13.useState)(false);
+    const [saving, setSaving] = (0, import_react13.useState)(false);
+    const [saveError, setSaveError] = (0, import_react13.useState)(null);
+    const [saveSuccess, setSaveSuccess] = (0, import_react13.useState)(false);
+    (0, import_react13.useEffect)(() => {
       fetchJson("/api/alerting/settings").then((payload) => {
         setAlertingSettings(payload.settings ?? {});
         setAlertingSettingsLoaded(true);
@@ -32692,14 +32708,14 @@
         setAlertingSettingsLoaded(true);
       });
     }, []);
-    (0, import_react14.useEffect)(() => {
+    (0, import_react13.useEffect)(() => {
       function onKeyDown(e) {
         if (e.key === "Escape") handleClose();
       }
       document.addEventListener("keydown", onKeyDown);
       return () => document.removeEventListener("keydown", onKeyDown);
     });
-    const handleClose = (0, import_react14.useCallback)(() => {
+    const handleClose = (0, import_react13.useCallback)(() => {
       if (isDirty) {
         if (!window.confirm("You have unsaved alerting changes. Close without saving?")) return;
       }
@@ -32733,7 +32749,7 @@
     function handleOverlayClick(e) {
       if (e.target === e.currentTarget) handleClose();
     }
-    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "settings-overlay", onClick: handleOverlayClick, role: "dialog", "aria-modal": "true", "aria-label": "Settings" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "settings-modal" }, /* @__PURE__ */ import_react14.default.createElement("nav", { className: "settings-sidebar" }, /* @__PURE__ */ import_react14.default.createElement("p", { className: "settings-sidebar-title" }, "Settings"), PAGES.map((page) => /* @__PURE__ */ import_react14.default.createElement(
+    return /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-overlay", onClick: handleOverlayClick, role: "dialog", "aria-modal": "true", "aria-label": "Settings" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-modal" }, /* @__PURE__ */ import_react13.default.createElement("nav", { className: "settings-sidebar" }, /* @__PURE__ */ import_react13.default.createElement("p", { className: "settings-sidebar-title" }, "Settings"), PAGES.map((page) => /* @__PURE__ */ import_react13.default.createElement(
       "button",
       {
         key: page,
@@ -32742,13 +32758,13 @@
         onClick: () => setActivePage(page)
       },
       page
-    )), /* @__PURE__ */ import_react14.default.createElement("div", { className: "settings-sidebar-close" }, /* @__PURE__ */ import_react14.default.createElement("button", { type: "button", onClick: handleClose }, "Close"))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "settings-body" }, saveSuccess && activePage === "Alerting" && /* @__PURE__ */ import_react14.default.createElement("div", { className: "settings-notice settings-notice--success" }, "Alerting settings saved successfully."), activePage === "General" && /* @__PURE__ */ import_react14.default.createElement(
+    )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-sidebar-close" }, /* @__PURE__ */ import_react13.default.createElement("button", { type: "button", onClick: handleClose }, "Close"))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-body" }, saveSuccess && activePage === "Alerting" && /* @__PURE__ */ import_react13.default.createElement("div", { className: "settings-notice settings-notice--success" }, "Alerting settings saved successfully."), activePage === "General" && /* @__PURE__ */ import_react13.default.createElement(
       GeneralSettings,
       {
         csrfToken,
         onCsrfRefresh
       }
-    ), activePage === "Alerting" && alertingSettingsLoaded && /* @__PURE__ */ import_react14.default.createElement(
+    ), activePage === "Alerting" && alertingSettingsLoaded && /* @__PURE__ */ import_react13.default.createElement(
       AlertingSettings,
       {
         settings: alertingSettings,
@@ -32763,7 +32779,7 @@
   }
 
   // src/components/DeployModal.jsx
-  var import_react15 = __toESM(require_react(), 1);
+  var import_react14 = __toESM(require_react(), 1);
   var ALL_STAGES = ["pre_setup", "clone", "install", "build", "post_setup", "start"];
   var STAGE_LABELS = {
     pre_setup: "Pre-setup",
@@ -32798,15 +32814,24 @@
     source_map_support: true,
     env_file: ""
   };
-  function Section({ title, info, defaultOpen = false, children }) {
-    const [open, setOpen] = (0, import_react15.useState)(defaultOpen);
-    return /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-section" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-section-header", onClick: () => setOpen((v) => !v) }, /* @__PURE__ */ import_react15.default.createElement("span", null, title), /* @__PURE__ */ import_react15.default.createElement("span", { className: `deploy-section-chevron${open ? " open" : ""}` }, "\u25BC")), open && /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, info && /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-section-info" }, info), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-section-body" }, children)));
+  var DEPLOY_SECTIONS = [
+    { id: "repository", label: "Repository", desc: "Source & branch", required: true },
+    { id: "runtime", label: "Runtime", desc: "How PM2 launches", required: true },
+    { id: "setup", label: "Setup", desc: "Install & build", required: false },
+    { id: "environment", label: "Environment", desc: "Variables", required: false },
+    { id: "restart", label: "Restart & memory", desc: "Crash recovery", required: false },
+    { id: "logging", label: "Logging", desc: "Output config", required: false },
+    { id: "watching", label: "File watching", desc: "Dev auto-reload", required: false },
+    { id: "advanced", label: "Advanced", desc: "Low-level options", required: false }
+  ];
+  function SectionPanel({ title, info, children }) {
+    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-section-panel" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "deploy-section-title" }, title), info && /* @__PURE__ */ import_react14.default.createElement("p", { className: "deploy-section-desc" }, info), /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-section-fields" }, children));
   }
   function Field({ label, hint, required, children }) {
-    return /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-field" }, /* @__PURE__ */ import_react15.default.createElement("label", null, label, required && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-required", "aria-label": "required" }, "*")), children, hint && /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-hint" }, hint));
+    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-field" }, /* @__PURE__ */ import_react14.default.createElement("label", null, label, required && /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-required", "aria-label": "required" }, "*")), children, hint && /* @__PURE__ */ import_react14.default.createElement("p", { className: "deploy-hint" }, hint));
   }
   function Toggle({ label, hint, checked, onChange }) {
-    return /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react15.default.createElement("label", { className: "toggle-switch" }, /* @__PURE__ */ import_react15.default.createElement("input", { type: "checkbox", checked, onChange: (e) => onChange(e.target.checked) }), /* @__PURE__ */ import_react15.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react15.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-hint" }, hint));
+    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react14.default.createElement("label", { className: "toggle-switch" }, /* @__PURE__ */ import_react14.default.createElement("input", { type: "checkbox", checked, onChange: (e) => onChange(e.target.checked) }), /* @__PURE__ */ import_react14.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react14.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react14.default.createElement("p", { className: "deploy-hint" }, hint));
   }
   function StagePillBar({ visibleStages, currentStage, status }) {
     const pillState = (stage) => {
@@ -32818,7 +32843,7 @@
       if (idx === curIdx) return status === "error" ? "--error" : "--active";
       return "";
     };
-    return /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-stage-bar" }, visibleStages.map((stage, i) => /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, { key: stage }, i > 0 && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-stage-arrow" }, "\u203A"), /* @__PURE__ */ import_react15.default.createElement("span", { className: `deploy-stage-pill${pillState(stage)}` }, STAGE_LABELS[stage]))));
+    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-stage-bar" }, visibleStages.map((stage, i) => /* @__PURE__ */ import_react14.default.createElement(import_react14.default.Fragment, { key: stage }, i > 0 && /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-stage-arrow" }, "\u203A"), /* @__PURE__ */ import_react14.default.createElement("span", { className: `deploy-stage-pill${pillState(stage)}` }, STAGE_LABELS[stage]))));
   }
   function envObjToRows(obj) {
     const entries = Object.entries(obj || {});
@@ -32834,38 +32859,39 @@
   }
   function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditSaved, onSaveAndRedeploy }) {
     const isEdit = Boolean(editingDeployment);
-    const [appName, setAppName] = (0, import_react15.useState)(() => editingDeployment?.pm2_name ?? "");
-    const [repoUrl, setRepoUrl] = (0, import_react15.useState)(() => editingDeployment?.repo_url ?? "");
-    const [branch, setBranch] = (0, import_react15.useState)(() => editingDeployment?.branch ?? "main");
-    const [startScript, setStartScript] = (0, import_react15.useState)(() => editingDeployment?.start_script ?? "index.js");
-    const [installCmd, setInstallCmd] = (0, import_react15.useState)(() => {
+    const [appName, setAppName] = (0, import_react14.useState)(() => editingDeployment?.pm2_name ?? "");
+    const [repoUrl, setRepoUrl] = (0, import_react14.useState)(() => editingDeployment?.repo_url ?? "");
+    const [branch, setBranch] = (0, import_react14.useState)(() => editingDeployment?.branch ?? "main");
+    const [startScript, setStartScript] = (0, import_react14.useState)(() => editingDeployment?.start_script ?? "index.js");
+    const [installCmd, setInstallCmd] = (0, import_react14.useState)(() => {
       const stored = editingDeployment?.install_cmd ?? "npm install";
       const knownBases = ["npm install", "npm ci", "yarn install", "yarn", "pnpm install", "skip"];
       const base = knownBases.find((b) => stored === b || stored.startsWith(b + " "));
       return base ?? stored;
     });
-    const [installArgs, setInstallArgs] = (0, import_react15.useState)(() => {
+    const [installArgs, setInstallArgs] = (0, import_react14.useState)(() => {
       const stored = editingDeployment?.install_cmd ?? "npm install";
       const knownBases = ["npm install", "npm ci", "yarn install", "yarn", "pnpm install", "skip"];
       const base = knownBases.find((b) => stored === b || stored.startsWith(b + " "));
       return base && stored.length > base.length ? stored.slice(base.length + 1) : "";
     });
-    const [buildCmd, setBuildCmd] = (0, import_react15.useState)(() => editingDeployment?.build_cmd ?? "");
-    const [preSetupScript, setPreSetupScript] = (0, import_react15.useState)(() => editingDeployment?.pre_setup_script ?? "");
-    const [postSetupScript, setPostSetupScript] = (0, import_react15.useState)(() => editingDeployment?.post_setup_script ?? "");
-    const [envVars, setEnvVars] = (0, import_react15.useState)(
+    const [buildCmd, setBuildCmd] = (0, import_react14.useState)(() => editingDeployment?.build_cmd ?? "");
+    const [preSetupScript, setPreSetupScript] = (0, import_react14.useState)(() => editingDeployment?.pre_setup_script ?? "");
+    const [postSetupScript, setPostSetupScript] = (0, import_react14.useState)(() => editingDeployment?.post_setup_script ?? "");
+    const [envVars, setEnvVars] = (0, import_react14.useState)(
       () => isEdit ? envObjToRows(editingDeployment.env_vars) : [{ key: "", value: "" }]
     );
-    const [pm2Opts, setPm2Opts] = (0, import_react15.useState)(
+    const [pm2Opts, setPm2Opts] = (0, import_react14.useState)(
       () => isEdit ? pm2OptsFromStored(editingDeployment.pm2_options) : { ...DEFAULT_PM2_OPTIONS }
     );
-    const [submitting, setSubmitting] = (0, import_react15.useState)(false);
-    const [error, setError] = (0, import_react15.useState)("");
+    const [submitting, setSubmitting] = (0, import_react14.useState)(false);
+    const [error, setError] = (0, import_react14.useState)("");
+    const [activeSection, setActiveSection] = (0, import_react14.useState)("repository");
     const setOpt = (key, val) => setPm2Opts((prev) => ({ ...prev, [key]: val }));
     const addEnvVar = () => setEnvVars((prev) => [...prev, { key: "", value: "" }]);
     const removeEnvVar = (i) => setEnvVars((prev) => prev.filter((_, idx) => idx !== i));
     const updateEnvVar = (i, field, val) => setEnvVars((prev) => prev.map((row, idx) => idx === i ? { ...row, [field]: val } : row));
-    const buildPayload = (0, import_react15.useCallback)(() => {
+    const buildPayload = (0, import_react14.useCallback)(() => {
       const envVarsObj = {};
       for (const { key, value } of envVars) {
         if (key.trim()) envVarsObj[key.trim()] = value;
@@ -32903,7 +32929,7 @@
       preSetupScript,
       postSetupScript
     ]);
-    const onSubmit = (0, import_react15.useCallback)(
+    const onSubmit = (0, import_react14.useCallback)(
       async (e) => {
         e.preventDefault();
         setError("");
@@ -32933,7 +32959,7 @@
       },
       [isEdit, editingDeployment, appName, buildPayload, onCsrfRefresh, onDeployStarted, onEditSaved]
     );
-    const onRedeployClick = (0, import_react15.useCallback)(async () => {
+    const onRedeployClick = (0, import_react14.useCallback)(async () => {
       setError("");
       setSubmitting(true);
       try {
@@ -32949,565 +32975,615 @@
         setSubmitting(false);
       }
     }, [editingDeployment, onCsrfRefresh, buildPayload, onSaveAndRedeploy]);
-    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("form", { id: "deploy-form", className: "deploy-modal-body", onSubmit }, !isEdit && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-it-works" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-title" }, "How deployment works"), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-how-steps" }, ["pre-setup", "git clone", "install", "build", "post-setup", "pm2 start"].map((s, i) => /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, { key: s }, i > 0 && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-how-arrow" }, "\u203A"), /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-how-step" }, s)))), /* @__PURE__ */ import_react15.default.createElement("p", null, "Hawkeye runs these steps on this server and streams all output in real time. Once done, the process appears in the sidebar. A ", /* @__PURE__ */ import_react15.default.createElement("strong", null, "Redeploy"), " button lets you run ", /* @__PURE__ */ import_react15.default.createElement("code", null, "git pull"), " + restart at any time. Only public HTTPS repos are supported out of the box -- for private repos the server needs an SSH key or credential helper.")), /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-required-note" }, "Fields marked ", /* @__PURE__ */ import_react15.default.createElement("span", null, "*"), " are required."), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
+    const curIdx = DEPLOY_SECTIONS.findIndex((s) => s.id === activeSection);
+    const prevSection = DEPLOY_SECTIONS[curIdx - 1];
+    const nextSection = DEPLOY_SECTIONS[curIdx + 1];
+    const renderSection = () => {
+      switch (activeSection) {
+        case "repository":
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "Repository",
+              info: "Where your code lives. Hawkeye clones this repository into the configured deploy base directory (DEPLOY_BASE_DIR). On redeploy it runs git pull instead of a fresh clone."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "App name",
+                required: !isEdit,
+                hint: isEdit ? "The app name is tied to the deploy path and cannot be changed after initial deployment." : "Unique PM2 process name. Used as the directory name under the deploy base path. Alphanumeric, dashes and underscores only, max 64 characters."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  required: !isEdit,
+                  placeholder: "my-api",
+                  value: appName,
+                  readOnly: isEdit,
+                  style: isEdit ? { opacity: 0.55, cursor: "not-allowed" } : void 0,
+                  onChange: isEdit ? void 0 : (e) => setAppName(e.target.value)
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Repo URL",
+                required: true,
+                hint: "HTTPS URL (e.g. https://github.com/owner/repo) or SSH URL (e.g. git@github.com:owner/repo.git). For private repos the server needs an SSH key or credential helper configured."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  required: true,
+                  placeholder: "https://github.com/owner/repo or git@github.com:owner/repo.git",
+                  value: repoUrl,
+                  onChange: (e) => setRepoUrl(e.target.value)
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement(Field, { label: "Branch", hint: "Git branch to clone and pull from on each redeploy." }, /* @__PURE__ */ import_react14.default.createElement(
+              "input",
+              {
+                className: "settings-input",
+                type: "text",
+                placeholder: "main",
+                value: branch,
+                onChange: (e) => setBranch(e.target.value)
+              }
+            ))
+          );
+        case "runtime":
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "Runtime",
+              info: "How PM2 should launch your application. The start script is the only required field here. All other fields default to standard Node.js settings."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Start script",
+                required: true,
+                hint: "Entry point relative to the repo root, e.g. src/server.js or dist/index.js."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  required: true,
+                  placeholder: "index.js",
+                  value: startScript,
+                  onChange: (e) => setStartScript(e.target.value)
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Interpreter",
+                hint: "Runtime binary. Leave as 'node' for standard Node.js. Use an absolute path for a custom binary."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "node",
+                  value: pm2Opts.interpreter,
+                  onChange: (e) => setOpt("interpreter", e.target.value)
+                }
+              )
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Interpreter args",
+                hint: "Flags passed to Node.js before the script, e.g. --max-old-space-size=4096."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "--max-old-space-size=4096",
+                  value: pm2Opts.interpreter_args,
+                  onChange: (e) => setOpt("interpreter_args", e.target.value)
+                }
+              )
+            )),
+            /* @__PURE__ */ import_react14.default.createElement(Field, { label: "Script args", hint: "CLI arguments forwarded to your application, e.g. --port 8080." }, /* @__PURE__ */ import_react14.default.createElement(
+              "input",
+              {
+                className: "settings-input",
+                type: "text",
+                placeholder: "--port 8080",
+                value: pm2Opts.args,
+                onChange: (e) => setOpt("args", e.target.value)
+              }
+            )),
+            /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Exec mode",
+                hint: "fork: runs as a single process. cluster: uses Node.js cluster to spawn multiple workers sharing one port. Cluster requires your app to work with the cluster module."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "select",
+                {
+                  className: "settings-select",
+                  value: pm2Opts.exec_mode,
+                  onChange: (e) => setOpt("exec_mode", e.target.value)
+                },
+                /* @__PURE__ */ import_react14.default.createElement("option", { value: "fork" }, "fork (default)"),
+                /* @__PURE__ */ import_react14.default.createElement("option", { value: "cluster" }, "cluster")
+              )
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Instances",
+                hint: "Number of processes to launch. Set to -1 to use all available CPU cores. Values above 1 require cluster mode."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "number",
+                  min: "-1",
+                  value: pm2Opts.instances,
+                  onChange: (e) => setOpt("instances", e.target.value)
+                }
+              )
+            ))
+          );
+        case "setup":
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "Setup",
+              info: "Commands and scripts that run during the deployment sequence. Pre-setup runs before cloning (useful for system dependency checks). Post-setup runs after building and before PM2 start (useful for database migrations or file permissions). Both scripts have full shell access."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(Field, { label: "Install command", hint: "Package manager command run after cloning to install dependencies." }, /* @__PURE__ */ import_react14.default.createElement("select", { className: "settings-select", value: installCmd, onChange: (e) => setInstallCmd(e.target.value) }, /* @__PURE__ */ import_react14.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react14.default.createElement("option", { value: "npm ci" }, "npm ci (clean install, recommended for CI)"), /* @__PURE__ */ import_react14.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react14.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react14.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react14.default.createElement("option", { value: "skip" }, "Skip (no install)"))),
+            installCmd !== "skip" && /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Extra install flags",
+                hint: "Additional flags appended to the install command, e.g. --prod or --frozen-lockfile."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "e.g. --prod",
+                  value: installArgs,
+                  onChange: (e) => setInstallArgs(e.target.value)
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Build command",
+                hint: "Optional build step after installing, e.g. npm run build or tsc. Leave blank to skip."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "npm run build",
+                  value: buildCmd,
+                  onChange: (e) => setBuildCmd(e.target.value)
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Pre-setup script",
+                hint: "Shell script run before cloning, in the deploy base directory. Use it to install system packages, check that required tools are available, or prepare the environment."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "textarea",
+                {
+                  className: "settings-input",
+                  rows: 4,
+                  placeholder: '#!/bin/sh\n# e.g. check for required tools\nwhich ffmpeg || (echo "ffmpeg not found" && exit 1)',
+                  value: preSetupScript,
+                  onChange: (e) => setPreSetupScript(e.target.value),
+                  style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Post-setup script",
+                hint: "Shell script run after building, inside the cloned repo directory, before PM2 starts the process. Use it for database migrations, writing config files, or setting file permissions."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "textarea",
+                {
+                  className: "settings-input",
+                  rows: 4,
+                  placeholder: "#!/bin/sh\n# e.g. run database migrations\nnode scripts/migrate.js",
+                  value: postSetupScript,
+                  onChange: (e) => setPostSetupScript(e.target.value),
+                  style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
+                }
+              )
+            )
+          );
+        case "environment":
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "Environment",
+              info: "Variables injected into the process environment. You can point to a .env file already present in the repo, add explicit key-value pairs, or both. Explicit variables always take precedence over file values."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Env file",
+                hint: "Path to a .env file: relative to the repo root (e.g. .env.production) or absolute on the server (e.g. /etc/myapp/.env). Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: ".env.production",
+                  value: pm2Opts.env_file,
+                  onChange: (e) => setOpt("env_file", e.target.value)
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-field" }, /* @__PURE__ */ import_react14.default.createElement("label", null, "Environment variables"), /* @__PURE__ */ import_react14.default.createElement("p", { className: "deploy-hint" }, "Explicit key-value pairs injected at start time. These override values loaded from the env file above."), envVars.map((row, i) => /* @__PURE__ */ import_react14.default.createElement("div", { className: "env-var-row", key: i }, /* @__PURE__ */ import_react14.default.createElement(
+              "input",
+              {
+                className: "settings-input",
+                type: "text",
+                placeholder: "KEY",
+                value: row.key,
+                onChange: (e) => updateEnvVar(i, "key", e.target.value)
+              }
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              "input",
+              {
+                className: "settings-input",
+                type: "text",
+                placeholder: "value",
+                value: row.value,
+                onChange: (e) => updateEnvVar(i, "value", e.target.value)
+              }
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              "button",
+              {
+                type: "button",
+                className: "env-remove-btn",
+                onClick: () => removeEnvVar(i),
+                "aria-label": "Remove variable"
+              },
+              "\xD7"
+            ))), /* @__PURE__ */ import_react14.default.createElement("button", { type: "button", className: "env-add-btn", onClick: addEnvVar }, "+ Add variable"))
+          );
+        case "restart":
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "Restart & memory",
+              info: "Controls what happens when your process exits, crashes, or uses too much memory. The defaults work well for most apps; adjust if you need fine-grained crash recovery behaviour."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(
+              Toggle,
+              {
+                label: "Auto-restart on crash",
+                hint: "Automatically restart the process whenever it exits, regardless of exit code. Disable only if you intentionally run short-lived processes.",
+                checked: pm2Opts.autorestart,
+                onChange: (v) => setOpt("autorestart", v)
+              }
+            ),
+            /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Max memory restart",
+                hint: "Restart the process when its heap exceeds this value, e.g. 200M or 1G. Leave blank to disable memory-based restarts."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "200M",
+                  value: pm2Opts.max_memory_restart,
+                  onChange: (e) => setOpt("max_memory_restart", e.target.value)
+                }
+              )
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Max restarts",
+                hint: "Maximum consecutive restarts before PM2 considers the app errored and stops retrying. PM2 resets this counter after the process has been stable for min_uptime."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "number",
+                  min: "0",
+                  value: pm2Opts.max_restarts,
+                  onChange: (e) => setOpt("max_restarts", e.target.value)
+                }
+              )
+            )),
+            /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Restart delay (ms)",
+                hint: "Milliseconds to wait between consecutive restart attempts. Use this to avoid hammering a downstream dependency on repeated crashes."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "number",
+                  min: "0",
+                  value: pm2Opts.restart_delay,
+                  onChange: (e) => setOpt("restart_delay", e.target.value)
+                }
+              )
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Min uptime (ms)",
+                hint: "Minimum time in ms the process must stay up to be counted as a stable start. If it exits before this threshold the restart counter increments. Leave blank for PM2 default."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "number",
+                  min: "0",
+                  placeholder: "1000",
+                  value: pm2Opts.min_uptime,
+                  onChange: (e) => setOpt("min_uptime", e.target.value)
+                }
+              )
+            )),
+            /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Kill timeout (ms)",
+                hint: "Milliseconds PM2 waits for the process to exit after sending SIGINT before escalating to SIGKILL. Increase if your app needs more time for graceful shutdown."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "number",
+                  min: "0",
+                  value: pm2Opts.kill_timeout,
+                  onChange: (e) => setOpt("kill_timeout", e.target.value)
+                }
+              )
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Cron restart",
+                hint: "Schedule automatic restarts using a cron expression, e.g. 0 2 * * * restarts every night at 2 AM. Leave blank to disable."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "0 2 * * *",
+                  value: pm2Opts.cron_restart,
+                  onChange: (e) => setOpt("cron_restart", e.target.value)
+                }
+              )
+            )),
+            /* @__PURE__ */ import_react14.default.createElement(
+              Toggle,
+              {
+                label: "Wait for ready signal",
+                hint: "Delay the end of the startup sequence until the app calls process.send('ready'). Useful when your app performs async initialisation (e.g. DB connection) before it is truly ready to serve traffic.",
+                checked: pm2Opts.wait_ready,
+                onChange: (v) => setOpt("wait_ready", v)
+              }
+            ),
+            pm2Opts.wait_ready && /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Listen timeout (ms)",
+                hint: "Maximum milliseconds to wait for the ready signal. If the signal is not received within this time PM2 considers the start a failure."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "number",
+                  min: "0",
+                  value: pm2Opts.listen_timeout,
+                  onChange: (e) => setOpt("listen_timeout", e.target.value)
+                }
+              )
+            ),
+            /* @__PURE__ */ import_react14.default.createElement(
+              Toggle,
+              {
+                label: "Shutdown with message",
+                hint: "Send process.send('shutdown') to the app instead of SIGINT when stopping. Use this if your app listens for the IPC shutdown message to trigger its graceful teardown sequence.",
+                checked: pm2Opts.shutdown_with_message,
+                onChange: (v) => setOpt("shutdown_with_message", v)
+              }
+            )
+          );
+        case "logging":
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "Logging",
+              info: "Controls how PM2 writes log files for this process. The timestamp prefix is strongly recommended because pm2-hawkeye uses timestamps to sort and deduplicate log lines across stdout and stderr."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(
+              Toggle,
+              {
+                label: "Timestamp prefix",
+                hint: "Prefix every log line with an ISO timestamp. Required for pm2-hawkeye's chronological log sorting to work correctly. Strongly recommended.",
+                checked: pm2Opts.time,
+                onChange: (v) => setOpt("time", v)
+              }
+            ),
+            /* @__PURE__ */ import_react14.default.createElement(
+              Toggle,
+              {
+                label: "Combine stdout and stderr",
+                hint: "Write stdout and stderr to a single log file instead of separate files. Useful if your app does not distinguish between the two streams.",
+                checked: pm2Opts.combine_logs,
+                onChange: (v) => setOpt("combine_logs", v)
+              }
+            ),
+            /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Stdout log file",
+                hint: "Custom absolute path for the stdout log. Leave blank to use the PM2 default (~/.pm2/logs/name-out.log)."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "/var/log/my-app/out.log",
+                  value: pm2Opts.out_file,
+                  onChange: (e) => setOpt("out_file", e.target.value)
+                }
+              )
+            ), /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Stderr log file",
+                hint: "Custom absolute path for the stderr log. Leave blank to use the PM2 default (~/.pm2/logs/name-error.log)."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "input",
+                {
+                  className: "settings-input",
+                  type: "text",
+                  placeholder: "/var/log/my-app/error.log",
+                  value: pm2Opts.error_file,
+                  onChange: (e) => setOpt("error_file", e.target.value)
+                }
+              )
+            ))
+          );
+        case "watching":
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "File watching",
+              info: "PM2 can watch the filesystem and restart your app automatically when source files change. This is useful during development but should generally be disabled in production."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(
+              Toggle,
+              {
+                label: "Watch for file changes",
+                hint: "Restart the app automatically whenever a watched file changes. Not recommended for production deployments.",
+                checked: pm2Opts.watch,
+                onChange: (v) => setOpt("watch", v)
+              }
+            ),
+            pm2Opts.watch && /* @__PURE__ */ import_react14.default.createElement(
+              Field,
+              {
+                label: "Ignore watch patterns",
+                hint: "Files or directories to exclude from watching, one pattern per line. node_modules is excluded by default."
+              },
+              /* @__PURE__ */ import_react14.default.createElement(
+                "textarea",
+                {
+                  className: "settings-input",
+                  rows: 3,
+                  value: pm2Opts.ignore_watch,
+                  onChange: (e) => setOpt("ignore_watch", e.target.value),
+                  style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
+                }
+              )
+            )
+          );
+        case "advanced":
+        default:
+          return /* @__PURE__ */ import_react14.default.createElement(
+            SectionPanel,
+            {
+              title: "Advanced",
+              info: "Low-level PM2 options. The defaults are suitable for almost all Node.js applications."
+            },
+            /* @__PURE__ */ import_react14.default.createElement(
+              Toggle,
+              {
+                label: "Source map support",
+                hint: "Enable Node.js source map support so that stack traces from transpiled TypeScript or bundled code point to the original source lines.",
+                checked: pm2Opts.source_map_support,
+                onChange: (v) => setOpt("source_map_support", v)
+              }
+            )
+          );
+      }
+    };
+    return /* @__PURE__ */ import_react14.default.createElement(import_react14.default.Fragment, null, /* @__PURE__ */ import_react14.default.createElement("form", { id: "deploy-form", className: "deploy-form-layout", onSubmit }, /* @__PURE__ */ import_react14.default.createElement("nav", { className: "deploy-nav" }, DEPLOY_SECTIONS.map((s, i) => /* @__PURE__ */ import_react14.default.createElement(
+      "button",
       {
-        title: "Repository",
-        info: "Where your code lives. Hawkeye clones this repository into the configured deploy base directory (DEPLOY_BASE_DIR). On redeploy it runs git pull instead of a fresh clone.",
-        defaultOpen: true
+        key: s.id,
+        type: "button",
+        className: `deploy-nav-item${activeSection === s.id ? " active" : ""}`,
+        onClick: () => setActiveSection(s.id)
       },
-      /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "App name",
-          required: !isEdit,
-          hint: isEdit ? "The app name is tied to the deploy path and cannot be changed after initial deployment." : "Unique PM2 process name. Used as the directory name under the deploy base path. Alphanumeric, dashes and underscores only, max 64 characters."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            required: !isEdit,
-            placeholder: "my-api",
-            value: appName,
-            readOnly: isEdit,
-            style: isEdit ? { opacity: 0.55, cursor: "not-allowed" } : void 0,
-            onChange: isEdit ? void 0 : (e) => setAppName(e.target.value)
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Repo URL",
-          required: true,
-          hint: "HTTPS URL (e.g. https://github.com/owner/repo) or SSH URL (e.g. git@github.com:owner/repo.git). For private repos the server needs an SSH key or credential helper configured."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            required: true,
-            placeholder: "https://github.com/owner/repo or git@github.com:owner/repo.git",
-            value: repoUrl,
-            onChange: (e) => setRepoUrl(e.target.value)
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Branch", hint: "Git branch to clone and pull from on each redeploy." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
-        {
-          className: "settings-input",
-          type: "text",
-          placeholder: "main",
-          value: branch,
-          onChange: (e) => setBranch(e.target.value)
-        }
-      ))
-    ), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
+      /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-num" }, i + 1),
+      /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-text" }, /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-label" }, s.label, s.required && /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-req-dot", title: "Contains required fields" })), /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-desc" }, s.desc))
+    )), /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-nav-legend" }, /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-req-dot" }), /* @__PURE__ */ import_react14.default.createElement("span", null, "Sections with this dot contain required fields."))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-content" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-content-scroll" }, renderSection()), /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-nav-footer" }, /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-footer-side" }, prevSection && /* @__PURE__ */ import_react14.default.createElement(
+      "button",
       {
-        title: "Runtime",
-        info: "How PM2 should launch your application. The start script is the only required field here. All other fields default to standard Node.js settings.",
-        defaultOpen: true
+        type: "button",
+        className: "deploy-nav-btn",
+        onClick: () => setActiveSection(prevSection.id)
       },
-      /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Start script",
-          required: true,
-          hint: "Entry point relative to the repo root, e.g. src/server.js or dist/index.js."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            required: true,
-            placeholder: "index.js",
-            value: startScript,
-            onChange: (e) => setStartScript(e.target.value)
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Interpreter",
-          hint: "Runtime binary. Leave as 'node' for standard Node.js. Use an absolute path for a custom binary."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "node",
-            value: pm2Opts.interpreter,
-            onChange: (e) => setOpt("interpreter", e.target.value)
-          }
-        )
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Interpreter args",
-          hint: "Flags passed to Node.js before the script, e.g. --max-old-space-size=4096."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "--max-old-space-size=4096",
-            value: pm2Opts.interpreter_args,
-            onChange: (e) => setOpt("interpreter_args", e.target.value)
-          }
-        )
-      )),
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Script args", hint: "CLI arguments forwarded to your application, e.g. --port 8080." }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
-        {
-          className: "settings-input",
-          type: "text",
-          placeholder: "--port 8080",
-          value: pm2Opts.args,
-          onChange: (e) => setOpt("args", e.target.value)
-        }
-      )),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Exec mode",
-          hint: "fork: runs as a single process. cluster: uses Node.js cluster to spawn multiple workers sharing one port. Cluster requires your app to work with the cluster module."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "select",
-          {
-            className: "settings-select",
-            value: pm2Opts.exec_mode,
-            onChange: (e) => setOpt("exec_mode", e.target.value)
-          },
-          /* @__PURE__ */ import_react15.default.createElement("option", { value: "fork" }, "fork (default)"),
-          /* @__PURE__ */ import_react15.default.createElement("option", { value: "cluster" }, "cluster")
-        )
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Instances",
-          hint: "Number of processes to launch. Set to -1 to use all available CPU cores. Values above 1 require cluster mode."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "number",
-            min: "-1",
-            value: pm2Opts.instances,
-            onChange: (e) => setOpt("instances", e.target.value)
-          }
-        )
-      ))
-    ), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
+      "\u2190 ",
+      prevSection.label
+    )), /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-progress" }, curIdx + 1, " of ", DEPLOY_SECTIONS.length), /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-nav-footer-side deploy-nav-footer-side--right" }, nextSection && /* @__PURE__ */ import_react14.default.createElement(
+      "button",
       {
-        title: "Setup",
-        info: "Commands and scripts that run during the deployment sequence. Pre-setup runs before cloning (useful for system dependency checks). Post-setup runs after building and before PM2 start (useful for database migrations or file permissions). Both scripts have full shell access."
+        type: "button",
+        className: "deploy-nav-btn",
+        onClick: () => setActiveSection(nextSection.id)
       },
-      /* @__PURE__ */ import_react15.default.createElement(Field, { label: "Install command", hint: "Package manager command run after cloning to install dependencies." }, /* @__PURE__ */ import_react15.default.createElement("select", { className: "settings-select", value: installCmd, onChange: (e) => setInstallCmd(e.target.value) }, /* @__PURE__ */ import_react15.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "npm ci" }, "npm ci (clean install, recommended for CI)"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react15.default.createElement("option", { value: "skip" }, "Skip (no install)"))),
-      installCmd !== "skip" && /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Extra install flags",
-          hint: "Additional flags appended to the install command, e.g. --prod or --frozen-lockfile."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "e.g. --prod",
-            value: installArgs,
-            onChange: (e) => setInstallArgs(e.target.value)
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Build command",
-          hint: "Optional build step after installing, e.g. npm run build or tsc. Leave blank to skip."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "npm run build",
-            value: buildCmd,
-            onChange: (e) => setBuildCmd(e.target.value)
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Pre-setup script",
-          hint: "Shell script run before cloning, in the deploy base directory. Use it to install system packages, check that required tools are available, or prepare the environment."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "textarea",
-          {
-            className: "settings-input",
-            rows: 4,
-            placeholder: '#!/bin/sh\n# e.g. check for required tools\nwhich ffmpeg || (echo "ffmpeg not found" && exit 1)',
-            value: preSetupScript,
-            onChange: (e) => setPreSetupScript(e.target.value),
-            style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Post-setup script",
-          hint: "Shell script run after building, inside the cloned repo directory, before PM2 starts the process. Use it for database migrations, writing config files, or setting file permissions."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "textarea",
-          {
-            className: "settings-input",
-            rows: 4,
-            placeholder: "#!/bin/sh\n# e.g. run database migrations\nnode scripts/migrate.js",
-            value: postSetupScript,
-            onChange: (e) => setPostSetupScript(e.target.value),
-            style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
-          }
-        )
-      )
-    ), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
-      {
-        title: "Environment",
-        info: "Variables injected into the process environment. You can point to a .env file already present in the repo, add explicit key-value pairs, or both. Explicit variables always take precedence over file values."
-      },
-      /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Env file",
-          hint: "Path to a .env file: relative to the repo root (e.g. .env.production) or absolute on the server (e.g. /etc/myapp/.env). Read at every deploy and redeploy. Values follow the KEY=value format; lines starting with # are ignored."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: ".env.production",
-            value: pm2Opts.env_file,
-            onChange: (e) => setOpt("env_file", e.target.value)
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-field" }, /* @__PURE__ */ import_react15.default.createElement("label", null, "Environment variables"), /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-hint" }, "Explicit key-value pairs injected at start time. These override values loaded from the env file above."), envVars.map((row, i) => /* @__PURE__ */ import_react15.default.createElement("div", { className: "env-var-row", key: i }, /* @__PURE__ */ import_react15.default.createElement(
-        "input",
-        {
-          className: "settings-input",
-          type: "text",
-          placeholder: "KEY",
-          value: row.key,
-          onChange: (e) => updateEnvVar(i, "key", e.target.value)
-        }
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        "input",
-        {
-          className: "settings-input",
-          type: "text",
-          placeholder: "value",
-          value: row.value,
-          onChange: (e) => updateEnvVar(i, "value", e.target.value)
-        }
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        "button",
-        {
-          type: "button",
-          className: "env-remove-btn",
-          onClick: () => removeEnvVar(i),
-          "aria-label": "Remove variable"
-        },
-        "\xD7"
-      ))), /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "env-add-btn", onClick: addEnvVar }, "+ Add variable"))
-    ), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
-      {
-        title: "Restart & Memory",
-        info: "Controls what happens when your process exits, crashes, or uses too much memory. The defaults work well for most apps; adjust if you need fine-grained crash recovery behaviour."
-      },
-      /* @__PURE__ */ import_react15.default.createElement(
-        Toggle,
-        {
-          label: "Auto-restart on crash",
-          hint: "Automatically restart the process whenever it exits, regardless of exit code. Disable only if you intentionally run short-lived processes.",
-          checked: pm2Opts.autorestart,
-          onChange: (v) => setOpt("autorestart", v)
-        }
-      ),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Max memory restart",
-          hint: "Restart the process when its heap exceeds this value, e.g. 200M or 1G. Leave blank to disable memory-based restarts."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "200M",
-            value: pm2Opts.max_memory_restart,
-            onChange: (e) => setOpt("max_memory_restart", e.target.value)
-          }
-        )
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Max restarts",
-          hint: "Maximum consecutive restarts before PM2 considers the app errored and stops retrying. PM2 resets this counter after the process has been stable for min_uptime."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "number",
-            min: "0",
-            value: pm2Opts.max_restarts,
-            onChange: (e) => setOpt("max_restarts", e.target.value)
-          }
-        )
-      )),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Restart delay (ms)",
-          hint: "Milliseconds to wait between consecutive restart attempts. Use this to avoid hammering a downstream dependency on repeated crashes."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "number",
-            min: "0",
-            value: pm2Opts.restart_delay,
-            onChange: (e) => setOpt("restart_delay", e.target.value)
-          }
-        )
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Min uptime (ms)",
-          hint: "Minimum time in ms the process must stay up to be counted as a stable start. If it exits before this threshold the restart counter increments. Leave blank for PM2 default."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "number",
-            min: "0",
-            placeholder: "1000",
-            value: pm2Opts.min_uptime,
-            onChange: (e) => setOpt("min_uptime", e.target.value)
-          }
-        )
-      )),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Kill timeout (ms)",
-          hint: "Milliseconds PM2 waits for the process to exit after sending SIGINT before escalating to SIGKILL. Increase if your app needs more time for graceful shutdown."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "number",
-            min: "0",
-            value: pm2Opts.kill_timeout,
-            onChange: (e) => setOpt("kill_timeout", e.target.value)
-          }
-        )
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Cron restart",
-          hint: "Schedule automatic restarts using a cron expression, e.g. 0 2 * * * restarts every night at 2 AM. Leave blank to disable."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "0 2 * * *",
-            value: pm2Opts.cron_restart,
-            onChange: (e) => setOpt("cron_restart", e.target.value)
-          }
-        )
-      )),
-      /* @__PURE__ */ import_react15.default.createElement(
-        Toggle,
-        {
-          label: "Wait for ready signal",
-          hint: "Delay the end of the startup sequence until the app calls process.send('ready'). Useful when your app performs async initialisation (e.g. DB connection) before it is truly ready to serve traffic.",
-          checked: pm2Opts.wait_ready,
-          onChange: (v) => setOpt("wait_ready", v)
-        }
-      ),
-      pm2Opts.wait_ready && /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Listen timeout (ms)",
-          hint: "Maximum milliseconds to wait for the ready signal. If the signal is not received within this time PM2 considers the start a failure."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "number",
-            min: "0",
-            value: pm2Opts.listen_timeout,
-            onChange: (e) => setOpt("listen_timeout", e.target.value)
-          }
-        )
-      ),
-      /* @__PURE__ */ import_react15.default.createElement(
-        Toggle,
-        {
-          label: "Shutdown with message",
-          hint: "Send process.send('shutdown') to the app instead of SIGINT when stopping. Use this if your app listens for the IPC shutdown message to trigger its graceful teardown sequence.",
-          checked: pm2Opts.shutdown_with_message,
-          onChange: (v) => setOpt("shutdown_with_message", v)
-        }
-      )
-    ), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
-      {
-        title: "Logging",
-        info: "Controls how PM2 writes log files for this process. The timestamp prefix is strongly recommended because pm2-hawkeye uses timestamps to sort and deduplicate log lines across stdout and stderr."
-      },
-      /* @__PURE__ */ import_react15.default.createElement(
-        Toggle,
-        {
-          label: "Timestamp prefix",
-          hint: "Prefix every log line with an ISO timestamp. Required for pm2-hawkeye's chronological log sorting to work correctly. Strongly recommended.",
-          checked: pm2Opts.time,
-          onChange: (v) => setOpt("time", v)
-        }
-      ),
-      /* @__PURE__ */ import_react15.default.createElement(
-        Toggle,
-        {
-          label: "Combine stdout and stderr",
-          hint: "Write stdout and stderr to a single log file instead of separate files. Useful if your app does not distinguish between the two streams.",
-          checked: pm2Opts.combine_logs,
-          onChange: (v) => setOpt("combine_logs", v)
-        }
-      ),
-      /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Stdout log file",
-          hint: "Custom absolute path for the stdout log. Leave blank to use the PM2 default (~/.pm2/logs/name-out.log)."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "/var/log/my-app/out.log",
-            value: pm2Opts.out_file,
-            onChange: (e) => setOpt("out_file", e.target.value)
-          }
-        )
-      ), /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Stderr log file",
-          hint: "Custom absolute path for the stderr log. Leave blank to use the PM2 default (~/.pm2/logs/name-error.log)."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "input",
-          {
-            className: "settings-input",
-            type: "text",
-            placeholder: "/var/log/my-app/error.log",
-            value: pm2Opts.error_file,
-            onChange: (e) => setOpt("error_file", e.target.value)
-          }
-        )
-      ))
-    ), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
-      {
-        title: "File Watching",
-        info: "PM2 can watch the filesystem and restart your app automatically when source files change. This is useful during development but should generally be disabled in production."
-      },
-      /* @__PURE__ */ import_react15.default.createElement(
-        Toggle,
-        {
-          label: "Watch for file changes",
-          hint: "Restart the app automatically whenever a watched file changes. Not recommended for production deployments.",
-          checked: pm2Opts.watch,
-          onChange: (v) => setOpt("watch", v)
-        }
-      ),
-      pm2Opts.watch && /* @__PURE__ */ import_react15.default.createElement(
-        Field,
-        {
-          label: "Ignore watch patterns",
-          hint: "Files or directories to exclude from watching, one pattern per line. node_modules is excluded by default."
-        },
-        /* @__PURE__ */ import_react15.default.createElement(
-          "textarea",
-          {
-            className: "settings-input",
-            rows: 3,
-            value: pm2Opts.ignore_watch,
-            onChange: (e) => setOpt("ignore_watch", e.target.value),
-            style: { fontFamily: "var(--font-mono)", fontSize: "0.82rem", resize: "vertical" }
-          }
-        )
-      )
-    ), /* @__PURE__ */ import_react15.default.createElement(
-      Section,
-      {
-        title: "Advanced",
-        info: "Low-level PM2 options. The defaults are suitable for almost all Node.js applications."
-      },
-      /* @__PURE__ */ import_react15.default.createElement(
-        Toggle,
-        {
-          label: "Source map support",
-          hint: "Enable Node.js source map support so that stack traces from transpiled TypeScript or bundled code point to the original source lines.",
-          checked: pm2Opts.source_map_support,
-          onChange: (v) => setOpt("source_map_support", v)
-        }
-      )
-    )), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "submit", form: "deploy-form", className: "deploy-submit-btn", disabled: submitting }, submitting ? isEdit ? "Saving..." : "Starting deployment..." : isEdit ? "Save changes" : "Deploy"), isEdit && /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-redeploy-btn", disabled: submitting, onClick: onRedeployClick }, submitting ? "Saving..." : "Save & Redeploy"), error && /* @__PURE__ */ import_react15.default.createElement("span", { className: "deploy-error-msg" }, error)));
+      nextSection.label,
+      " \u2192"
+    ))))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react14.default.createElement("button", { type: "submit", form: "deploy-form", className: "deploy-submit-btn", disabled: submitting }, submitting ? isEdit ? "Saving..." : "Starting deployment..." : isEdit ? "Save changes" : "Deploy"), isEdit && /* @__PURE__ */ import_react14.default.createElement("button", { type: "button", className: "deploy-redeploy-btn", disabled: submitting, onClick: onRedeployClick }, submitting ? "Saving..." : "Save & Redeploy"), error && /* @__PURE__ */ import_react14.default.createElement("span", { className: "deploy-error-msg" }, error)));
   }
   function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
-    const logRef = (0, import_react15.useRef)(null);
-    const confirmRef = (0, import_react15.useRef)(null);
+    const logRef = (0, import_react14.useRef)(null);
+    const confirmRef = (0, import_react14.useRef)(null);
     const isDone = currentStage === "done" && status === "success";
     const isError = status === "error";
     const isConfirming = status === "confirm";
-    (0, import_react15.useEffect)(() => {
+    (0, import_react14.useEffect)(() => {
       const el = logRef.current;
       if (el) el.scrollTop = el.scrollHeight;
     }, [lines]);
-    (0, import_react15.useEffect)(() => {
+    (0, import_react14.useEffect)(() => {
       if (isConfirming && confirmRef.current) {
         confirmRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     }, [isConfirming]);
-    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-modal-body" }, /* @__PURE__ */ import_react15.default.createElement(StagePillBar, { visibleStages, currentStage, status }), isConfirming && confirmChanges && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-confirm-box", ref: confirmRef }, /* @__PURE__ */ import_react15.default.createElement("p", { className: "deploy-confirm-msg" }, "The deploy directory has local changes that would prevent ", /* @__PURE__ */ import_react15.default.createElement("code", null, "git pull"), " from succeeding. Discard them to continue, or cancel the deployment."), /* @__PURE__ */ import_react15.default.createElement("pre", { className: "deploy-confirm-changes" }, confirmChanges), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-confirm-actions" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-submit-btn", onClick: () => onConfirmDeploy(true) }, "Discard & Continue"), /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-cancel-btn", onClick: () => onConfirmDeploy(false) }, "Cancel Deployment"))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-log", ref: logRef }, lines.map((entry, i) => /* @__PURE__ */ import_react15.default.createElement("span", { key: i, className: entry.status === "error" ? "deploy-log-line--error" : void 0 }, entry.line)), !isDone && !isError && !isConfirming && /* @__PURE__ */ import_react15.default.createElement("span", { style: { color: "var(--muted)" } }, "...")), isDone && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-success-banner" }, "Deployment complete. The process is now running in PM2 and visible in the sidebar."), isError && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-error-banner" }, "Deployment failed. See the log above for details. Fix the issue and use Redeploy to retry.")), (isDone || isError) && /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", className: "deploy-submit-btn", onClick: onClose }, "Close")));
+    return /* @__PURE__ */ import_react14.default.createElement(import_react14.default.Fragment, null, /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-modal-body" }, /* @__PURE__ */ import_react14.default.createElement(StagePillBar, { visibleStages, currentStage, status }), isConfirming && confirmChanges && /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-confirm-box", ref: confirmRef }, /* @__PURE__ */ import_react14.default.createElement("p", { className: "deploy-confirm-msg" }, "The deploy directory has local changes that would prevent ", /* @__PURE__ */ import_react14.default.createElement("code", null, "git pull"), " from succeeding. Discard them to continue, or cancel the deployment."), /* @__PURE__ */ import_react14.default.createElement("pre", { className: "deploy-confirm-changes" }, confirmChanges), /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-confirm-actions" }, /* @__PURE__ */ import_react14.default.createElement("button", { type: "button", className: "deploy-submit-btn", onClick: () => onConfirmDeploy(true) }, "Discard & Continue"), /* @__PURE__ */ import_react14.default.createElement("button", { type: "button", className: "deploy-cancel-btn", onClick: () => onConfirmDeploy(false) }, "Cancel Deployment"))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-log", ref: logRef }, lines.map((entry, i) => /* @__PURE__ */ import_react14.default.createElement("span", { key: i, className: entry.status === "error" ? "deploy-log-line--error" : void 0 }, entry.line)), !isDone && !isError && !isConfirming && /* @__PURE__ */ import_react14.default.createElement("span", { style: { color: "var(--muted)" } }, "...")), isDone && /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-success-banner" }, "Deployment complete. The process is now running in PM2 and visible in the sidebar."), isError && /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-error-banner" }, "Deployment failed. See the log above for details. Fix the issue and use Redeploy to retry.")), (isDone || isError) && /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-action-row" }, /* @__PURE__ */ import_react14.default.createElement("button", { type: "button", className: "deploy-submit-btn", onClick: onClose }, "Close")));
   }
   function DeployModal({
     csrfToken,
@@ -33533,7 +33609,7 @@
     let title = "Deploy from GitHub";
     if (isEdit) title = "Edit Deployment";
     else if (showProgress) title = "Deployment Progress";
-    return /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-overlay", onClick: (e) => e.target === e.currentTarget && onClose() }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-modal" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "deploy-modal-header" }, /* @__PURE__ */ import_react15.default.createElement("h2", null, title), (!showProgress || isDoneOrError) && /* @__PURE__ */ import_react15.default.createElement("button", { type: "button", onClick: onClose }, "Close")), showProgress ? /* @__PURE__ */ import_react15.default.createElement(
+    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-overlay", onClick: (e) => e.target === e.currentTarget && onClose() }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-modal" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "deploy-modal-header" }, /* @__PURE__ */ import_react14.default.createElement("h2", null, title), (!showProgress || isDoneOrError) && /* @__PURE__ */ import_react14.default.createElement("button", { type: "button", onClick: onClose }, "Close")), showProgress ? /* @__PURE__ */ import_react14.default.createElement(
       DeployProgress,
       {
         lines: deployProgressLines,
@@ -33544,7 +33620,7 @@
         confirmChanges,
         onConfirmDeploy
       }
-    ) : /* @__PURE__ */ import_react15.default.createElement(
+    ) : /* @__PURE__ */ import_react14.default.createElement(
       DeployForm,
       {
         csrfToken,
@@ -33558,50 +33634,67 @@
   }
 
   // src/components/HostMetrics.jsx
-  var import_react16 = __toESM(require_react(), 1);
-  function formatGb(bytes) {
-    if (typeof bytes !== "number" || !isFinite(bytes)) return null;
-    const gb = bytes / 1024 ** 3;
-    return gb >= 10 ? String(Math.round(gb)) : gb.toFixed(1);
+  var import_react15 = __toESM(require_react(), 1);
+  function fmtPct(pct) {
+    return pct != null ? `${pct.toFixed(1)}%` : "--";
   }
-  function byteValue(used, total, percent) {
-    const usedGb = formatGb(used);
-    const totalGb = formatGb(total);
-    if (usedGb == null || totalGb == null) {
-      return percent != null ? `${percent.toFixed(1)}%` : "\u2014";
-    }
-    const pct = percent != null ? ` (${percent.toFixed(1)}%)` : "";
-    return `${usedGb}GB/${totalGb}GB used${pct}`;
+  function MiniSpark({ samples, color: color2 }) {
+    if (!samples || samples.length < 2) return /* @__PURE__ */ import_react15.default.createElement("svg", { className: "topbar-stat-spark" });
+    const w = 56;
+    const h = 14;
+    const min = Math.min(...samples);
+    const max = Math.max(...samples);
+    const range = max - min || 1;
+    const pts = samples.map((v, i) => {
+      const x = i / (samples.length - 1) * w;
+      const y = h - (v - min) / range * (h - 2) - 1;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(" ");
+    return /* @__PURE__ */ import_react15.default.createElement("svg", { className: "topbar-stat-spark", viewBox: `0 0 ${w} ${h}`, preserveAspectRatio: "none" }, /* @__PURE__ */ import_react15.default.createElement(
+      "polyline",
+      {
+        points: pts,
+        fill: "none",
+        stroke: color2,
+        strokeWidth: "1.5",
+        strokeLinejoin: "round",
+        strokeLinecap: "round"
+      }
+    ));
   }
   function HostMetrics({ samples = [], current = null }) {
+    const [expanded, setExpanded] = (0, import_react15.useState)(null);
     const latest = samples.length > 0 ? samples[samples.length - 1] : null;
     const cpuPct = current?.cpu ?? latest?.cpu ?? null;
     const ramPct = current?.ram ?? latest?.ram ?? null;
     const diskPct = current?.disk ?? latest?.disk ?? null;
-    const cards = [
-      {
-        label: "CPU",
-        value: cpuPct != null ? `${cpuPct.toFixed(1)}%` : "\u2014",
-        samples: samples.map((s) => ({ t: s.sampled_at, v: s.cpu })),
-        color: "var(--accent)",
-        formatValue: (v) => `${v.toFixed(1)}%`
-      },
-      {
-        label: "RAM",
-        value: byteValue(current?.ramUsed, current?.ramTotal, ramPct),
-        samples: samples.map((s) => ({ t: s.sampled_at, v: s.ram })),
-        color: "var(--success)",
-        formatValue: (v) => `${v.toFixed(1)}%`
-      },
-      {
-        label: "Disk",
-        value: byteValue(current?.diskUsed, current?.diskTotal, diskPct),
-        samples: samples.map((s) => ({ t: s.sampled_at, v: s.disk })),
-        color: "var(--info)",
-        formatValue: (v) => `${v.toFixed(1)}%`
-      }
+    const stats = [
+      { id: "cpu", label: "CPU", value: fmtPct(cpuPct), series: samples.map((s) => ({ t: s.sampled_at, v: s.cpu })), color: "var(--accent)" },
+      { id: "ram", label: "RAM", value: fmtPct(ramPct), series: samples.map((s) => ({ t: s.sampled_at, v: s.ram })), color: "var(--success)" },
+      { id: "disk", label: "Disk", value: fmtPct(diskPct), series: samples.map((s) => ({ t: s.sampled_at, v: s.disk })), color: "var(--info)" }
     ];
-    return /* @__PURE__ */ import_react16.default.createElement("div", { className: "host-metrics-bar" }, /* @__PURE__ */ import_react16.default.createElement("p", { className: "eyebrow" }, "Host"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "host-metrics-cards" }, cards.map((card) => /* @__PURE__ */ import_react16.default.createElement("div", { className: "stat-card", key: card.label }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "stat-label" }, card.label), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "stat-value" }, card.value), card.samples.length >= 2 ? /* @__PURE__ */ import_react16.default.createElement(Sparkline, { samples: card.samples, formatValue: card.formatValue, color: card.color, height: "100%" }) : /* @__PURE__ */ import_react16.default.createElement("div", { className: "sparkline-placeholder" }, /* @__PURE__ */ import_react16.default.createElement("span", null, "No data yet"))))));
+    const active = stats.find((s) => s.id === expanded) || null;
+    return /* @__PURE__ */ import_react15.default.createElement("div", { className: "topbar-host" }, /* @__PURE__ */ import_react15.default.createElement("span", { className: "topbar-host-label" }, "Host"), stats.map((stat) => /* @__PURE__ */ import_react15.default.createElement(
+      "button",
+      {
+        key: stat.id,
+        type: "button",
+        className: `topbar-host-stat${expanded === stat.id ? " active" : ""}`,
+        onClick: () => setExpanded(expanded === stat.id ? null : stat.id),
+        "aria-expanded": expanded === stat.id
+      },
+      /* @__PURE__ */ import_react15.default.createElement("span", { className: "topbar-stat-label" }, stat.label),
+      /* @__PURE__ */ import_react15.default.createElement("span", { className: "topbar-stat-value" }, stat.value),
+      /* @__PURE__ */ import_react15.default.createElement(MiniSpark, { samples: stat.series.map((p) => p.v), color: stat.color })
+    )), active && /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("div", { className: "host-popover-backdrop", onClick: () => setExpanded(null) }), /* @__PURE__ */ import_react15.default.createElement("div", { className: "host-popover", role: "dialog", "aria-label": `Host ${active.label} history` }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "host-popover-head" }, /* @__PURE__ */ import_react15.default.createElement("span", { className: "host-popover-label" }, "Host ", active.label), /* @__PURE__ */ import_react15.default.createElement("strong", { className: "host-popover-value" }, active.value)), /* @__PURE__ */ import_react15.default.createElement("div", { className: "host-popover-spark" }, active.series.length >= 2 ? /* @__PURE__ */ import_react15.default.createElement(
+      Sparkline,
+      {
+        samples: active.series,
+        formatValue: (v) => `${v.toFixed(1)}%`,
+        color: active.color,
+        height: "100%"
+      }
+    ) : /* @__PURE__ */ import_react15.default.createElement("span", { className: "metric-chip-no-data" }, "No history yet")))));
   }
 
   // src/components/App.jsx
@@ -33617,80 +33710,77 @@
     });
   }
   function App() {
-    const [csrfToken, setCsrfToken] = (0, import_react17.useState)(null);
-    const [processes, setProcesses] = (0, import_react17.useState)([]);
-    const [selectedProcessId, setSelectedProcessId] = (0, import_react17.useState)(null);
-    const [details, setDetails] = (0, import_react17.useState)(null);
-    const [processListStatus, setProcessListStatus] = (0, import_react17.useState)("Loading processes\u2026");
-    const [error, setError] = (0, import_react17.useState)("");
-    const [wsConnected, setWsConnected] = (0, import_react17.useState)(false);
-    const [appVersion, setAppVersion] = (0, import_react17.useState)(null);
-    const [liveLines, setLiveLines] = (0, import_react17.useState)([]);
-    const [actions, setActions] = (0, import_react17.useState)([]);
-    const [metricsHistory, setMetricsHistory] = (0, import_react17.useState)([]);
-    const [hostMetrics, setHostMetrics] = (0, import_react17.useState)([]);
-    const [hostCurrent, setHostCurrent] = (0, import_react17.useState)(null);
-    const [storedLogs, setStoredLogs] = (0, import_react17.useState)([]);
-    const [storedLogsReady, setStoredLogsReady] = (0, import_react17.useState)(false);
-    const [unreadLogCount, setUnreadLogCount] = (0, import_react17.useState)(0);
-    const [metricsRetentionMs, setMetricsRetentionMs] = (0, import_react17.useState)(864e5);
-    const [logsRetentionMs, setLogsRetentionMs] = (0, import_react17.useState)(14 * 24 * 60 * 60 * 1e3);
-    const [settingsOpen, setSettingsOpen] = (0, import_react17.useState)(false);
-    const [appConfig, setAppConfig] = (0, import_react17.useState)(null);
-    const [deployOpen, setDeployOpen] = (0, import_react17.useState)(false);
-    const [deployments, setDeployments] = (0, import_react17.useState)([]);
-    const [activeDeploymentId, setActiveDeploymentId] = (0, import_react17.useState)(null);
-    const [deployProgressLines, setDeployProgressLines] = (0, import_react17.useState)([]);
-    const [deployProgressStage, setDeployProgressStage] = (0, import_react17.useState)(null);
-    const [deployProgressStatus, setDeployProgressStatus] = (0, import_react17.useState)(null);
-    const [editingDeployment, setEditingDeployment] = (0, import_react17.useState)(null);
-    const [deployConfirmChanges, setDeployConfirmChanges] = (0, import_react17.useState)(null);
-    const logRef = (0, import_react17.useRef)(null);
-    const autoStickRef = (0, import_react17.useRef)(true);
-    const prevLiveLinesLengthRef = (0, import_react17.useRef)(0);
-    const wsRef = (0, import_react17.useRef)(null);
-    const loadProcesses = (0, import_react17.useCallback)(async () => {
-      setProcessListStatus("Loading processes\u2026");
+    const [csrfToken, setCsrfToken] = (0, import_react16.useState)(null);
+    const [processes, setProcesses] = (0, import_react16.useState)([]);
+    const [selectedProcessId, setSelectedProcessId] = (0, import_react16.useState)(null);
+    const [details, setDetails] = (0, import_react16.useState)(null);
+    const [error, setError] = (0, import_react16.useState)("");
+    const [wsConnected, setWsConnected] = (0, import_react16.useState)(false);
+    const [appVersion, setAppVersion] = (0, import_react16.useState)(null);
+    const [liveLines, setLiveLines] = (0, import_react16.useState)([]);
+    const [actions, setActions] = (0, import_react16.useState)([]);
+    const [metricsHistory, setMetricsHistory] = (0, import_react16.useState)([]);
+    const [hostMetrics, setHostMetrics] = (0, import_react16.useState)([]);
+    const [hostCurrent, setHostCurrent] = (0, import_react16.useState)(null);
+    const [storedLogs, setStoredLogs] = (0, import_react16.useState)([]);
+    const [storedLogsReady, setStoredLogsReady] = (0, import_react16.useState)(false);
+    const [unreadLogCount, setUnreadLogCount] = (0, import_react16.useState)(0);
+    const [settingsOpen, setSettingsOpen] = (0, import_react16.useState)(false);
+    const [appConfig, setAppConfig] = (0, import_react16.useState)(null);
+    const [deployOpen, setDeployOpen] = (0, import_react16.useState)(false);
+    const [deployments, setDeployments] = (0, import_react16.useState)([]);
+    const [activeDeploymentId, setActiveDeploymentId] = (0, import_react16.useState)(null);
+    const [deployProgressLines, setDeployProgressLines] = (0, import_react16.useState)([]);
+    const [deployProgressStage, setDeployProgressStage] = (0, import_react16.useState)(null);
+    const [deployProgressStatus, setDeployProgressStatus] = (0, import_react16.useState)(null);
+    const [editingDeployment, setEditingDeployment] = (0, import_react16.useState)(null);
+    const [deployConfirmChanges, setDeployConfirmChanges] = (0, import_react16.useState)(null);
+    const [drawerOpen, setDrawerOpen] = (0, import_react16.useState)(false);
+    const [logFilters, setLogFilters] = (0, import_react16.useState)(/* @__PURE__ */ new Set(["info", "warn", "error"]));
+    const [logSearch, setLogSearch] = (0, import_react16.useState)("");
+    const [logPaused, setLogPaused] = (0, import_react16.useState)(false);
+    const [expandedChip, setExpandedChip] = (0, import_react16.useState)(null);
+    const logRef = (0, import_react16.useRef)(null);
+    const autoStickRef = (0, import_react16.useRef)(true);
+    const prevLiveLinesLengthRef = (0, import_react16.useRef)(0);
+    const wsRef = (0, import_react16.useRef)(null);
+    const loadProcesses = (0, import_react16.useCallback)(async () => {
       try {
         const payload = await fetchJson("/api/processes");
         setProcesses(payload.items);
-        setProcessListStatus(`${payload.processCount} process(es)`);
         setSelectedProcessId(
           (prev) => payload.items.some((item) => String(item.id) === String(prev)) ? prev : payload.items[0]?.id ?? null
         );
       } catch (loadError) {
         setProcesses([]);
         setSelectedProcessId(null);
-        setProcessListStatus(loadError.message);
         setError(loadError.message);
       }
     }, []);
-    const loadDeployments = (0, import_react17.useCallback)(() => {
+    const loadDeployments = (0, import_react16.useCallback)(() => {
       fetchJson("/api/deployments").then((payload) => setDeployments(payload.deployments || [])).catch(() => {
       });
     }, []);
-    const loadHostMetrics = (0, import_react17.useCallback)(() => {
+    const loadHostMetrics = (0, import_react16.useCallback)(() => {
       fetchJson("/api/host-metrics").then((payload) => {
         setHostMetrics(payload.samples || []);
         setHostCurrent(payload.current || null);
       }).catch(() => {
       });
     }, []);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       fetchJson("/api/auth/session").then((payload) => {
         setCsrfToken(payload.csrfToken);
         if (payload.version) setAppVersion(payload.version);
-        if (payload.metricsRetentionMs) setMetricsRetentionMs(payload.metricsRetentionMs);
-        if (payload.logsRetentionMs) setLogsRetentionMs(payload.logsRetentionMs);
         if (payload.config) setAppConfig(payload.config);
         return Promise.all([loadProcesses(), loadDeployments(), loadHostMetrics()]);
       }).catch((sessionError) => setError(sessionError.message));
     }, [loadProcesses, loadDeployments, loadHostMetrics]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       const interval = setInterval(loadHostMetrics, 2e4);
       return () => clearInterval(interval);
     }, [loadHostMetrics]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const ws = new WebSocket(`${protocol}//${window.location.host}/ws/stream`);
       wsRef.current = ws;
@@ -33705,7 +33795,6 @@
           const { type, data } = JSON.parse(event.data);
           if (type === "processes") {
             setProcesses(data.items);
-            setProcessListStatus(`${data.processCount} process(es)`);
             setSelectedProcessId(
               (prev) => data.items.some((item) => String(item.id ?? item.name) === String(prev)) ? prev : data.items[0]?.id ?? data.items[0]?.name ?? null
             );
@@ -33739,23 +33828,23 @@
         wsRef.current = null;
       };
     }, []);
-    const selectedProcess = (0, import_react17.useMemo)(
+    const selectedProcess = (0, import_react16.useMemo)(
       () => processes.find((item) => String(item.id ?? item.name) === String(selectedProcessId)) || null,
       [processes, selectedProcessId]
     );
     const isSelectedMonitored = selectedProcess?.isMonitored ?? false;
-    const selectedDeployment = (0, import_react17.useMemo)(
+    const selectedDeployment = (0, import_react16.useMemo)(
       () => deployments.find((d) => d.pm2_name === selectedProcess?.name) ?? null,
       [deployments, selectedProcess]
     );
-    const offlineDeployments = (0, import_react17.useMemo)(() => {
+    const offlineDeployments = (0, import_react16.useMemo)(() => {
       const runningNames = new Set(processes.map((p) => p.name));
       return deployments.filter((d) => !runningNames.has(d.pm2_name)).map((d) => ({
         ...d,
         displayStatus: d.deploying ? "deploying" : d.last_deployed_at == null ? "broken" : "offline"
       }));
     }, [deployments, processes]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       setStoredLogsReady(false);
       if (selectedProcessId === null || selectedProcessId === void 0) {
         setStoredLogs([]);
@@ -33770,7 +33859,7 @@
         setStoredLogsReady(true);
       });
     }, [selectedProcessId]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       setDetails(null);
       setLiveLines([]);
       setActions([]);
@@ -33778,6 +33867,9 @@
       setUnreadLogCount(0);
       prevLiveLinesLengthRef.current = 0;
       autoStickRef.current = true;
+      setExpandedChip(null);
+      setLogSearch("");
+      setDrawerOpen(false);
       const ws = wsRef.current;
       const isOpen = ws?.readyState === WebSocket.OPEN;
       if (selectedProcessId === null || selectedProcessId === void 0) {
@@ -33788,7 +33880,7 @@
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => setMetricsHistory([]));
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`).then((payload) => setActions(payload.actions || [])).catch(() => setActions([]));
     }, [selectedProcessId, wsConnected]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0 || !isSelectedMonitored) return;
       const interval = setInterval(() => {
         fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => {
@@ -33796,7 +33888,7 @@
       }, 2e4);
       return () => clearInterval(interval);
     }, [selectedProcessId, isSelectedMonitored]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       const container = logRef.current;
       if (!container) return;
       const onScroll = () => {
@@ -33805,20 +33897,20 @@
       container.addEventListener("scroll", onScroll);
       return () => container.removeEventListener("scroll", onScroll);
     }, []);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       const container = logRef.current;
       if (container && autoStickRef.current) {
         container.scrollTop = container.scrollHeight;
       }
     }, [storedLogs]);
-    (0, import_react17.useEffect)(() => {
+    (0, import_react16.useEffect)(() => {
       const added = liveLines.length - prevLiveLinesLengthRef.current;
       prevLiveLinesLengthRef.current = liveLines.length;
       if (added > 0 && !autoStickRef.current) {
         setUnreadLogCount((prev) => prev + added);
       }
     }, [liveLines]);
-    const scrollToLogBottom = (0, import_react17.useCallback)(() => {
+    const scrollToLogBottom = (0, import_react16.useCallback)(() => {
       const container = logRef.current;
       if (container) {
         container.scrollTop = container.scrollHeight;
@@ -33826,18 +33918,18 @@
         setUnreadLogCount(0);
       }
     }, []);
-    const allLines = (0, import_react17.useMemo)(() => {
+    const allLines = (0, import_react16.useMemo)(() => {
       if (isSelectedMonitored && storedLogsReady) {
         return [...storedLogs, ...liveLines];
       }
       return liveLines;
     }, [isSelectedMonitored, storedLogsReady, storedLogs, liveLines]);
-    const refreshCsrf = (0, import_react17.useCallback)(async () => {
+    const refreshCsrf = (0, import_react16.useCallback)(async () => {
       const session = await fetchJson("/api/auth/session");
       setCsrfToken(session.csrfToken);
       return session.csrfToken;
     }, []);
-    const onDeployStarted = (0, import_react17.useCallback)(
+    const onDeployStarted = (0, import_react16.useCallback)(
       (deploymentId) => {
         setDeployProgressLines([]);
         setDeployProgressStage("clone");
@@ -33847,7 +33939,7 @@
       },
       [refreshCsrf]
     );
-    const onSaveAndRedeploy = (0, import_react17.useCallback)(
+    const onSaveAndRedeploy = (0, import_react16.useCallback)(
       async (deploymentId) => {
         const newToken = await refreshCsrf();
         setEditingDeployment(null);
@@ -33869,7 +33961,7 @@
       },
       [refreshCsrf]
     );
-    const onConfirmDeploy = (0, import_react17.useCallback)(
+    const onConfirmDeploy = (0, import_react16.useCallback)(
       async (confirmed) => {
         if (!activeDeploymentId) return;
         setDeployConfirmChanges(null);
@@ -33889,7 +33981,7 @@
       },
       [activeDeploymentId, refreshCsrf]
     );
-    const onEditDeployment = (0, import_react17.useCallback)(
+    const onEditDeployment = (0, import_react16.useCallback)(
       (pm2Name) => {
         const dep = deployments.find((d) => d.pm2_name === pm2Name);
         if (!dep) return;
@@ -33898,7 +33990,7 @@
       },
       [deployments]
     );
-    const onDeleteDeployment = (0, import_react17.useCallback)(
+    const onDeleteDeployment = (0, import_react16.useCallback)(
       async (deploymentId) => {
         if (!csrfToken) return;
         try {
@@ -33914,7 +34006,7 @@
       },
       [csrfToken, refreshCsrf, loadDeployments]
     );
-    const onEditSaved = (0, import_react17.useCallback)(async () => {
+    const onEditSaved = (0, import_react16.useCallback)(async () => {
       await refreshCsrf();
       loadDeployments();
       setDeployOpen(false);
@@ -33973,7 +34065,7 @@
       }
       window.location.replace("/login");
     };
-    const onToggleMonitoring = (0, import_react17.useCallback)(
+    const onToggleMonitoring = (0, import_react16.useCallback)(
       async (pm2Name, currentlyMonitored) => {
         if (!csrfToken) return;
         try {
@@ -34008,43 +34100,55 @@
       },
       [csrfToken, refreshCsrf]
     );
-    const onToggleAlert = (0, import_react17.useCallback)(
-      async (pm2Name, currentlyEnabled) => {
-        if (!csrfToken) return;
-        setProcesses((prev) => prev.map((p) => p.name === pm2Name ? { ...p, alertsEnabled: !currentlyEnabled } : p));
-        try {
-          await fetchJson("/api/notification-prefs", {
-            method: "POST",
-            headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json" },
-            body: JSON.stringify({ pm2Name, alertsEnabled: !currentlyEnabled })
-          });
-          await refreshCsrf();
-        } catch {
-          setProcesses((prev) => prev.map((p) => p.name === pm2Name ? { ...p, alertsEnabled: currentlyEnabled } : p));
+    return /* @__PURE__ */ import_react16.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react16.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react16.default.createElement("header", { className: "app-topbar" }, /* @__PURE__ */ import_react16.default.createElement(
+      "button",
+      {
+        className: "topbar-menu-btn",
+        type: "button",
+        "aria-label": "Toggle sidebar",
+        onClick: () => setDrawerOpen((o) => !o)
+      },
+      /* @__PURE__ */ import_react16.default.createElement("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", "aria-hidden": "true" }, /* @__PURE__ */ import_react16.default.createElement("path", { d: "M2 4h12M2 8h12M2 12h12" }))
+    ), /* @__PURE__ */ import_react16.default.createElement("a", { className: "topbar-brand", href: "/", "aria-label": "PM2 Hawkeye home" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react16.default.createElement("svg", { width: "14", height: "14", viewBox: "0 0 16 16", fill: "none", stroke: "var(--accent)", strokeWidth: "1.6", "aria-hidden": "true" }, /* @__PURE__ */ import_react16.default.createElement("circle", { cx: "8", cy: "8", r: "5" }), /* @__PURE__ */ import_react16.default.createElement("circle", { cx: "8", cy: "8", r: "1.5", fill: "var(--accent)", stroke: "none" }), /* @__PURE__ */ import_react16.default.createElement("path", { d: "M2 8h2M12 8h2M8 2v2M8 12v2", strokeLinecap: "round" }))), /* @__PURE__ */ import_react16.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye")), appVersion && /* @__PURE__ */ import_react16.default.createElement("span", { className: "topbar-brand-version" }, "v", appVersion)), /* @__PURE__ */ import_react16.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent }), /* @__PURE__ */ import_react16.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react16.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react16.default.createElement(
+      "button",
+      {
+        className: "topbar-btn",
+        type: "button",
+        onClick: () => {
+          setActiveDeploymentId(null);
+          setDeployOpen(true);
         }
       },
-      [csrfToken, refreshCsrf]
-    );
-    return /* @__PURE__ */ import_react17.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react17.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react17.default.createElement(
+      "Deploy"
+    ), /* @__PURE__ */ import_react16.default.createElement(
+      "button",
+      {
+        className: "topbar-btn",
+        type: "button",
+        onClick: () => setSettingsOpen(true)
+      },
+      "Settings"
+    ))), drawerOpen && /* @__PURE__ */ import_react16.default.createElement(
+      "div",
+      {
+        className: "topbar-drawer-overlay",
+        onClick: () => setDrawerOpen(false)
+      }
+    ), /* @__PURE__ */ import_react16.default.createElement(
       ProcessList,
       {
         processes,
         selectedProcessId,
-        status: processListStatus,
-        onSelect: setSelectedProcessId,
-        onOpenSettings: () => setSettingsOpen(true),
-        onOpenDeploy: () => {
-          setActiveDeploymentId(null);
-          setDeployOpen(true);
+        onSelect: (id) => {
+          setSelectedProcessId(id);
+          setDrawerOpen(false);
         },
-        onToggleAlert,
-        deployments,
         onEditDeployment,
-        onRemoveOrphan,
         offlineDeployments,
-        onDeleteDeployment
+        onDeleteDeployment,
+        drawerOpen
       }
-    ), /* @__PURE__ */ import_react17.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent }), /* @__PURE__ */ import_react17.default.createElement("main", { className: "content" }, /* @__PURE__ */ import_react17.default.createElement(
+    ), /* @__PURE__ */ import_react16.default.createElement("main", { className: "content" }, /* @__PURE__ */ import_react16.default.createElement(
       HeroCard,
       {
         selectedProcess,
@@ -34060,24 +34164,24 @@
         csrfToken,
         onCsrfRefresh: refreshCsrf
       }
-    ), selectedProcessId != null ? /* @__PURE__ */ import_react17.default.createElement(import_react17.default.Fragment, null, /* @__PURE__ */ import_react17.default.createElement(
+    ), selectedProcessId != null ? /* @__PURE__ */ import_react16.default.createElement(import_react16.default.Fragment, null, /* @__PURE__ */ import_react16.default.createElement(
       MonitoringNotice,
       {
         isMonitored: isSelectedMonitored,
         pm2Name: selectedProcess?.name ?? String(selectedProcessId),
-        onToggleMonitoring,
-        metricsRetentionMs,
-        logsRetentionMs
+        onToggleMonitoring
       }
-    ), /* @__PURE__ */ import_react17.default.createElement(
+    ), /* @__PURE__ */ import_react16.default.createElement(
       StatsGrid,
       {
         details,
         error,
         metricsHistory,
-        isMonitored: isSelectedMonitored
+        isMonitored: isSelectedMonitored,
+        expandedChip,
+        onExpandChip: setExpandedChip
       }
-    ), /* @__PURE__ */ import_react17.default.createElement(
+    ), /* @__PURE__ */ import_react16.default.createElement(
       LogStream,
       {
         details,
@@ -34085,9 +34189,20 @@
         logRef,
         isMonitored: isSelectedMonitored,
         unreadCount: unreadLogCount,
-        onScrollToBottom: scrollToLogBottom
+        onScrollToBottom: scrollToLogBottom,
+        logFilters,
+        onToggleFilter: (level) => setLogFilters((prev) => {
+          const next = new Set(prev);
+          if (next.has(level)) next.delete(level);
+          else next.add(level);
+          return next;
+        }),
+        logSearch,
+        onSearchChange: setLogSearch,
+        logPaused,
+        onTogglePause: () => setLogPaused((p) => !p)
       }
-    )) : /* @__PURE__ */ import_react17.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react17.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react17.default.createElement("p", { className: "eyebrow" }, "Getting started"), /* @__PURE__ */ import_react17.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react17.default.createElement("p", { className: "subtle" }, "Select a PM2 process from the sidebar to view runtime metrics and logs."), /* @__PURE__ */ import_react17.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react17.default.createElement("p", { className: "welcome-hints-title" }, "Enable monitoring on a process to unlock:"), /* @__PURE__ */ import_react17.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react17.default.createElement("li", null, "CPU and memory history sampled every 20 s, stored for 24 hours"), /* @__PURE__ */ import_react17.default.createElement("li", null, "Log entries stored and searchable for 14 days"), /* @__PURE__ */ import_react17.default.createElement("li", null, "Sparkline trend charts in the metrics panel")), /* @__PURE__ */ import_react17.default.createElement("p", { className: "welcome-hints-note" }, "Without monitoring, you only see live data - nothing is persisted between page loads."))))), /* @__PURE__ */ import_react17.default.createElement(Footer, { version: appVersion }), settingsOpen && /* @__PURE__ */ import_react17.default.createElement(
+    )) : /* @__PURE__ */ import_react16.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react16.default.createElement("p", { className: "eyebrow" }, "Getting started"), /* @__PURE__ */ import_react16.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react16.default.createElement("p", { className: "subtle" }, "Select a PM2 process from the sidebar to view runtime metrics and logs."), /* @__PURE__ */ import_react16.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react16.default.createElement("p", { className: "welcome-hints-title" }, "Enable monitoring on a process to unlock:"), /* @__PURE__ */ import_react16.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react16.default.createElement("li", null, "CPU and memory history sampled every 20 s, stored for 24 hours"), /* @__PURE__ */ import_react16.default.createElement("li", null, "Log entries stored and searchable for 14 days"), /* @__PURE__ */ import_react16.default.createElement("li", null, "Sparkline trend charts in the metrics panel")), /* @__PURE__ */ import_react16.default.createElement("p", { className: "welcome-hints-note" }, "Without monitoring, you only see live data - nothing is persisted between page loads."))))), /* @__PURE__ */ import_react16.default.createElement(Footer, { version: appVersion }), settingsOpen && /* @__PURE__ */ import_react16.default.createElement(
       Settings,
       {
         onClose: () => setSettingsOpen(false),
@@ -34095,7 +34210,7 @@
         onCsrfRefresh: refreshCsrf,
         appConfig
       }
-    ), deployOpen && /* @__PURE__ */ import_react17.default.createElement(
+    ), deployOpen && /* @__PURE__ */ import_react16.default.createElement(
       DeployModal,
       {
         csrfToken,
@@ -34121,7 +34236,7 @@
   }
 
   // src/main.jsx
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react18.default.createElement(App, null));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react17.default.createElement(App, null));
 })();
 /*! Bundled license information:
 
@@ -34180,4 +34295,3 @@ react/cjs/react-jsx-runtime.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
-//# sourceMappingURL=app.js.map

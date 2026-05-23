@@ -3,234 +3,157 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { useMemo } from 'react';
-import { formatBytes, getStatusTone } from '../services/format.js';
+import React from 'react';
+import { formatBytes } from '../services/format.js';
 
 /**
- * Return a human-readable tooltip for a PM2 process status string.
- *
- * @param {string} status
- * @returns {string}
+ * Megaphone icon rendered next to process names when alerting is enabled.
+ * @param {{ size?: number, color?: string }} props
  */
-function statusTooltip(status) {
-  const s = String(status).toLowerCase();
-  if (s === 'online') return 'Running normally';
-  if (s === 'launching') return 'Starting up';
-  if (s === 'stopped') return 'Stopped (not running)';
-  if (s === 'errored') return 'Crashed or encountered an error';
-  if (s === 'one-launch-status') return 'Exited after a single launch';
-  if (s === 'orphan') return 'No longer running in PM2, but still tracked by Hawkeye';
-  return `Status: ${status}`;
+function MegaphoneIcon({ size = 12, color = '#d4a259' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M1.5 4.5h2l3-2.5v7.5l-3-2.5h-2a.5.5 0 0 1-.5-.5v-1.5a.5.5 0 0 1 .5-.5Z" fill={color} />
+      <path d="M8 4.2a2.5 2.5 0 0 1 0 3.6" stroke={color} strokeWidth="1" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/**
+ * REC dot rendered in the sub-row of monitored processes.
+ * @param {{ size?: number, color?: string }} props
+ */
+function RecIcon({ size = 7, color = '#e07a5f' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 8 8" fill="none" aria-hidden="true">
+      <circle cx="4" cy="4" r="3" fill={color} />
+    </svg>
+  );
+}
+
+/**
+ * Single process row in the sidebar.
+ *
+ * @param {{
+ *   proc: object,
+ *   isSelected: boolean,
+ *   onSelect: (id: string) => void,
+ * }} props
+ */
+function ProcRow({ proc, isSelected, onSelect }) {
+  const id = proc.id ?? proc.name;
+  const status = String(proc.status ?? '').toLowerCase();
+  const classes = [
+    'process-item',
+    isSelected ? 'active' : '',
+    proc.isOrphan ? 'orphan' : '',
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div
+      className={classes}
+      role="option"
+      aria-selected={isSelected}
+      tabIndex={0}
+      onClick={() => onSelect(id)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(id); }
+      }}
+    >
+      <div className="process-item-main-row">
+        <span className="process-item-dot" data-status={status} />
+        <span className="process-item-name">{proc.name}</span>
+        {proc.alertsEnabled !== false && proc.isMonitored && <MegaphoneIcon />}
+      </div>
+      <div className="process-item-sub-row">
+        <span className="process-item-status-text" data-status={status}>{status}</span>
+        {proc.cpu != null && <span className="process-item-cpu">{proc.cpu.toFixed(1)}%</span>}
+        {proc.memory != null && <span className="process-item-mem">{formatBytes(proc.memory)}</span>}
+        {proc.isMonitored && <RecIcon />}
+      </div>
+    </div>
+  );
 }
 
 /**
  * Sidebar process list.
  *
- * Each process row shows its status, CPU/memory, and a read-only monitoring
- * tag.  Rows are rendered as divs (not buttons) so nested interactive elements
- * are valid HTML.  Monitored processes are visually distinguished; orphaned
- * ones (monitored but absent from PM2) receive a warning tint.  Processes that
- * were deployed via hawkeye show a "Deployed" badge, a Redeploy button, and an
- * Edit button.
- *
- * A second section below the process list shows deployment records that have
- * no corresponding running PM2 process. Each such entry is tagged as
- * "Broken" (first deploy failed), "Not running in PM2" (previously ran but
- * now absent), or "Deploying..." (deploy currently in progress). Users can
- * edit/redeploy or delete these entries.
+ * Renders the process list and, below it, any offline deployment records.
+ * The brand card and toolbar buttons moved to App.jsx's topbar in the Direction A layout.
  *
  * @param {{
  *   processes: object[],
  *   selectedProcessId: string | null,
- *   status: string,
  *   onSelect: (id: string) => void,
- *   onOpenSettings: () => void,
- *   onOpenDeploy: () => void,
- *   onToggleAlert: (pm2Name: string, currentlyEnabled: boolean) => void,
- *   deployments: object[],
  *   onEditDeployment: (pm2Name: string) => void,
- *   onRemoveOrphan: (pm2Name: string) => void,
  *   offlineDeployments: object[],
  *   onDeleteDeployment: (deploymentId: string) => void,
+ *   drawerOpen?: boolean,
  * }} props
  */
 export default function ProcessList({
   processes,
   selectedProcessId,
-  status,
   onSelect,
-  onOpenSettings,
-  onOpenDeploy,
-  onToggleAlert,
-  deployments = [],
   onEditDeployment,
-  onRemoveOrphan,
   offlineDeployments = [],
   onDeleteDeployment,
+  drawerOpen = false,
 }) {
-  /** @type {Set<string>} O(1) lookup for deployed process names */
-  const deployedNames = useMemo(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
+  const selectedIdStr = String(selectedProcessId);
 
   return (
-    <>
-      <div className="sidebar-header">
-        <div className="brand-card">
-          <p className="eyebrow">PM2 Inventory</p>
-          <h1>Command Center</h1>
-          <p className="subtle">Monitor processes, inspect logs, and restart services.</p>
-        </div>
-        <div className="sidebar-toolbar">
-          <button className="ghost-button" type="button" onClick={onOpenSettings}>
-            Settings
-          </button>
-          <button className="ghost-button" type="button" onClick={onOpenDeploy}>
-            Deploy
-          </button>
-          <div className="sidebar-status">{status}</div>
-        </div>
+    <aside className="app-sidebar section-shell" data-open={drawerOpen}>
+      <div className="sidebar-title-row">
+        <span className="sidebar-title-label">Processes</span>
+        <span className="sidebar-title-count">{processes.length}</span>
       </div>
-      <aside className="sidebar-body section-shell">
-        <div className="process-list" role="listbox" aria-label="PM2 processes">
-          {processes.length === 0 && offlineDeployments.length === 0 && (
-            <div className="empty-card compact">
-              <p>No PM2 processes found.</p>
-            </div>
-          )}
-          {processes.map((proc) => {
-            const isSelected = String(proc.id ?? proc.name) === String(selectedProcessId);
-            const monitoredClass = proc.isMonitored ? 'monitored' : '';
-            const orphanClass = proc.isOrphan ? 'orphan' : '';
-            return (
-              <div
-                className={`process-item ${isSelected ? 'active' : ''} ${monitoredClass} ${orphanClass}`.trim()}
-                key={proc.name}
-                role="option"
-                aria-selected={isSelected}
-                tabIndex={0}
-                onClick={() => onSelect(proc.id ?? proc.name)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelect(proc.id ?? proc.name);
-                  }
-                }}
-              >
-                <div className="process-item-top">
-                  <span className="process-item-title">{proc.name}</span>
-                  <span className="process-item-controls">
-                    {proc.isMonitored && (
-                      <button
-                        className={`bell-btn${proc.alertsEnabled === false ? ' bell-disabled' : ''}`}
-                        title={
-                          proc.alertsEnabled === false
-                            ? 'Alerts muted - click to enable'
-                            : 'Alerts active - click to mute'
-                        }
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onToggleAlert(proc.name, proc.alertsEnabled ?? true);
-                        }}
-                        aria-label="Toggle alerts"
-                      >
-                        {'\uD83D\uDCE2'}
-                      </button>
-                    )}
-                    <span
-                      className={`status-indicator ${getStatusTone(proc.status)}`}
-                      title={statusTooltip(proc.status)}
-                    />
+      <div className="process-list" role="listbox" aria-label="PM2 processes">
+        {processes.length === 0 && offlineDeployments.length === 0 && (
+          <div className="empty-card compact">
+            <p>No PM2 processes found.</p>
+          </div>
+        )}
+        {processes.map((proc) => (
+          <ProcRow
+            key={proc.name}
+            proc={proc}
+            isSelected={String(proc.id ?? proc.name) === selectedIdStr}
+            onSelect={onSelect}
+          />
+        ))}
+        {offlineDeployments.length > 0 && (
+          <div className="offline-deployments-section">
+            <div className="offline-deployments-header">Offline deployments</div>
+            {offlineDeployments.map((dep) => (
+              <div className="offline-deployment-item" key={dep.id}>
+                <div className="offline-deployment-top">
+                  <span className="process-item-name">{dep.pm2_name}</span>
+                  <span className={`offline-deploy-badge offline-deploy-badge--${dep.displayStatus}`}>
+                    {dep.displayStatus === 'deploying' && 'Deploying…'}
+                    {dep.displayStatus === 'broken' && 'Broken'}
+                    {dep.displayStatus === 'offline' && 'Offline'}
                   </span>
                 </div>
-                {(proc.isMonitored || deployedNames.has(proc.name)) && (
-                  <div className="monitor-tag-row">
-                    {proc.isMonitored && (
-                      <span
-                        className="monitor-tag"
-                        title="Hawkeye is collecting and storing CPU/memory metrics and log entries for this process. History is available even after restarts."
-                      >
-                        <span className="monitor-tag-dot" />
-                        Monitored
-                      </span>
-                    )}
-                    {deployedNames.has(proc.name) && (
-                      <button
-                        className="edit-deploy-btn"
-                        title="Edit configuration or trigger a redeploy"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onEditDeployment(proc.name);
-                        }}
-                      >
-                        Edit / Redeploy
-                      </button>
-                    )}
-                  </div>
-                )}
-                <span className="process-item-status">
-                  {proc.isOrphan ? (
-                    <button
-                      className="process-item-orphan"
-                      title="This process is no longer running in PM2, but Hawkeye still has a monitoring record for it. Click to remove the record."
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onRemoveOrphan(proc.name);
-                      }}
-                    >
-                      Orphan (Remove)
-                    </button>
-                  ) : (
-                    <span
-                      title={statusTooltip(proc.status)}
-                    >{`${proc.status} \u00b7 ${proc.cpu}% CPU \u00b7 ${formatBytes(proc.memory)}`}</span>
-                  )}
-                </span>
-              </div>
-            );
-          })}
-          {offlineDeployments.length > 0 && (
-            <div className="offline-deployments-section">
-              <div className="offline-deployments-header">Offline deployments</div>
-              {offlineDeployments.map((dep) => (
-                <div className="offline-deployment-item" key={dep.id}>
-                  <div className="offline-deployment-top">
-                    <span className="process-item-title">{dep.pm2_name}</span>
-                    <span
-                      className={`offline-deploy-badge offline-deploy-badge--${dep.displayStatus}`}
-                      title={
-                        dep.displayStatus === 'deploying'
-                          ? 'A deployment is currently in progress for this app.'
-                          : dep.displayStatus === 'broken'
-                            ? 'The initial deployment failed before the process ever ran successfully. Edit the configuration and redeploy to fix it.'
-                            : 'This app was successfully deployed before, but is no longer running in PM2. It may have been stopped or removed manually.'
-                      }
-                    >
-                      {dep.displayStatus === 'deploying' && 'Deploying\u2026'}
-                      {dep.displayStatus === 'broken' && 'Broken'}
-                      {dep.displayStatus === 'offline' && 'Not running in PM2'}
-                    </span>
-                  </div>
-                  <div className="offline-deployment-actions">
-                    <button
-                      className="edit-deploy-btn"
-                      title="Edit configuration or trigger a redeploy"
-                      onClick={() => onEditDeployment(dep.pm2_name)}
-                    >
-                      Edit / Redeploy
-                    </button>
-                    <button
-                      className="offline-deploy-delete-btn"
-                      title="Delete this deployment record"
-                      onClick={() => onDeleteDeployment(dep.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
+                <div className="offline-deployment-actions">
+                  <button
+                    className="edit-deploy-btn"
+                    onClick={() => onEditDeployment(dep.pm2_name)}
+                  >
+                    Edit / Redeploy
+                  </button>
+                  <button
+                    className="offline-deploy-delete-btn"
+                    onClick={() => onDeleteDeployment(dep.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </aside>
-    </>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </aside>
   );
 }

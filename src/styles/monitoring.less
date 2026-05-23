@@ -213,3 +213,57 @@
     line-height: 1.5;
   }
 }
+
+/* ── Compact inline monitoring strip (Direction A) ────────────────────────── */
+
+.monitoring-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 1.375rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 0.8125rem;
+  color: var(--muted);
+
+  &[data-active='true'] {
+    background: rgba(94, 184, 138, 0.06);
+    border-color: rgba(94, 184, 138, 0.18);
+    color: var(--text);
+  }
+}
+
+.monitoring-strip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex-shrink: 0;
+
+  .monitoring-strip[data-active='true'] & {
+    background: var(--success);
+  }
+}
+
+.monitoring-strip-label {
+  flex: 1;
+  font-size: 0.8125rem;
+}
+
+.monitoring-strip-btn {
+  padding: 0.1875rem 0.625rem;
+  border-radius: 0.3125rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.1s, color 0.1s;
+
+  &:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+}
