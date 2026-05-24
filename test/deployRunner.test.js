@@ -125,35 +125,39 @@ describe('deployRunner validators', () => {
 
     it('parses KEY=value lines', (done) => {
       // Write a temporary env file and parse it.
-      import('node:fs').then(({ promises: fsp }) =>
-        import('node:os').then(async (osModule) => {
-          const dir = await fsp.mkdtemp(osModule.default.tmpdir() + path.sep + 'hawkeye-test-');
-          const envPath = path.join(dir, '.env');
-          await fsp.writeFile(envPath, 'NODE_ENV=production\nPORT=3000\n# comment\n\nEMPTY=\n');
-          const result = parseEnvFile(dir, '.env');
-          assert.equal(result.NODE_ENV, 'production');
-          assert.equal(result.PORT, '3000');
-          assert.equal(result.EMPTY, '');
-          assert.ok(!('comment' in result));
-          await fsp.rm(dir, { recursive: true });
-          done();
-        }),
-      ).catch(done);
+      import('node:fs')
+        .then(({ promises: fsp }) =>
+          import('node:os').then(async (osModule) => {
+            const dir = await fsp.mkdtemp(osModule.default.tmpdir() + path.sep + 'hawkeye-test-');
+            const envPath = path.join(dir, '.env');
+            await fsp.writeFile(envPath, 'NODE_ENV=production\nPORT=3000\n# comment\n\nEMPTY=\n');
+            const result = parseEnvFile(dir, '.env');
+            assert.equal(result.NODE_ENV, 'production');
+            assert.equal(result.PORT, '3000');
+            assert.equal(result.EMPTY, '');
+            assert.ok(!('comment' in result));
+            await fsp.rm(dir, { recursive: true });
+            done();
+          }),
+        )
+        .catch(done);
     });
 
     it('accepts an absolute path outside the deploy directory', (done) => {
-      import('node:fs').then(({ promises: fsp }) =>
-        import('node:os').then(async (osModule) => {
-          const dir = await fsp.mkdtemp(osModule.default.tmpdir() + path.sep + 'hawkeye-test-');
-          const absEnvPath = path.join(dir, 'secrets.env');
-          await fsp.writeFile(absEnvPath, 'SECRET=abc123\n');
-          // Pass the absolute path directly - deploy_path points somewhere else.
-          const result = parseEnvFile('/some/other/deploy/path', absEnvPath);
-          assert.equal(result.SECRET, 'abc123');
-          await fsp.rm(dir, { recursive: true });
-          done();
-        }),
-      ).catch(done);
+      import('node:fs')
+        .then(({ promises: fsp }) =>
+          import('node:os').then(async (osModule) => {
+            const dir = await fsp.mkdtemp(osModule.default.tmpdir() + path.sep + 'hawkeye-test-');
+            const absEnvPath = path.join(dir, 'secrets.env');
+            await fsp.writeFile(absEnvPath, 'SECRET=abc123\n');
+            // Pass the absolute path directly - deploy_path points somewhere else.
+            const result = parseEnvFile('/some/other/deploy/path', absEnvPath);
+            assert.equal(result.SECRET, 'abc123');
+            await fsp.rm(dir, { recursive: true });
+            done();
+          }),
+        )
+        .catch(done);
     });
   });
 });

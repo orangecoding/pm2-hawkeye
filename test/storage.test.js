@@ -171,9 +171,12 @@ describe('logStorage', () => {
   it('purgeOldLogs removes records older than the retention window', () => {
     const { id } = addMonitored('log-app');
     const db = getDb();
-    db.prepare(
-      'INSERT INTO log_entries (monitored_process_id, logged_at, log_level, log) VALUES (?, ?, ?, ?)',
-    ).run(id, Date.now() - 15 * 24 * 60 * 60 * 1000, 'info', '{}');
+    db.prepare('INSERT INTO log_entries (monitored_process_id, logged_at, log_level, log) VALUES (?, ?, ?, ?)').run(
+      id,
+      Date.now() - 15 * 24 * 60 * 60 * 1000,
+      'info',
+      '{}',
+    );
     insertLogEntry(id, { loggedAt: Date.now(), logLevel: 'info', log: '{}' });
 
     purgeOldLogs(14 * 24 * 60 * 60 * 1000);

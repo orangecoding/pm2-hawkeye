@@ -22,9 +22,7 @@ function cleanDb() {
 
 /** Log in and return session cookie + CSRF token. */
 async function getAuthSession() {
-  const loginRes = await request(app)
-    .post('/api/auth/login')
-    .send({ username: 'admin', password: 'admin' });
+  const loginRes = await request(app).post('/api/auth/login').send({ username: 'admin', password: 'admin' });
   const cookie = loginRes.headers['set-cookie'][0];
   const sessionRes = await request(app).get('/api/auth/session').set('Cookie', cookie);
   return { cookie, csrfToken: sessionRes.body.csrfToken };
@@ -58,10 +56,7 @@ describe('Deployment API', () => {
 
   it('POST /api/deployments returns 403 without CSRF token', async () => {
     const { cookie } = await getAuthSession();
-    const res = await request(app)
-      .post('/api/deployments')
-      .set('Cookie', cookie)
-      .send(validBody);
+    const res = await request(app).post('/api/deployments').set('Cookie', cookie).send(validBody);
     expect(res.status).to.equal(403);
   });
 
