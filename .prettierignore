@@ -1,0 +1,12 @@
+# Generated frontend bundles (built by esbuild) - reformatting these would
+# corrupt the minified output that `npm run build` produces.
+public/app.js
+public/login.js
+
+# Generated CSS (compiled from LESS).
+public/styles.css
+
+# Dependencies and build output.
+node_modules
+dist
+build

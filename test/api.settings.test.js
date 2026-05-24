@@ -234,6 +234,44 @@ describe('POST /api/settings/general', () => {
       }
     }
   });
+
+  it('rejects values containing line breaks to prevent .env injection', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+
+    const realEnvPath = path.resolve(__dirname, '..', '.env');
+    let originalEnv = null;
+    try {
+      originalEnv = fs.readFileSync(realEnvPath, 'utf8');
+    } catch {
+      // .env may not exist in CI.
+    }
+    fs.writeFileSync(realEnvPath, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
+
+    try {
+      const res = await request(app)
+        .post('/api/settings/general')
+        .set('Cookie', cookie)
+        .set('X-CSRF-Token', csrfToken)
+        .send({ settings: { HOST: '0.0.0.0\nAUTH_PASSWORD_HASH=deadbeef' } });
+
+      expect(res.status).to.equal(400);
+      expect(res.body.error).to.include('line breaks');
+
+      // The injected line must not have been written to disk.
+      const written = fs.readFileSync(realEnvPath, 'utf8');
+      expect(written).to.not.include('AUTH_PASSWORD_HASH=deadbeef');
+    } finally {
+      if (originalEnv !== null) {
+        fs.writeFileSync(realEnvPath, originalEnv, 'utf8');
+      } else {
+        try {
+          fs.unlinkSync(realEnvPath);
+        } catch {
+          /* ignore */
+        }
+      }
+    }
+  });
 });
 
 // ── Notification prefs ────────────────────────────────────────────────────────
