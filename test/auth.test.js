@@ -80,13 +80,18 @@ describe('Authentication Logic (auth.js)', () => {
       expect(auth.getPenalty(identity, now + 200)).to.be.greaterThan(0);
     });
 
-    it('should double the lockout on each additional failure', () => {
+    it('should not lock out for the first two failures', () => {
+      const now = Date.now();
+      expect(auth.registerFailedAttempt(identity, now)).to.equal(0);
+      expect(auth.registerFailedAttempt(identity, now + 100)).to.equal(0);
+    });
+
+    it('should jump straight to the maximum lockout on the third failure', () => {
       const now = Date.now();
       auth.registerFailedAttempt(identity, now);
       auth.registerFailedAttempt(identity, now + 100);
-      auth.registerFailedAttempt(identity, now + 200); // 1× base
-      const second = auth.registerFailedAttempt(identity, now + 300); // 2× base
-      expect(second).to.be.greaterThan(config.LOGIN_BASE_LOCKOUT_MS);
+      const third = auth.registerFailedAttempt(identity, now + 200);
+      expect(third).to.equal(config.LOGIN_MAX_LOCKOUT_MS);
     });
 
     it('should clear penalty after success', () => {

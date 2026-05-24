@@ -27,5 +27,9 @@ process.env.AUTH_PASSWORD_HASH = hash.toString('hex');
 // triggering the sliding-window lockout.
 process.env.LOGIN_MAX_REQUESTS = '100';
 
+// Skip the artificial minimum auth response delay so the suite runs fast
+// (mirrors the CI workflow's AUTH_MIN_RESPONSE_MS=0).
+process.env.AUTH_MIN_RESPONSE_MS = '0';
+
 // Initialise an in-memory SQLite database for the test suite.
 await initDb(':memory:');
