@@ -20,6 +20,7 @@ import Actions from './Actions.jsx';
  *   onDelete: (withDeploy?: boolean) => Promise<void>,
  *   onRemoveOrphan: (pm2Name: string) => Promise<void>,
  *   selectedDeployment: object | null,
+ *   onEditDeployment: (pm2Name: string) => void,
  *   actions: object[],
  *   selectedProcessId: string | null,
  *   csrfToken: string | null,
@@ -33,6 +34,7 @@ export default function HeroCard({
   onDelete,
   onRemoveOrphan,
   selectedDeployment,
+  onEditDeployment,
   actions,
   selectedProcessId,
   csrfToken,
@@ -90,6 +92,15 @@ export default function HeroCard({
               onClick={() => setConfirmingRestart(true)}
             >
               Restart
+            </button>
+          )}
+          {selectedDeployment && !isOrphan && (
+            <button
+              className="ghost-button"
+              type="button"
+              onClick={() => onEditDeployment(selectedProcess.name)}
+            >
+              Edit / Redeploy
             </button>
           )}
           {isOrphan && (

@@ -22264,6 +22264,7 @@
     onDelete,
     onRemoveOrphan,
     selectedDeployment,
+    onEditDeployment,
     actions,
     selectedProcessId,
     csrfToken,
@@ -22294,6 +22295,14 @@
         onClick: () => setConfirmingRestart(true)
       },
       "Restart"
+    ), selectedDeployment && !isOrphan && /* @__PURE__ */ import_react3.default.createElement(
+      "button",
+      {
+        className: "ghost-button",
+        type: "button",
+        onClick: () => onEditDeployment(selectedProcess.name)
+      },
+      "Edit / Redeploy"
     ), isOrphan && (confirmingRemoveOrphan ? /* @__PURE__ */ import_react3.default.createElement("span", { className: "hero-confirm" }, "Remove orphan?", /* @__PURE__ */ import_react3.default.createElement("button", { className: "hero-confirm-btn hero-confirm-btn--yes", onClick: async () => {
       setConfirmingRemoveOrphan(false);
       await onRemoveOrphan(selectedProcess.name);
@@ -34159,6 +34168,7 @@
         onDelete,
         onRemoveOrphan,
         selectedDeployment,
+        onEditDeployment,
         actions,
         selectedProcessId,
         csrfToken,

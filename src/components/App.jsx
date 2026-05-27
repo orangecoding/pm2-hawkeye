@@ -684,6 +684,7 @@ export default function App() {
           onDelete={onDelete}
           onRemoveOrphan={onRemoveOrphan}
           selectedDeployment={selectedDeployment}
+          onEditDeployment={onEditDeployment}
           actions={actions}
           selectedProcessId={selectedProcessId}
           csrfToken={csrfToken}
