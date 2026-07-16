@@ -17,6 +17,8 @@ import Actions from './Actions.jsx';
  *   selectedProcess: object | null,
  *   details: object | null,
  *   onRestart: () => Promise<void>,
+ *   onStop: () => Promise<void>,
+ *   onStart: () => Promise<void>,
  *   onDelete: (withDeploy?: boolean) => Promise<void>,
  *   onRemoveOrphan: (pm2Name: string) => Promise<void>,
  *   selectedDeployment: object | null,
@@ -31,6 +33,8 @@ export default function HeroCard({
   selectedProcess,
   details,
   onRestart,
+  onStop,
+  onStart,
   onDelete,
   onRemoveOrphan,
   selectedDeployment,
@@ -41,6 +45,7 @@ export default function HeroCard({
   onCsrfRefresh,
 }) {
   const [confirmingRestart, setConfirmingRestart] = useState(false);
+  const [confirmingStop, setConfirmingStop] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [confirmingRemoveOrphan, setConfirmingRemoveOrphan] = useState(false);
 
@@ -93,6 +98,35 @@ export default function HeroCard({
             >
               Restart
             </button>
+          )}
+          {!isOrphan && (
+            statusLower === 'online' ? (
+              confirmingStop ? (
+                <span className="hero-confirm">
+                  Stop?
+                  <button className="hero-confirm-btn hero-confirm-btn--yes" onClick={async () => { setConfirmingStop(false); await onStop(); }}>Yes</button>
+                  <button className="hero-confirm-btn" onClick={() => setConfirmingStop(false)}>No</button>
+                </span>
+              ) : (
+                <button
+                  className="ghost-button"
+                  type="button"
+                  disabled={!selectedProcess}
+                  onClick={() => setConfirmingStop(true)}
+                >
+                  Stop
+                </button>
+              )
+            ) : (
+              <button
+                className="ghost-button"
+                type="button"
+                disabled={!selectedProcess}
+                onClick={async () => { await onStart(); }}
+              >
+                Start
+              </button>
+            )
           )}
           {selectedDeployment && !isOrphan && (
             <button

@@ -1,6 +1,6 @@
 {
   "name": "pm2-hawkeye",
-  "version": "5.1.1",
+  "version": "5.2.0",
   "description": "Modern web dashboard for PM2 processes, metrics, and log files",
   "type": "module",
   "main": "lib/transport/server.js",
@@ -32,31 +32,31 @@
     "npm": ">=7.0.0"
   },
   "dependencies": {
-    "better-sqlite3": "^12.10.0",
+    "better-sqlite3": "^12.11.1",
     "cookie-parser": "^1.4.7",
     "croner": "^10.0.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "pm2": "^6.0.14",
-    "ws": "^8.20.1"
+    "ws": "^8.21.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "chai": "^6.2.2",
     "chalk": "^5.6.2",
-    "esbuild": "^0.28.0",
-    "less": "^4.6.4",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "esbuild": "^0.28.1",
+    "less": "^4.6.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "react-markdown": "^10.1.0",
-    "eslint": "^10.4.0",
+    "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.6.0",
+    "globals": "^17.7.0",
     "mocha": "^11.7.6",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.14",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.5",
     "supertest": "^7.2.2"
   }
 }

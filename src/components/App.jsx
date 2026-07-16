@@ -497,6 +497,44 @@ export default function App() {
   };
 
   /**
+   * Stop the selected PM2 process without removing it from PM2.
+   * The process stays in the list with a `stopped` status so it can be
+   * started again via {@link onStart}.
+   */
+  const onStop = async () => {
+    if (selectedProcessId === null || selectedProcessId === undefined || !csrfToken) {
+      return;
+    }
+    try {
+      await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/stop`, {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrfToken },
+      });
+      await refreshCsrf();
+    } catch (stopError) {
+      setError(stopError.message);
+    }
+  };
+
+  /**
+   * Start the selected (stopped) PM2 process.
+   */
+  const onStart = async () => {
+    if (selectedProcessId === null || selectedProcessId === undefined || !csrfToken) {
+      return;
+    }
+    try {
+      await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/start`, {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrfToken },
+      });
+      await refreshCsrf();
+    } catch (startError) {
+      setError(startError.message);
+    }
+  };
+
+  /**
    * Delete the selected process from PM2.
    * When `withDeploy` is true the deployment record and its on-disk directory
    * are also removed.
@@ -681,6 +719,8 @@ export default function App() {
           sseConnected={wsConnected}
           onLogout={onLogout}
           onRestart={onRestart}
+          onStop={onStop}
+          onStart={onStart}
           onDelete={onDelete}
           onRemoveOrphan={onRemoveOrphan}
           selectedDeployment={selectedDeployment}
