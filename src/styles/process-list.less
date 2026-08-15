@@ -93,11 +93,24 @@
 }
 
 .process-item-name {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.8125rem;
   color: var(--text-dim);
+}
+
+// Marks processes Hawkeye deployed, so they are distinguishable from ones
+// started by hand on the command line.
+.process-item-deployed {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--muted);
 }
 
 .process-item-meta {

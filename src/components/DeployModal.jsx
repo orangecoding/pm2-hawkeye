@@ -724,14 +724,21 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
           </span>
         )}
         <span className="modal-footer-spacer" />
+        {/* In edit mode the user got here by asking to redeploy, so redeploying
+            is the primary action and saving without restarting is the aside. */}
+        <button
+          type="submit"
+          form="deploy-form"
+          className={isEdit ? 'btn' : 'btn btn--primary'}
+          disabled={submitting}
+        >
+          {submitting ? (isEdit ? 'Saving' : 'Starting') : isEdit ? 'Save only' : 'Deploy'}
+        </button>
         {isEdit && (
-          <button type="button" className="btn" disabled={submitting} onClick={onRedeployClick}>
+          <button type="button" className="btn btn--primary" disabled={submitting} onClick={onRedeployClick}>
             {submitting ? 'Saving' : 'Save and redeploy'}
           </button>
         )}
-        <button type="submit" form="deploy-form" className="btn btn--primary" disabled={submitting}>
-          {submitting ? (isEdit ? 'Saving' : 'Starting') : isEdit ? 'Save changes' : 'Deploy'}
-        </button>
       </div>
     </>
   );

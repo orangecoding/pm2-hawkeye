@@ -3034,7 +3034,7 @@
           return indentation(indent) + describeTextNode(clientText, maxLength) + "\n";
         }
         function objectName(object) {
-          return Object.prototype.toString.call(object).replace(/^\[object (.*)\]$/, function(m3, p0) {
+          return Object.prototype.toString.call(object).replace(/^\[object (.*)\]$/, function(m4, p0) {
             return p0;
           });
         }
@@ -21517,7 +21517,7 @@
         weight: o3,
         mirrored: c5,
         children: i,
-        weights: m3,
+        weights: m4,
         ...x
       } = s6, {
         color: d = "currentColor",
@@ -21541,7 +21541,7 @@
         },
         !!n11 && /* @__PURE__ */ e2.createElement("title", null, n11),
         i,
-        m3.get(o3 != null ? o3 : f2)
+        m4.get(o3 != null ? o3 : f2)
       );
     }
   );

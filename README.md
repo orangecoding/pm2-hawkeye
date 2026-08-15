@@ -406,10 +406,11 @@ Further collapsible groups cover how PM2 runs the app (interpreter, exec mode, i
 
 ### Redeploying and editing
 
-Once a process has been deployed through PM2-Hawkeye, its **Manage** tab gains a Deployment section with an **Edit and redeploy** button, which opens the same form pre-filled with the saved configuration. Deployments whose PM2 process is gone appear under **Not deployed** in the sidebar with their own Redeploy and Delete buttons.
+A process that PM2-Hawkeye deployed is marked as such in two places: a git icon next to its name in the sidebar, and a chip in its header showing the repository and branch it came from. Both a **Redeploy** button in the header and the chip itself open the saved configuration, pre-filled.
 
-- **Save changes** -- persists the updated configuration without restarting the process.
-- **Save & Redeploy** -- saves the configuration and immediately triggers a full redeploy: `git pull --rebase`, reinstall, rebuild, and PM2 restart.
+In that form, **Save and redeploy** saves and immediately runs `git pull --rebase`, reinstall, rebuild, and PM2 restart. **Save only** persists the configuration without touching the running process. The same Redeploy button also sits in the **Manage** tab, next to the repository URL and the time of the last successful deploy.
+
+Deployments whose PM2 process is gone appear under **Not deployed** in the sidebar with their own Redeploy and Delete buttons.
 
 ### Configuration
 

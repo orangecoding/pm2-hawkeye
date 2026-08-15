@@ -15,6 +15,7 @@ export {
   DownloadSimple,
   Eye,
   GearSix,
+  GitBranch,
   List,
   MagnifyingGlass,
   TextAlignLeft,

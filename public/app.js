@@ -8,8 +8,8 @@
   var __commonJS = (cb, mod) => function __require() {
     try {
       return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-    } catch (e33) {
-      throw mod = 0, e33;
+    } catch (e34) {
+      throw mod = 0, e34;
     }
   };
   var __export = (target, all2) => {
@@ -87,7 +87,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e33) {
+          } catch (e34) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -1107,9 +1107,9 @@
           }
           return first;
         }
-        function compare(a22, b) {
-          var diff = a22.sortIndex - b.sortIndex;
-          return 0 !== diff ? diff : a22.id - b.id;
+        function compare(a23, b) {
+          var diff = a23.sortIndex - b.sortIndex;
+          return 0 !== diff ? diff : a23.id - b.id;
         }
         function advanceTimers(currentTime) {
           for (var timer = peek(timerQueue); null !== timer; ) {
@@ -1303,7 +1303,7 @@
           try {
             testStringCoercion(key);
             var JSCompiler_inline_result = false;
-          } catch (e33) {
+          } catch (e34) {
             JSCompiler_inline_result = true;
           }
           JSCompiler_inline_result && (console.error(
@@ -1517,8 +1517,8 @@
         exports.requestFormReset = function(form) {
           Internals.d.r(form);
         };
-        exports.unstable_batchedUpdates = function(fn, a22) {
-          return fn(a22);
+        exports.unstable_batchedUpdates = function(fn, a23) {
+          return fn(a23);
         };
         exports.useFormState = function(action, initialState, permalink) {
           return resolveDispatcher().useFormState(action, initialState, permalink);
@@ -1683,55 +1683,55 @@
               throw Error("Unable to find node on an unmounted component.");
             return alternate !== fiber ? null : fiber;
           }
-          for (var a22 = fiber, b = alternate; ; ) {
-            var parentA = a22.return;
+          for (var a23 = fiber, b = alternate; ; ) {
+            var parentA = a23.return;
             if (null === parentA) break;
             var parentB = parentA.alternate;
             if (null === parentB) {
               b = parentA.return;
               if (null !== b) {
-                a22 = b;
+                a23 = b;
                 continue;
               }
               break;
             }
             if (parentA.child === parentB.child) {
               for (parentB = parentA.child; parentB; ) {
-                if (parentB === a22) return assertIsMounted(parentA), fiber;
+                if (parentB === a23) return assertIsMounted(parentA), fiber;
                 if (parentB === b) return assertIsMounted(parentA), alternate;
                 parentB = parentB.sibling;
               }
               throw Error("Unable to find node on an unmounted component.");
             }
-            if (a22.return !== b.return) a22 = parentA, b = parentB;
+            if (a23.return !== b.return) a23 = parentA, b = parentB;
             else {
               for (var didFindChild = false, _child = parentA.child; _child; ) {
-                if (_child === a22) {
+                if (_child === a23) {
                   didFindChild = true;
-                  a22 = parentA;
+                  a23 = parentA;
                   b = parentB;
                   break;
                 }
                 if (_child === b) {
                   didFindChild = true;
                   b = parentA;
-                  a22 = parentB;
+                  a23 = parentB;
                   break;
                 }
                 _child = _child.sibling;
               }
               if (!didFindChild) {
                 for (_child = parentB.child; _child; ) {
-                  if (_child === a22) {
+                  if (_child === a23) {
                     didFindChild = true;
-                    a22 = parentB;
+                    a23 = parentB;
                     b = parentA;
                     break;
                   }
                   if (_child === b) {
                     didFindChild = true;
                     b = parentB;
-                    a22 = parentA;
+                    a23 = parentA;
                     break;
                   }
                   _child = _child.sibling;
@@ -1742,14 +1742,14 @@
                   );
               }
             }
-            if (a22.alternate !== b)
+            if (a23.alternate !== b)
               throw Error(
                 "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue."
               );
           }
-          if (3 !== a22.tag)
+          if (3 !== a23.tag)
             throw Error("Unable to find node on an unmounted component.");
-          return a22.stateNode.current === a22 ? fiber : alternate;
+          return a23.stateNode.current === a23 ? fiber : alternate;
         }
         function findCurrentHostFiberImpl(node2) {
           var tag = node2.tag;
@@ -2281,7 +2281,7 @@
         function willCoercionThrow(value) {
           try {
             return testStringCoercion(value), false;
-          } catch (e33) {
+          } catch (e34) {
             return true;
           }
         }
@@ -2827,7 +2827,7 @@
           if ("undefined" === typeof doc) return null;
           try {
             return doc.activeElement || doc.body;
-          } catch (e33) {
+          } catch (e34) {
             return doc.body;
           }
         }
@@ -3038,7 +3038,7 @@
           return indentation(indent) + describeTextNode(clientText, maxLength) + "\n";
         }
         function objectName(object) {
-          return Object.prototype.toString.call(object).replace(/^\[object (.*)\]$/, function(m3, p0) {
+          return Object.prototype.toString.call(object).replace(/^\[object (.*)\]$/, function(m4, p0) {
             return p0;
           });
         }
@@ -3885,16 +3885,16 @@
             }
           }
         }
-        function batchedUpdates$1(fn, a22, b) {
-          if (isInsideEventHandler) return fn(a22, b);
+        function batchedUpdates$1(fn, a23, b) {
+          if (isInsideEventHandler) return fn(a23, b);
           isInsideEventHandler = true;
           try {
-            var JSCompiler_inline_result = fn(a22);
+            var JSCompiler_inline_result = fn(a23);
             return JSCompiler_inline_result;
           } finally {
             if (isInsideEventHandler = false, null !== restoreTarget || null !== restoreQueue) {
-              if (flushSyncWork$1(), restoreTarget && (a22 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a22), fn))
-                for (a22 = 0; a22 < fn.length; a22++) restoreStateOfTarget(fn[a22]);
+              if (flushSyncWork$1(), restoreTarget && (a23 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a23), fn))
+                for (a23 = 0; a23 < fn.length; a23++) restoreStateOfTarget(fn[a23]);
             }
           }
         }
@@ -10685,11 +10685,11 @@
                   addendum = null === lastEffect ? " You returned null. If your effect does not require clean up, return undefined (or nothing)." : "function" === typeof lastEffect.then ? "\n\nIt looks like you wrote " + hookName + "(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:\n\n" + hookName + "(() => {\n  async function fetchData() {\n    // You can await here\n    const response = await MyAPI.getData(someId);\n    // ...\n  }\n  fetchData();\n}, [someId]); // Or [] if effect doesn't need props or state\n\nLearn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching" : " You returned: " + lastEffect;
                   runWithFiberInDEV(
                     finishedWork,
-                    function(n11, a22) {
+                    function(n11, a23) {
                       console.error(
                         "%s must not return anything besides a function, which is used for clean-up.%s",
                         n11,
-                        a22
+                        a23
                       );
                     },
                     hookName,
@@ -17996,8 +17996,8 @@
         function markRetryLaneImpl(fiber, retryLane) {
           fiber = fiber.memoizedState;
           if (null !== fiber && null !== fiber.dehydrated) {
-            var a22 = fiber.retryLane;
-            fiber.retryLane = 0 !== a22 && a22 < retryLane ? a22 : retryLane;
+            var a23 = fiber.retryLane;
+            fiber.retryLane = 0 !== a23 && a23 < retryLane ? a23 : retryLane;
           }
         }
         function markRetryLaneIfNotHydrated(fiber, retryLane) {
@@ -19346,7 +19346,7 @@
             });
             window.addEventListener("test", options$jscomp$0, options$jscomp$0);
             window.removeEventListener("test", options$jscomp$0, options$jscomp$0);
-          } catch (e33) {
+          } catch (e34) {
             passiveBrowserEventsSupported = false;
           }
         var root3 = null, startText = null, fallbackText = null, EventInterface = {
@@ -21518,12 +21518,12 @@
           }
         }
         function match(re2) {
-          var m3 = re2.exec(style);
-          if (!m3) return;
-          var str = m3[0];
+          var m4 = re2.exec(style);
+          if (!m4) return;
+          var str = m4[0];
           updatePosition(str);
           style = style.slice(str.length);
-          return m3;
+          return m4;
         }
         function whitespace2() {
           match(WHITESPACE_REGEX);
@@ -21753,7 +21753,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e33) {
+          } catch (e34) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -22379,363 +22379,392 @@
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/List.es.js
+  // node_modules/@phosphor-icons/react/dist/defs/GitBranch.es.js
   var a9 = __toESM(require_react(), 1);
   var e8 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M216,64V192H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a9.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M224,64a24,24,0,1,1-24-24A24,24,0,0,1,224,64Z", opacity: "0.2" }), /* @__PURE__ */ a9.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM192,184H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128ZM40,70H216a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12ZM216,186H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M230,64a30,30,0,1,0-36,29.4V112a10,10,0,0,1-10,10H96a21.84,21.84,0,0,0-10,2.42v-31a30,30,0,1,0-12,0v69.2a30,30,0,1,0,12,0V144a10,10,0,0,1,10-10h88a22,22,0,0,0,22-22V93.4A30.05,30.05,0,0,0,230,64ZM62,64A18,18,0,1,1,80,82,18,18,0,0,1,62,64ZM98,192a18,18,0,1,1-18-18A18,18,0,0,1,98,192ZM200,82a18,18,0,1,1,18-18A18,18,0,0,1,200,82Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H40a4,4,0,0,1,0-8H216A4,4,0,0,1,220,128ZM40,68H216a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8ZM216,188H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M228,64a28,28,0,1,0-32,27.71V112a12,12,0,0,1-12,12H96a19.91,19.91,0,0,0-12,4V91.71a28,28,0,1,0-8,0v72.58a28,28,0,1,0,8,0V144a12,12,0,0,1,12-12h88a20,20,0,0,0,20-20V91.71A28,28,0,0,0,228,64ZM60,64A20,20,0,1,1,80,84,20,20,0,0,1,60,64Zm40,128a20,20,0,1,1-20-20A20,20,0,0,1,100,192ZM200,84a20,20,0,1,1,20-20A20,20,0,0,1,200,84Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/List.es.js
+  var a10 = __toESM(require_react(), 1);
+  var e9 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M216,64V192H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a10.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM192,184H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128ZM40,70H216a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12ZM216,186H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H40a4,4,0,0,1,0-8H216A4,4,0,0,1,220,128ZM40,68H216a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8ZM216,188H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/MagnifyingGlass.es.js
-  var e9 = __toESM(require_react(), 1);
-  var a10 = /* @__PURE__ */ new Map([
+  var e10 = __toESM(require_react(), 1);
+  var a11 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z" }))
+      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z", opacity: "0.2" }), /* @__PURE__ */ e9.createElement("path", { d: "M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
+      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z", opacity: "0.2" }), /* @__PURE__ */ e10.createElement("path", { d: "M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z" }))
+      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z" }))
+      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
+      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M226.83,221.17l-52.7-52.7a84.1,84.1,0,1,0-5.66,5.66l52.7,52.7a4,4,0,0,0,5.66-5.66ZM36,112a76,76,0,1,1,76,76A76.08,76.08,0,0,1,36,112Z" }))
+      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M226.83,221.17l-52.7-52.7a84.1,84.1,0,1,0-5.66,5.66l52.7,52.7a4,4,0,0,0,5.66-5.66ZM36,112a76,76,0,1,1,76,76A76.08,76.08,0,0,1,36,112Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Pause.es.js
-  var a11 = __toESM(require_react(), 1);
-  var e10 = /* @__PURE__ */ new Map([
+  var a12 = __toESM(require_react(), 1);
+  var e11 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement(
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement(
         "path",
         {
           d: "M208,48V208a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8h40A8,8,0,0,1,208,48ZM96,40H56a8,8,0,0,0-8,8V208a8,8,0,0,0,8,8H96a8,8,0,0,0,8-8V48A8,8,0,0,0,96,40Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a11.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
+      ), /* @__PURE__ */ a12.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M200,36H160a12,12,0,0,0-12,12V208a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V48A12,12,0,0,0,200,36Zm4,172a4,4,0,0,1-4,4H160a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4ZM96,36H56A12,12,0,0,0,44,48V208a12,12,0,0,0,12,12H96a12,12,0,0,0,12-12V48A12,12,0,0,0,96,36Zm4,172a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4H96a4,4,0,0,1,4,4Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,36H160a12,12,0,0,0-12,12V208a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V48A12,12,0,0,0,200,36Zm4,172a4,4,0,0,1-4,4H160a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4ZM96,36H56A12,12,0,0,0,44,48V208a12,12,0,0,0,12,12H96a12,12,0,0,0,12-12V48A12,12,0,0,0,96,36Zm4,172a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4H96a4,4,0,0,1,4,4Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Play.es.js
-  var e11 = __toESM(require_react(), 1);
-  var a12 = /* @__PURE__ */ new Map([
-    [
-      "bold",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M234.49,111.07,90.41,22.94A20,20,0,0,0,60,39.87V216.13a20,20,0,0,0,30.41,16.93l144.08-88.13a19.82,19.82,0,0,0,0-33.86ZM84,208.85V47.15L216.16,128Z" }))
-    ],
-    [
-      "duotone",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement(
-        "path",
-        {
-          d: "M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z",
-          opacity: "0.2"
-        }
-      ), /* @__PURE__ */ e11.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
-    ],
-    [
-      "fill",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z" }))
-    ],
-    [
-      "light",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z" }))
-    ],
-    [
-      "regular",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
-    ],
-    [
-      "thin",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M230.32,117.9,86.24,29.79a11.91,11.91,0,0,0-12.17-.23A11.71,11.71,0,0,0,68,39.89V216.11a11.71,11.71,0,0,0,6.07,10.33,11.91,11.91,0,0,0,12.17-.23L230.32,138.1a11.82,11.82,0,0,0,0-20.2Zm-4.18,13.37L82.06,219.39a4,4,0,0,1-4.07.07,3.77,3.77,0,0,1-2-3.35V39.89a3.77,3.77,0,0,1,2-3.35,4,4,0,0,1,4.07.07l144.08,88.12a3.8,3.8,0,0,1,0,6.54Z" }))
-    ]
-  ]);
-
-  // node_modules/@phosphor-icons/react/dist/defs/Plus.es.js
   var e12 = __toESM(require_react(), 1);
   var a13 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M234.49,111.07,90.41,22.94A20,20,0,0,0,60,39.87V216.13a20,20,0,0,0,30.41,16.93l144.08-88.13a19.82,19.82,0,0,0,0-33.86ZM84,208.85V47.15L216.16,128Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement(
         "path",
         {
-          d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
+          d: "M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e12.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+      ), /* @__PURE__ */ e12.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H136v48a8,8,0,0,1-16,0V136H72a8,8,0,0,1,0-16h48V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H132v84a4,4,0,0,1-8,0V132H40a4,4,0,0,1,0-8h84V40a4,4,0,0,1,8,0v84h84A4,4,0,0,1,220,128Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M230.32,117.9,86.24,29.79a11.91,11.91,0,0,0-12.17-.23A11.71,11.71,0,0,0,68,39.89V216.11a11.71,11.71,0,0,0,6.07,10.33,11.91,11.91,0,0,0,12.17-.23L230.32,138.1a11.82,11.82,0,0,0,0-20.2Zm-4.18,13.37L82.06,219.39a4,4,0,0,1-4.07.07,3.77,3.77,0,0,1-2-3.35V39.89a3.77,3.77,0,0,1,2-3.35,4,4,0,0,1,4.07.07l144.08,88.12a3.8,3.8,0,0,1,0,6.54Z" }))
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/Record.es.js
+  // node_modules/@phosphor-icons/react/dist/defs/Plus.es.js
   var e13 = __toESM(require_react(), 1);
   var a14 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm0-148a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64Zm0,104a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M192,128a64,64,0,1,1-64-64A64,64,0,0,1,192,128Z", opacity: "0.2" }), /* @__PURE__ */ e13.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement(
+        "path",
+        {
+          d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ e13.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm72-88a72,72,0,1,1-72-72A72.08,72.08,0,0,1,200,128Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H136v48a8,8,0,0,1-16,0V136H72a8,8,0,0,1,0-16h48V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm0-160a70,70,0,1,0,70,70A70.08,70.08,0,0,0,128,58Zm0,128a58,58,0,1,1,58-58A58.07,58.07,0,0,1,128,186Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm0-160a68,68,0,1,0,68,68A68.07,68.07,0,0,0,128,60Zm0,128a60,60,0,1,1,60-60A60.07,60.07,0,0,1,128,188Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H132v84a4,4,0,0,1-8,0V132H40a4,4,0,0,1,0-8h84V40a4,4,0,0,1,8,0v84h84A4,4,0,0,1,220,128Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/Record.es.js
+  var e14 = __toESM(require_react(), 1);
+  var a15 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm0-148a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64Zm0,104a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M192,128a64,64,0,1,1-64-64A64,64,0,0,1,192,128Z", opacity: "0.2" }), /* @__PURE__ */ e14.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm72-88a72,72,0,1,1-72-72A72.08,72.08,0,0,1,200,128Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm0-160a70,70,0,1,0,70,70A70.08,70.08,0,0,0,128,58Zm0,128a58,58,0,1,1,58-58A58.07,58.07,0,0,1,128,186Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm0-160a68,68,0,1,0,68,68A68.07,68.07,0,0,0,128,60Zm0,128a60,60,0,1,1,60-60A60.07,60.07,0,0,1,128,188Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/RocketLaunch.es.js
-  var a15 = __toESM(require_react(), 1);
-  var e14 = /* @__PURE__ */ new Map([
-    [
-      "bold",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M227.85,46.89a20,20,0,0,0-18.74-18.74c-13.13-.77-46.65.42-74.48,28.24L131,60H74.36a19.83,19.83,0,0,0-14.14,5.86L25.87,100.19a20,20,0,0,0,11.35,33.95l37.14,5.18,42.32,42.32,5.19,37.18A19.88,19.88,0,0,0,135.34,235a20.13,20.13,0,0,0,6.37,1,19.9,19.9,0,0,0,14.1-5.87l34.34-34.35A19.85,19.85,0,0,0,196,181.64V125l3.6-3.59C227.43,93.54,228.62,60,227.85,46.89ZM76,84h31L75.75,115.28l-27.23-3.8ZM151.6,73.37A72.27,72.27,0,0,1,204,52a72.17,72.17,0,0,1-21.38,52.41L128,159,97,128ZM172,180l-27.49,27.49-3.8-27.23L172,149Zm-72,22c-8.71,11.85-26.19,26-60,26a12,12,0,0,1-12-12c0-33.84,14.12-51.32,26-60A12,12,0,1,1,68.18,175.3C62.3,179.63,55.51,187.8,53,203c15.21-2.51,23.37-9.3,27.7-15.18A12,12,0,1,1,100,202Z" }))
-    ],
-    [
-      "duotone",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement(
-        "path",
-        {
-          d: "M184,120v61.65a8,8,0,0,1-2.34,5.65l-34.35,34.35a8,8,0,0,1-13.57-4.53L128,176ZM136,72H74.35a8,8,0,0,0-5.65,2.34L34.35,108.69a8,8,0,0,0,4.53,13.57L80,128ZM40,216c37.65,0,50.69-19.69,54.56-28.18L68.18,161.44C59.69,165.31,40,178.35,40,216Z",
-          opacity: "0.2"
-        }
-      ), /* @__PURE__ */ a15.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
-    ],
-    [
-      "fill",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M101.85,191.14C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Zm122-144a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.4,27.07h0L88,108.7A8,8,0,0,1,76.67,97.39l26.56-26.57A4,4,0,0,0,100.41,64H74.35A15.9,15.9,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A16,16,0,0,0,192,181.65V155.59a4,4,0,0,0-6.83-2.82l-26.57,26.56a8,8,0,0,1-11.71-.42,8.2,8.2,0,0,1,.6-11.1l49.27-49.27h0C223.45,91.86,224.6,59.71,223.85,47.12Z" }))
-    ],
-    [
-      "light",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.44a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.89V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.87,121.64l-38.14-5.32A1.93,1.93,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.87-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.47,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.91,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z" }))
-    ],
-    [
-      "regular",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
-    ],
-    [
-      "thin",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M219.86,47.36a12,12,0,0,0-11.22-11.22c-12-.71-42.82.38-68.35,25.91L134.35,68h-60a11.9,11.9,0,0,0-8.48,3.52L31.52,105.85a12,12,0,0,0,6.81,20.37l39.79,5.55,46.11,46.11,5.55,39.81a12,12,0,0,0,20.37,6.79l34.34-34.35a11.9,11.9,0,0,0,3.52-8.48v-60l5.94-5.94C219.48,90.18,220.57,59.41,219.86,47.36ZM36.21,115.6a3.94,3.94,0,0,1,1-4.09L71.53,77.17A4,4,0,0,1,74.35,76h52L78.58,123.76,39.44,118.3A3.94,3.94,0,0,1,36.21,115.6ZM180,181.65a4,4,0,0,1-1.17,2.83l-34.35,34.34a4,4,0,0,1-6.79-2.25l-5.46-39.15L180,129.65Zm-52-11.31L85.66,128l60.28-60.29c23.24-23.24,51.25-24.23,62.22-23.58a3.93,3.93,0,0,1,3.71,3.71c.65,11-.35,39-23.58,62.22ZM98.21,189.48C94,198.66,80,220,40,220a4,4,0,0,1-4-4c0-40,21.34-54,30.52-58.21a4,4,0,0,1,3.32,7.28c-7.46,3.41-24.43,14.66-25.76,46.85,32.19-1.33,43.44-18.3,46.85-25.76a4,4,0,1,1,7.28,3.32Z" }))
-    ]
-  ]);
-
-  // node_modules/@phosphor-icons/react/dist/defs/SignOut.es.js
   var a16 = __toESM(require_react(), 1);
   var e15 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z" }))
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M227.85,46.89a20,20,0,0,0-18.74-18.74c-13.13-.77-46.65.42-74.48,28.24L131,60H74.36a19.83,19.83,0,0,0-14.14,5.86L25.87,100.19a20,20,0,0,0,11.35,33.95l37.14,5.18,42.32,42.32,5.19,37.18A19.88,19.88,0,0,0,135.34,235a20.13,20.13,0,0,0,6.37,1,19.9,19.9,0,0,0,14.1-5.87l34.34-34.35A19.85,19.85,0,0,0,196,181.64V125l3.6-3.59C227.43,93.54,228.62,60,227.85,46.89ZM76,84h31L75.75,115.28l-27.23-3.8ZM151.6,73.37A72.27,72.27,0,0,1,204,52a72.17,72.17,0,0,1-21.38,52.41L128,159,97,128ZM172,180l-27.49,27.49-3.8-27.23L172,149Zm-72,22c-8.71,11.85-26.19,26-60,26a12,12,0,0,1-12-12c0-33.84,14.12-51.32,26-60A12,12,0,1,1,68.18,175.3C62.3,179.63,55.51,187.8,53,203c15.21-2.51,23.37-9.3,27.7-15.18A12,12,0,1,1,100,202Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement(
         "path",
         {
-          d: "M224,56V200a16,16,0,0,1-16,16H48V40H208A16,16,0,0,1,224,56Z",
+          d: "M184,120v61.65a8,8,0,0,1-2.34,5.65l-34.35,34.35a8,8,0,0,1-13.57-4.53L128,176ZM136,72H74.35a8,8,0,0,0-5.65,2.34L34.35,108.69a8,8,0,0,0,4.53,13.57L80,128ZM40,216c37.65,0,50.69-19.69,54.56-28.18L68.18,161.44C59.69,165.31,40,178.35,40,216Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a16.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      ), /* @__PURE__ */ a16.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40A8,8,0,0,0,176,88v32H112a8,8,0,0,0,0,16h64v32a8,8,0,0,0,13.66,5.66l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M101.85,191.14C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Zm122-144a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.4,27.07h0L88,108.7A8,8,0,0,1,76.67,97.39l26.56-26.57A4,4,0,0,0,100.41,64H74.35A15.9,15.9,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A16,16,0,0,0,192,181.65V155.59a4,4,0,0,0-6.83-2.82l-26.57,26.56a8,8,0,0,1-11.71-.42,8.2,8.2,0,0,1,.6-11.1l49.27-49.27h0C223.45,91.86,224.6,59.71,223.85,47.12Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M118,216a6,6,0,0,1-6,6H48a6,6,0,0,1-6-6V40a6,6,0,0,1,6-6h64a6,6,0,0,1,0,12H54V210h58A6,6,0,0,1,118,216Zm110.24-92.24-40-40a6,6,0,0,0-8.48,8.48L209.51,122H112a6,6,0,0,0,0,12h97.51l-29.75,29.76a6,6,0,1,0,8.48,8.48l40-40A6,6,0,0,0,228.24,123.76Z" }))
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.44a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.89V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.87,121.64l-38.14-5.32A1.93,1.93,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.87-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.47,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.91,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M116,216a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V40a4,4,0,0,1,4-4h64a4,4,0,0,1,0,8H52V212h60A4,4,0,0,1,116,216Zm110.83-90.83-40-40a4,4,0,0,0-5.66,5.66L214.34,124H112a4,4,0,0,0,0,8H214.34l-33.17,33.17a4,4,0,0,0,5.66,5.66l40-40A4,4,0,0,0,226.83,125.17Z" }))
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M219.86,47.36a12,12,0,0,0-11.22-11.22c-12-.71-42.82.38-68.35,25.91L134.35,68h-60a11.9,11.9,0,0,0-8.48,3.52L31.52,105.85a12,12,0,0,0,6.81,20.37l39.79,5.55,46.11,46.11,5.55,39.81a12,12,0,0,0,20.37,6.79l34.34-34.35a11.9,11.9,0,0,0,3.52-8.48v-60l5.94-5.94C219.48,90.18,220.57,59.41,219.86,47.36ZM36.21,115.6a3.94,3.94,0,0,1,1-4.09L71.53,77.17A4,4,0,0,1,74.35,76h52L78.58,123.76,39.44,118.3A3.94,3.94,0,0,1,36.21,115.6ZM180,181.65a4,4,0,0,1-1.17,2.83l-34.35,34.34a4,4,0,0,1-6.79-2.25l-5.46-39.15L180,129.65Zm-52-11.31L85.66,128l60.28-60.29c23.24-23.24,51.25-24.23,62.22-23.58a3.93,3.93,0,0,1,3.71,3.71c.65,11-.35,39-23.58,62.22ZM98.21,189.48C94,198.66,80,220,40,220a4,4,0,0,1-4-4c0-40,21.34-54,30.52-58.21a4,4,0,0,1,3.32,7.28c-7.46,3.41-24.43,14.66-25.76,46.85,32.19-1.33,43.44-18.3,46.85-25.76a4,4,0,1,1,7.28,3.32Z" }))
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/TextAlignLeft.es.js
+  // node_modules/@phosphor-icons/react/dist/defs/SignOut.es.js
   var a17 = __toESM(require_react(), 1);
   var e16 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M28,64A12,12,0,0,1,40,52H216a12,12,0,0,1,0,24H40A12,12,0,0,1,28,64Zm12,52H168a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24Zm176,16H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Zm-48,40H40a12,12,0,0,0,0,24H168a12,12,0,0,0,0-24Z" }))
+      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M216,64V168a16,16,0,0,1-16,16H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a17.createElement("path", { d: "M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,48H168a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm176,24H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm-48,40H40a8,8,0,0,0,0,16H168a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement(
+        "path",
+        {
+          d: "M224,56V200a16,16,0,0,1-16,16H48V40H208A16,16,0,0,1,224,56Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ a17.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM160,184H64a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Zm32-32H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16ZM56,112a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H64A8,8,0,0,1,56,112ZM192,88H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40A8,8,0,0,0,176,88v32H112a8,8,0,0,0,0,16h64v32a8,8,0,0,0,13.66,5.66l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M34,64a6,6,0,0,1,6-6H216a6,6,0,0,1,0,12H40A6,6,0,0,1,34,64Zm6,46H168a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12Zm176,28H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Zm-48,40H40a6,6,0,0,0,0,12H168a6,6,0,0,0,0-12Z" }))
+      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M118,216a6,6,0,0,1-6,6H48a6,6,0,0,1-6-6V40a6,6,0,0,1,6-6h64a6,6,0,0,1,0,12H54V210h58A6,6,0,0,1,118,216Zm110.24-92.24-40-40a6,6,0,0,0-8.48,8.48L209.51,122H112a6,6,0,0,0,0,12h97.51l-29.75,29.76a6,6,0,1,0,8.48,8.48l40-40A6,6,0,0,0,228.24,123.76Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,48H168a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm176,24H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm-48,40H40a8,8,0,0,0,0,16H168a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M36,64a4,4,0,0,1,4-4H216a4,4,0,0,1,0,8H40A4,4,0,0,1,36,64Zm4,44H168a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8Zm176,32H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Zm-48,40H40a4,4,0,0,0,0,8H168a4,4,0,0,0,0-8Z" }))
+      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M116,216a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V40a4,4,0,0,1,4-4h64a4,4,0,0,1,0,8H52V212h60A4,4,0,0,1,116,216Zm110.83-90.83-40-40a4,4,0,0,0-5.66,5.66L214.34,124H112a4,4,0,0,0,0,8H214.34l-33.17,33.17a4,4,0,0,0,5.66,5.66l40-40A4,4,0,0,0,226.83,125.17Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/TextAlignLeft.es.js
+  var a18 = __toESM(require_react(), 1);
+  var e17 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M28,64A12,12,0,0,1,40,52H216a12,12,0,0,1,0,24H40A12,12,0,0,1,28,64Zm12,52H168a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24Zm176,16H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Zm-48,40H40a12,12,0,0,0,0,24H168a12,12,0,0,0,0-24Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M216,64V168a16,16,0,0,1-16,16H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a18.createElement("path", { d: "M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,48H168a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm176,24H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm-48,40H40a8,8,0,0,0,0,16H168a8,8,0,0,0,0-16Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM160,184H64a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Zm32-32H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16ZM56,112a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H64A8,8,0,0,1,56,112ZM192,88H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M34,64a6,6,0,0,1,6-6H216a6,6,0,0,1,0,12H40A6,6,0,0,1,34,64Zm6,46H168a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12Zm176,28H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Zm-48,40H40a6,6,0,0,0,0,12H168a6,6,0,0,0,0-12Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,48H168a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm176,24H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm-48,40H40a8,8,0,0,0,0,16H168a8,8,0,0,0,0-16Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M36,64a4,4,0,0,1,4-4H216a4,4,0,0,1,0,8H40A4,4,0,0,1,36,64Zm4,44H168a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8Zm176,32H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Zm-48,40H40a4,4,0,0,0,0,8H168a4,4,0,0,0,0-8Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/WarningCircle.es.js
-  var e17 = __toESM(require_react(), 1);
-  var a18 = /* @__PURE__ */ new Map([
-    [
-      "bold",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z" }))
-    ],
-    [
-      "duotone",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e17.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
-    ],
-    [
-      "fill",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z" }))
-    ],
-    [
-      "light",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm-6-82V80a6,6,0,0,1,12,0v56a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,172Z" }))
-    ],
-    [
-      "regular",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
-    ],
-    [
-      "thin",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm-4-84V80a4,4,0,0,1,8,0v56a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,172Z" }))
-    ]
-  ]);
-
-  // node_modules/@phosphor-icons/react/dist/defs/X.es.js
   var e18 = __toESM(require_react(), 1);
   var a19 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement(
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm-6-82V80a6,6,0,0,1,12,0v56a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,172Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm-4-84V80a4,4,0,0,1,8,0v56a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,172Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/X.es.js
+  var e19 = __toESM(require_react(), 1);
+  var a20 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement(
         "path",
         {
           d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e18.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      ), /* @__PURE__ */ e19.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM181.66,170.34a8,8,0,0,1-11.32,11.32L128,139.31,85.66,181.66a8,8,0,0,1-11.32-11.32L116.69,128,74.34,85.66A8,8,0,0,1,85.66,74.34L128,116.69l42.34-42.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM181.66,170.34a8,8,0,0,1-11.32,11.32L128,139.31,85.66,181.66a8,8,0,0,1-11.32-11.32L116.69,128,74.34,85.66A8,8,0,0,1,85.66,74.34L128,116.69l42.34-42.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z" }))
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M202.83,197.17a4,4,0,0,1-5.66,5.66L128,133.66,58.83,202.83a4,4,0,0,1-5.66-5.66L122.34,128,53.17,58.83a4,4,0,0,1,5.66-5.66L128,122.34l69.17-69.17a4,4,0,1,1,5.66,5.66L133.66,128Z" }))
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M202.83,197.17a4,4,0,0,1-5.66,5.66L128,133.66,58.83,202.83a4,4,0,0,1-5.66-5.66L122.34,128,53.17,58.83a4,4,0,0,1,5.66-5.66L128,122.34l69.17-69.17a4,4,0,1,1,5.66,5.66L133.66,128Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
-  var e19 = __toESM(require_react(), 1);
+  var e20 = __toESM(require_react(), 1);
 
   // node_modules/@phosphor-icons/react/dist/lib/context.es.js
   var import_react = __toESM(require_react(), 1);
@@ -22747,16 +22776,16 @@
   });
 
   // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
-  var p = e19.forwardRef(
-    (s6, a22) => {
+  var p = e20.forwardRef(
+    (s6, a23) => {
       const {
         alt: n11,
-        color: r4,
+        color: r5,
         size: t4,
-        weight: o18,
+        weight: o19,
         mirrored: c7,
         children: i,
-        weights: m3,
+        weights: m4,
         ...x
       } = s6, {
         color: d = "currentColor",
@@ -22764,23 +22793,23 @@
         weight: f2 = "regular",
         mirrored: g = false,
         ...w
-      } = e19.useContext(o);
-      return /* @__PURE__ */ e19.createElement(
+      } = e20.useContext(o);
+      return /* @__PURE__ */ e20.createElement(
         "svg",
         {
-          ref: a22,
+          ref: a23,
           xmlns: "http://www.w3.org/2000/svg",
           width: t4 != null ? t4 : l3,
           height: t4 != null ? t4 : l3,
-          fill: r4 != null ? r4 : d,
+          fill: r5 != null ? r5 : d,
           viewBox: "0 0 256 256",
           transform: c7 || g ? "scale(-1, 1)" : void 0,
           ...w,
           ...x
         },
-        !!n11 && /* @__PURE__ */ e19.createElement("title", null, n11),
+        !!n11 && /* @__PURE__ */ e20.createElement("title", null, n11),
         i,
-        m3.get(o18 != null ? o18 : f2)
+        m4.get(o19 != null ? o19 : f2)
       );
     }
   );
@@ -22788,117 +22817,123 @@
 
   // node_modules/@phosphor-icons/react/dist/csr/ArrowDown.es.js
   var o2 = __toESM(require_react(), 1);
-  var r2 = o2.forwardRef((e33, t4) => /* @__PURE__ */ o2.createElement(p, { ref: t4, ...e33, weights: a }));
+  var r2 = o2.forwardRef((e34, t4) => /* @__PURE__ */ o2.createElement(p, { ref: t4, ...e34, weights: a }));
   r2.displayName = "ArrowDownIcon";
   var c = r2;
 
   // node_modules/@phosphor-icons/react/dist/csr/ChartLine.es.js
-  var e20 = __toESM(require_react(), 1);
-  var o3 = e20.forwardRef((r4, t4) => /* @__PURE__ */ e20.createElement(p, { ref: t4, ...r4, weights: e2 }));
+  var e21 = __toESM(require_react(), 1);
+  var o3 = e21.forwardRef((r5, t4) => /* @__PURE__ */ e21.createElement(p, { ref: t4, ...r5, weights: e2 }));
   o3.displayName = "ChartLineIcon";
   var c2 = o3;
 
   // node_modules/@phosphor-icons/react/dist/csr/Check.es.js
-  var e21 = __toESM(require_react(), 1);
-  var o4 = e21.forwardRef((c7, r4) => /* @__PURE__ */ e21.createElement(p, { ref: r4, ...c7, weights: a3 }));
+  var e22 = __toESM(require_react(), 1);
+  var o4 = e22.forwardRef((c7, r5) => /* @__PURE__ */ e22.createElement(p, { ref: r5, ...c7, weights: a3 }));
   o4.displayName = "CheckIcon";
   var n = o4;
 
   // node_modules/@phosphor-icons/react/dist/csr/CheckCircle.es.js
-  var e22 = __toESM(require_react(), 1);
-  var c3 = e22.forwardRef((o18, r4) => /* @__PURE__ */ e22.createElement(p, { ref: r4, ...o18, weights: a4 }));
+  var e23 = __toESM(require_react(), 1);
+  var c3 = e23.forwardRef((o19, r5) => /* @__PURE__ */ e23.createElement(p, { ref: r5, ...o19, weights: a4 }));
   c3.displayName = "CheckCircleIcon";
   var s = c3;
 
   // node_modules/@phosphor-icons/react/dist/csr/Copy.es.js
   var o5 = __toESM(require_react(), 1);
-  var e23 = o5.forwardRef((r4, t4) => /* @__PURE__ */ o5.createElement(p, { ref: t4, ...r4, weights: e5 }));
-  e23.displayName = "CopyIcon";
-  var s2 = e23;
+  var e24 = o5.forwardRef((r5, t4) => /* @__PURE__ */ o5.createElement(p, { ref: t4, ...r5, weights: e5 }));
+  e24.displayName = "CopyIcon";
+  var s2 = e24;
 
   // node_modules/@phosphor-icons/react/dist/csr/DownloadSimple.es.js
   var o6 = __toESM(require_react(), 1);
-  var e24 = o6.forwardRef((a22, m3) => /* @__PURE__ */ o6.createElement(p, { ref: m3, ...a22, weights: e6 }));
-  e24.displayName = "DownloadSimpleIcon";
-  var l2 = e24;
+  var e25 = o6.forwardRef((a23, m4) => /* @__PURE__ */ o6.createElement(p, { ref: m4, ...a23, weights: e6 }));
+  e25.displayName = "DownloadSimpleIcon";
+  var l2 = e25;
 
   // node_modules/@phosphor-icons/react/dist/csr/Eye.es.js
-  var e25 = __toESM(require_react(), 1);
-  var o7 = e25.forwardRef((r4, t4) => /* @__PURE__ */ e25.createElement(p, { ref: t4, ...r4, weights: a7 }));
+  var e26 = __toESM(require_react(), 1);
+  var o7 = e26.forwardRef((r5, t4) => /* @__PURE__ */ e26.createElement(p, { ref: t4, ...r5, weights: a7 }));
   o7.displayName = "EyeIcon";
   var n2 = o7;
 
   // node_modules/@phosphor-icons/react/dist/csr/GearSix.es.js
-  var e26 = __toESM(require_react(), 1);
-  var o8 = e26.forwardRef((r4, a22) => /* @__PURE__ */ e26.createElement(p, { ref: a22, ...r4, weights: l }));
+  var e27 = __toESM(require_react(), 1);
+  var o8 = e27.forwardRef((r5, a23) => /* @__PURE__ */ e27.createElement(p, { ref: a23, ...r5, weights: l }));
   o8.displayName = "GearSixIcon";
   var s3 = o8;
 
-  // node_modules/@phosphor-icons/react/dist/csr/List.es.js
+  // node_modules/@phosphor-icons/react/dist/csr/GitBranch.es.js
   var o9 = __toESM(require_react(), 1);
-  var t = o9.forwardRef((e33, r4) => /* @__PURE__ */ o9.createElement(p, { ref: r4, ...e33, weights: e8 }));
+  var r3 = o9.forwardRef((t4, a23) => /* @__PURE__ */ o9.createElement(p, { ref: a23, ...t4, weights: e8 }));
+  r3.displayName = "GitBranchIcon";
+  var m = r3;
+
+  // node_modules/@phosphor-icons/react/dist/csr/List.es.js
+  var o10 = __toESM(require_react(), 1);
+  var t = o10.forwardRef((e34, r5) => /* @__PURE__ */ o10.createElement(p, { ref: r5, ...e34, weights: e9 }));
   t.displayName = "ListIcon";
   var c4 = t;
 
   // node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js
-  var a20 = __toESM(require_react(), 1);
-  var o10 = a20.forwardRef((s6, n11) => /* @__PURE__ */ a20.createElement(p, { ref: n11, ...s6, weights: a10 }));
-  o10.displayName = "MagnifyingGlassIcon";
-  var f = o10;
+  var a21 = __toESM(require_react(), 1);
+  var o11 = a21.forwardRef((s6, n11) => /* @__PURE__ */ a21.createElement(p, { ref: n11, ...s6, weights: a11 }));
+  o11.displayName = "MagnifyingGlassIcon";
+  var f = o11;
 
   // node_modules/@phosphor-icons/react/dist/csr/Pause.es.js
-  var e27 = __toESM(require_react(), 1);
-  var o11 = e27.forwardRef((a22, r4) => /* @__PURE__ */ e27.createElement(p, { ref: r4, ...a22, weights: e10 }));
-  o11.displayName = "PauseIcon";
-  var n3 = o11;
+  var e28 = __toESM(require_react(), 1);
+  var o12 = e28.forwardRef((a23, r5) => /* @__PURE__ */ e28.createElement(p, { ref: r5, ...a23, weights: e11 }));
+  o12.displayName = "PauseIcon";
+  var n3 = o12;
 
   // node_modules/@phosphor-icons/react/dist/csr/Play.es.js
-  var o12 = __toESM(require_react(), 1);
-  var a21 = o12.forwardRef((e33, r4) => /* @__PURE__ */ o12.createElement(p, { ref: r4, ...e33, weights: a12 }));
-  a21.displayName = "PlayIcon";
-  var n4 = a21;
+  var o13 = __toESM(require_react(), 1);
+  var a22 = o13.forwardRef((e34, r5) => /* @__PURE__ */ o13.createElement(p, { ref: r5, ...e34, weights: a13 }));
+  a22.displayName = "PlayIcon";
+  var n4 = a22;
 
   // node_modules/@phosphor-icons/react/dist/csr/Plus.es.js
-  var o13 = __toESM(require_react(), 1);
-  var e28 = o13.forwardRef((r4, s6) => /* @__PURE__ */ o13.createElement(p, { ref: s6, ...r4, weights: a13 }));
-  e28.displayName = "PlusIcon";
-  var n5 = e28;
+  var o14 = __toESM(require_react(), 1);
+  var e29 = o14.forwardRef((r5, s6) => /* @__PURE__ */ o14.createElement(p, { ref: s6, ...r5, weights: a14 }));
+  e29.displayName = "PlusIcon";
+  var n5 = e29;
 
   // node_modules/@phosphor-icons/react/dist/csr/Record.es.js
-  var o14 = __toESM(require_react(), 1);
-  var e29 = o14.forwardRef((r4, c7) => /* @__PURE__ */ o14.createElement(p, { ref: c7, ...r4, weights: a14 }));
-  e29.displayName = "RecordIcon";
-  var n6 = e29;
+  var o15 = __toESM(require_react(), 1);
+  var e30 = o15.forwardRef((r5, c7) => /* @__PURE__ */ o15.createElement(p, { ref: c7, ...r5, weights: a15 }));
+  e30.displayName = "RecordIcon";
+  var n6 = e30;
 
   // node_modules/@phosphor-icons/react/dist/csr/RocketLaunch.es.js
-  var o15 = __toESM(require_react(), 1);
-  var c5 = o15.forwardRef((e33, t4) => /* @__PURE__ */ o15.createElement(p, { ref: t4, ...e33, weights: e14 }));
+  var o16 = __toESM(require_react(), 1);
+  var c5 = o16.forwardRef((e34, t4) => /* @__PURE__ */ o16.createElement(p, { ref: t4, ...e34, weights: e15 }));
   c5.displayName = "RocketLaunchIcon";
   var s4 = c5;
 
   // node_modules/@phosphor-icons/react/dist/csr/SignOut.es.js
-  var o16 = __toESM(require_react(), 1);
-  var t2 = o16.forwardRef((e33, r4) => /* @__PURE__ */ o16.createElement(p, { ref: r4, ...e33, weights: e15 }));
+  var o17 = __toESM(require_react(), 1);
+  var t2 = o17.forwardRef((e34, r5) => /* @__PURE__ */ o17.createElement(p, { ref: r5, ...e34, weights: e16 }));
   t2.displayName = "SignOutIcon";
   var c6 = t2;
 
   // node_modules/@phosphor-icons/react/dist/csr/TextAlignLeft.es.js
-  var e30 = __toESM(require_react(), 1);
-  var t3 = e30.forwardRef((o18, r4) => /* @__PURE__ */ e30.createElement(p, { ref: r4, ...o18, weights: e16 }));
+  var e31 = __toESM(require_react(), 1);
+  var t3 = e31.forwardRef((o19, r5) => /* @__PURE__ */ e31.createElement(p, { ref: r5, ...o19, weights: e17 }));
   t3.displayName = "TextAlignLeftIcon";
-  var m = t3;
+  var m2 = t3;
 
   // node_modules/@phosphor-icons/react/dist/csr/WarningCircle.es.js
-  var r3 = __toESM(require_react(), 1);
-  var e31 = r3.forwardRef((o18, n11) => /* @__PURE__ */ r3.createElement(p, { ref: n11, ...o18, weights: a18 }));
-  e31.displayName = "WarningCircleIcon";
-  var m2 = e31;
+  var r4 = __toESM(require_react(), 1);
+  var e32 = r4.forwardRef((o19, n11) => /* @__PURE__ */ r4.createElement(p, { ref: n11, ...o19, weights: a19 }));
+  e32.displayName = "WarningCircleIcon";
+  var m3 = e32;
 
   // node_modules/@phosphor-icons/react/dist/csr/X.es.js
-  var o17 = __toESM(require_react(), 1);
-  var e32 = o17.forwardRef((r4, t4) => /* @__PURE__ */ o17.createElement(p, { ref: t4, ...r4, weights: a19 }));
-  e32.displayName = "XIcon";
-  var n7 = e32;
+  var o18 = __toESM(require_react(), 1);
+  var e33 = o18.forwardRef((r5, t4) => /* @__PURE__ */ o18.createElement(p, { ref: t4, ...r5, weights: a20 }));
+  e33.displayName = "XIcon";
+  var n7 = e33;
 
   // src/components/Icon.jsx
   var ICON_DEFAULTS = { size: 15, weight: "bold" };
@@ -22963,7 +22998,7 @@
     broken: "Failed",
     offline: "Stopped"
   };
-  function ProcRow({ proc, isSelected, onSelect }) {
+  function ProcRow({ proc, isSelected, isDeployed, onSelect }) {
     const id = proc.id ?? proc.name;
     const status = String(proc.status ?? "").toLowerCase();
     return /* @__PURE__ */ import_react5.default.createElement(
@@ -22976,7 +23011,7 @@
         onClick: () => onSelect(id)
       },
       /* @__PURE__ */ import_react5.default.createElement("span", { className: "status-dot", "data-status": status }),
-      /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-name" }, proc.name),
+      /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-name" }, proc.name, isDeployed && /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-deployed", title: "Deployed by Hawkeye" }, /* @__PURE__ */ import_react5.default.createElement(m, { size: 10, weight: "bold" }))),
       /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-meta" }, proc.cpu != null && /* @__PURE__ */ import_react5.default.createElement("span", null, proc.cpu.toFixed(0), "%"), proc.memory != null && /* @__PURE__ */ import_react5.default.createElement("span", null, formatBytes(proc.memory)), proc.isMonitored && /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-rec", title: "Monitored - logs and metrics are being stored" }, /* @__PURE__ */ import_react5.default.createElement(n6, { size: 9, weight: "fill" })))
     );
   }
@@ -22985,6 +23020,7 @@
     selectedProcessId,
     onSelect,
     onEditDeployment,
+    deployedNames = /* @__PURE__ */ new Set(),
     offlineDeployments = [],
     onDeleteDeployment,
     drawerOpen = false
@@ -23009,6 +23045,7 @@
         key: proc.name,
         proc,
         isSelected: String(proc.id ?? proc.name) === selectedIdStr,
+        isDeployed: deployedNames.has(proc.name),
         onSelect
       }
     )));
@@ -23020,7 +23057,7 @@
         value: filter,
         placeholder: "Filter processes",
         "aria-label": "Filter processes",
-        onChange: (e33) => setFilter(e33.target.value)
+        onChange: (e34) => setFilter(e34.target.value)
       }
     )), /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, totalVisible === 0 && /* @__PURE__ */ import_react5.default.createElement("p", { className: "sidebar-empty" }, processes.length === 0 && offlineDeployments.length === 0 ? "No PM2 processes found." : `Nothing matches "${filter.trim()}".`), group("Running", running), group("Not running", notRunning), visibleOffline.length > 0 && /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-group" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-group-head" }, /* @__PURE__ */ import_react5.default.createElement("p", { className: "section-label" }, "Not deployed"), /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-group-count" }, visibleOffline.length)), visibleOffline.map((dep) => /* @__PURE__ */ import_react5.default.createElement("div", { className: "offline-item", key: dep.id }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "offline-item-top" }, /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-name" }, dep.pm2_name), /* @__PURE__ */ import_react5.default.createElement("span", { className: `tag${OFFLINE_TAG_TONE[dep.displayStatus] ?? ""}` }, OFFLINE_TAG_LABEL[dep.displayStatus] ?? dep.displayStatus)), /* @__PURE__ */ import_react5.default.createElement("div", { className: "offline-item-actions" }, /* @__PURE__ */ import_react5.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: () => onEditDeployment(dep.pm2_name) }, "Redeploy"), /* @__PURE__ */ import_react5.default.createElement(
       ConfirmButton,
@@ -23036,41 +23073,68 @@
 
   // src/components/ProcessHeader.jsx
   var import_react6 = __toESM(require_react(), 1);
-  function ProcessHeader({ selectedProcess, details, isMonitored, onRestart, onStop, onStart, children }) {
+  function shortRepo(url) {
+    if (!url) return "";
+    const cleaned = url.replace(/\.git$/, "").replace(/^git@[^:]+:/, "").replace(/^https?:\/\/[^/]+\//, "");
+    const parts = cleaned.split("/").filter(Boolean);
+    return parts.length >= 2 ? parts.slice(-2).join("/") : cleaned;
+  }
+  function ProcessHeader({
+    selectedProcess,
+    details,
+    selectedDeployment,
+    onRestart,
+    onStop,
+    onStart,
+    onEditDeployment,
+    children
+  }) {
     if (!selectedProcess) {
       return /* @__PURE__ */ import_react6.default.createElement("header", { className: "process-header" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header--empty" }, "Select a process from the sidebar."));
     }
     const status = String(selectedProcess.status ?? "");
     const statusLower = status.toLowerCase();
     const isOnline = statusLower === "online";
+    const isOrphan = selectedProcess.isOrphan ?? false;
     const pid = details?.process?.pid;
-    const script = selectedProcess?.pm2_env?.pm_exec_path ?? selectedProcess?.script ?? "";
-    const scriptShort = script.split("/").pop() || script;
+    const isDeployed = Boolean(selectedDeployment) && !isOrphan;
     const stats = details ? [
-      { label: "CPU", value: `${details.process.cpu}%` },
-      { label: "Memory", value: formatBytes(details.process.memory) },
-      { label: "Restarts", value: String(details.process.restarts) },
+      { label: "cpu", value: `${details.process.cpu}%` },
+      { label: "mem", value: formatBytes(details.process.memory) },
+      { label: "restarts", value: String(details.process.restarts) },
       {
-        label: "Uptime",
+        label: "uptime",
         value: formatRelativeTime(details.process.uptime),
-        sub: formatDate(details.process.uptime)
-      }
+        title: `Started ${formatDate(details.process.uptime)}`
+      },
+      ...pid != null ? [{ label: "pid", value: String(pid) }] : []
     ] : null;
-    return /* @__PURE__ */ import_react6.default.createElement("header", { className: "process-header" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-row" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-title" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "status-dot", "data-status": statusLower }), /* @__PURE__ */ import_react6.default.createElement("h1", null, selectedProcess.name)), /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-meta" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "status-text", "data-status": statusLower }, status), pid != null && /* @__PURE__ */ import_react6.default.createElement("span", { className: "process-meta-mono" }, "PID ", pid), scriptShort && /* @__PURE__ */ import_react6.default.createElement("span", { className: "process-meta-mono" }, scriptShort), isMonitored && /* @__PURE__ */ import_react6.default.createElement("span", { className: "tag tag--accent" }, "Monitored")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-actions" }, /* @__PURE__ */ import_react6.default.createElement(
+    return /* @__PURE__ */ import_react6.default.createElement("header", { className: "process-header" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-row" }, /* @__PURE__ */ import_react6.default.createElement("h1", { className: "process-name" }, selectedProcess.name), /* @__PURE__ */ import_react6.default.createElement("span", { className: "status-text", "data-status": statusLower }, status), isDeployed && /* @__PURE__ */ import_react6.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "deploy-chip",
+        title: `Deployed by Hawkeye from ${selectedDeployment.repo_url}. Open the deployment configuration.`,
+        onClick: () => onEditDeployment(selectedProcess.name)
+      },
+      /* @__PURE__ */ import_react6.default.createElement(m, { size: 12, weight: "bold" }),
+      /* @__PURE__ */ import_react6.default.createElement("span", { className: "deploy-chip-repo" }, shortRepo(selectedDeployment.repo_url)),
+      /* @__PURE__ */ import_react6.default.createElement("span", { className: "deploy-chip-branch" }, selectedDeployment.branch)
+    ), /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-actions" }, isDeployed && /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "btn", onClick: () => onEditDeployment(selectedProcess.name) }, "Redeploy"), /* @__PURE__ */ import_react6.default.createElement(
       ConfirmButton,
       {
         label: "Restart",
         question: `Restart ${selectedProcess.name}?`,
         choices: [{ label: "Restart", onConfirm: onRestart }]
       }
-    ), !selectedProcess.isOrphan && (isOnline ? /* @__PURE__ */ import_react6.default.createElement(
+    ), !isOrphan && (isOnline ? /* @__PURE__ */ import_react6.default.createElement(
       ConfirmButton,
       {
         label: "Stop",
         question: `Stop ${selectedProcess.name}?`,
         choices: [{ label: "Stop", danger: true, onConfirm: onStop }]
       }
-    ) : /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: onStart }, "Start")))), stats ? /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip" }, stats.map((stat) => /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip-item", key: stat.label }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-label" }, stat.label), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-value" }, stat.value), stat.sub && /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-sub" }, stat.sub)))) : /* @__PURE__ */ import_react6.default.createElement("p", { className: "stat-strip-empty" }, "Waiting for the first sample."), children);
+    ) : /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: onStart }, "Start")))), stats ? /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip" }, stats.map((stat) => /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip-item", key: stat.label, title: stat.title }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-label" }, stat.label), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-value" }, stat.value)))) : /* @__PURE__ */ import_react6.default.createElement("p", { className: "stat-strip-empty" }, "Waiting for the first sample."), children);
   }
 
   // src/components/MetricsPanel.jsx
@@ -23140,11 +23204,11 @@
       }
       return best;
     }
-    function handleMouseMove(e33) {
+    function handleMouseMove(e34) {
       const el = wrapperRef.current;
       if (!el || !ready) return;
       const rect = el.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(1, (e33.clientX - rect.left) / rect.width));
+      const pct = Math.max(0, Math.min(1, (e34.clientX - rect.left) / rect.width));
       const svgX = pct * w;
       const s6 = nearestSample(svgX);
       setTooltip({ pct: xPos(s6.t) / w, svgX: xPos(s6.t), svgY: yPos(s6.v), v: s6.v, t: s6.t });
@@ -23301,7 +23365,7 @@
           placeholder: "Parameters",
           "aria-label": `Parameters for ${name2}`,
           disabled: busy,
-          onChange: (e33) => setParams(e33.target.value)
+          onChange: (e34) => setParams(e34.target.value)
         }
       ), /* @__PURE__ */ import_react9.default.createElement(
         "button",
@@ -23337,7 +23401,7 @@
         },
         "Run"
       )));
-    })), result && /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react9.default.createElement(s, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react9.default.createElement(m2, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react9.default.createElement("span", null, result.text)));
+    })), result && /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react9.default.createElement(s, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react9.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react9.default.createElement("span", null, result.text)));
   }
 
   // src/components/ManagePanel.jsx
@@ -23378,7 +23442,7 @@
       {
         type: "checkbox",
         checked: alertsEnabled,
-        onChange: (e33) => onToggleAlerts(name2, e33.target.checked)
+        onChange: (e34) => onToggleAlerts(name2, e34.target.checked)
       }
     ), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-label" }, alertsEnabled ? "Enabled" : "Disabled"))))), actions.length > 0 && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Custom actions"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Actions this process registered with PM2 through axm_actions.")), /* @__PURE__ */ import_react10.default.createElement(
       Actions,
@@ -23388,7 +23452,7 @@
         csrfToken,
         onCsrfRefresh
       }
-    )), selectedDeployment && !isOrphan && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Deployment")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, selectedDeployment.repo_url), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Branch ", selectedDeployment.branch, selectedDeployment.last_deployed_at ? `, last deployed ${new Date(selectedDeployment.last_deployed_at).toLocaleString("en-GB")}` : ", never deployed successfully")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn", onClick: () => onEditDeployment(name2) }, "Edit and redeploy")))), (isOrphan || isDeletable) && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section manage-section--danger" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Remove")), isOrphan && /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Orphaned record"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "This process is tracked by Hawkeye but no longer exists in PM2. Removing it deletes its stored history.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement(
+    )), selectedDeployment && !isOrphan && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Deployment")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, selectedDeployment.repo_url), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Branch ", selectedDeployment.branch, selectedDeployment.last_deployed_at ? `, last deployed ${new Date(selectedDeployment.last_deployed_at).toLocaleString("en-GB")}` : ", never deployed successfully")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn", onClick: () => onEditDeployment(name2) }, "Redeploy")))), (isOrphan || isDeletable) && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section manage-section--danger" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Remove")), isOrphan && /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Orphaned record"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "This process is tracked by Hawkeye but no longer exists in PM2. Removing it deletes its stored history.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement(
       ConfirmButton,
       {
         label: "Remove record",
@@ -23429,9 +23493,9 @@
   }
   var TIME_PREFIX = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:[.,]\d+)?(?:Z|[+-]\d{2}:?\d{2})?)[:\s]*/;
   function splitLine(text5) {
-    const m3 = text5.match(TIME_PREFIX);
-    if (!m3) return { time: "", message: text5 };
-    return { time: m3[1].slice(11, 19), message: text5.slice(m3[0].length) };
+    const m4 = text5.match(TIME_PREFIX);
+    if (!m4) return { time: "", message: text5 };
+    return { time: m4[1].slice(11, 19), message: text5.slice(m4[0].length) };
   }
   function LogStream({
     details,
@@ -23479,10 +23543,10 @@
       const text5 = filteredLines.map((l3) => l3.text).join("\n");
       const blob = new Blob([text5], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
-      const a22 = document.createElement("a");
-      a22.href = url;
-      a22.download = `${details?.name ?? "logs"}.log`;
-      a22.click();
+      const a23 = document.createElement("a");
+      a23.href = url;
+      a23.download = `${details?.name ?? "logs"}.log`;
+      a23.click();
       URL.revokeObjectURL(url);
     };
     return /* @__PURE__ */ import_react11.default.createElement("section", { className: "log-panel" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-filters", role: "group", "aria-label": "Filter by log level" }, ["info", "warn", "error"].map((level) => /* @__PURE__ */ import_react11.default.createElement(
@@ -23504,7 +23568,7 @@
         placeholder: "Search",
         "aria-label": "Search logs",
         value: logSearch,
-        onChange: (e33) => onSearchChange(e33.target.value)
+        onChange: (e34) => onSearchChange(e34.target.value)
       }
     )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar-status" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "log-status-dot", "data-paused": logPaused }), /* @__PURE__ */ import_react11.default.createElement("span", null, logPaused ? `Paused${pausedCount > 0 ? `, ${pausedCount} held` : ""}` : "Live"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "log-count" }, isFiltered ? `${filteredLines.length} of ${allLines.length}` : `${allLines.length}`, " lines")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar-actions" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
@@ -33154,8 +33218,8 @@
     }, []);
     (0, import_react13.useEffect)(() => {
       if (!open) return;
-      const handler = (e33) => {
-        if (panelRef.current && !panelRef.current.contains(e33.target)) {
+      const handler = (e34) => {
+        if (panelRef.current && !panelRef.current.contains(e34.target)) {
           setOpen(false);
         }
       };
@@ -33164,8 +33228,8 @@
     }, [open]);
     (0, import_react13.useEffect)(() => {
       if (!open) return;
-      const handler = (e33) => {
-        if (e33.key === "Escape") setOpen(false);
+      const handler = (e34) => {
+        if (e34.key === "Escape") setOpen(false);
       };
       document.addEventListener("keydown", handler);
       return () => document.removeEventListener("keydown", handler);
@@ -33346,8 +33410,8 @@
     function set(key, value) {
       setFields((prev) => ({ ...prev, [key]: value }));
     }
-    async function handleSave(e33) {
-      e33.preventDefault();
+    async function handleSave(e34) {
+      e34.preventDefault();
       if (!csrfToken || !fields) return;
       setSaving(true);
       setNotice(null);
@@ -33388,7 +33452,7 @@
           className: "input",
           type: "text",
           value: fields[key] ?? "",
-          onChange: (e33) => set(key, e33.target.value),
+          onChange: (e34) => set(key, e34.target.value),
           autoComplete: "off"
         }
       ), /* @__PURE__ */ import_react15.default.createElement("p", { className: "hint" }, meta?.hint ? `${meta.hint} ` : "", /* @__PURE__ */ import_react15.default.createElement("code", null, key)));
@@ -33400,7 +33464,7 @@
         type: "password",
         value: newPassword,
         placeholder: "Leave blank to keep the current one",
-        onChange: (e33) => setNewPassword(e33.target.value),
+        onChange: (e34) => setNewPassword(e34.target.value),
         autoComplete: "new-password"
       }
     ), /* @__PURE__ */ import_react15.default.createElement("p", { className: "hint" }, "A new salt and hash are derived on save. The plaintext is never stored.")))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "settings-actions" }, /* @__PURE__ */ import_react15.default.createElement("button", { className: "btn btn--primary", type: "submit", disabled: saving }, saving ? "Saving" : "Save changes")));
@@ -33459,7 +33523,7 @@
         placeholder: keyPlaceholder,
         "aria-label": `${label} name ${i + 1}`,
         value: row.key,
-        onChange: (e33) => onUpdate(i, "key", e33.target.value)
+        onChange: (e34) => onUpdate(i, "key", e34.target.value)
       }
     ), /* @__PURE__ */ import_react16.default.createElement(
       "input",
@@ -33468,7 +33532,7 @@
         placeholder: valuePlaceholder,
         "aria-label": `${label} value ${i + 1}`,
         value: row.value,
-        onChange: (e33) => onUpdate(i, "value", e33.target.value)
+        onChange: (e34) => onUpdate(i, "value", e34.target.value)
       }
     ), /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": `Remove ${label} ${i + 1}`, onClick: () => onRemove(i) }, /* @__PURE__ */ import_react16.default.createElement(n7, { size: 13 })))), /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: onAdd }, /* @__PURE__ */ import_react16.default.createElement(n5, { size: 12, weight: "bold" }), "Add"));
   }
@@ -33568,7 +33632,7 @@
         setNtfyTesting(false);
       }
     }
-    const testResult = (result) => result && /* @__PURE__ */ import_react16.default.createElement("span", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react16.default.createElement(s, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react16.default.createElement(m2, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react16.default.createElement("span", null, result.ok ? `Delivered, HTTP ${result.status}` : `Failed: ${result.error ?? `HTTP ${result.status}`}`));
+    const testResult = (result) => result && /* @__PURE__ */ import_react16.default.createElement("span", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react16.default.createElement(s, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react16.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react16.default.createElement("span", null, result.ok ? `Delivered, HTTP ${result.status}` : `Failed: ${result.error ?? `HTTP ${result.status}`}`));
     return /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-page" }, /* @__PURE__ */ import_react16.default.createElement("p", { className: "hint" }, "These rules apply to every process that has monitoring and alerts turned on. Alerts are switched on per process in its Manage tab."), saveError && /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-notice settings-notice--error" }, saveError), /* @__PURE__ */ import_react16.default.createElement("section", { className: "settings-group" }, /* @__PURE__ */ import_react16.default.createElement("h3", { className: "settings-group-title" }, "When to alert"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "choice-list" }, /* @__PURE__ */ import_react16.default.createElement("label", { className: "choice" }, /* @__PURE__ */ import_react16.default.createElement(
       "input",
       {
@@ -33595,7 +33659,7 @@
         type: "number",
         min: "1",
         value: throttleMinutes,
-        onChange: (e33) => set("alert.throttleMinutes", e33.target.value)
+        onChange: (e34) => set("alert.throttleMinutes", e34.target.value)
       }
     ), /* @__PURE__ */ import_react16.default.createElement("span", null, "minutes"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react16.default.createElement("label", null, "Trigger on these levels"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "checkbox-row" }, ["error", "warn", "info", "debug"].map((level) => /* @__PURE__ */ import_react16.default.createElement("label", { className: "checkbox", key: level }, /* @__PURE__ */ import_react16.default.createElement(
       "input",
@@ -33609,7 +33673,7 @@
       {
         type: "checkbox",
         checked: webhookEnabled,
-        onChange: (e33) => set("reporter.webhook.enabled", e33.target.checked ? "1" : "0")
+        onChange: (e34) => set("reporter.webhook.enabled", e34.target.checked ? "1" : "0")
       }
     ), /* @__PURE__ */ import_react16.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react16.default.createElement("span", { className: "toggle-label" }, webhookEnabled ? "Enabled" : "Disabled"))), webhookEnabled && /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react16.default.createElement("label", { htmlFor: "wh-url" }, "URL"), /* @__PURE__ */ import_react16.default.createElement(
       "input",
@@ -33619,7 +33683,7 @@
         type: "url",
         value: webhookUrl,
         placeholder: "https://hooks.example.com/alert",
-        onChange: (e33) => set("reporter.webhook.url", e33.target.value)
+        onChange: (e34) => set("reporter.webhook.url", e34.target.value)
       }
     )), /* @__PURE__ */ import_react16.default.createElement(
       KeyValueList,
@@ -33658,7 +33722,7 @@
       {
         type: "checkbox",
         checked: ntfyEnabled,
-        onChange: (e33) => set("reporter.ntfy.enabled", e33.target.checked ? "1" : "0")
+        onChange: (e34) => set("reporter.ntfy.enabled", e34.target.checked ? "1" : "0")
       }
     ), /* @__PURE__ */ import_react16.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react16.default.createElement("span", { className: "toggle-label" }, ntfyEnabled ? "Enabled" : "Disabled"))), ntfyEnabled && /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react16.default.createElement("label", { htmlFor: "ntfy-server" }, "Server URL"), /* @__PURE__ */ import_react16.default.createElement(
       "input",
@@ -33667,7 +33731,7 @@
         className: "input",
         type: "url",
         value: ntfyServerUrl,
-        onChange: (e33) => set("reporter.ntfy.serverUrl", e33.target.value)
+        onChange: (e34) => set("reporter.ntfy.serverUrl", e34.target.value)
       }
     )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react16.default.createElement("label", { htmlFor: "ntfy-topic" }, "Topic"), /* @__PURE__ */ import_react16.default.createElement(
       "input",
@@ -33676,7 +33740,7 @@
         className: "input",
         value: ntfyTopic,
         placeholder: "my-alerts",
-        onChange: (e33) => set("reporter.ntfy.topic", e33.target.value)
+        onChange: (e34) => set("reporter.ntfy.topic", e34.target.value)
       }
     )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react16.default.createElement("label", { htmlFor: "ntfy-priority" }, "Priority"), /* @__PURE__ */ import_react16.default.createElement(
       "select",
@@ -33684,7 +33748,7 @@
         id: "ntfy-priority",
         className: "select",
         value: ntfyPriority,
-        onChange: (e33) => set("reporter.ntfy.priority", e33.target.value)
+        onChange: (e34) => set("reporter.ntfy.priority", e34.target.value)
       },
       /* @__PURE__ */ import_react16.default.createElement("option", { value: "min" }, "min"),
       /* @__PURE__ */ import_react16.default.createElement("option", { value: "low" }, "low"),
@@ -33699,7 +33763,7 @@
         type: showNtfyToken ? "text" : "password",
         value: ntfyToken,
         placeholder: "Optional",
-        onChange: (e33) => set("reporter.ntfy.token", e33.target.value),
+        onChange: (e34) => set("reporter.ntfy.token", e34.target.value),
         autoComplete: "off"
       }
     ), /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: () => setShowNtfyToken((v) => !v) }, showNtfyToken ? "Hide" : "Show"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn", onClick: sendNtfyTest, disabled: ntfyTesting || !ntfyTopic }, ntfyTesting ? "Sending" : "Send a test"), testResult(ntfyTestResult)))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-actions" }, /* @__PURE__ */ import_react16.default.createElement("button", { className: "btn btn--primary", type: "button", onClick: onSave, disabled: saving }, saving ? "Saving" : "Save changes")));
@@ -33735,8 +33799,8 @@
       onClose();
     }, [isDirty, onClose]);
     (0, import_react17.useEffect)(() => {
-      function onKeyDown(e33) {
-        if (e33.key === "Escape") handleClose();
+      function onKeyDown(e34) {
+        if (e34.key === "Escape") handleClose();
       }
       document.addEventListener("keydown", onKeyDown);
       return () => document.removeEventListener("keydown", onKeyDown);
@@ -33766,8 +33830,8 @@
         setSaving(false);
       }
     }
-    function handleOverlayClick(e33) {
-      if (e33.target === e33.currentTarget) handleClose();
+    function handleOverlayClick(e34) {
+      if (e34.target === e34.currentTarget) handleClose();
     }
     return /* @__PURE__ */ import_react17.default.createElement("div", { className: "overlay", onClick: handleOverlayClick, role: "dialog", "aria-modal": "true", "aria-label": "Settings" }, /* @__PURE__ */ import_react17.default.createElement("div", { className: "modal modal--settings" }, /* @__PURE__ */ import_react17.default.createElement("nav", { className: "settings-sidebar" }, /* @__PURE__ */ import_react17.default.createElement("p", { className: "section-label settings-sidebar-title" }, "Settings"), PAGES.map((page) => /* @__PURE__ */ import_react17.default.createElement(
       "button",
@@ -33844,7 +33908,7 @@
     return /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", null, label, required && /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-req", "aria-label": "required" }, "*")), children, hint && /* @__PURE__ */ import_react18.default.createElement("p", { className: "hint" }, hint));
   }
   function Toggle({ label, hint, checked, onChange }) {
-    return /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react18.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react18.default.createElement("input", { type: "checkbox", checked, onChange: (e33) => onChange(e33.target.checked) }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react18.default.createElement("p", { className: "hint" }, hint));
+    return /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react18.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react18.default.createElement("input", { type: "checkbox", checked, onChange: (e34) => onChange(e34.target.checked) }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react18.default.createElement("p", { className: "hint" }, hint));
   }
   function StagePillBar({ visibleStages, currentStage, status }) {
     const pillState = (stage) => {
@@ -33942,8 +34006,8 @@
       postSetupScript
     ]);
     const onSubmit = (0, import_react18.useCallback)(
-      async (e33) => {
-        e33.preventDefault();
+      async (e34) => {
+        e34.preventDefault();
         setError("");
         setSubmitting(true);
         try {
@@ -34003,7 +34067,7 @@
           placeholder: "my-api",
           value: appName,
           readOnly: isEdit,
-          onChange: isEdit ? void 0 : (e33) => setAppName(e33.target.value)
+          onChange: isEdit ? void 0 : (e34) => setAppName(e34.target.value)
         }
       )
     ), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Branch", hint: "Cloned and pulled from on each deploy." }, /* @__PURE__ */ import_react18.default.createElement(
@@ -34013,7 +34077,7 @@
         type: "text",
         placeholder: "main",
         value: branch,
-        onChange: (e33) => setBranch(e33.target.value)
+        onChange: (e34) => setBranch(e34.target.value)
       }
     ))), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Repository URL", required: true, hint: "HTTPS or SSH. Private repos need a key on the server." }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -34023,7 +34087,7 @@
         required: true,
         placeholder: "https://github.com/owner/repo",
         value: repoUrl,
-        onChange: (e33) => setRepoUrl(e33.target.value)
+        onChange: (e34) => setRepoUrl(e34.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Start script", required: true, hint: "Entry point relative to the repo root." }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -34033,16 +34097,16 @@
         required: true,
         placeholder: "index.js",
         value: startScript,
-        onChange: (e33) => setStartScript(e33.target.value)
+        onChange: (e34) => setStartScript(e34.target.value)
       }
-    ))), /* @__PURE__ */ import_react18.default.createElement(Fieldset, { title: "Install and build", summary: `${installCmd}${buildCmd ? `, ${buildCmd}` : ""}` }, /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Install command", hint: "Run after cloning to install dependencies." }, /* @__PURE__ */ import_react18.default.createElement("select", { className: "select", value: installCmd, onChange: (e33) => setInstallCmd(e33.target.value) }, /* @__PURE__ */ import_react18.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "npm ci" }, "npm ci"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "skip" }, "Skip installing"))), installCmd !== "skip" && /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Extra install flags", hint: "Appended to the install command." }, /* @__PURE__ */ import_react18.default.createElement(
+    ))), /* @__PURE__ */ import_react18.default.createElement(Fieldset, { title: "Install and build", summary: `${installCmd}${buildCmd ? `, ${buildCmd}` : ""}` }, /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Install command", hint: "Run after cloning to install dependencies." }, /* @__PURE__ */ import_react18.default.createElement("select", { className: "select", value: installCmd, onChange: (e34) => setInstallCmd(e34.target.value) }, /* @__PURE__ */ import_react18.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "npm ci" }, "npm ci"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "skip" }, "Skip installing"))), installCmd !== "skip" && /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Extra install flags", hint: "Appended to the install command." }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
       {
         className: "input",
         type: "text",
         placeholder: "--prod",
         value: installArgs,
-        onChange: (e33) => setInstallArgs(e33.target.value)
+        onChange: (e34) => setInstallArgs(e34.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Build command", hint: "Optional step after installing. Leave blank to skip." }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -34051,7 +34115,7 @@
         type: "text",
         placeholder: "npm run build",
         value: buildCmd,
-        onChange: (e33) => setBuildCmd(e33.target.value)
+        onChange: (e34) => setBuildCmd(e34.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement(
       Field,
@@ -34066,7 +34130,7 @@
           rows: 3,
           placeholder: "#!/bin/sh\nwhich ffmpeg || exit 1",
           value: preSetupScript,
-          onChange: (e33) => setPreSetupScript(e33.target.value)
+          onChange: (e34) => setPreSetupScript(e34.target.value)
         }
       )
     ), /* @__PURE__ */ import_react18.default.createElement(
@@ -34082,7 +34146,7 @@
           rows: 3,
           placeholder: "#!/bin/sh\nnode scripts/migrate.js",
           value: postSetupScript,
-          onChange: (e33) => setPostSetupScript(e33.target.value)
+          onChange: (e34) => setPostSetupScript(e34.target.value)
         }
       )
     )), /* @__PURE__ */ import_react18.default.createElement(
@@ -34104,7 +34168,7 @@
             type: "text",
             placeholder: ".env.production",
             value: pm2Opts.env_file,
-            onChange: (e33) => setOpt("env_file", e33.target.value)
+            onChange: (e34) => setOpt("env_file", e34.target.value)
           }
         )
       ),
@@ -34116,7 +34180,7 @@
           placeholder: "KEY",
           "aria-label": `Variable name ${i + 1}`,
           value: row.key,
-          onChange: (e33) => updateEnvVar(i, "key", e33.target.value)
+          onChange: (e34) => updateEnvVar(i, "key", e34.target.value)
         }
       ), /* @__PURE__ */ import_react18.default.createElement(
         "input",
@@ -34126,7 +34190,7 @@
           placeholder: "value",
           "aria-label": `Variable value ${i + 1}`,
           value: row.value,
-          onChange: (e33) => updateEnvVar(i, "value", e33.target.value)
+          onChange: (e34) => updateEnvVar(i, "value", e34.target.value)
         }
       ), /* @__PURE__ */ import_react18.default.createElement(
         "button",
@@ -34151,7 +34215,7 @@
           type: "text",
           placeholder: "node",
           value: pm2Opts.interpreter,
-          onChange: (e33) => setOpt("interpreter", e33.target.value)
+          onChange: (e34) => setOpt("interpreter", e34.target.value)
         }
       )), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Interpreter args", hint: "Flags passed to Node before the script." }, /* @__PURE__ */ import_react18.default.createElement(
         "input",
@@ -34160,7 +34224,7 @@
           type: "text",
           placeholder: "--max-old-space-size=4096",
           value: pm2Opts.interpreter_args,
-          onChange: (e33) => setOpt("interpreter_args", e33.target.value)
+          onChange: (e34) => setOpt("interpreter_args", e34.target.value)
         }
       ))),
       /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Script args", hint: "Arguments forwarded to your application." }, /* @__PURE__ */ import_react18.default.createElement(
@@ -34170,17 +34234,17 @@
           type: "text",
           placeholder: "--port 8080",
           value: pm2Opts.args,
-          onChange: (e33) => setOpt("args", e33.target.value)
+          onChange: (e34) => setOpt("args", e34.target.value)
         }
       )),
-      /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Exec mode", hint: "Cluster spawns several workers sharing one port." }, /* @__PURE__ */ import_react18.default.createElement("select", { className: "select", value: pm2Opts.exec_mode, onChange: (e33) => setOpt("exec_mode", e33.target.value) }, /* @__PURE__ */ import_react18.default.createElement("option", { value: "fork" }, "fork"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "cluster" }, "cluster"))), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Instances", hint: "Use -1 for one per CPU core. Above 1 needs cluster mode." }, /* @__PURE__ */ import_react18.default.createElement(
+      /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Exec mode", hint: "Cluster spawns several workers sharing one port." }, /* @__PURE__ */ import_react18.default.createElement("select", { className: "select", value: pm2Opts.exec_mode, onChange: (e34) => setOpt("exec_mode", e34.target.value) }, /* @__PURE__ */ import_react18.default.createElement("option", { value: "fork" }, "fork"), /* @__PURE__ */ import_react18.default.createElement("option", { value: "cluster" }, "cluster"))), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Instances", hint: "Use -1 for one per CPU core. Above 1 needs cluster mode." }, /* @__PURE__ */ import_react18.default.createElement(
         "input",
         {
           className: "input",
           type: "number",
           min: "-1",
           value: pm2Opts.instances,
-          onChange: (e33) => setOpt("instances", e33.target.value)
+          onChange: (e34) => setOpt("instances", e34.target.value)
         }
       ))),
       /* @__PURE__ */ import_react18.default.createElement(
@@ -34214,7 +34278,7 @@
           type: "text",
           placeholder: "200M",
           value: pm2Opts.max_memory_restart,
-          onChange: (e33) => setOpt("max_memory_restart", e33.target.value)
+          onChange: (e34) => setOpt("max_memory_restart", e34.target.value)
         }
       )), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Max consecutive restarts", hint: "After this many, PM2 marks the app errored." }, /* @__PURE__ */ import_react18.default.createElement(
         "input",
@@ -34223,7 +34287,7 @@
           type: "number",
           min: "0",
           value: pm2Opts.max_restarts,
-          onChange: (e33) => setOpt("max_restarts", e33.target.value)
+          onChange: (e34) => setOpt("max_restarts", e34.target.value)
         }
       ))),
       /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Delay between restarts (ms)", hint: "Avoids hammering a downstream dependency." }, /* @__PURE__ */ import_react18.default.createElement(
@@ -34233,7 +34297,7 @@
           type: "number",
           min: "0",
           value: pm2Opts.restart_delay,
-          onChange: (e33) => setOpt("restart_delay", e33.target.value)
+          onChange: (e34) => setOpt("restart_delay", e34.target.value)
         }
       )), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Minimum uptime (ms)", hint: "Below this, a start counts as a failure." }, /* @__PURE__ */ import_react18.default.createElement(
         "input",
@@ -34243,7 +34307,7 @@
           min: "0",
           placeholder: "1000",
           value: pm2Opts.min_uptime,
-          onChange: (e33) => setOpt("min_uptime", e33.target.value)
+          onChange: (e34) => setOpt("min_uptime", e34.target.value)
         }
       ))),
       /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Shutdown grace period (ms)", hint: "Time after SIGINT before PM2 sends SIGKILL." }, /* @__PURE__ */ import_react18.default.createElement(
@@ -34253,7 +34317,7 @@
           type: "number",
           min: "0",
           value: pm2Opts.kill_timeout,
-          onChange: (e33) => setOpt("kill_timeout", e33.target.value)
+          onChange: (e34) => setOpt("kill_timeout", e34.target.value)
         }
       )), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Scheduled restart", hint: "Cron expression. 0 2 * * * restarts nightly at 2 AM." }, /* @__PURE__ */ import_react18.default.createElement(
         "input",
@@ -34262,7 +34326,7 @@
           type: "text",
           placeholder: "0 2 * * *",
           value: pm2Opts.cron_restart,
-          onChange: (e33) => setOpt("cron_restart", e33.target.value)
+          onChange: (e34) => setOpt("cron_restart", e34.target.value)
         }
       ))),
       /* @__PURE__ */ import_react18.default.createElement(
@@ -34281,7 +34345,7 @@
           type: "number",
           min: "0",
           value: pm2Opts.listen_timeout,
-          onChange: (e33) => setOpt("listen_timeout", e33.target.value)
+          onChange: (e34) => setOpt("listen_timeout", e34.target.value)
         }
       )),
       /* @__PURE__ */ import_react18.default.createElement(
@@ -34324,7 +34388,7 @@
           type: "text",
           placeholder: "/var/log/my-app/out.log",
           value: pm2Opts.out_file,
-          onChange: (e33) => setOpt("out_file", e33.target.value)
+          onChange: (e34) => setOpt("out_file", e34.target.value)
         }
       )), /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Stderr file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react18.default.createElement(
         "input",
@@ -34333,7 +34397,7 @@
           type: "text",
           placeholder: "/var/log/my-app/error.log",
           value: pm2Opts.error_file,
-          onChange: (e33) => setOpt("error_file", e33.target.value)
+          onChange: (e34) => setOpt("error_file", e34.target.value)
         }
       ))),
       /* @__PURE__ */ import_react18.default.createElement(
@@ -34351,10 +34415,19 @@
           className: "textarea",
           rows: 3,
           value: pm2Opts.ignore_watch,
-          onChange: (e33) => setOpt("ignore_watch", e33.target.value)
+          onChange: (e34) => setOpt("ignore_watch", e34.target.value)
         }
       ))
-    )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "modal-footer" }, error && /* @__PURE__ */ import_react18.default.createElement("span", { className: "action-result", "data-ok": "false" }, /* @__PURE__ */ import_react18.default.createElement(m2, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, error)), /* @__PURE__ */ import_react18.default.createElement("span", { className: "modal-footer-spacer" }), isEdit && /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn", disabled: submitting, onClick: onRedeployClick }, submitting ? "Saving" : "Save and redeploy"), /* @__PURE__ */ import_react18.default.createElement("button", { type: "submit", form: "deploy-form", className: "btn btn--primary", disabled: submitting }, submitting ? isEdit ? "Saving" : "Starting" : isEdit ? "Save changes" : "Deploy")));
+    )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "modal-footer" }, error && /* @__PURE__ */ import_react18.default.createElement("span", { className: "action-result", "data-ok": "false" }, /* @__PURE__ */ import_react18.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, error)), /* @__PURE__ */ import_react18.default.createElement("span", { className: "modal-footer-spacer" }), /* @__PURE__ */ import_react18.default.createElement(
+      "button",
+      {
+        type: "submit",
+        form: "deploy-form",
+        className: isEdit ? "btn" : "btn btn--primary",
+        disabled: submitting
+      },
+      submitting ? isEdit ? "Saving" : "Starting" : isEdit ? "Save only" : "Deploy"
+    ), isEdit && /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--primary", disabled: submitting, onClick: onRedeployClick }, submitting ? "Saving" : "Save and redeploy")));
   }
   function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
     const logRef = (0, import_react18.useRef)(null);
@@ -34371,7 +34444,7 @@
         confirmRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     }, [isConfirming]);
-    return /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-body" }, /* @__PURE__ */ import_react18.default.createElement(StagePillBar, { visibleStages, currentStage, status }), isConfirming && confirmChanges && /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-confirm", ref: confirmRef }, /* @__PURE__ */ import_react18.default.createElement("p", null, "The deploy directory has local changes, so ", /* @__PURE__ */ import_react18.default.createElement("code", null, "git pull"), " cannot run. Discard them to continue, or cancel the deployment."), /* @__PURE__ */ import_react18.default.createElement("pre", { className: "code-preview" }, confirmChanges), /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-confirm-actions" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--danger", onClick: () => onConfirmDeploy(true) }, "Discard and continue"), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn", onClick: () => onConfirmDeploy(false) }, "Cancel deployment"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-log", ref: logRef }, lines.map((entry, i) => /* @__PURE__ */ import_react18.default.createElement("span", { key: i, className: entry.status === "error" ? "deploy-log-line--error" : void 0 }, entry.line)), !isDone && !isError && !isConfirming && /* @__PURE__ */ import_react18.default.createElement("span", { className: "deploy-log-waiting" }, "Working")), isDone && /* @__PURE__ */ import_react18.default.createElement("div", { className: "action-result", "data-ok": "true" }, /* @__PURE__ */ import_react18.default.createElement(s, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, "Deployed. The process is running in PM2 and appears in the sidebar.")), isError && /* @__PURE__ */ import_react18.default.createElement("div", { className: "action-result", "data-ok": "false" }, /* @__PURE__ */ import_react18.default.createElement(m2, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, "Deployment failed. Fix the cause above, then use Redeploy to retry."))), (isDone || isError) && /* @__PURE__ */ import_react18.default.createElement("div", { className: "modal-footer" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "modal-footer-spacer" }), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: onClose }, "Close")));
+    return /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-body" }, /* @__PURE__ */ import_react18.default.createElement(StagePillBar, { visibleStages, currentStage, status }), isConfirming && confirmChanges && /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-confirm", ref: confirmRef }, /* @__PURE__ */ import_react18.default.createElement("p", null, "The deploy directory has local changes, so ", /* @__PURE__ */ import_react18.default.createElement("code", null, "git pull"), " cannot run. Discard them to continue, or cancel the deployment."), /* @__PURE__ */ import_react18.default.createElement("pre", { className: "code-preview" }, confirmChanges), /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-confirm-actions" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--danger", onClick: () => onConfirmDeploy(true) }, "Discard and continue"), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn", onClick: () => onConfirmDeploy(false) }, "Cancel deployment"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "deploy-log", ref: logRef }, lines.map((entry, i) => /* @__PURE__ */ import_react18.default.createElement("span", { key: i, className: entry.status === "error" ? "deploy-log-line--error" : void 0 }, entry.line)), !isDone && !isError && !isConfirming && /* @__PURE__ */ import_react18.default.createElement("span", { className: "deploy-log-waiting" }, "Working")), isDone && /* @__PURE__ */ import_react18.default.createElement("div", { className: "action-result", "data-ok": "true" }, /* @__PURE__ */ import_react18.default.createElement(s, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, "Deployed. The process is running in PM2 and appears in the sidebar.")), isError && /* @__PURE__ */ import_react18.default.createElement("div", { className: "action-result", "data-ok": "false" }, /* @__PURE__ */ import_react18.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, "Deployment failed. Fix the cause above, then use Redeploy to retry."))), (isDone || isError) && /* @__PURE__ */ import_react18.default.createElement("div", { className: "modal-footer" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "modal-footer-spacer" }), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: onClose }, "Close")));
   }
   function DeployModal({
     csrfToken,
@@ -34401,7 +34474,7 @@
       "div",
       {
         className: "overlay",
-        onClick: (e33) => e33.target === e33.currentTarget && onClose(),
+        onClick: (e34) => e34.target === e34.currentTarget && onClose(),
         role: "dialog",
         "aria-modal": "true",
         "aria-label": title
@@ -34602,6 +34675,7 @@
       () => deployments.find((d) => d.pm2_name === selectedProcess?.name) ?? null,
       [deployments, selectedProcess]
     );
+    const deployedNames = (0, import_react20.useMemo)(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
     const offlineDeployments = (0, import_react20.useMemo)(() => {
       const runningNames = new Set(processes.map((p2) => p2.name));
       return deployments.filter((d) => !runningNames.has(d.pm2_name)).map((d) => ({
@@ -34934,7 +35008,7 @@
         type: "button",
         "aria-label": "Toggle process list",
         "aria-expanded": drawerOpen,
-        onClick: () => setDrawerOpen((o18) => !o18)
+        onClick: () => setDrawerOpen((o19) => !o19)
       },
       /* @__PURE__ */ import_react20.default.createElement(c4, { size: 15, weight: "bold" })
     ), /* @__PURE__ */ import_react20.default.createElement("a", { className: "topbar-brand", href: "/", "aria-label": "pm2-hawkeye home" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react20.default.createElement(n2, { size: 15, weight: "bold", color: "var(--accent)" })), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react20.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye"))), /* @__PURE__ */ import_react20.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent }), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "conn-state", "data-connected": wsConnected, title: wsConnected ? "Live" : "Reconnecting" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "conn-dot" }), /* @__PURE__ */ import_react20.default.createElement("span", null, wsConnected ? "Live" : "Reconnecting")), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-divider" }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react20.default.createElement(
@@ -34980,6 +35054,7 @@
           setDrawerOpen(false);
         },
         onEditDeployment,
+        deployedNames,
         offlineDeployments,
         onDeleteDeployment,
         drawerOpen
@@ -34989,10 +35064,11 @@
       {
         selectedProcess,
         details,
-        isMonitored: isSelectedMonitored,
+        selectedDeployment,
         onRestart,
         onStop,
-        onStart
+        onStart,
+        onEditDeployment
       },
       /* @__PURE__ */ import_react20.default.createElement("div", { className: "tabs", role: "tablist", "aria-label": "Process views" }, TABS.map((tab2) => /* @__PURE__ */ import_react20.default.createElement(
         "button",
@@ -35069,7 +35145,7 @@
           onRemoveOrphan
         }
       )
-    )) : /* @__PURE__ */ import_react20.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react20.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "subtle" }, "Pick a PM2 process on the left to read its logs, chart its resource use, and manage it."), /* @__PURE__ */ import_react20.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "welcome-hints-title" }, "Each process gets three views."), /* @__PURE__ */ import_react20.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react20.default.createElement("li", null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react20.default.createElement(m, { size: 13 })), /* @__PURE__ */ import_react20.default.createElement("span", null, /* @__PURE__ */ import_react20.default.createElement("strong", null, "Logs"), "stdout and stderr merged, filterable by level and searchable.")), /* @__PURE__ */ import_react20.default.createElement("li", null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react20.default.createElement(c2, { size: 13 })), /* @__PURE__ */ import_react20.default.createElement("span", null, /* @__PURE__ */ import_react20.default.createElement("strong", null, "Metrics"), "CPU and memory over time, next to host CPU, RAM and disk.")), /* @__PURE__ */ import_react20.default.createElement("li", null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react20.default.createElement(s3, { size: 13 })), /* @__PURE__ */ import_react20.default.createElement("span", null, /* @__PURE__ */ import_react20.default.createElement("strong", null, "Manage"), "Monitoring, alerts, PM2 custom actions, deployment and removal."))))))), /* @__PURE__ */ import_react20.default.createElement(Footer, { version: appVersion }), settingsOpen && /* @__PURE__ */ import_react20.default.createElement(
+    )) : /* @__PURE__ */ import_react20.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react20.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "subtle" }, "Pick a PM2 process on the left to read its logs, chart its resource use, and manage it."), /* @__PURE__ */ import_react20.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "welcome-hints-title" }, "Each process gets three views."), /* @__PURE__ */ import_react20.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react20.default.createElement("li", null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react20.default.createElement(m2, { size: 13 })), /* @__PURE__ */ import_react20.default.createElement("span", null, /* @__PURE__ */ import_react20.default.createElement("strong", null, "Logs"), "stdout and stderr merged, filterable by level and searchable.")), /* @__PURE__ */ import_react20.default.createElement("li", null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react20.default.createElement(c2, { size: 13 })), /* @__PURE__ */ import_react20.default.createElement("span", null, /* @__PURE__ */ import_react20.default.createElement("strong", null, "Metrics"), "CPU and memory over time, next to host CPU, RAM and disk.")), /* @__PURE__ */ import_react20.default.createElement("li", null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react20.default.createElement(s3, { size: 13 })), /* @__PURE__ */ import_react20.default.createElement("span", null, /* @__PURE__ */ import_react20.default.createElement("strong", null, "Manage"), "Monitoring, alerts, PM2 custom actions, deployment and removal."))))))), /* @__PURE__ */ import_react20.default.createElement(Footer, { version: appVersion }), settingsOpen && /* @__PURE__ */ import_react20.default.createElement(
       Settings,
       {
         onClose: () => setSettingsOpen(false),

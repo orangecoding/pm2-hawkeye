@@ -5,7 +5,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { formatBytes } from '../services/format.js';
-import { MagnifyingGlass, Record } from './Icon.jsx';
+import { GitBranch, MagnifyingGlass, Record } from './Icon.jsx';
 import ConfirmButton from './ConfirmButton.jsx';
 
 /** Tone class per offline-deployment state. */
@@ -34,7 +34,7 @@ const OFFLINE_TAG_LABEL = {
  *   onSelect: (id: string) => void,
  * }} props
  */
-function ProcRow({ proc, isSelected, onSelect }) {
+function ProcRow({ proc, isSelected, isDeployed, onSelect }) {
   const id = proc.id ?? proc.name;
   const status = String(proc.status ?? '').toLowerCase();
 
@@ -47,7 +47,14 @@ function ProcRow({ proc, isSelected, onSelect }) {
       onClick={() => onSelect(id)}
     >
       <span className="status-dot" data-status={status} />
-      <span className="process-item-name">{proc.name}</span>
+      <span className="process-item-name">
+        {proc.name}
+        {isDeployed && (
+          <span className="process-item-deployed" title="Deployed by Hawkeye">
+            <GitBranch size={10} weight="bold" />
+          </span>
+        )}
+      </span>
       <span className="process-item-meta">
         {proc.cpu != null && <span>{proc.cpu.toFixed(0)}%</span>}
         {proc.memory != null && <span>{formatBytes(proc.memory)}</span>}
@@ -74,6 +81,7 @@ function ProcRow({ proc, isSelected, onSelect }) {
  *   selectedProcessId: string | null,
  *   onSelect: (id: string) => void,
  *   onEditDeployment: (pm2Name: string) => void,
+ *   deployedNames?: Set<string>,
  *   offlineDeployments: object[],
  *   onDeleteDeployment: (deploymentId: string) => void,
  *   drawerOpen?: boolean,
@@ -84,6 +92,7 @@ export default function ProcessList({
   selectedProcessId,
   onSelect,
   onEditDeployment,
+  deployedNames = new Set(),
   offlineDeployments = [],
   onDeleteDeployment,
   drawerOpen = false,
@@ -124,6 +133,7 @@ export default function ProcessList({
             key={proc.name}
             proc={proc}
             isSelected={String(proc.id ?? proc.name) === selectedIdStr}
+            isDeployed={deployedNames.has(proc.name)}
             onSelect={onSelect}
           />
         ))}

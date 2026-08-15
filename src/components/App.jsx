@@ -236,6 +236,14 @@ export default function App() {
   );
 
   /**
+   * Names of PM2 processes that Hawkeye deployed, so the sidebar can mark them.
+   * Nothing distinguished them from processes started by hand before.
+   *
+   * @type {Set<string>}
+   */
+  const deployedNames = useMemo(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
+
+  /**
    * Deployments that exist in the DB but have no corresponding running PM2 process.
    * Each entry is annotated with a `displayStatus` field:
    *   - 'deploying' : a deploy is currently in progress
@@ -824,6 +832,7 @@ export default function App() {
             setDrawerOpen(false);
           }}
           onEditDeployment={onEditDeployment}
+          deployedNames={deployedNames}
           offlineDeployments={offlineDeployments}
           onDeleteDeployment={onDeleteDeployment}
           drawerOpen={drawerOpen}
@@ -835,10 +844,11 @@ export default function App() {
               <ProcessHeader
                 selectedProcess={selectedProcess}
                 details={details}
-                isMonitored={isSelectedMonitored}
+                selectedDeployment={selectedDeployment}
                 onRestart={onRestart}
                 onStop={onStop}
                 onStart={onStart}
+                onEditDeployment={onEditDeployment}
               >
                 <div className="tabs" role="tablist" aria-label="Process views">
                   {TABS.map((tab) => (

@@ -158,9 +158,10 @@ export default function ManagePanel({
                   : ', never deployed successfully'}
               </p>
             </div>
+            {/* Same label as the header button; one action, one name. */}
             <div className="manage-row-control">
               <button type="button" className="btn" onClick={() => onEditDeployment(name)}>
-                Edit and redeploy
+                Redeploy
               </button>
             </div>
           </div>

@@ -18,39 +18,60 @@
   min-height: 2rem;
 }
 
-.process-title {
-  display: flex;
+.process-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* ── Deployment identity ────────────────────────────────────────────────────
+   States that Hawkeye deployed this process, and from where. Nothing in the
+   app said so before: a deployed process looked exactly like one started by
+   hand on the command line. Clicking it opens the deployment configuration.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.deploy-chip {
+  display: inline-flex;
   align-items: center;
   gap: var(--s-2);
-  min-width: 0;
-
-  h1 {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 650;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-.process-meta {
-  display: flex;
-  align-items: center;
-  gap: var(--s-3);
-  min-width: 0;
-  overflow: hidden;
-  font-size: 0.75rem;
+  height: 1.375rem;
+  padding: 0 var(--s-2);
+  flex-shrink: 0;
+  max-width: 22rem;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-1);
+  background: transparent;
   color: var(--muted);
+  font-size: 0.6875rem;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
 
-  > span {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  &:hover {
+    border-color: var(--border-strong);
+    color: var(--text-dim);
+  }
+
+  svg {
+    flex-shrink: 0;
   }
 }
 
-.process-meta-mono {
+.deploy-chip-repo {
+  font-family: var(--font-mono);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deploy-chip-branch {
+  flex-shrink: 0;
+  padding: 0 var(--s-1);
+  border-radius: 0.125rem;
+  background: var(--bg-3);
   font-family: var(--font-mono);
 }
 
@@ -67,11 +88,17 @@
    boxes. Always visible, so CPU and memory are readable while reading logs.
    ───────────────────────────────────────────────────────────────────────── */
 
+// One quiet data line. The labels used to be uppercase, letterspaced and
+// semibold while the values were bold white, which put eight competing weights
+// across a row that is only ever glanced at.
 .stat-strip {
   display: flex;
-  align-items: center;
-  gap: var(--s-6);
-  padding: var(--s-3) 0;
+  align-items: baseline;
+  gap: var(--s-5);
+  padding: var(--s-2) 0 var(--s-3);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
   overflow-x: auto;
 }
 
@@ -83,24 +110,11 @@
 }
 
 .stat-strip-label {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--muted);
 }
 
 .stat-strip-value {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.stat-strip-sub {
-  font-size: 0.6875rem;
-  color: var(--muted);
+  color: var(--text-dim);
 }
 
 .stat-strip-empty {
@@ -128,9 +142,8 @@
     flex-wrap: wrap;
   }
 
-  .process-meta {
+  .deploy-chip {
     order: 3;
-    flex-basis: 100%;
   }
 }
 
@@ -139,12 +152,24 @@
     padding: var(--s-3) var(--s-4) 0;
   }
 
-  .process-title {
+  .process-name {
     flex: 1;
+  }
+
+  .process-header-actions {
+    flex-basis: 100%;
   }
 
   .process-header-actions .btn {
     flex: 1;
+  }
+
+  .deploy-chip {
+    max-width: 100%;
+  }
+
+  .stat-strip {
+    gap: var(--s-4);
   }
 
   // The confirm prompt needs the full row rather than squeezing the buttons.
@@ -153,16 +178,6 @@
     flex-wrap: wrap;
     height: auto;
     padding: var(--s-2);
-  }
-
-  .stat-strip {
-    gap: var(--s-4);
-  }
-
-  // The absolute start date restates the relative uptime next to it and is the
-  // only thing pushing the strip into a scroll at this width.
-  .stat-strip-sub {
-    display: none;
   }
 
   .tabs {
