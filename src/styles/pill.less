@@ -1,38 +1,58 @@
-/* ── Pills / badges ─────────────────────────────────────────────────────── */
+/* ── Status vocabulary ──────────────────────────────────────────────────────
+   One source of truth for how process state is drawn. Every surface (sidebar
+   row, process header, offline list) uses these, so "online" looks identical
+   wherever it appears.
+   ───────────────────────────────────────────────────────────────────────── */
 
-.pill {
+.status-dot {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--muted);
+
+  &[data-status='online'] { background: var(--success); }
+  &[data-status='stopped'] { background: var(--muted); }
+  &[data-status='stopping'],
+  &[data-status='launching'],
+  &[data-status='one-launch-status'] { background: var(--warning); }
+  &[data-status='errored'],
+  &[data-status='error'] { background: var(--critical); }
+}
+
+.status-text {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: capitalize;
+
+  &[data-status='online'] { color: var(--success); }
+  &[data-status='stopping'],
+  &[data-status='launching'],
+  &[data-status='one-launch-status'] { color: var(--warning); }
+  &[data-status='errored'],
+  &[data-status='error'] { color: var(--critical); }
+}
+
+/* ── Tags ───────────────────────────────────────────────────────────────────
+   Small non-interactive labels. Semantic colour only, never decoration.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.tag {
   display: inline-flex;
   align-items: center;
-  width: fit-content;
-  border-radius: var(--radius-sm);
-  padding: 0.25rem 0.625rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  gap: var(--s-1);
+  height: 1.125rem;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-1);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  background: var(--bg-3);
+  color: var(--text-dim);
 
-  &.neutral {
-    background: var(--accent-soft);
-    color: var(--accent);
-  }
-
-  &.healthy {
-    background: var(--success-soft);
-    color: var(--success);
-  }
-
-  &.warning {
-    background: var(--warning-soft);
-    color: var(--warning);
-  }
-
-  &.critical {
-    background: var(--critical-soft);
-    color: var(--critical);
-  }
-
-  &.muted {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--muted);
-  }
+  &--accent { background: var(--accent-soft); color: var(--accent); }
+  &--success { background: var(--success-soft); color: var(--success); }
+  &--warning { background: var(--warning-soft); color: var(--warning); }
+  &--critical { background: var(--critical-soft); color: var(--critical); }
 }

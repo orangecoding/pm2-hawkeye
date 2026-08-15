@@ -74,11 +74,17 @@ export default function Sparkline({ samples, height = 32, color = 'var(--accent)
     return ((t - tMin) / tRange) * w;
   }
 
+  // A series that never changes has no range to plot against. Drawing it with
+  // the usual mapping pins the line to the very bottom of the card, which reads
+  // as a broken chart rather than as a steady value.
+  const isFlat = vMax === vMin;
+
   /**
    * Map a value to an SVG Y coordinate (inverted: high value → low Y).
    * @param {number} v
    */
   function yPos(v) {
+    if (isFlat) return h / 2;
     return h - ((v - vMin) / vRange) * (h - 2) - 1;
   }
 

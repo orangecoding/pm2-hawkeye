@@ -2,19 +2,28 @@
    PM2 - Hawkeye   Main stylesheet (imports per-component partials)
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* Foundation */
 @import "../src/styles/variables.less";
 @import "../src/styles/base.less";
-@import "../src/styles/layout.less";
 @import "../src/styles/buttons.less";
 @import "../src/styles/pill.less";
-@import "../src/styles/process-list.less";
-@import "../src/styles/hero.less";
-@import "../src/styles/stats.less";
-@import "../src/styles/log-stream.less";
-@import "../src/styles/monitoring.less";
-@import "../src/styles/login.less";
-@import "../src/styles/update-banner.less";
-@import "../src/styles/settings.less";
-@import "../src/styles/bell.less";
-@import "../src/styles/deploy.less";
+
+/* Shell */
+@import "../src/styles/layout.less";
 @import "../src/styles/host-metrics.less";
+@import "../src/styles/process-list.less";
+
+/* Process workspace */
+@import "../src/styles/process-header.less";
+@import "../src/styles/tabs.less";
+@import "../src/styles/log-stream.less";
+@import "../src/styles/stats.less";
+@import "../src/styles/monitoring.less";
+
+/* Overlays */
+@import "../src/styles/settings.less";
+@import "../src/styles/deploy.less";
+@import "../src/styles/update-banner.less";
+
+/* Standalone pages */
+@import "../src/styles/login.less";

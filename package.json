@@ -42,21 +42,22 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@phosphor-icons/react": "^2.1.10",
     "chai": "^6.2.2",
     "chalk": "^5.6.2",
     "esbuild": "^0.28.1",
-    "less": "^4.6.7",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-markdown": "^10.1.0",
     "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^17.7.0",
+    "less": "^4.6.7",
     "mocha": "^11.7.6",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.14",
     "prettier": "^3.9.5",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-markdown": "^10.1.0",
     "supertest": "^7.2.2"
   }
 }

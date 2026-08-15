@@ -35,6 +35,20 @@
 - **Alerting** - webhook and ntfy notifications when monitored processes log errors, with per-process mute and throttle support
 - **Dark-mode UI** - clean, responsive dashboard that works on desktop and mobile
 
+### How the dashboard is laid out
+
+Pick a process in the sidebar, then work on it in one of three tabs. Every
+per-process function lives in exactly one of them.
+
+| Tab | What it holds |
+|---|---|
+| **Logs** | Merged stdout and stderr, level filters, search, pause, copy, download |
+| **Metrics** | CPU and memory history for the process, next to host CPU, RAM, and disk |
+| **Manage** | Monitoring, per-process alerts, custom actions, deployment config, delete |
+
+Restart and Stop/Start sit in the process header, alongside a live strip of CPU,
+memory, restart count, and uptime that stays visible on every tab.
+
 ---
 
 ## Screenshots
@@ -245,7 +259,7 @@ tx2.action('set log level', (level, done) => {
 
 ### Trigger from PM2-Hawkeye
 
-Once your process is running, open it in PM2-Hawkeye. Any registered actions appear as buttons in the **Actions** panel.
+Once your process is running, open it in PM2-Hawkeye and go to the **Manage** tab. Any registered actions are listed there, each with its own **Run** button. Actions declared with `arity: 1` ask for their parameter before running.
 
 **Available tx2 APIs**
 
@@ -298,15 +312,15 @@ Log lines captured from your PM2 processes flow through a detection pipeline:
 
 1. **Level detection** - each line is inspected for a severity prefix (`ERROR`, `WARN`, `INFO`, `DEBUG`). Lines arriving on stderr that carry no detectable prefix are automatically treated as `error`.
 2. **Threshold check** - the detected level is compared against the set of levels you selected in Settings. If the level is not in the set, the line is silently discarded.
-3. **Per-process mute check** - if you have muted a specific process via the megaphone icon (📢) in the sidebar, alerts for that process are skipped.
+3. **Per-process mute check** - if alerts are switched off for that process in its **Manage** tab, the alert is skipped.
 4. **Throttle check** - in *throttle* mode a second alert for the same process is suppressed until the configured cool-down window has elapsed. In *every match* mode all qualifying lines trigger a notification.
 5. **Dispatch** - all enabled reporters are called concurrently. A failure in one reporter does not block the others.
 
 ### Settings UI
 
-Click the **Settings** button in the sidebar toolbar to open the settings overlay.
+Click the gear icon in the top bar to open the settings overlay.
 
-- **General** - edit raw `.env` key/value pairs and change your login password. Changes are written to disk; a restart of PM2-Hawkeye is required for them to take effect.
+- **General** - your `.env` values, grouped by concern (server, sign in, brute-force protection, retention, deployments) with the raw key shown under each field. Also changes your login password. Changes are written to disk; a restart of PM2-Hawkeye is required for them to take effect.
 - **Alerting** - configure the alert mode, log level thresholds, and reporters.
 
 ### Reporters
@@ -331,7 +345,7 @@ Sends a push notification to an [ntfy](https://ntfy.sh) topic. Configure the ser
 
 ### Per-process mute
 
-Every monitored process shows a megaphone icon (📢) in the sidebar. Click it to mute alerts for that process - the icon dims to indicate the muted state. Click again to re-enable. The preference is stored in the database and survives restarts.
+Open a monitored process and go to its **Manage** tab. The **Alerts** switch under Monitoring mutes and unmutes notifications for that process alone. The preference is stored in the database and survives restarts.
 
 
 ---
@@ -342,7 +356,7 @@ PM2-Hawkeye can clone, install, build, and register new Node.js applications dir
 
 ### How it works
 
-Click **Deploy** in the sidebar toolbar to open the deploy modal. Fill in the form and hit **Deploy**. PM2-Hawkeye will:
+Click **Deploy** in the top bar to open the deploy form. Four fields are required (app name, branch, repository URL, start script); everything else is folded into collapsible groups that show their current value on the summary line. Hit **Deploy** and PM2-Hawkeye will:
 
 1. Run an optional pre-setup shell script (e.g. install system dependencies)
 2. `git clone` the repository into `DEPLOY_BASE_DIR/<app-name>` (default: `./apps/<app-name>`)
@@ -388,11 +402,11 @@ A real-time progress log streams each step in the browser.
 | Env file | Path to a `.env` file inside the repo to load at start time, e.g. `.env.production`. |
 | Environment variables | Key/value pairs passed directly to the process. These override values from the env file. |
 
-Additional collapsible sections cover restart behaviour, memory limits, log file paths, file watching, and advanced PM2 options.
+Further collapsible groups cover how PM2 runs the app (interpreter, exec mode, instances), crash recovery (auto-restart, memory limits, scheduled restarts, ready signals), and logging and file watching.
 
 ### Redeploying and editing
 
-Once a process has been deployed through PM2-Hawkeye, an **Edit / Redeploy** button appears next to it in the sidebar. Clicking it opens the same form pre-filled with the saved configuration.
+Once a process has been deployed through PM2-Hawkeye, its **Manage** tab gains a Deployment section with an **Edit and redeploy** button, which opens the same form pre-filled with the saved configuration. Deployments whose PM2 process is gone appear under **Not deployed** in the sidebar with their own Redeploy and Delete buttons.
 
 - **Save changes** -- persists the updated configuration without restarting the process.
 - **Save & Redeploy** -- saves the configuration and immediately triggers a full redeploy: `git pull --rebase`, reinstall, rebuild, and PM2 restart.

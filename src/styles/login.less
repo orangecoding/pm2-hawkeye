@@ -1,120 +1,111 @@
-/* ── Login page ─────────────────────────────────────────────────────────── */
+/* ── Sign-in page ───────────────────────────────────────────────────────── */
 
 .login-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg-0);
 }
 
 .login-shell {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 1.5rem;
+  padding: var(--s-6);
 }
 
 .login-panel {
-  width: min(100%, 55rem);
+  width: min(100%, 50rem);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 0.0625rem solid var(--border);
-  border-radius: var(--radius-xl);
   overflow: hidden;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
   background: var(--bg-1);
+  box-shadow: var(--shadow-2);
+  animation: fade-in 180ms ease both;
+}
 
-  .brand-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2.5rem 2rem;
-    background: var(--bg-2);
-    border-bottom: none;
-    border-right: 0.0625rem solid var(--border);
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: var(--s-10) var(--s-8);
+  background: var(--bg-2);
+  border-right: 0.0625rem solid var(--border);
+
+  h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 650;
+  }
+
+  .brand-pm2 { color: var(--accent); }
+  .brand-hawkeye { color: var(--text); }
+
+  .subtle {
+    font-size: 0.8125rem;
   }
 }
 
-.login-card {
-  padding: 2.5rem 2rem;
+.login-brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--r-1);
+  background: var(--accent-soft);
+}
+
+.login-form-side {
+  padding: var(--s-10) var(--s-8);
 
   h2 {
-    margin: 0;
+    margin: 0 0 var(--s-1);
+    font-size: 1.125rem;
   }
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: 1.25rem;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-
-  span {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  input {
-    width: 100%;
-    border-radius: var(--radius-sm);
-    border: 0.0625rem solid var(--border);
-    background: var(--bg-0);
-    color: var(--text);
-    padding: 0.75rem 0.875rem;
-    font: inherit;
-    font-size: 0.92rem;
-    transition: border-color 150ms ease;
-
-    &:hover {
-      border-color: var(--border-strong);
-    }
-
-    &:focus {
-      border-color: var(--accent);
-    }
-
-    &::placeholder {
-      color: rgba(158, 158, 158, 0.6);
-    }
-  }
+  gap: var(--s-4);
+  margin-top: var(--s-6);
 }
 
 .login-submit {
-  display: inline-flex;
-  justify-content: center;
-  width: 100%;
-  margin-top: 0.5rem;
+  height: 2.375rem;
+  margin-top: var(--s-1);
 }
 
-.form-message {
+// Reserved height keeps the layout from shifting when a message appears.
+.login-message {
   margin: 0;
-  min-height: 1.4em;
-  font-size: 0.85rem;
-  color: var(--muted);
+  min-height: 2.5em;
+  font-size: 0.8125rem;
   line-height: 1.5;
+  color: var(--muted);
 
-  &.error {
-    color: var(--critical);
-  }
-
-  &.success {
-    color: var(--success);
-  }
+  &--error { color: var(--critical); }
+  &--success { color: var(--success); }
 }
 
 @media (max-width: 43.75rem) {
+  .login-shell {
+    padding: var(--s-4);
+  }
+
   .login-panel {
     grid-template-columns: 1fr;
+  }
 
-    .brand-card {
-      border-right: none;
-      border-bottom: 0.0625rem solid var(--border);
-    }
+  .login-brand {
+    border-right: 0;
+    border-bottom: 0.0625rem solid var(--border);
+    padding: var(--s-6);
+  }
+
+  .login-form-side {
+    padding: var(--s-6);
   }
 }

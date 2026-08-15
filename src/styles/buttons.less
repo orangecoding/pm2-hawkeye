@@ -1,39 +1,271 @@
-/* ── Buttons ────────────────────────────────────────────────────────────── */
+/* ── Buttons ────────────────────────────────────────────────────────────────
+   One button system for the whole app. Three intents (default / primary /
+   danger) and two sizes (default / sm). Every other ad-hoc button class in the
+   codebase maps onto these.
+   ───────────────────────────────────────────────────────────────────────── */
 
-.ghost-button,
-.primary-button {
-  border-radius: var(--radius-sm);
-  padding: 0.625rem 1rem;
-  min-height: 2.75rem;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  height: 2rem;
+  padding: 0 var(--s-3);
+  border-radius: var(--r-1);
+  border: 0.0625rem solid var(--border-strong);
+  background: var(--bg-2);
+  color: var(--text);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
   cursor: pointer;
-  font-size: 0.84rem;
-  font-weight: 600;
-  transition: background-color 150ms ease, border-color 150ms ease;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 60ms ease;
+
+  &:hover:not(:disabled) {
+    background: var(--bg-3);
+    border-color: var(--border-strong);
+  }
+
+  // Tactile press: the control moves under the pointer.
+  &:active:not(:disabled) {
+    transform: translateY(0.0625rem);
+  }
 
   &:disabled {
-    opacity: 0.45;
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+
+  &:hover:not(:disabled) {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+}
+
+.btn--danger {
+  color: var(--critical);
+  border-color: var(--border-strong);
+
+  &:hover:not(:disabled) {
+    background: var(--critical-soft);
+    border-color: var(--critical);
+  }
+}
+
+.btn--quiet {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-dim);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-2);
+    color: var(--text);
+  }
+}
+
+.btn--sm {
+  height: 1.625rem;
+  padding: 0 var(--s-2);
+  font-size: 0.75rem;
+}
+
+.btn--icon {
+  width: 1.75rem;
+  padding: 0;
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+
+  &:hover:not(:disabled) {
+    background: var(--bg-3);
+    color: var(--text);
+  }
+
+  &[aria-pressed='true'] {
+    background: var(--accent-soft);
+    border-color: var(--accent-line);
+    color: var(--accent);
+  }
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* ── Inline confirm ─────────────────────────────────────────────────────────
+   The single confirmation idiom used everywhere a destructive or disruptive
+   action is triggered. Replaces the four different patterns the app used to
+   mix (inline yes/no, strip confirm, window.confirm, modal confirm box).
+   ───────────────────────────────────────────────────────────────────────── */
+
+.confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  height: 2rem;
+  padding: 0 var(--s-1) 0 var(--s-3);
+  border-radius: var(--r-1);
+  border: 0.0625rem solid var(--accent-line);
+  background: var(--accent-soft);
+  animation: fade-in 120ms ease both;
+}
+
+.confirm-label {
+  font-size: 0.8125rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: var(--s-1);
+}
+
+/* ── Form controls ──────────────────────────────────────────────────────── */
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0 var(--s-3);
+  height: 2.125rem;
+  border-radius: var(--r-1);
+  border: 0.0625rem solid var(--border-strong);
+  background: var(--bg-0);
+  color: var(--text);
+  font-size: 0.8125rem;
+  transition: border-color 120ms ease;
+
+  // Placeholder contrast: 4.6:1 against --bg-0, above the WCAG AA floor.
+  &::placeholder {
+    color: var(--muted);
+  }
+
+  &:hover:not(:disabled):not(:read-only) {
+    border-color: var(--border-strong);
+  }
+
+  &:focus {
+    border-color: var(--accent);
+    outline: none;
+  }
+
+  &:disabled,
+  &:read-only {
+    opacity: 0.55;
     cursor: not-allowed;
   }
 }
 
-.ghost-button {
-  border: 0.0625rem solid var(--border-strong);
-  background: transparent;
-  color: var(--text);
+.textarea {
+  height: auto;
+  padding: var(--s-2) var(--s-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  resize: vertical;
+}
 
-  &:hover {
-    background: var(--accent-soft);
-    border-color: var(--accent);
+.select {
+  appearance: none;
+  padding-right: var(--s-8);
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 1rem) 55%, calc(100% - 0.7rem) 55%;
+  background-size: 0.3rem 0.3rem, 0.3rem 0.3rem;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+/* Label above input, hint below. Never placeholder-as-label. */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+
+  > label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  .hint {
+    margin-top: calc(var(--s-1) * -1);
   }
 }
 
-.primary-button {
-  border: 0.0625rem solid transparent;
-  background: var(--accent);
-  color: var(--bg-0);
-  font-weight: 700;
+.field-req {
+  color: var(--accent);
+  margin-left: 0.125rem;
+}
 
-  &:hover {
-    background: var(--accent-strong);
+/* ── Toggle switch ──────────────────────────────────────────────────────── */
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  cursor: pointer;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-track {
+    position: relative;
+    width: 1.875rem;
+    height: 1.0625rem;
+    flex-shrink: 0;
+    border-radius: 0.53125rem;
+    background: var(--bg-3);
+    border: 0.0625rem solid var(--border-strong);
+    transition: background-color 130ms ease, border-color 130ms ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0.125rem;
+      left: 0.125rem;
+      width: 0.6875rem;
+      height: 0.6875rem;
+      border-radius: 50%;
+      background: var(--text-dim);
+      transition: transform 130ms ease, background-color 130ms ease;
+    }
+  }
+
+  input:checked + .toggle-track {
+    background: var(--accent);
+    border-color: var(--accent);
+
+    &::after {
+      transform: translateX(0.8125rem);
+      background: var(--on-accent);
+    }
+  }
+
+  input:focus-visible + .toggle-track {
+    outline: 0.125rem solid var(--accent);
+    outline-offset: 0.125rem;
+  }
+
+  .toggle-label {
+    font-size: 0.8125rem;
+    color: var(--text-dim);
   }
 }

@@ -31,74 +31,145 @@ html, body {
 
 body {
   font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.5;
   color: var(--text);
   background: var(--bg-0);
+  -webkit-font-smoothing: antialiased;
 }
 
-button {
+button,
+input,
+select,
+textarea {
   font: inherit;
+  color: inherit;
 }
 
-strong, h1, h2, h3 {
-  letter-spacing: -0.02em;
-}
-
-.eyebrow {
-  margin: 0 0 0.375rem;
-  font-size: 0.7rem;
+h1, h2, h3, h4 {
+  letter-spacing: -0.015em;
   font-weight: 600;
-  letter-spacing: 0.14em;
+}
+
+// Every number in the app is tabular so columns of metrics line up and values
+// do not jitter as they tick.
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ── Shared text helpers ────────────────────────────────────────────────── */
+
+.section-label {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted);
 }
 
 .subtle {
-  margin: 0.25rem 0 0;
-  color: var(--muted);
-  font-size: 0.88rem;
+  margin: 0;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.75rem;
   line-height: 1.5;
+  color: var(--muted);
 }
 
-.section-shell {
-  background: var(--bg-1);
-}
+/* ── Empty state ────────────────────────────────────────────────────────── */
 
-.empty-state {
-  display: block;
-}
-
-.empty-card {
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
+.empty-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-1);
+  padding: var(--s-8) var(--s-4);
   color: var(--muted);
   text-align: center;
-  background: var(--bg-2);
-  border: 0.0625rem solid var(--border);
+
+  strong {
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.8125rem;
+    max-width: 32rem;
+  }
 
   &.compact {
-    padding: 1rem;
+    padding: var(--s-4);
   }
 }
 
 /* ── Focus ──────────────────────────────────────────────────────────────── */
 
-button,
-input {
-  &:focus-visible {
-    outline: 0.125rem solid var(--accent);
-    outline-offset: 0.125rem;
+:focus-visible {
+  outline: 0.125rem solid var(--accent);
+  outline-offset: 0.125rem;
+  border-radius: var(--r-1);
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────────── */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-3) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-3);
+  border-radius: var(--r-1);
+
+  &:hover {
+    background: var(--border-strong);
   }
 }
 
-/* ── Animations ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-@keyframes rise {
+/* ── Motion ─────────────────────────────────────────────────────────────── */
+
+// MOTION_INTENSITY 3: a single short entry fade on panel swaps, plus hover and
+// active feedback on controls. Nothing loops, nothing parallaxes.
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(0.375rem);
+    transform: translateY(0.25rem);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 140ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

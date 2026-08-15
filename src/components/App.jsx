@@ -6,15 +6,33 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { fetchJson } from '../services/api.js';
 import ProcessList from './ProcessList.jsx';
-import HeroCard from './HeroCard.jsx';
-import StatsGrid from './StatsGrid.jsx';
+import ProcessHeader from './ProcessHeader.jsx';
+import MetricsPanel from './MetricsPanel.jsx';
+import ManagePanel from './ManagePanel.jsx';
 import LogStream from './LogStream.jsx';
-import MonitoringNotice from './MonitoringNotice.jsx';
 import UpdateBanner from './UpdateBanner.jsx';
 import Footer from './Footer.jsx';
 import Settings from './Settings.jsx';
 import DeployModal from './DeployModal.jsx';
 import HostMetrics from './HostMetrics.jsx';
+import {
+  IconContext,
+  ICON_DEFAULTS,
+  ChartLine,
+  Eye,
+  GearSix,
+  List,
+  RocketLaunch,
+  SignOut,
+  TextAlignLeft,
+} from './Icon.jsx';
+
+/** The three process-scoped views. Every per-process function lives in one. */
+const TABS = [
+  { id: 'logs', label: 'Logs' },
+  { id: 'metrics', label: 'Metrics' },
+  { id: 'manage', label: 'Manage' },
+];
 
 /**
  * Convert DB log entries (newest-first) to flat display lines (oldest-first).
@@ -75,12 +93,19 @@ export default function App() {
   const [logFilters, setLogFilters] = useState(new Set(['info', 'warn', 'error']));
   const [logSearch, setLogSearch] = useState('');
   const [logPaused, setLogPaused] = useState(false);
-  /** @type {[string|null, React.Dispatch<string|null>]} id of the currently expanded MetricChip, or null */
-  const [expandedChip, setExpandedChip] = useState(null);
+  /** How many lines are waiting behind the pause, shown in the toolbar. */
+  const [pausedCount, setPausedCount] = useState(0);
+  /** @type {['logs'|'metrics'|'manage', React.Dispatch<string>]} the active process tab */
+  const [activeTab, setActiveTab] = useState('logs');
   const logRef = useRef(null);
   const autoStickRef = useRef(true);
   const prevLiveLinesLengthRef = useRef(0);
   const wsRef = useRef(null);
+  // Pause has to be readable from inside the WebSocket handler, which closes
+  // over its first render. A ref keeps the current value available there.
+  const logPausedRef = useRef(false);
+  /** Lines that arrived while the stream was paused, flushed on resume. */
+  const pausedBufferRef = useRef([]);
 
   const loadProcesses = useCallback(async () => {
     try {
@@ -157,7 +182,15 @@ export default function App() {
         } else if (type === 'snapshot') {
           setLiveLines(data.lines.map((l) => ({ text: l.text })));
         } else if (type === 'log') {
-          setLiveLines((prev) => [...prev, { text: data.text }].slice(-800));
+          // While paused, hold the line back instead of appending it. The
+          // Pause button used to only change its own icon: lines kept arriving
+          // and the view kept scrolling.
+          if (logPausedRef.current) {
+            pausedBufferRef.current = [...pausedBufferRef.current, { text: data.text }].slice(-800);
+            setPausedCount(pausedBufferRef.current.length);
+          } else {
+            setLiveLines((prev) => [...prev, { text: data.text }].slice(-800));
+          }
         } else if (type === 'error') {
           setError(data.error);
         } else if (type === 'deploy_progress') {
@@ -251,11 +284,15 @@ export default function App() {
     setActions([]);
     setMetricsHistory([]);
     setUnreadLogCount(0);
+    // Held lines belong to the process we are leaving, so they are dropped
+    // rather than flushed into the next one's stream.
+    pausedBufferRef.current = [];
+    setPausedCount(0);
     prevLiveLinesLengthRef.current = 0;
     autoStickRef.current = true;
-    setExpandedChip(null);
     setLogSearch('');
     setDrawerOpen(false);
+    setActiveTab('logs');
 
     const ws = wsRef.current;
     const isOpen = ws?.readyState === WebSocket.OPEN;
@@ -291,15 +328,18 @@ export default function App() {
     return () => clearInterval(interval);
   }, [selectedProcessId, isSelectedMonitored]);
 
+  // Track whether the user is parked at the bottom of the log viewer. The
+  // listener is re-attached when the Logs tab mounts, since the scroll
+  // container only exists while that tab is rendered.
   useEffect(() => {
     const container = logRef.current;
-    if (!container) return;
+    if (!container) return undefined;
     const onScroll = () => {
       autoStickRef.current = container.scrollHeight - (container.scrollTop + container.clientHeight) < 48;
     };
     container.addEventListener('scroll', onScroll);
     return () => container.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [activeTab, selectedProcessId]);
 
   // Auto-scroll only when storedLogs changes (process switch / initial load).
   // details updates every 3 s and must not be in deps, otherwise the viewer
@@ -320,6 +360,26 @@ export default function App() {
       setUnreadLogCount((prev) => prev + added);
     }
   }, [liveLines]);
+
+  /**
+   * Pause or resume the live log stream.
+   *
+   * Resuming flushes everything that arrived while paused, so pausing to read
+   * something never loses lines.
+   */
+  const onTogglePause = useCallback(() => {
+    setLogPaused((paused) => {
+      const next = !paused;
+      logPausedRef.current = next;
+      if (!next && pausedBufferRef.current.length > 0) {
+        const buffered = pausedBufferRef.current;
+        pausedBufferRef.current = [];
+        setPausedCount(0);
+        setLiveLines((prev) => [...prev, ...buffered].slice(-800));
+      }
+      return next;
+    });
+  }, []);
 
   const scrollToLogBottom = useCallback(() => {
     const container = logRef.current;
@@ -366,7 +426,7 @@ export default function App() {
       setDeployProgressStage('clone');
       setDeployProgressStatus('running');
       setActiveDeploymentId(deploymentId);
-      // The deploy POST consumed the CSRF token — refresh it so subsequent
+      // The deploy POST consumed the CSRF token - refresh it so subsequent
       // mutations (restart, stop, etc.) continue to work.
       refreshCsrf();
     },
@@ -651,173 +711,306 @@ export default function App() {
     [csrfToken, refreshCsrf],
   );
 
+  /**
+   * Toggle alert notifications for a monitored process.
+   *
+   * The backend has always exposed this route; the previous UI displayed the
+   * resulting state as an icon but offered no way to change it.
+   *
+   * @param {string} pm2Name - The PM2 process name.
+   * @param {boolean} alertsEnabled - Desired state.
+   */
+  const onToggleAlerts = useCallback(
+    async (pm2Name, alertsEnabled) => {
+      if (!csrfToken) return;
+      // Optimistic update so the switch responds immediately.
+      setProcesses((prev) => prev.map((p) => (p.name === pm2Name ? { ...p, alertsEnabled } : p)));
+      try {
+        await fetchJson('/api/notification-prefs', {
+          method: 'POST',
+          headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pm2Name, alertsEnabled }),
+        });
+        await refreshCsrf();
+      } catch (err) {
+        // Roll back the optimistic flip and surface the failure.
+        setProcesses((prev) => prev.map((p) => (p.name === pm2Name ? { ...p, alertsEnabled: !alertsEnabled } : p)));
+        setError(err.message);
+      }
+    },
+    [csrfToken, refreshCsrf],
+  );
+
+  const hasSelection = selectedProcessId != null;
+
   return (
-    <div className="app-shell">
-      <UpdateBanner />
-      <header className="app-topbar">
-        <button
-          className="topbar-menu-btn"
-          type="button"
-          aria-label="Toggle sidebar"
-          onClick={() => setDrawerOpen((o) => !o)}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
-            <path d="M2 4h12M2 8h12M2 12h12" />
-          </svg>
-        </button>
-        <a className="topbar-brand" href="/" aria-label="PM2 Hawkeye home">
-          <span className="topbar-brand-logo">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--accent)" strokeWidth="1.6" aria-hidden="true">
-              <circle cx="8" cy="8" r="5" />
-              <circle cx="8" cy="8" r="1.5" fill="var(--accent)" stroke="none" />
-              <path d="M2 8h2M12 8h2M8 2v2M8 12v2" strokeLinecap="round" />
-            </svg>
-          </span>
-          <span className="topbar-brand-wordmark">
-            <span className="brand-pm2">pm2</span><span className="brand-hawkeye">-hawkeye</span>
-          </span>
-          {appVersion && <span className="topbar-brand-version">v{appVersion}</span>}
-        </a>
-        <HostMetrics samples={hostMetrics} current={hostCurrent} />
-        <span className="topbar-spacer" />
-        <div className="topbar-actions">
+    <IconContext.Provider value={ICON_DEFAULTS}>
+      <div className="app-shell">
+        <UpdateBanner />
+
+        <header className="app-topbar">
           <button
-            className="topbar-btn"
+            className="topbar-menu-btn"
             type="button"
-            onClick={() => { setActiveDeploymentId(null); setDeployOpen(true); }}
+            aria-label="Toggle process list"
+            aria-expanded={drawerOpen}
+            onClick={() => setDrawerOpen((o) => !o)}
           >
-            Deploy
+            <List size={15} weight="bold" />
           </button>
-          <button
-            className="topbar-btn"
-            type="button"
-            onClick={() => setSettingsOpen(true)}
-          >
-            Settings
-          </button>
-        </div>
-      </header>
-      {drawerOpen && (
-        <div
-          className="topbar-drawer-overlay"
-          onClick={() => setDrawerOpen(false)}
-        />
-      )}
-      <ProcessList
-        processes={processes}
-        selectedProcessId={selectedProcessId}
-        onSelect={(id) => { setSelectedProcessId(id); setDrawerOpen(false); }}
-        onEditDeployment={onEditDeployment}
-        offlineDeployments={offlineDeployments}
-        onDeleteDeployment={onDeleteDeployment}
-        drawerOpen={drawerOpen}
-      />
-      <main className="content">
-        <HeroCard
-          selectedProcess={selectedProcess}
-          details={details}
-          sseConnected={wsConnected}
-          onLogout={onLogout}
-          onRestart={onRestart}
-          onStop={onStop}
-          onStart={onStart}
-          onDelete={onDelete}
-          onRemoveOrphan={onRemoveOrphan}
-          selectedDeployment={selectedDeployment}
-          onEditDeployment={onEditDeployment}
-          actions={actions}
+
+          <a className="topbar-brand" href="/" aria-label="pm2-hawkeye home">
+            <span className="topbar-brand-logo">
+              <Eye size={15} weight="bold" color="var(--accent)" />
+            </span>
+            <span className="topbar-brand-wordmark">
+              <span className="brand-pm2">pm2</span>
+              <span className="brand-hawkeye">-hawkeye</span>
+            </span>
+          </a>
+
+          <HostMetrics samples={hostMetrics} current={hostCurrent} />
+          <span className="topbar-spacer" />
+
+          <div className="conn-state" data-connected={wsConnected} title={wsConnected ? 'Live' : 'Reconnecting'}>
+            <span className="conn-dot" />
+            <span>{wsConnected ? 'Live' : 'Reconnecting'}</span>
+          </div>
+
+          <span className="topbar-divider" />
+
+          <div className="topbar-actions">
+            <button
+              className="btn btn--primary btn--sm"
+              type="button"
+              aria-label="Deploy from Git"
+              onClick={() => {
+                setActiveDeploymentId(null);
+                setDeployOpen(true);
+              }}
+            >
+              <RocketLaunch size={13} weight="bold" />
+              {/* The label is hidden on narrow viewports; the aria-label carries it. */}
+              <span>Deploy</span>
+            </button>
+            <button
+              className="btn btn--icon"
+              type="button"
+              title="Settings"
+              aria-label="Settings"
+              onClick={() => setSettingsOpen(true)}
+            >
+              <GearSix size={15} />
+            </button>
+            <button
+              className="btn btn--icon"
+              type="button"
+              title="Sign out"
+              aria-label="Sign out"
+              onClick={onLogout}
+            >
+              <SignOut size={15} />
+            </button>
+          </div>
+        </header>
+
+        {drawerOpen && <div className="topbar-drawer-overlay" onClick={() => setDrawerOpen(false)} />}
+
+        <ProcessList
+          processes={processes}
           selectedProcessId={selectedProcessId}
-          csrfToken={csrfToken}
-          onCsrfRefresh={refreshCsrf}
+          onSelect={(id) => {
+            setSelectedProcessId(id);
+            setDrawerOpen(false);
+          }}
+          onEditDeployment={onEditDeployment}
+          offlineDeployments={offlineDeployments}
+          onDeleteDeployment={onDeleteDeployment}
+          drawerOpen={drawerOpen}
         />
-        {selectedProcessId != null ? (
-          <>
-            <MonitoringNotice
-              isMonitored={isSelectedMonitored}
-              pm2Name={selectedProcess?.name ?? String(selectedProcessId)}
-              onToggleMonitoring={onToggleMonitoring}
-            />
-            <StatsGrid
-              details={details}
-              error={error}
-              metricsHistory={metricsHistory}
-              isMonitored={isSelectedMonitored}
-              expandedChip={expandedChip}
-              onExpandChip={setExpandedChip}
-            />
-            <LogStream
-              details={details}
-              allLines={allLines}
-              logRef={logRef}
-              isMonitored={isSelectedMonitored}
-              unreadCount={unreadLogCount}
-              onScrollToBottom={scrollToLogBottom}
-              logFilters={logFilters}
-              onToggleFilter={(level) =>
-                setLogFilters((prev) => {
-                  const next = new Set(prev);
-                  if (next.has(level)) next.delete(level); else next.add(level);
-                  return next;
-                })
-              }
-              logSearch={logSearch}
-              onSearchChange={setLogSearch}
-              logPaused={logPaused}
-              onTogglePause={() => setLogPaused((p) => !p)}
-            />
-          </>
-        ) : (
-          <div className="welcome-state">
-            <div className="welcome-card">
-              <p className="eyebrow">Getting started</p>
-              <h2>No process selected</h2>
-              <p className="subtle">Select a PM2 process from the sidebar to view runtime metrics and logs.</p>
-              <div className="welcome-hints">
-                <p className="welcome-hints-title">Enable monitoring on a process to unlock:</p>
-                <ul className="welcome-hints-list">
-                  <li>CPU and memory history sampled every 20 s, stored for 24 hours</li>
-                  <li>Log entries stored and searchable for 14 days</li>
-                  <li>Sparkline trend charts in the metrics panel</li>
-                </ul>
-                <p className="welcome-hints-note">
-                  Without monitoring, you only see live data - nothing is persisted between page loads.
+
+        <main className="content">
+          {hasSelection && selectedProcess ? (
+            <>
+              <ProcessHeader
+                selectedProcess={selectedProcess}
+                details={details}
+                isMonitored={isSelectedMonitored}
+                onRestart={onRestart}
+                onStop={onStop}
+                onStart={onStart}
+              >
+                <div className="tabs" role="tablist" aria-label="Process views">
+                  {TABS.map((tab) => (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      role="tab"
+                      id={`tab-${tab.id}`}
+                      aria-selected={activeTab === tab.id}
+                      aria-controls={`panel-${tab.id}`}
+                      className="tab"
+                      onClick={() => setActiveTab(tab.id)}
+                    >
+                      {tab.label}
+                      {tab.id === 'logs' && allLines.length > 0 && (
+                        <span className="tab-count">{allLines.length}</span>
+                      )}
+                      {tab.id === 'manage' && !isSelectedMonitored && (
+                        <span className="tab-flag" title="Monitoring is off for this process" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </ProcessHeader>
+
+              {error && (
+                <div className="action-result" data-ok="false" style={{ margin: 'var(--s-3) var(--s-5) 0' }}>
+                  <span>{error}</span>
+                  <button type="button" className="btn btn--sm btn--quiet" onClick={() => setError('')}>
+                    Dismiss
+                  </button>
+                </div>
+              )}
+
+              <div
+                className={activeTab === 'logs' ? 'tab-panel' : 'tab-panel tab-panel--scroll'}
+                role="tabpanel"
+                id={`panel-${activeTab}`}
+                aria-labelledby={`tab-${activeTab}`}
+              >
+                {activeTab === 'logs' && (
+                  <LogStream
+                    details={details}
+                    allLines={allLines}
+                    logRef={logRef}
+                    isMonitored={isSelectedMonitored}
+                    unreadCount={unreadLogCount}
+                    onScrollToBottom={scrollToLogBottom}
+                    logFilters={logFilters}
+                    onToggleFilter={(level) =>
+                      setLogFilters((prev) => {
+                        const next = new Set(prev);
+                        if (next.has(level)) next.delete(level);
+                        else next.add(level);
+                        return next;
+                      })
+                    }
+                    logSearch={logSearch}
+                    onSearchChange={setLogSearch}
+                    logPaused={logPaused}
+                    pausedCount={pausedCount}
+                    onTogglePause={onTogglePause}
+                  />
+                )}
+
+                {activeTab === 'metrics' && (
+                  <MetricsPanel
+                    details={details}
+                    metricsHistory={metricsHistory}
+                    hostSamples={hostMetrics}
+                    hostCurrent={hostCurrent}
+                    isMonitored={isSelectedMonitored}
+                    onEnableMonitoring={() => onToggleMonitoring(selectedProcess.name, false)}
+                  />
+                )}
+
+                {activeTab === 'manage' && (
+                  <ManagePanel
+                    selectedProcess={selectedProcess}
+                    isMonitored={isSelectedMonitored}
+                    onToggleMonitoring={onToggleMonitoring}
+                    onToggleAlerts={onToggleAlerts}
+                    actions={actions}
+                    selectedProcessId={selectedProcessId}
+                    csrfToken={csrfToken}
+                    onCsrfRefresh={refreshCsrf}
+                    selectedDeployment={selectedDeployment}
+                    onEditDeployment={onEditDeployment}
+                    onDelete={onDelete}
+                    onRemoveOrphan={onRemoveOrphan}
+                  />
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="welcome-state">
+              <div className="welcome-card">
+                <h2>No process selected</h2>
+                <p className="subtle">
+                  Pick a PM2 process on the left to read its logs, chart its resource use, and manage it.
                 </p>
+                <div className="welcome-hints">
+                  <p className="welcome-hints-title">Each process gets three views.</p>
+                  <ul className="welcome-hints-list">
+                    <li>
+                      <span className="welcome-hint-icon">
+                        <TextAlignLeft size={13} />
+                      </span>
+                      <span>
+                        <strong>Logs</strong>
+                        stdout and stderr merged, filterable by level and searchable.
+                      </span>
+                    </li>
+                    <li>
+                      <span className="welcome-hint-icon">
+                        <ChartLine size={13} />
+                      </span>
+                      <span>
+                        <strong>Metrics</strong>
+                        CPU and memory over time, next to host CPU, RAM and disk.
+                      </span>
+                    </li>
+                    <li>
+                      <span className="welcome-hint-icon">
+                        <GearSix size={13} />
+                      </span>
+                      <span>
+                        <strong>Manage</strong>
+                        Monitoring, alerts, PM2 custom actions, deployment and removal.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+        </main>
+
+        <Footer version={appVersion} />
+
+        {settingsOpen && (
+          <Settings
+            onClose={() => setSettingsOpen(false)}
+            csrfToken={csrfToken}
+            onCsrfRefresh={refreshCsrf}
+            appConfig={appConfig}
+          />
         )}
-      </main>
-      <Footer version={appVersion} />
-      {settingsOpen && (
-        <Settings
-          onClose={() => setSettingsOpen(false)}
-          csrfToken={csrfToken}
-          onCsrfRefresh={refreshCsrf}
-          appConfig={appConfig}
-        />
-      )}
-      {deployOpen && (
-        <DeployModal
-          csrfToken={csrfToken}
-          onCsrfRefresh={refreshCsrf}
-          onClose={() => {
-            setDeployOpen(false);
-            setActiveDeploymentId(null);
-            setEditingDeployment(null);
-            setDeployConfirmChanges(null);
-          }}
-          onDeployStarted={onDeployStarted}
-          deployProgressLines={deployProgressLines}
-          deployProgressStage={deployProgressStage}
-          deployProgressStatus={deployProgressStatus}
-          activeDeploymentId={activeDeploymentId}
-          editingDeployment={editingDeployment}
-          onEditSaved={onEditSaved}
-          onSaveAndRedeploy={onSaveAndRedeploy}
-          confirmChanges={deployConfirmChanges}
-          onConfirmDeploy={onConfirmDeploy}
-        />
-      )}
-    </div>
+
+        {deployOpen && (
+          <DeployModal
+            csrfToken={csrfToken}
+            onCsrfRefresh={refreshCsrf}
+            onClose={() => {
+              setDeployOpen(false);
+              setActiveDeploymentId(null);
+              setEditingDeployment(null);
+              setDeployConfirmChanges(null);
+            }}
+            onDeployStarted={onDeployStarted}
+            deployProgressLines={deployProgressLines}
+            deployProgressStage={deployProgressStage}
+            deployProgressStatus={deployProgressStatus}
+            activeDeploymentId={activeDeploymentId}
+            editingDeployment={editingDeployment}
+            onEditSaved={onEditSaved}
+            onSaveAndRedeploy={onSaveAndRedeploy}
+            confirmChanges={deployConfirmChanges}
+            onConfirmDeploy={onConfirmDeploy}
+          />
+        )}
+      </div>
+    </IconContext.Provider>
   );
 }

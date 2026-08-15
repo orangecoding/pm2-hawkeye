@@ -5,6 +5,7 @@
 
 import React, { useMemo } from 'react';
 import { detectLogLevel } from '../services/format.js';
+import { ArrowDown, Copy, DownloadSimple, MagnifyingGlass, Pause, Play } from './Icon.jsx';
 
 /** @param {string} text */
 function isContinuationLine(text) {
@@ -27,21 +28,32 @@ function levelLabel(level) {
   return 'LOG';
 }
 
+/** ISO timestamp prefix written by PM2 when a process runs with `--time`. */
+const TIME_PREFIX = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:[.,]\d+)?(?:Z|[+-]\d{2}:?\d{2})?)[:\s]*/;
+
 /**
- * Extract an ISO timestamp prefix from a log line (from the `--time` PM2 flag).
- * Returns the time portion only (HH:MM:SS) or an empty string.
+ * Split a log line into its timestamp column and its message.
+ *
+ * The timestamp is rendered in its own column, so repeating the full ISO string
+ * at the head of every message wasted roughly a third of the line width and
+ * pushed the actual message off screen.
  *
  * @param {string} text
- * @returns {string}
+ * @returns {{ time: string, message: string }}
  */
-function extractTime(text) {
-  const m = text.match(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/);
-  if (!m) return '';
-  return m[1].slice(11, 19); // HH:MM:SS
+function splitLine(text) {
+  const m = text.match(TIME_PREFIX);
+  if (!m) return { time: '', message: text };
+  return { time: m[1].slice(11, 19), message: text.slice(m[0].length) };
 }
 
 /**
- * Log viewer panel with level-filter toolbar, text search, and a status footer.
+ * Log viewer.
+ *
+ * Filters, search, stream controls and live status all sit in one toolbar. The
+ * panel used to be wrapped in two bars of chrome: a toolbar on top and a
+ * separate status footer below carrying a duplicate live indicator, the line
+ * count, and a decorative `tail -f` string.
  *
  * @param {{
  *   details: object | null,
@@ -55,6 +67,7 @@ function extractTime(text) {
  *   logSearch: string,
  *   onSearchChange: (s: string) => void,
  *   logPaused: boolean,
+ *   pausedCount: number,
  *   onTogglePause: () => void,
  * }} props
  */
@@ -70,6 +83,7 @@ export default function LogStream({
   logSearch = '',
   onSearchChange,
   logPaused = false,
+  pausedCount = 0,
   onTogglePause,
 }) {
   const annotatedLines = useMemo(() => {
@@ -77,9 +91,7 @@ export default function LogStream({
     let currentLevel = '';
     for (const line of allLines) {
       const continuation = isContinuationLine(line.text);
-      const level = continuation
-        ? ''
-        : (line.logLevel !== undefined ? line.logLevel : detectLogLevel(line.text));
+      const level = continuation ? '' : line.logLevel !== undefined ? line.logLevel : detectLogLevel(line.text);
       if (!continuation) currentLevel = level;
       result.push({ ...line, level, isMain: !continuation, inheritedLevel: continuation ? currentLevel : level });
     }
@@ -99,9 +111,7 @@ export default function LogStream({
     });
   }, [annotatedLines, logFilters, logSearch]);
 
-  const emptyText = isMonitored
-    ? 'No log entries stored yet.'
-    : 'No log output yet. Enable monitoring to persist logs.';
+  const isFiltered = filteredLines.length !== allLines.length;
 
   /** Copy filtered log lines to clipboard. */
   const copyLogs = () => {
@@ -122,101 +132,114 @@ export default function LogStream({
   };
 
   return (
-    <section className="panel section-shell log-section">
+    <section className="log-panel">
       <div className="log-toolbar">
-        <div className="log-filter-pills">
+        <div className="log-filters" role="group" aria-label="Filter by log level">
           {['info', 'warn', 'error'].map((level) => (
             <button
               key={level}
-              className={`log-filter-pill log-filter-pill--${level}${logFilters.has(level) ? ' active' : ''}`}
               type="button"
+              className="log-filter"
+              data-level={level}
+              aria-pressed={logFilters.has(level)}
               onClick={() => onToggleFilter(level)}
             >
               {levelLabel(level)}
             </button>
           ))}
         </div>
-        <div className="log-search-wrap">
-          <svg className="log-search-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <circle cx="5" cy="5" r="3.5" stroke="currentColor" strokeWidth="1.25" />
-            <line x1="7.8" y1="7.8" x2="10.5" y2="10.5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-          </svg>
+
+        <div className="log-search">
+          <MagnifyingGlass className="log-search-icon" size={12} weight="bold" />
           <input
-            className="log-search-input"
+            className="input"
             type="text"
-            placeholder="Search logs..."
+            placeholder="Search"
+            aria-label="Search logs"
             value={logSearch}
             onChange={(e) => onSearchChange(e.target.value)}
           />
         </div>
+
+        <div className="log-toolbar-status">
+          <span className="log-status-dot" data-paused={logPaused} />
+          <span>{logPaused ? `Paused${pausedCount > 0 ? `, ${pausedCount} held` : ''}` : 'Live'}</span>
+          <span className="log-count">
+            {isFiltered ? `${filteredLines.length} of ${allLines.length}` : `${allLines.length}`} lines
+          </span>
+        </div>
+
         <div className="log-toolbar-actions">
           <button
-            className={`log-icon-btn${logPaused ? ' log-icon-btn--active' : ''}`}
             type="button"
-            title={logPaused ? 'Resume' : 'Pause'}
+            className="btn btn--icon"
+            aria-pressed={logPaused}
+            title={logPaused ? 'Resume the stream' : 'Pause the stream'}
+            aria-label={logPaused ? 'Resume the stream' : 'Pause the stream'}
             onClick={onTogglePause}
           >
-            {logPaused ? '▶' : '⏸'}
+            {logPaused ? <Play size={13} weight="fill" /> : <Pause size={13} weight="fill" />}
           </button>
-          <button className="log-icon-btn" type="button" title="Copy logs" onClick={copyLogs}>
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-              <rect x="1" y="4" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.25" />
-              <path d="M4 4V3a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-            </svg>
+          <button
+            type="button"
+            className="btn btn--icon"
+            title="Copy visible lines"
+            aria-label="Copy visible lines"
+            onClick={copyLogs}
+          >
+            <Copy size={14} />
           </button>
-          <button className="log-icon-btn" type="button" title="Download logs" onClick={downloadLogs}>
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-              <path d="M6.5 2v7M4 7l2.5 2.5L9 7" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M2 10.5h9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-            </svg>
+          <button
+            type="button"
+            className="btn btn--icon"
+            title="Download visible lines"
+            aria-label="Download visible lines"
+            onClick={downloadLogs}
+          >
+            <DownloadSimple size={14} />
           </button>
         </div>
       </div>
 
       <div className="log-stream-wrapper">
-        <div
-          ref={logRef}
-          className={`log-stream${filteredLines.length ? '' : ' empty-state'}`}
-        >
-          {filteredLines.length ? filteredLines.map((line, i) => {
-            const effectiveLevel = line.level || line.inheritedLevel || '';
-            const timeStr = extractTime(line.text);
-            return (
-              <div
-                className={`log-line${effectiveLevel ? ` ${levelClass(effectiveLevel)}` : ''}`}
-                key={i}
-              >
-                {timeStr && <span className="log-time">{timeStr}</span>}
-                {line.isMain && effectiveLevel && (
-                  <span className={`log-level-badge log-level-badge--${effectiveLevel}`}>
-                    {levelLabel(effectiveLevel)}
-                  </span>
-                )}
-                {!line.isMain && <span className="log-level-badge log-level-badge--spacer" />}
-                <span className="log-text">{line.text}</span>
-              </div>
-            );
-          }) : (
-            <div className="empty-card">{emptyText}</div>
+        <div ref={logRef} className={filteredLines.length ? 'log-stream' : 'log-stream log-empty'}>
+          {filteredLines.length ? (
+            filteredLines.map((line, i) => {
+              const effectiveLevel = line.level || line.inheritedLevel || '';
+              const { time, message } = splitLine(line.text);
+              return (
+                <div className={`log-line${effectiveLevel ? ` ${levelClass(effectiveLevel)}` : ''}`} key={i}>
+                  <span className="log-time">{time}</span>
+                  {line.isMain && effectiveLevel ? (
+                    <span className={`log-level-badge log-level-badge--${effectiveLevel}`}>
+                      {levelLabel(effectiveLevel)}
+                    </span>
+                  ) : (
+                    <span className="log-level-badge log-level-badge--spacer" />
+                  )}
+                  <span className="log-text">{message}</span>
+                </div>
+              );
+            })
+          ) : (
+            <div className="empty-note">
+              <strong>{allLines.length ? 'Nothing matches your filter' : 'No log output yet'}</strong>
+              <p>
+                {allLines.length
+                  ? 'Clear the search box or re-enable a level to see more lines.'
+                  : isMonitored
+                    ? 'Lines appear here as the process writes them.'
+                    : 'Lines appear here as the process writes them. Turn on monitoring in Manage to keep them between reloads.'}
+              </p>
+            </div>
           )}
         </div>
-        {unreadCount > 0 && (
-          <button type="button" className="new-logs-banner" onClick={onScrollToBottom}>
-            {unreadCount} new line{unreadCount !== 1 ? 's' : ''} -- scroll to bottom
-          </button>
-        )}
-      </div>
 
-      <div className="log-footer">
-        <span className="log-footer-dot" data-paused={logPaused} />
-        <span className="log-footer-status">{logPaused ? 'Paused' : 'Live'}</span>
-        <span className="log-footer-count">
-          {filteredLines.length === allLines.length
-            ? `${allLines.length} lines`
-            : `${filteredLines.length} / ${allLines.length} lines`}
-        </span>
-        {details?.name && (
-          <span className="log-footer-cmd">tail -f {details.name}</span>
+        {unreadCount > 0 && (
+          <button type="button" className="new-logs-pill" onClick={onScrollToBottom}>
+            <ArrowDown size={12} weight="bold" />
+            {unreadCount} new line{unreadCount !== 1 ? 's' : ''}
+          </button>
         )}
       </div>
     </section>

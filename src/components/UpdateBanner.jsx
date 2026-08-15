@@ -75,17 +75,8 @@ export default function UpdateBanner() {
             <div className="update-panel-title">
               <span className="update-panel-tag">v{update.latestVersion}</span>
             </div>
-            <div className="update-panel-meta">
-              {published && <span className="update-panel-date">{published}</span>}
-              <a
-                className="update-panel-link"
-                href={update.releaseUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View on GitHub ↗
-              </a>
-            </div>
+            {/* The release link lives once, on the footer CTA. */}
+            <div className="update-panel-meta">{published && <span>{published}</span>}</div>
           </div>
 
           <div className="update-panel-body">
@@ -110,16 +101,23 @@ export default function UpdateBanner() {
           </div>
 
           <div className="update-panel-footer">
-            <button className="update-dismiss" onClick={() => { setDismiss(true); setOpen(false); }}>
+            <button
+              type="button"
+              className="btn btn--sm btn--quiet"
+              onClick={() => {
+                setDismiss(true);
+                setOpen(false);
+              }}
+            >
               Dismiss
             </button>
             <a
-              className="btn btn-primary update-cta"
+              className="btn btn--sm btn--primary update-cta"
               href={update.releaseUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              See release on GitHub
+              View release
             </a>
           </div>
         </div>

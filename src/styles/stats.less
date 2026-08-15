@@ -1,128 +1,164 @@
-/* ── Expandable MetricChip row ───────────────────────────────────────────── */
+/* ── Metrics panel ──────────────────────────────────────────────────────────
+   Charts are always drawn. The old design hid every sparkline behind a click
+   and allowed only one open at a time, which made trends invisible by default
+   and comparison impossible.
+   ───────────────────────────────────────────────────────────────────────── */
 
-.metric-chips-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.75rem 1.375rem;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-
-.metric-chip {
+.metrics-panel {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.125rem;
-  padding: 0.4375rem 0.6875rem;
-  border-radius: 0.625rem;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  background: rgba(255, 255, 255, 0.025);
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.18s ease, border-color 0.18s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  &--expanded {
-    gap: 0.375rem;
-    padding: 0.625rem 0.75rem;
-    min-width: 11.25rem;
-    border-color: rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.045);
-  }
+  gap: var(--s-6);
 }
 
-.metric-chip-head {
+.metrics-group-head {
   display: flex;
   align-items: baseline;
-  gap: 0.375rem;
+  gap: var(--s-3);
+  margin-bottom: var(--s-3);
+  padding-bottom: var(--s-2);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
-.metric-chip-label {
-  font-size: 0.59375rem;
+// A fixed track count rather than auto-fit, so a two-card section and a
+// three-card section share the same column edges instead of each stretching to
+// fill its own row.
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+
+@media (max-width: 68rem) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 45rem) {
+  .metrics-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.metrics-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  border: 0.0625rem solid var(--accent-line);
+  border-radius: var(--r-2);
+  background: var(--accent-soft);
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-2);
+}
+
+.metric-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+.metric-card-label {
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-dim);
 }
 
-.metric-chip-value {
-  font-size: 0.8125rem;
+.metric-card-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text);
-  font-variant-numeric: tabular-nums;
 }
 
-.metric-chip-sub {
-  font-size: 0.65625rem;
+.metric-card-chart {
+  height: 4.5rem;
+  margin: 0 calc(var(--s-1) * -1);
+}
+
+.metric-card-foot {
+  font-size: 0.6875rem;
   color: var(--muted);
-  opacity: 0.8;
-
-  &--expanded {
-    margin-top: 0.25rem;
-    opacity: 1;
-  }
 }
 
-.metric-chip-spark {
-  width: 100%;
-  height: 2.5rem;
-  position: relative;
-
-  .sparkline-wrapper {
-    position: absolute;
-    inset: 0;
-  }
-}
-
-.metric-chip-no-data {
+/* Placeholder that keeps the card's height so the grid does not reflow when
+   history arrives. */
+.metric-card-nodata {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.5rem;
   font-size: 0.75rem;
   color: var(--muted);
-  align-self: center;
-  padding: 0.5rem 0;
+  border: 0.0625rem dashed var(--border);
+  border-radius: var(--r-1);
 }
 
-/* ── Sparkline (shared by metric chips and host popover) ──────────────────── */
-
-.sparkline {
-  display: block;
-  width: 100%;
+/* Skeleton shown while the first metrics request is in flight. */
+.metric-card-skeleton {
+  height: 4.5rem;
+  border-radius: var(--r-1);
+  background: linear-gradient(90deg, var(--bg-3) 25%, var(--bg-2) 50%, var(--bg-3) 75%);
+  background-size: 200% 100%;
+  animation: metric-shimmer 1.4s ease-in-out infinite;
 }
+
+@keyframes metric-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metric-card-skeleton {
+    animation: none;
+    background: var(--bg-3);
+  }
+}
+
+/* ── Sparkline internals ────────────────────────────────────────────────── */
 
 .sparkline-wrapper {
-  cursor: crosshair;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .sparkline-tooltip {
   position: absolute;
-  bottom: calc(100% + 0.375rem);
+  top: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.0625rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-  background: var(--bg-3);
-  border: 1px solid var(--border-strong);
+  align-items: baseline;
+  gap: var(--s-2);
+  padding: 0.125rem var(--s-2);
+  border-radius: var(--r-1);
+  background: var(--bg-0);
+  border: 0.0625rem solid var(--border-strong);
+  box-shadow: var(--shadow-1);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
   pointer-events: none;
   white-space: nowrap;
-  z-index: 60;
-  font-family: var(--font-mono);
-  line-height: 1.3;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.45);
+  z-index: 2;
 }
 
 .sparkline-tooltip-value {
-  font-size: 0.6875rem;
-  font-weight: 700;
   color: var(--text);
-  letter-spacing: -0.01em;
+  font-weight: 600;
 }
 
 .sparkline-tooltip-time {
-  font-size: 0.625rem;
   color: var(--muted);
 }

@@ -3,97 +3,145 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import {fetchJson} from "../services/api.js";
-import React, {useState} from "react";
+import React, { useState } from 'react';
+import { fetchJson } from '../services/api.js';
+import { CheckCircle, WarningCircle } from './Icon.jsx';
 
-export default function Actions({actions, selectedProcessId, csrfToken, onCsrfRefresh}) {
+/**
+ * Read an action's name whether the backend sent a string or an object.
+ *
+ * @param {string|{name: string}} action
+ * @returns {string}
+ */
+function actionName(action) {
+  return typeof action === 'object' ? action.name : action;
+}
 
-    const [selectedAction, setSelectedAction] = useState("");
-    const [confirming, setConfirming] = useState(false);
-    const [triggering, setTriggering] = useState(false);
-    const [successMsg, setSuccessMsg] = useState("");
-    const [actionParams, setActionParams] = useState("");
+/**
+ * PM2 custom actions (axm_actions) for the selected process.
+ *
+ * Each action is its own row with its own trigger. The previous design hid
+ * them all inside a single <select>: picking an option immediately armed a
+ * confirmation, which made a dropdown behave like a button and gave no way to
+ * see what an action was without selecting it.
+ *
+ * @param {{
+ *   actions: (string|object)[],
+ *   selectedProcessId: string | null,
+ *   csrfToken: string | null,
+ *   onCsrfRefresh: () => Promise<string>,
+ * }} props
+ */
+export default function Actions({ actions, selectedProcessId, csrfToken, onCsrfRefresh }) {
+  /** @type {[string|null, React.Dispatch<string|null>]} name of the action being armed */
+  const [arming, setArming] = useState(null);
+  const [params, setParams] = useState('');
+  const [busy, setBusy] = useState(false);
+  /** @type {[{ok: boolean, text: string}|null, React.Dispatch<object|null>]} */
+  const [result, setResult] = useState(null);
 
-    // Find the selected action's metadata to check if it requires params
-    const selectedActionMeta = actions.find((a) => (typeof a === "object" ? a.name : a) === selectedAction);
-    const actionRequiresParams = selectedActionMeta && typeof selectedActionMeta === "object" && selectedActionMeta.params && selectedActionMeta.params.length > 0;
+  if (actions.length === 0) return null;
 
-    const handleActionSelect = (e) => {
-        setSelectedAction(e.target.value);
-        setActionParams("");
-        if (e.target.value) {
-            setConfirming(true);
-        }
-    };
+  /**
+   * Trigger the armed action on the backend.
+   *
+   * @param {string} name
+   * @param {boolean} requiresParams
+   */
+  async function trigger(name, requiresParams) {
+    if (selectedProcessId == null || !csrfToken) return;
+    setBusy(true);
+    setResult(null);
+    try {
+      const body = { actionName: name };
+      if (requiresParams && params.trim()) body.params = params.trim();
+      await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions/trigger`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+        body: JSON.stringify(body),
+      });
+      await onCsrfRefresh?.();
+      setResult({ ok: true, text: `${name} triggered.` });
+    } catch (err) {
+      setResult({ ok: false, text: err.message ?? `${name} failed.` });
+    } finally {
+      setBusy(false);
+      setArming(null);
+      setParams('');
+    }
+  }
 
-    const handleConfirm = async () => {
-        if (!selectedAction || selectedProcessId == null || !csrfToken) {
-            return;
-        }
-        setTriggering(true);
-        try {
-            const body = {actionName: selectedAction};
-            if (actionRequiresParams && actionParams.trim()) {
-                body.params = actionParams.trim();
-            }
-            await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions/trigger`, {
-                method: "POST",
-                headers: {"Content-Type": "application/json", "X-CSRF-Token": csrfToken},
-                body: JSON.stringify(body),
-            });
-            if (onCsrfRefresh) await onCsrfRefresh();
-            setSuccessMsg(`Action "${selectedAction}" triggered successfully.`);
-            setTimeout(() => setSuccessMsg(""), 3500);
-        } catch {
-            // Errors are handled by fetchJson
-        } finally {
-            setTriggering(false);
-            setConfirming(false);
-            setSelectedAction("");
-            setActionParams("");
-        }
-    };
+  return (
+    <>
+      <div className="action-list">
+        {actions.map((action) => {
+          const name = actionName(action);
+          const requiresParams = typeof action === 'object' && Array.isArray(action.params) && action.params.length > 0;
+          const isArmed = arming === name;
 
-    const handleCancel = () => {
-        setConfirming(false);
-        setSelectedAction("");
-        setActionParams("");
-    };
-
-    if (actions.length === 0) return null;
-
-    return (
-        <div className="actions-dropdown">
-            <p className="eyebrow actions-eyebrow">Trigger Actions</p>
-            {successMsg && <div className="action-success">{successMsg}</div>}
-            {confirming ? (
-                <div className="action-confirm">
-                    <span>Trigger <strong>{selectedAction}</strong>?</span>
-                    {actionRequiresParams && (
-                        <input
-                            type="text"
-                            className="action-param-input"
-                            placeholder="Parameters…"
-                            value={actionParams}
-                            onChange={(e) => setActionParams(e.target.value)}
-                            disabled={triggering}
-                        />
-                    )}
-                    <div className="action-confirm-buttons">
-                        <button className="btn btn-sm btn-confirm" onClick={handleConfirm} disabled={triggering}>
-                            {triggering ? "Triggering…" : "Yes"}
-                        </button>
-                        <button className="btn btn-sm btn-cancel" onClick={handleCancel} disabled={triggering}>No</button>
-                    </div>
+          return (
+            <div className="action-row" key={name}>
+              {isArmed ? (
+                <div className="action-row-form">
+                  <span className="action-row-name">{name}</span>
+                  {requiresParams && (
+                    <input
+                      className="input"
+                      type="text"
+                      value={params}
+                      placeholder="Parameters"
+                      aria-label={`Parameters for ${name}`}
+                      disabled={busy}
+                      onChange={(e) => setParams(e.target.value)}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    className="btn btn--sm btn--primary"
+                    disabled={busy}
+                    onClick={() => trigger(name, requiresParams)}
+                  >
+                    {busy ? 'Running' : 'Run'}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--sm btn--quiet"
+                    disabled={busy}
+                    onClick={() => {
+                      setArming(null);
+                      setParams('');
+                    }}
+                  >
+                    Cancel
+                  </button>
                 </div>
-            ) : (
-                <select value={selectedAction} onChange={handleActionSelect} className="action-select">
-                    <option value="">PM2 Actions…</option>
-                    {actions.map((action) => {
-                        const name = typeof action === "object" ? action.name : action;
-                        return <option key={name} value={name}>{name}</option>;
-                    })}
-                </select>
-            )}
-        </div>);
+              ) : (
+                <>
+                  <span className="action-row-name">{name}</span>
+                  <button
+                    type="button"
+                    className="btn btn--sm"
+                    onClick={() => {
+                      setArming(name);
+                      setParams('');
+                      setResult(null);
+                    }}
+                  >
+                    Run
+                  </button>
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {result && (
+        <div className="action-result" data-ok={result.ok}>
+          {result.ok ? <CheckCircle size={13} weight="fill" /> : <WarningCircle size={13} weight="fill" />}
+          <span>{result.text}</span>
+        </div>
+      )}
+    </>
+  );
 }

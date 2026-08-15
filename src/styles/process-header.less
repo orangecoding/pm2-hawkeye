@@ -1,0 +1,171 @@
+/* ── Process header ─────────────────────────────────────────────────────────
+   States which object you are acting on, and carries only the two controls
+   that are used continuously (Restart, Stop/Start). Everything else lives in
+   the Manage tab, one keystroke away, instead of crowding this row.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.process-header {
+  flex-shrink: 0;
+  padding: var(--s-4) var(--s-5) 0;
+  border-bottom: 0.0625rem solid var(--border);
+}
+
+.process-header-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-width: 0;
+  min-height: 2rem;
+}
+
+.process-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-width: 0;
+
+  h1 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 650;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.process-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.75rem;
+  color: var(--muted);
+
+  > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.process-meta-mono {
+  font-family: var(--font-mono);
+}
+
+.process-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── Inline stat strip ──────────────────────────────────────────────────────
+   VISUAL_DENSITY 7: numbers breathe in plain layout with hairlines, no card
+   boxes. Always visible, so CPU and memory are readable while reading logs.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.stat-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  padding: var(--s-3) 0;
+  overflow-x: auto;
+}
+
+.stat-strip-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  white-space: nowrap;
+}
+
+.stat-strip-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat-strip-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.stat-strip-sub {
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+.stat-strip-empty {
+  padding: var(--s-3) 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+/* ── Header empty state ─────────────────────────────────────────────────── */
+
+.process-header--empty {
+  display: flex;
+  align-items: center;
+  min-height: 3.5rem;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+
+// Between roughly 46rem and 62rem the name, meta and both controls stop fitting
+// on one line, so the meta wraps under the title before the controls do.
+@media (max-width: 62rem) {
+  .process-header-row {
+    flex-wrap: wrap;
+  }
+
+  .process-meta {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 45rem) {
+  .process-header {
+    padding: var(--s-3) var(--s-4) 0;
+  }
+
+  .process-title {
+    flex: 1;
+  }
+
+  .process-header-actions .btn {
+    flex: 1;
+  }
+
+  // The confirm prompt needs the full row rather than squeezing the buttons.
+  .process-header-actions .confirm {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    height: auto;
+    padding: var(--s-2);
+  }
+
+  .stat-strip {
+    gap: var(--s-4);
+  }
+
+  // The absolute start date restates the relative uptime next to it and is the
+  // only thing pushing the strip into a scroll at this width.
+  .stat-strip-sub {
+    display: none;
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+}

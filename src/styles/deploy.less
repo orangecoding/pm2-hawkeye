@@ -1,651 +1,237 @@
-// Deploy modal ──────────────────────────────────────────────────────────────
+/* ── Deploy modal ───────────────────────────────────────────────────────────
+   One scrolling form instead of an eight-step wizard. The three genuinely
+   required fields sit at the top; everything else folds away behind a summary
+   line that states its current value, so the form can be read at a glance
+   without opening anything.
+   ───────────────────────────────────────────────────────────────────────── */
 
-.deploy-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: settings-rise 200ms ease;
-}
-
-.deploy-modal {
-  display: flex;
+.modal--deploy {
   flex-direction: column;
-  width: min(56rem, 96vw);
-  height: min(52rem, 94vh);
-  background: var(--bg-1);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-strong);
-  box-shadow: var(--shadow);
-  overflow: hidden;
+  max-width: 44rem;
 }
 
-.deploy-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.1rem 1.75rem;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-
-  h2 {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  button {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--muted);
-    font-size: 0.8rem;
-    padding: 0.3rem 0.65rem;
-    cursor: pointer;
-
-    &:hover {
-      background: var(--accent-soft);
-      color: var(--text);
-    }
-  }
-}
-
-// The body is a direct flex child of .deploy-modal and carries all scrollable content.
-// The form element (or plain div for the progress view) is given this class directly,
-// so there is no intermediate wrapper that could break the min-height constraint.
-.deploy-modal-body {
+.deploy-body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 1.25rem 1.75rem;
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
 }
-
-// Required marker ──────────────────────────────────────────────────────────
 
 .deploy-required {
-  color: var(--accent);
-  margin-left: 0.2rem;
-  font-weight: 700;
-}
-
-// Form layout: sidebar nav + content panel ─────────────────────────────────
-
-.deploy-form-layout {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: row;
-}
-
-.deploy-nav {
-  width: 13.75rem;
-  flex-shrink: 0;
-  border-right: 1px solid var(--border);
-  background: var(--bg-2);
-  padding: 0.75rem 0.5rem;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-}
-
-.deploy-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  width: 100%;
-  text-align: left;
-  padding: 0.5rem;
-  border: 0;
-  border-left: 2px solid transparent;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  margin-bottom: 0.125rem;
-  transition: background 0.12s, color 0.12s;
-
-  &:hover {
-    background: var(--bg-3);
-  }
-
-  &.active {
-    background: var(--bg-3);
-    border-left-color: var(--accent);
-    color: var(--text);
-  }
-}
-
-.deploy-nav-num {
-  width: 1.25rem;
-  height: 1.25rem;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: var(--bg-1);
-  color: var(--muted);
-  font-size: 0.625rem;
-  font-weight: 700;
-  font-family: var(--font-mono);
-
-  .deploy-nav-item.active & {
-    background: var(--accent-soft);
-    border-color: var(--accent-glow);
-    color: var(--accent);
-  }
-}
-
-.deploy-nav-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.deploy-nav-label {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.deploy-nav-desc {
-  font-size: 0.625rem;
-  color: var(--muted);
-  margin-top: 0.0625rem;
-}
-
-.deploy-nav-req-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--critical);
-  flex-shrink: 0;
-}
-
-.deploy-nav-legend {
-  margin-top: auto;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  padding: 0.625rem 0.5rem 0.25rem;
-  font-size: 0.625rem;
-  color: var(--muted);
-  line-height: 1.5;
-
-  .deploy-nav-req-dot {
-    margin-top: 0.25rem;
-  }
-}
-
-.deploy-content {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.deploy-content-scroll {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 1.25rem 1.5rem;
-}
-
-.deploy-section-title {
-  margin: 0 0 0.25rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.005em;
-}
-
-.deploy-section-desc {
-  margin: 0 0 1rem;
-  font-size: 0.75rem;
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-.deploy-section-fields {
-  display: flex;
-  flex-direction: column;
-}
-
-// Section prev/next navigation footer ──────────────────────────────────────
-
-.deploy-nav-footer {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0.5rem 1.5rem;
-  border-top: 1px solid var(--border);
-  background: var(--bg-2);
-}
-
-.deploy-nav-footer-side {
-  min-width: 6rem;
-
-  &--right {
-    text-align: right;
-  }
-}
-
-.deploy-nav-progress {
-  font-size: 0.6875rem;
-  color: var(--muted);
-  font-family: var(--font-mono);
-}
-
-.deploy-nav-btn {
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--muted);
-  font-size: 0.6875rem;
-  padding: 0.25rem 0.625rem;
-  cursor: pointer;
-
-  &:hover {
-    border-color: var(--border-strong);
-    color: var(--text);
-  }
-}
-
-// Field layout ─────────────────────────────────────────────────────────────
-
-.deploy-field {
-  margin-bottom: 0.9rem;
-
-  > label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--muted);
-    margin-bottom: 0.3rem;
-  }
-}
-
-.deploy-hint {
-  font-size: 0.73rem;
-  color: var(--muted);
-  margin-top: 0.25rem;
-  line-height: 1.4;
+  gap: var(--s-4);
+  padding-bottom: var(--s-5);
+  border-bottom: 0.0625rem solid var(--border);
 }
 
 .deploy-two-col {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
 }
 
-// Toggle rows inside deploy form ───────────────────────────────────────────
-// The generic .deploy-field label style (display:block) must not override
-// the .toggle-switch which needs inline-flex.
+/* ── Collapsible groups ─────────────────────────────────────────────────── */
 
-.deploy-toggle-row {
-  margin-bottom: 0.9rem;
-
-  // .toggle-switch is defined in settings.less; repeat key overrides here
-  // so it renders correctly inside the deploy form's colour context.
-  .toggle-switch {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-
-    .toggle-track {
-      background: var(--border-strong);
-
-      &::after {
-        background: var(--bg-3);
-      }
-    }
-
-    input:checked + .toggle-track {
-      background: var(--accent);
-
-      &::after {
-        background: #fff;
-      }
-    }
-
-    .toggle-label {
-      font-size: 0.875rem;
-      color: var(--text);
-      font-weight: 500;
-    }
-  }
-
-  .deploy-hint {
-    margin-top: 0.3rem;
-    padding-left: 2.75rem; // align under label text (track width + gap)
-  }
-}
-
-// Env variable rows ─────────────────────────────────────────────────────────
-
-.env-var-row {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  margin-bottom: 0.5rem;
-
-  .settings-input {
-    flex: 1;
-  }
-
-  .env-remove-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--muted);
-    font-size: 0.8rem;
-    padding: 0.4rem 0.6rem;
-    cursor: pointer;
-    flex-shrink: 0;
-
-    &:hover {
-      border-color: var(--critical);
-      color: var(--critical);
-    }
-  }
-}
-
-.env-add-btn {
-  background: transparent;
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--muted);
-  font-size: 0.8rem;
-  padding: 0.4rem 0.75rem;
-  cursor: pointer;
-  margin-bottom: 0.5rem;
-
-  &:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-}
-
-// Stage pill bar ───────────────────────────────────────────────────────────
-
-.deploy-stage-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-
-.deploy-stage-pill {
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  color: var(--muted);
+.deploy-fieldset {
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
   background: var(--bg-2);
 
-  &--active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-soft);
+  > summary {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    cursor: pointer;
+    list-style: none;
+    border-radius: var(--r-2);
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover .deploy-fieldset-title {
+      color: var(--text);
+    }
   }
 
-  &--done {
-    border-color: var(--success);
-    color: var(--success);
-    background: var(--success-soft);
-  }
-
-  &--error {
-    border-color: var(--critical);
-    color: var(--critical);
-    background: var(--critical-soft);
+  &[open] > summary {
+    border-bottom: 0.0625rem solid var(--border);
+    border-radius: var(--r-2) var(--r-2) 0 0;
   }
 }
 
-.deploy-stage-arrow {
+.deploy-fieldset-title {
+  position: relative;
+  padding-left: var(--s-4);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-dim);
+
+  // Disclosure caret drawn from borders, so no icon is needed inside <summary>.
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.3125rem;
+    width: 0.3125rem;
+    height: 0.3125rem;
+    border-right: 0.09375rem solid var(--muted);
+    border-bottom: 0.09375rem solid var(--muted);
+    transform: rotate(-45deg);
+    transition: transform 120ms ease;
+  }
+
+  .deploy-fieldset[open] &::before {
+    transform: rotate(45deg);
+  }
+}
+
+.deploy-fieldset-summary {
+  margin-left: auto;
+  font-size: 0.75rem;
   color: var(--muted);
-  font-size: 0.7rem;
+  text-align: right;
 }
 
-// Progress log ─────────────────────────────────────────────────────────────
+.deploy-fieldset-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-4);
+}
+
+.deploy-toggle-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+/* ── Modal footer: the action bar is always visible ─────────────────────── */
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex-shrink: 0;
+  padding: var(--s-3) var(--s-5);
+  border-top: 0.0625rem solid var(--border);
+  background: var(--bg-1);
+}
+
+.modal-footer-spacer {
+  flex: 1;
+}
+
+/* ── Progress view ──────────────────────────────────────────────────────── */
+
+.deploy-stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: stage;
+}
+
+.deploy-stage {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  height: 1.625rem;
+  padding: 0 var(--s-3);
+  border-radius: var(--r-1);
+  background: var(--bg-2);
+  font-size: 0.75rem;
+  color: var(--muted);
+
+  &.is-active {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  &.is-done {
+    background: var(--success-soft);
+    color: var(--success);
+  }
+
+  &.is-error {
+    background: var(--critical-soft);
+    color: var(--critical);
+  }
+}
 
 .deploy-log {
-  background: var(--bg-0);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--log-default);
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 14rem;
+  max-height: 26rem;
   overflow-y: auto;
-  max-height: 22rem;
+  padding: var(--s-3);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-0);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.7;
+  color: var(--text-dim);
   white-space: pre-wrap;
-  word-break: break-all;
-  line-height: 1.5;
-  margin-bottom: 1rem;
+  word-break: break-word;
 }
 
 .deploy-log-line--error {
-  color: var(--log-error);
-}
-
-// Status banners ────────────────────────────────────────────────────────────
-
-.deploy-success-banner {
-  background: var(--success-soft);
-  border: 1px solid var(--success);
-  border-radius: var(--radius-md);
-  padding: 0.875rem 1.25rem;
-  font-size: 0.9rem;
-  color: var(--success);
-  margin-bottom: 1rem;
-}
-
-.deploy-error-banner {
-  background: var(--critical-soft);
-  border: 1px solid var(--critical);
-  border-radius: var(--radius-md);
-  padding: 0.875rem 1.25rem;
-  font-size: 0.9rem;
   color: var(--critical);
-  margin-bottom: 1rem;
 }
 
-// Action footer ─────────────────────────────────────────────────────────────
+.deploy-log-waiting {
+  color: var(--muted);
+}
 
-.deploy-action-row {
-  flex-shrink: 0;
+.deploy-confirm {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 1.75rem;
-  border-top: 1px solid var(--border);
-  background: var(--bg-2);
-}
-
-.deploy-submit-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 0.55rem 1.4rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 150ms ease;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  &:not(:disabled):hover {
-    opacity: 0.88;
-  }
-}
-
-.deploy-error-msg {
-  font-size: 0.82rem;
-  color: var(--critical);
-}
-
-// Confirmation prompt (local changes before git pull) ───────────────────────
-
-.deploy-confirm-box {
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border: 0.0625rem solid var(--warning-soft);
+  border-radius: var(--r-2);
   background: var(--warning-soft);
-  border: 1px solid rgba(251, 191, 36, 0.4);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
-  margin-bottom: 1rem;
-}
 
-.deploy-confirm-msg {
-  font-size: 0.875rem;
-  color: var(--warning);
-  margin: 0 0 0.75rem;
+  p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--text);
+  }
 
   code {
-    background: rgba(251, 191, 36, 0.15);
-    border-radius: 3px;
-    padding: 0.1rem 0.3rem;
-    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
   }
-}
-
-.deploy-confirm-changes {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.78rem;
-  background: var(--bg-1);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.6rem 0.75rem;
-  margin: 0 0 0.875rem;
-  white-space: pre;
-  overflow-x: auto;
-  color: var(--text);
-  max-height: 8rem;
-  overflow-y: auto;
 }
 
 .deploy-confirm-actions {
   display: flex;
-  gap: 0.75rem;
+  gap: var(--s-2);
   flex-wrap: wrap;
 }
 
-.deploy-cancel-btn {
-  background: transparent;
-  border: 1px solid var(--critical);
-  color: var(--critical);
-  border-radius: var(--radius-sm);
-  padding: 0.55rem 1.4rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 150ms ease;
-
-  &:hover {
-    opacity: 0.80;
-  }
-}
-
-// Edit/Redeploy button and modal action button in ProcessList / deploy modal ─
-// Uses a slightly darker blue than --log-info (#60a5fa) to sit visually
-// between the muted ghost buttons and the bright accent colour.
-.edit-deploy-btn {
-  background: var(--info-soft);
-  border: 0.0625rem solid rgb(59 130 246 / 0.91);
-  color: var(--info);
-  cursor: pointer;
-  padding: 0.2rem 0.65rem;
-  border-radius: var(--radius-sm);
-  transition: opacity 150ms ease;
-  white-space: nowrap;
-  font-size: 0.63rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-
-  &:hover {
-    opacity: 0.85;
-  }
-}
-
-// "Save & Redeploy" button in the edit modal footer.
-.deploy-redeploy-btn {
-  background: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 0.55rem 1.2rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 150ms ease;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  &:not(:disabled):hover {
-    opacity: 0.88;
-  }
-}
-
-// Mobile: sidebar nav becomes a horizontal scrolling tab bar ────────────────
+/* ── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 45rem) {
-  .deploy-form-layout {
-    flex-direction: column;
+  .deploy-body {
+    padding: var(--s-4);
   }
 
-  .deploy-nav {
-    width: auto;
-    flex-direction: row;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-    padding: 0.5rem;
-    gap: 0.375rem;
+  .deploy-two-col {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .deploy-nav-item {
-    flex-shrink: 0;
-    width: auto;
-    border: 1px solid var(--border);
-    border-left: 1px solid var(--border);
-    border-radius: 999px;
-    margin-bottom: 0;
-    padding: 0.3rem 0.7rem;
-
-    &.active {
-      border-color: var(--accent);
-    }
-  }
-
-  .deploy-nav-desc,
-  .deploy-nav-legend {
-    display: none;
-  }
-
-  .deploy-nav-footer {
-    padding: 0.5rem 1rem;
-  }
-
-  .deploy-content-scroll {
-    padding: 1rem;
+  .modal-footer {
+    padding: var(--s-3) var(--s-4);
+    flex-wrap: wrap;
   }
 }

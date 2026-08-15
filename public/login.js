@@ -6,7 +6,11 @@
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __commonJS = (cb, mod) => function __require() {
-    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    try {
+      return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+    } catch (e4) {
+      throw mod = 0, e4;
+    }
   };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
@@ -79,7 +83,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e) {
+          } catch (e4) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -309,8 +313,8 @@
             invokeCallback = children;
             callback = callback(invokeCallback);
             var childKey = "" === nameSoFar ? "." + getElementKey(invokeCallback, 0) : nameSoFar;
-            isArrayImpl(callback) ? (escapedPrefix = "", null != childKey && (escapedPrefix = childKey.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c) {
-              return c;
+            isArrayImpl(callback) ? (escapedPrefix = "", null != childKey && (escapedPrefix = childKey.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c5) {
+              return c5;
             })) : null != callback && (isValidElement(callback) && (null != callback.key && (invokeCallback && invokeCallback.key === callback.key || checkKeyStringCoercion(callback.key)), escapedPrefix = cloneAndReplaceKey(
               callback,
               escapedPrefix + (null == callback.key || invokeCallback && invokeCallback.key === callback.key ? "" : ("" + callback.key).replace(
@@ -602,11 +606,11 @@
             );
           },
           count: function(children) {
-            var n = 0;
+            var n11 = 0;
             mapChildren(children, function() {
-              n++;
+              n11++;
             });
-            return n;
+            return n11;
           },
           toArray: function(children) {
             return mapChildren(children, function(child) {
@@ -991,7 +995,7 @@
         exports.useTransition = function() {
           return resolveDispatcher().useTransition();
         };
-        exports.version = "19.2.6";
+        exports.version = "19.2.7";
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
       })();
     }
@@ -1099,9 +1103,9 @@
           }
           return first;
         }
-        function compare(a, b) {
-          var diff = a.sortIndex - b.sortIndex;
-          return 0 !== diff ? diff : a.id - b.id;
+        function compare(a2, b) {
+          var diff = a2.sortIndex - b.sortIndex;
+          return 0 !== diff ? diff : a2.id - b.id;
         }
         function advanceTimers(currentTime) {
           for (var timer = peek(timerQueue); null !== timer; ) {
@@ -1295,7 +1299,7 @@
           try {
             testStringCoercion(key);
             var JSCompiler_inline_result = false;
-          } catch (e) {
+          } catch (e4) {
             JSCompiler_inline_result = true;
           }
           JSCompiler_inline_result && (console.error(
@@ -1509,8 +1513,8 @@
         exports.requestFormReset = function(form) {
           Internals.d.r(form);
         };
-        exports.unstable_batchedUpdates = function(fn, a) {
-          return fn(a);
+        exports.unstable_batchedUpdates = function(fn, a2) {
+          return fn(a2);
         };
         exports.useFormState = function(action, initialState, permalink) {
           return resolveDispatcher().useFormState(action, initialState, permalink);
@@ -1518,7 +1522,7 @@
         exports.useFormStatus = function() {
           return resolveDispatcher().useHostTransitionStatus();
         };
-        exports.version = "19.2.6";
+        exports.version = "19.2.7";
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
       })();
     }
@@ -1675,55 +1679,55 @@
               throw Error("Unable to find node on an unmounted component.");
             return alternate !== fiber ? null : fiber;
           }
-          for (var a = fiber, b = alternate; ; ) {
-            var parentA = a.return;
+          for (var a2 = fiber, b = alternate; ; ) {
+            var parentA = a2.return;
             if (null === parentA) break;
             var parentB = parentA.alternate;
             if (null === parentB) {
               b = parentA.return;
               if (null !== b) {
-                a = b;
+                a2 = b;
                 continue;
               }
               break;
             }
             if (parentA.child === parentB.child) {
               for (parentB = parentA.child; parentB; ) {
-                if (parentB === a) return assertIsMounted(parentA), fiber;
+                if (parentB === a2) return assertIsMounted(parentA), fiber;
                 if (parentB === b) return assertIsMounted(parentA), alternate;
                 parentB = parentB.sibling;
               }
               throw Error("Unable to find node on an unmounted component.");
             }
-            if (a.return !== b.return) a = parentA, b = parentB;
+            if (a2.return !== b.return) a2 = parentA, b = parentB;
             else {
               for (var didFindChild = false, _child = parentA.child; _child; ) {
-                if (_child === a) {
+                if (_child === a2) {
                   didFindChild = true;
-                  a = parentA;
+                  a2 = parentA;
                   b = parentB;
                   break;
                 }
                 if (_child === b) {
                   didFindChild = true;
                   b = parentA;
-                  a = parentB;
+                  a2 = parentB;
                   break;
                 }
                 _child = _child.sibling;
               }
               if (!didFindChild) {
                 for (_child = parentB.child; _child; ) {
-                  if (_child === a) {
+                  if (_child === a2) {
                     didFindChild = true;
-                    a = parentB;
+                    a2 = parentB;
                     b = parentA;
                     break;
                   }
                   if (_child === b) {
                     didFindChild = true;
                     b = parentB;
-                    a = parentA;
+                    a2 = parentA;
                     break;
                   }
                   _child = _child.sibling;
@@ -1734,14 +1738,14 @@
                   );
               }
             }
-            if (a.alternate !== b)
+            if (a2.alternate !== b)
               throw Error(
                 "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue."
               );
           }
-          if (3 !== a.tag)
+          if (3 !== a2.tag)
             throw Error("Unable to find node on an unmounted component.");
-          return a.stateNode.current === a ? fiber : alternate;
+          return a2.stateNode.current === a2 ? fiber : alternate;
         }
         function findCurrentHostFiberImpl(node) {
           var tag = node.tag;
@@ -1882,11 +1886,11 @@
           fiberStack[index$jscomp$0] = fiber;
           cursor.current = value;
         }
-        function requiredContext(c) {
-          null === c && console.error(
+        function requiredContext(c5) {
+          null === c5 && console.error(
             "Expected host context to exist. This error is likely caused by a bug in React. Please file an issue."
           );
-          return c;
+          return c5;
         }
         function pushHostContainer(fiber, nextRootInstance) {
           push(rootInstanceStackCursor, nextRootInstance, fiber);
@@ -2273,7 +2277,7 @@
         function willCoercionThrow(value) {
           try {
             return testStringCoercion(value), false;
-          } catch (e) {
+          } catch (e4) {
             return true;
           }
         }
@@ -2819,7 +2823,7 @@
           if ("undefined" === typeof doc) return null;
           try {
             return doc.activeElement || doc.body;
-          } catch (e) {
+          } catch (e4) {
             return doc.body;
           }
         }
@@ -3030,7 +3034,7 @@
           return indentation(indent) + describeTextNode(clientText, maxLength) + "\n";
         }
         function objectName(object) {
-          return Object.prototype.toString.call(object).replace(/^\[object (.*)\]$/, function(m, p0) {
+          return Object.prototype.toString.call(object).replace(/^\[object (.*)\]$/, function(m3, p0) {
             return p0;
           });
         }
@@ -3877,16 +3881,16 @@
             }
           }
         }
-        function batchedUpdates$1(fn, a, b) {
-          if (isInsideEventHandler) return fn(a, b);
+        function batchedUpdates$1(fn, a2, b) {
+          if (isInsideEventHandler) return fn(a2, b);
           isInsideEventHandler = true;
           try {
-            var JSCompiler_inline_result = fn(a);
+            var JSCompiler_inline_result = fn(a2);
             return JSCompiler_inline_result;
           } finally {
             if (isInsideEventHandler = false, null !== restoreTarget || null !== restoreQueue) {
-              if (flushSyncWork$1(), restoreTarget && (a = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a), fn))
-                for (a = 0; a < fn.length; a++) restoreStateOfTarget(fn[a]);
+              if (flushSyncWork$1(), restoreTarget && (a2 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a2), fn))
+                for (a2 = 0; a2 < fn.length; a2++) restoreStateOfTarget(fn[a2]);
             }
           }
         }
@@ -10677,11 +10681,11 @@
                   addendum = null === lastEffect ? " You returned null. If your effect does not require clean up, return undefined (or nothing)." : "function" === typeof lastEffect.then ? "\n\nIt looks like you wrote " + hookName + "(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:\n\n" + hookName + "(() => {\n  async function fetchData() {\n    // You can await here\n    const response = await MyAPI.getData(someId);\n    // ...\n  }\n  fetchData();\n}, [someId]); // Or [] if effect doesn't need props or state\n\nLearn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching" : " You returned: " + lastEffect;
                   runWithFiberInDEV(
                     finishedWork,
-                    function(n, a) {
+                    function(n11, a2) {
                       console.error(
                         "%s must not return anything besides a function, which is used for clean-up.%s",
-                        n,
-                        a
+                        n11,
+                        a2
                       );
                     },
                     hookName,
@@ -17988,8 +17992,8 @@
         function markRetryLaneImpl(fiber, retryLane) {
           fiber = fiber.memoizedState;
           if (null !== fiber && null !== fiber.dehydrated) {
-            var a = fiber.retryLane;
-            fiber.retryLane = 0 !== a && a < retryLane ? a : retryLane;
+            var a2 = fiber.retryLane;
+            fiber.retryLane = 0 !== a2 && a2 < retryLane ? a2 : retryLane;
           }
         }
         function markRetryLaneIfNotHydrated(fiber, retryLane) {
@@ -19338,7 +19342,7 @@
             });
             window.addEventListener("test", options$jscomp$0, options$jscomp$0);
             window.removeEventListener("test", options$jscomp$0, options$jscomp$0);
-          } catch (e) {
+          } catch (e4) {
             passiveBrowserEventsSupported = false;
           }
         var root = null, startText = null, fallbackText = null, EventInterface = {
@@ -21310,9 +21314,9 @@
         };
         (function() {
           var isomorphicReactPackageVersion = React3.version;
-          if ("19.2.6" !== isomorphicReactPackageVersion)
+          if ("19.2.7" !== isomorphicReactPackageVersion)
             throw Error(
-              'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.6\nLearn more: https://react.dev/warnings/version-mismatch")
+              'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.7\nLearn more: https://react.dev/warnings/version-mismatch")
             );
         })();
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
@@ -21336,10 +21340,10 @@
         if (!(function() {
           var internals = {
             bundleType: 1,
-            version: "19.2.6",
+            version: "19.2.7",
             rendererPackageName: "react-dom",
             currentDispatcherRef: ReactSharedInternals,
-            reconcilerVersion: "19.2.6"
+            reconcilerVersion: "19.2.7"
           };
           internals.overrideHookState = overrideHookState;
           internals.overrideHookStateDeletePath = overrideHookStateDeletePath;
@@ -21430,7 +21434,7 @@
           listenToAllSupportedEvents(container);
           return new ReactDOMHydrationRoot(initialChildren);
         };
-        exports.version = "19.2.6";
+        exports.version = "19.2.7";
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
       })();
     }
@@ -21450,31 +21454,121 @@
   });
 
   // src/login.jsx
-  var import_react2 = __toESM(require_react(), 1);
+  var import_react4 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // src/components/LoginApp.jsx
+  var import_react3 = __toESM(require_react(), 1);
+
+  // node_modules/@phosphor-icons/react/dist/defs/Eye.es.js
+  var e = __toESM(require_react(), 1);
+  var a = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement(
+        "path",
+        {
+          d: "M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Zm0,112a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ e.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M245.48,125.57c-.34-.78-8.66-19.23-27.24-37.81C201,70.54,171.38,50,128,50S55,70.54,37.76,87.76c-18.58,18.58-26.9,37-27.24,37.81a6,6,0,0,0,0,4.88c.34.77,8.66,19.22,27.24,37.8C55,185.47,84.62,206,128,206s73-20.53,90.24-37.75c18.58-18.58,26.9-37,27.24-37.8A6,6,0,0,0,245.48,125.57ZM128,194c-31.38,0-58.78-11.42-81.45-33.93A134.77,134.77,0,0,1,22.69,128,134.56,134.56,0,0,1,46.55,95.94C69.22,73.42,96.62,62,128,62s58.78,11.42,81.45,33.94A134.56,134.56,0,0,1,233.31,128C226.94,140.21,195,194,128,194Zm0-112a46,46,0,1,0,46,46A46.06,46.06,0,0,0,128,82Zm0,80a34,34,0,1,1,34-34A34,34,0,0,1,128,162Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M243.66,126.38c-.34-.76-8.52-18.89-26.83-37.2C199.87,72.22,170.7,52,128,52S56.13,72.22,39.17,89.18c-18.31,18.31-26.49,36.44-26.83,37.2a4.08,4.08,0,0,0,0,3.25c.34.77,8.52,18.89,26.83,37.2,17,17,46.14,37.17,88.83,37.17s71.87-20.21,88.83-37.17c18.31-18.31,26.49-36.43,26.83-37.2A4.08,4.08,0,0,0,243.66,126.38Zm-32.7,35c-23.07,23-51,34.62-83,34.62s-59.89-11.65-83-34.62A135.71,135.71,0,0,1,20.44,128,135.69,135.69,0,0,1,45,94.62C68.11,71.65,96,60,128,60s59.89,11.65,83,34.62A135.79,135.79,0,0,1,235.56,128,135.71,135.71,0,0,1,211,161.38ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
+  var e2 = __toESM(require_react(), 1);
+
+  // node_modules/@phosphor-icons/react/dist/lib/context.es.js
   var import_react = __toESM(require_react(), 1);
+  var o = (0, import_react.createContext)({
+    color: "currentColor",
+    size: "1em",
+    weight: "regular",
+    mirrored: false
+  });
+
+  // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
+  var p = e2.forwardRef(
+    (s6, a2) => {
+      const {
+        alt: n11,
+        color: r2,
+        size: t,
+        weight: o3,
+        mirrored: c5,
+        children: i,
+        weights: m3,
+        ...x
+      } = s6, {
+        color: d = "currentColor",
+        size: l2,
+        weight: f2 = "regular",
+        mirrored: g = false,
+        ...w
+      } = e2.useContext(o);
+      return /* @__PURE__ */ e2.createElement(
+        "svg",
+        {
+          ref: a2,
+          xmlns: "http://www.w3.org/2000/svg",
+          width: t != null ? t : l2,
+          height: t != null ? t : l2,
+          fill: r2 != null ? r2 : d,
+          viewBox: "0 0 256 256",
+          transform: c5 || g ? "scale(-1, 1)" : void 0,
+          ...w,
+          ...x
+        },
+        !!n11 && /* @__PURE__ */ e2.createElement("title", null, n11),
+        i,
+        m3.get(o3 != null ? o3 : f2)
+      );
+    }
+  );
+  p.displayName = "IconBase";
+
+  // node_modules/@phosphor-icons/react/dist/csr/Eye.es.js
+  var e3 = __toESM(require_react(), 1);
+  var o2 = e3.forwardRef((r2, t) => /* @__PURE__ */ e3.createElement(p, { ref: t, ...r2, weights: a }));
+  o2.displayName = "EyeIcon";
+  var n = o2;
+
+  // src/components/LoginApp.jsx
   function LoginApp() {
-    const [message, setMessage] = (0, import_react.useState)("Authentication is required.");
-    const [messageTone, setMessageTone] = (0, import_react.useState)("muted");
-    const [submitting, setSubmitting] = (0, import_react.useState)(false);
-    const usernameRef = (0, import_react.useRef)(null);
-    const passwordRef = (0, import_react.useRef)(null);
-    const showMessage = (text, tone = "muted") => {
-      setMessage(text);
-      setMessageTone(tone);
-    };
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+    const [message, setMessage] = (0, import_react3.useState)({ text: "", tone: "muted" });
+    const [submitting, setSubmitting] = (0, import_react3.useState)(false);
+    const usernameRef = (0, import_react3.useRef)(null);
+    const passwordRef = (0, import_react3.useRef)(null);
+    const handleSubmit = async (e4) => {
+      e4.preventDefault();
       const username = usernameRef.current.value.trim();
       const password = passwordRef.current.value;
       if (!username || !password) {
-        showMessage("Both fields are required.", "error");
+        setMessage({ text: "Enter both a username and a password.", tone: "error" });
         return;
       }
       setSubmitting(true);
-      showMessage("Authenticating...", "muted");
+      setMessage({ text: "", tone: "muted" });
       try {
         const response = await fetch("/api/auth/login", {
           method: "POST",
@@ -21486,19 +21580,21 @@
           const retryAfter = payload?.retryAfterSeconds ? ` Try again in about ${payload.retryAfterSeconds} second(s).` : "";
           throw new Error((payload.error || "Sign-in failed.") + retryAfter);
         }
-        showMessage("Authentication successful. Redirecting...", "success");
+        setMessage({ text: "Signed in. Taking you to the dashboard.", tone: "success" });
         window.location.replace("/");
       } catch (err) {
-        showMessage(err.message, "error");
+        setMessage({ text: err.message, tone: "error" });
         passwordRef.current?.focus();
         passwordRef.current?.select();
       } finally {
         setSubmitting(false);
       }
     };
-    return /* @__PURE__ */ import_react.default.createElement("main", { className: "login-shell" }, /* @__PURE__ */ import_react.default.createElement("section", { className: "login-panel" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "brand-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "Login"), /* @__PURE__ */ import_react.default.createElement("h1", null, "PM2 - Hawkeye "), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "A modern, secure, and lightweight web dashboard for monitoring and managing PM2 processes.")), /* @__PURE__ */ import_react.default.createElement("section", { className: "login-card" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "eyebrow" }, "Authentication"), /* @__PURE__ */ import_react.default.createElement("h2", null, "Sign in"), /* @__PURE__ */ import_react.default.createElement("p", { className: "subtle" }, "Enter your administrator credentials to continue."), /* @__PURE__ */ import_react.default.createElement("form", { className: "login-form", noValidate: true, onSubmit: handleSubmit }, /* @__PURE__ */ import_react.default.createElement("label", { className: "field" }, /* @__PURE__ */ import_react.default.createElement("span", null, "Username"), /* @__PURE__ */ import_react.default.createElement(
+    return /* @__PURE__ */ import_react3.default.createElement("main", { className: "login-shell" }, /* @__PURE__ */ import_react3.default.createElement("section", { className: "login-panel" }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "login-brand" }, /* @__PURE__ */ import_react3.default.createElement("span", { className: "login-brand-mark" }, /* @__PURE__ */ import_react3.default.createElement(n, { size: 20, weight: "bold", color: "var(--accent)" })), /* @__PURE__ */ import_react3.default.createElement("h1", null, /* @__PURE__ */ import_react3.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react3.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye")), /* @__PURE__ */ import_react3.default.createElement("p", { className: "subtle" }, "Live process monitoring, merged log streaming, and one-click deployments for the PM2 daemon on this server.")), /* @__PURE__ */ import_react3.default.createElement("div", { className: "login-form-side" }, /* @__PURE__ */ import_react3.default.createElement("h2", null, "Sign in"), /* @__PURE__ */ import_react3.default.createElement("p", { className: "hint" }, "Use the administrator credentials from your .env file."), /* @__PURE__ */ import_react3.default.createElement("form", { className: "login-form", noValidate: true, onSubmit: handleSubmit }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react3.default.createElement("label", { htmlFor: "login-username" }, "Username"), /* @__PURE__ */ import_react3.default.createElement(
       "input",
       {
+        id: "login-username",
+        className: "input",
         ref: usernameRef,
         name: "username",
         type: "text",
@@ -21508,20 +21604,22 @@
         autoFocus: true,
         required: true
       }
-    )), /* @__PURE__ */ import_react.default.createElement("label", { className: "field" }, /* @__PURE__ */ import_react.default.createElement("span", null, "Password"), /* @__PURE__ */ import_react.default.createElement(
+    )), /* @__PURE__ */ import_react3.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react3.default.createElement("label", { htmlFor: "login-password" }, "Password"), /* @__PURE__ */ import_react3.default.createElement(
       "input",
       {
+        id: "login-password",
+        className: "input",
         ref: passwordRef,
         name: "password",
         type: "password",
         autoComplete: "current-password",
         required: true
       }
-    )), /* @__PURE__ */ import_react.default.createElement("button", { className: "primary-button login-submit", type: "submit", disabled: submitting }, submitting ? "Signing in..." : "Sign in"), /* @__PURE__ */ import_react.default.createElement("p", { className: `form-message ${messageTone}` }, message)))));
+    )), /* @__PURE__ */ import_react3.default.createElement("button", { className: "btn btn--primary btn--block login-submit", type: "submit", disabled: submitting }, submitting ? "Signing in" : "Sign in"), /* @__PURE__ */ import_react3.default.createElement("p", { className: `login-message login-message--${message.tone}`, role: "status" }, message.text)))));
   }
 
   // src/login.jsx
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react2.default.createElement(LoginApp, null));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react4.default.createElement(LoginApp, null));
 })();
 /*! Bundled license information:
 
@@ -21569,3 +21667,4 @@ react-dom/cjs/react-dom-client.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
+//# sourceMappingURL=login.js.map

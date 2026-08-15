@@ -3,18 +3,24 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, {useCallback, useEffect, useState} from 'react';
-import {fetchJson} from '../services/api.js';
+import React, { useCallback, useEffect, useState } from 'react';
+import { fetchJson } from '../services/api.js';
 import GeneralSettings from './settings/GeneralSettings.jsx';
 import AlertingSettings from './settings/AlertingSettings.jsx';
+import { X } from './Icon.jsx';
 
-const PAGES = ['General', 'Alerting'];
+const PAGES = [
+  { id: 'General', label: 'General', desc: 'Server, sign in, retention' },
+  { id: 'Alerting', label: 'Alerting', desc: 'When and where to notify' },
+];
 
 /**
- * Full-screen settings overlay.
+ * Settings overlay.
  *
- * Closes on Escape key or backdrop click. Shows an unsaved-changes warning
- * if the user attempts to close while there are uncommitted alerting changes.
+ * Closes on Escape or a backdrop click. Unsaved alerting changes are surfaced
+ * in the dialog itself rather than through a native window.confirm(), which was
+ * the only browser-chrome dialog left in the app and could not be styled or
+ * dismissed consistently with everything else.
  *
  * @param {{
  *   onClose: () => void,
@@ -22,140 +28,160 @@ const PAGES = ['General', 'Alerting'];
  *   onCsrfRefresh: () => Promise<void>,
  * }} props
  */
-export default function Settings({onClose, csrfToken, onCsrfRefresh}) {
-    const [activePage, setActivePage] = useState('General');
-    const [alertingSettings, setAlertingSettings] = useState({});
-    const [alertingSettingsLoaded, setAlertingSettingsLoaded] = useState(false);
-    const [isDirty, setIsDirty] = useState(false);
-    const [saving, setSaving] = useState(false);
-    const [saveError, setSaveError] = useState(null);
-    const [saveSuccess, setSaveSuccess] = useState(false);
+export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
+  const [activePage, setActivePage] = useState('General');
+  const [alertingSettings, setAlertingSettings] = useState({});
+  const [alertingSettingsLoaded, setAlertingSettingsLoaded] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(null);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  /** True once the user has tried to close with unsaved alerting changes. */
+  const [confirmingClose, setConfirmingClose] = useState(false);
 
-    // Load alerting settings once on mount.
-    useEffect(() => {
-        fetchJson('/api/alerting/settings')
-            .then((payload) => {
-                setAlertingSettings(payload.settings ?? {});
-                setAlertingSettingsLoaded(true);
-            })
-            .catch(() => {
-                setAlertingSettingsLoaded(true);
-            });
-    }, []);
+  // Load alerting settings once on mount.
+  useEffect(() => {
+    fetchJson('/api/alerting/settings')
+      .then((payload) => {
+        setAlertingSettings(payload.settings ?? {});
+        setAlertingSettingsLoaded(true);
+      })
+      .catch(() => {
+        setAlertingSettingsLoaded(true);
+      });
+  }, []);
 
-    // Close on Escape key.
-    useEffect(() => {
-        /**
-         * @param {KeyboardEvent} e
-         */
-        function onKeyDown(e) {
-            if (e.key === 'Escape') handleClose();
-        }
-        document.addEventListener('keydown', onKeyDown);
-        return () => document.removeEventListener('keydown', onKeyDown);
-    });
-
-    /**
-     * Attempt to close; warn if there are unsaved changes.
-     */
-    const handleClose = useCallback(() => {
-        if (isDirty) {
-            if (!window.confirm('You have unsaved alerting changes. Close without saving?')) return;
-        }
-        onClose();
-    }, [isDirty, onClose]);
-
-    /**
-     * Handle alerting settings form changes.
-     *
-     * @param {Record<string, string>} updated
-     */
-    function handleAlertingChange(updated) {
-        setAlertingSettings(updated);
-        setIsDirty(true);
-        setSaveSuccess(false);
+  /**
+   * Attempt to close. With unsaved alerting changes the first attempt arms an
+   * in-dialog prompt instead of closing.
+   */
+  const handleClose = useCallback(() => {
+    if (isDirty) {
+      setConfirmingClose(true);
+      return;
     }
+    onClose();
+  }, [isDirty, onClose]);
 
-    /**
-     * Save alerting settings to the backend.
-     */
-    async function handleAlertingSave() {
-        if (!csrfToken) return;
-        setSaving(true);
-        setSaveError(null);
-        setSaveSuccess(false);
-        try {
-            await fetchJson('/api/alerting/settings', {
-                method: 'POST',
-                headers: {'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json'},
-                body: JSON.stringify({settings: alertingSettings}),
-            });
-            await onCsrfRefresh();
-            setIsDirty(false);
-            setSaveSuccess(true);
-        } catch (err) {
-            setSaveError(err.message ?? 'Save failed.');
-        } finally {
-            setSaving(false);
-        }
+  // Close on Escape.
+  useEffect(() => {
+    /** @param {KeyboardEvent} e */
+    function onKeyDown(e) {
+      if (e.key === 'Escape') handleClose();
     }
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [handleClose]);
 
-    /**
-     * Handle backdrop click - close only if clicking the backdrop itself.
-     *
-     * @param {React.MouseEvent} e
-     */
-    function handleOverlayClick(e) {
-        if (e.target === e.currentTarget) handleClose();
+  /**
+   * Handle alerting settings form changes.
+   *
+   * @param {Record<string, string>} updated
+   */
+  function handleAlertingChange(updated) {
+    setAlertingSettings(updated);
+    setIsDirty(true);
+    setSaveSuccess(false);
+  }
+
+  /**
+   * Save alerting settings to the backend.
+   */
+  async function handleAlertingSave() {
+    if (!csrfToken) return;
+    setSaving(true);
+    setSaveError(null);
+    setSaveSuccess(false);
+    try {
+      await fetchJson('/api/alerting/settings', {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ settings: alertingSettings }),
+      });
+      await onCsrfRefresh();
+      setIsDirty(false);
+      setSaveSuccess(true);
+    } catch (err) {
+      setSaveError(err.message ?? 'Save failed.');
+    } finally {
+      setSaving(false);
     }
+  }
 
-    return (
-        <div className="settings-overlay" onClick={handleOverlayClick} role="dialog" aria-modal="true" aria-label="Settings">
-            <div className="settings-modal">
-                <nav className="settings-sidebar">
-                    <p className="settings-sidebar-title">Settings</p>
-                    {PAGES.map((page) => (
-                        <button
-                            key={page}
-                            className={`settings-nav-item${activePage === page ? ' active' : ''}`}
-                            type="button"
-                            onClick={() => setActivePage(page)}
-                        >
-                            {page}
-                        </button>
-                    ))}
-                    <div className="settings-sidebar-close">
-                        <button type="button" onClick={handleClose}>Close</button>
-                    </div>
-                </nav>
+  /**
+   * Handle backdrop click - close only if clicking the backdrop itself.
+   *
+   * @param {React.MouseEvent} e
+   */
+  function handleOverlayClick(e) {
+    if (e.target === e.currentTarget) handleClose();
+  }
 
-                <div className="settings-body">
-                    {saveSuccess && activePage === 'Alerting' && (
-                        <div className="settings-notice settings-notice--success">
-                            Alerting settings saved successfully.
-                        </div>
-                    )}
+  return (
+    <div className="overlay" onClick={handleOverlayClick} role="dialog" aria-modal="true" aria-label="Settings">
+      <div className="modal modal--settings">
+        <nav className="settings-sidebar">
+          <p className="section-label settings-sidebar-title">Settings</p>
+          {PAGES.map((page) => (
+            <button
+              key={page.id}
+              className={`settings-nav-item${activePage === page.id ? ' active' : ''}`}
+              type="button"
+              onClick={() => setActivePage(page.id)}
+            >
+              <span className="settings-nav-label">{page.label}</span>
+              <span className="settings-nav-desc">{page.desc}</span>
+            </button>
+          ))}
+        </nav>
 
-                    {activePage === 'General' && (
-                        <GeneralSettings
-                            csrfToken={csrfToken}
-                            onCsrfRefresh={onCsrfRefresh}
-                        />
-                    )}
+        <div className="settings-main">
+          <div className="modal-header">
+            <span className="modal-title">{activePage}</span>
+            {confirmingClose ? (
+              <span className="confirm">
+                <span className="confirm-label">Discard unsaved changes?</span>
+                <span className="confirm-actions">
+                  <button type="button" className="btn btn--sm btn--danger" onClick={onClose}>
+                    Discard
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--sm btn--quiet"
+                    onClick={() => setConfirmingClose(false)}
+                  >
+                    Keep editing
+                  </button>
+                </span>
+              </span>
+            ) : (
+              <button type="button" className="btn btn--icon" aria-label="Close settings" onClick={handleClose}>
+                <X size={15} />
+              </button>
+            )}
+          </div>
 
-                    {activePage === 'Alerting' && alertingSettingsLoaded && (
-                        <AlertingSettings
-                            settings={alertingSettings}
-                            onChange={handleAlertingChange}
-                            onSave={handleAlertingSave}
-                            saving={saving}
-                            saveError={saveError}
-                            csrfToken={csrfToken}
-                            onCsrfRefresh={onCsrfRefresh}
-                        />
-                    )}
-                </div>
-            </div>
+          <div className="settings-body">
+            {saveSuccess && activePage === 'Alerting' && (
+              <div className="settings-notice settings-notice--success">Alerting settings saved.</div>
+            )}
+
+            {activePage === 'General' && <GeneralSettings csrfToken={csrfToken} onCsrfRefresh={onCsrfRefresh} />}
+
+            {activePage === 'Alerting' && alertingSettingsLoaded && (
+              <AlertingSettings
+                settings={alertingSettings}
+                onChange={handleAlertingChange}
+                onSave={handleAlertingSave}
+                saving={saving}
+                saveError={saveError}
+                csrfToken={csrfToken}
+                onCsrfRefresh={onCsrfRefresh}
+              />
+            )}
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
