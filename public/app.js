@@ -23087,6 +23087,7 @@
     onStop,
     onStart,
     onEditDeployment,
+    onShowMetrics = null,
     children
   }) {
     if (!selectedProcess) {
@@ -23099,8 +23100,8 @@
     const pid = details?.process?.pid;
     const isDeployed = Boolean(selectedDeployment) && !isOrphan;
     const stats = details ? [
-      { label: "cpu", value: `${details.process.cpu}%` },
-      { label: "mem", value: formatBytes(details.process.memory) },
+      { label: "cpu", value: `${details.process.cpu}%`, chartId: "metric-cpu" },
+      { label: "mem", value: formatBytes(details.process.memory), chartId: "metric-mem" },
       { label: "restarts", value: String(details.process.restarts) },
       {
         label: "uptime",
@@ -23134,7 +23135,20 @@
         question: `Stop ${selectedProcess.name}?`,
         choices: [{ label: "Stop", danger: true, onConfirm: onStop }]
       }
-    ) : /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: onStart }, "Start")))), stats ? /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip" }, stats.map((stat) => /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip-item", key: stat.label, title: stat.title }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-label" }, stat.label), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-value" }, stat.value)))) : /* @__PURE__ */ import_react6.default.createElement("p", { className: "stat-strip-empty" }, "Waiting for the first sample."), children);
+    ) : /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: onStart }, "Start")))), stats ? /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip" }, stats.map((stat) => {
+      const body = /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-label" }, stat.label), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-strip-value" }, stat.value));
+      return stat.chartId && onShowMetrics ? /* @__PURE__ */ import_react6.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "stat-strip-item stat-strip-item--link",
+          key: stat.label,
+          title: `Show ${stat.label} history in Metrics`,
+          onClick: () => onShowMetrics(stat.chartId)
+        },
+        body
+      ) : /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-strip-item", key: stat.label, title: stat.title }, body);
+    })) : /* @__PURE__ */ import_react6.default.createElement("p", { className: "stat-strip-empty" }, "Waiting for the first sample."), children);
   }
 
   // src/components/MetricsPanel.jsx
@@ -23267,8 +23281,8 @@
   }
 
   // src/components/MetricsPanel.jsx
-  function MetricCard({ label, value, samples, formatValue, color: color2, note, loading = false }) {
-    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-head" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-label" }, label), /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-value" }, value)), loading ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-skeleton" }) : samples.length >= 2 ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-chart" }, /* @__PURE__ */ import_react8.default.createElement(Sparkline, { samples, formatValue, color: color2, height: "100%" })) : /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-nodata" }, "Not enough history yet"), note && /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-foot" }, note));
+  function MetricCard({ id, label, value, samples, formatValue, color: color2, note, loading = false }) {
+    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card", id }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-head" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-label" }, label), /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-value" }, value)), loading ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-skeleton" }) : samples.length >= 2 ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-chart" }, /* @__PURE__ */ import_react8.default.createElement(Sparkline, { samples, formatValue, color: color2, height: "100%" })) : /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-nodata" }, "Not enough history yet"), note && /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-foot" }, note));
   }
   function MetricsPanel({
     details,
@@ -23288,6 +23302,7 @@
     return /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-panel fade-in" }, /* @__PURE__ */ import_react8.default.createElement("section", null, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-group-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "manage-section-title" }, "This process"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, isMonitored ? "Sampled every 20 s, kept for 24 hours" : "Live values only")), !isMonitored && /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-notice" }, /* @__PURE__ */ import_react8.default.createElement("p", { className: "hint" }, "History is not stored for this process, so these charts stay empty."), /* @__PURE__ */ import_react8.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: onEnableMonitoring }, "Turn on monitoring")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid" }, /* @__PURE__ */ import_react8.default.createElement(
       MetricCard,
       {
+        id: "metric-cpu",
         label: "CPU",
         value: details ? `${details.process.cpu}%` : "--",
         samples: metricsHistory.map((s6) => ({ t: s6.sampled_at, v: s6.cpu })),
@@ -23297,16 +23312,18 @@
     ), /* @__PURE__ */ import_react8.default.createElement(
       MetricCard,
       {
+        id: "metric-mem",
         label: "Memory",
         value: details ? formatBytes(details.process.memory) : "--",
         samples: metricsHistory.map((s6) => ({ t: s6.sampled_at, v: s6.memory })),
         formatValue: formatBytes,
         color: "var(--success)"
       }
-    ))), /* @__PURE__ */ import_react8.default.createElement("section", null, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-group-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "manage-section-title" }, "Host"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, "The machine this process runs on")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid" }, hostStats.map((stat) => /* @__PURE__ */ import_react8.default.createElement(
+    ))), /* @__PURE__ */ import_react8.default.createElement("section", null, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-group-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "manage-section-title" }, "Host"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, "The machine this process runs on, last 24 hours")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid" }, hostStats.map((stat) => /* @__PURE__ */ import_react8.default.createElement(
       MetricCard,
       {
         key: stat.key,
+        id: `metric-host-${stat.key}`,
         label: stat.label,
         value: stat.current != null ? pct(stat.current) : "--",
         samples: hostSamples.map((s6) => ({ t: s6.sampled_at, v: s6[stat.key] })),
@@ -34547,14 +34564,27 @@
     if (pct >= 75) return "warn";
     return "normal";
   }
-  function HostMetrics({ samples = [], current = null }) {
+  function HostMetrics({ samples = [], current = null, onShowMetrics = null }) {
     const latest = samples.length > 0 ? samples[samples.length - 1] : null;
     const stats = [
-      { label: "CPU", value: current?.cpu ?? latest?.cpu ?? null },
-      { label: "RAM", value: current?.ram ?? latest?.ram ?? null },
-      { label: "Disk", value: current?.disk ?? latest?.disk ?? null }
+      { label: "CPU", value: current?.cpu ?? latest?.cpu ?? null, chartId: "metric-host-cpu" },
+      { label: "RAM", value: current?.ram ?? latest?.ram ?? null, chartId: "metric-host-ram" },
+      { label: "Disk", value: current?.disk ?? latest?.disk ?? null, chartId: "metric-host-disk" }
     ];
-    return /* @__PURE__ */ import_react19.default.createElement("div", { className: "host-readout" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-readout-label" }, "Host"), stats.map((stat) => /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-stat", key: stat.label }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-stat-label" }, stat.label), /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-stat-value", "data-level": pressure(stat.value) }, stat.value != null ? `${stat.value.toFixed(0)}%` : "--"))));
+    return /* @__PURE__ */ import_react19.default.createElement("div", { className: "host-readout" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-readout-label" }, "Host"), stats.map((stat) => {
+      const body = /* @__PURE__ */ import_react19.default.createElement(import_react19.default.Fragment, null, /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-stat-label" }, stat.label), /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-stat-value", "data-level": pressure(stat.value) }, stat.value != null ? `${stat.value.toFixed(0)}%` : "--"));
+      return onShowMetrics ? /* @__PURE__ */ import_react19.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "host-stat host-stat--link",
+          key: stat.label,
+          title: `Show host ${stat.label} history in Metrics`,
+          onClick: () => onShowMetrics(stat.chartId)
+        },
+        body
+      ) : /* @__PURE__ */ import_react19.default.createElement("span", { className: "host-stat", key: stat.label }, body);
+    }));
   }
 
   // src/components/App.jsx
@@ -34830,6 +34860,18 @@
       setCsrfToken(session.csrfToken);
       return session.csrfToken;
     }, []);
+    const showMetric = (0, import_react20.useCallback)((chartId) => {
+      setActiveTab("metrics");
+      if (!chartId) return;
+      requestAnimationFrame(
+        () => requestAnimationFrame(() => {
+          const target = document.getElementById(chartId);
+          if (!target) return;
+          const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+          target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+        })
+      );
+    }, []);
     const onDeployStarted = (0, import_react20.useCallback)(
       (deploymentId) => {
         setDeployProgressLines([]);
@@ -35058,7 +35100,14 @@
         onClick: () => setDrawerOpen((o19) => !o19)
       },
       /* @__PURE__ */ import_react20.default.createElement(c4, { size: 15, weight: "bold" })
-    ), /* @__PURE__ */ import_react20.default.createElement("a", { className: "topbar-brand", href: "/", "aria-label": "pm2-hawkeye home" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react20.default.createElement(n2, { size: 15, weight: "bold", color: "var(--accent)" })), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react20.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye"))), /* @__PURE__ */ import_react20.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent }), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "conn-state", "data-connected": wsConnected, title: wsConnected ? "Live" : "Reconnecting" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "conn-dot" }), /* @__PURE__ */ import_react20.default.createElement("span", null, wsConnected ? "Live" : "Reconnecting")), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-divider" }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react20.default.createElement(
+    ), /* @__PURE__ */ import_react20.default.createElement("a", { className: "topbar-brand", href: "/", "aria-label": "pm2-hawkeye home" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react20.default.createElement(n2, { size: 15, weight: "bold", color: "var(--accent)" })), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react20.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye"))), /* @__PURE__ */ import_react20.default.createElement(
+      HostMetrics,
+      {
+        samples: hostMetrics,
+        current: hostCurrent,
+        onShowMetrics: hasSelection && selectedProcess ? showMetric : null
+      }
+    ), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "conn-state", "data-connected": wsConnected, title: wsConnected ? "Live" : "Reconnecting" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "conn-dot" }), /* @__PURE__ */ import_react20.default.createElement("span", null, wsConnected ? "Live" : "Reconnecting")), /* @__PURE__ */ import_react20.default.createElement("span", { className: "topbar-divider" }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react20.default.createElement(
       "button",
       {
         className: "btn btn--primary btn--sm",
@@ -35115,7 +35164,8 @@
         onRestart,
         onStop,
         onStart,
-        onEditDeployment
+        onEditDeployment,
+        onShowMetrics: showMetric
       },
       /* @__PURE__ */ import_react20.default.createElement("div", { className: "tabs", role: "tablist", "aria-label": "Process views" }, TABS.map((tab2) => /* @__PURE__ */ import_react20.default.createElement(
         "button",

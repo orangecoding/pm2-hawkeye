@@ -10,7 +10,12 @@
  */
 
 import { strict as assert } from 'node:assert';
-import { insertHostMetric, getHostMetrics, purgeOldHostMetrics } from '../lib/storage/hostMetricsStorage.js';
+import {
+  insertHostMetric,
+  getHostMetrics,
+  getHostMetricsWindow,
+  purgeOldHostMetrics,
+} from '../lib/storage/hostMetricsStorage.js';
 import { getDb } from '../lib/storage/db.js';
 
 function cleanHostMetrics() {
@@ -77,5 +82,51 @@ describe('hostMetricsStorage', () => {
     const remaining = getHostMetrics();
     assert.equal(remaining.length, 1);
     assert.equal(remaining[0].cpu, 15.0);
+  });
+  describe('getHostMetricsWindow', () => {
+    /** Insert a sample with an explicit timestamp, bypassing Date.now(). */
+    function insertAt(sampledAt, cpu, ram, disk) {
+      getDb()
+        .prepare('INSERT INTO host_metrics_history (sampled_at, cpu, ram, disk) VALUES (?, ?, ?, ?)')
+        .run(sampledAt, cpu, ram, disk);
+    }
+
+    it('averages samples that fall into the same bucket', () => {
+      const now = Date.now();
+      const bucket = 5 * 60 * 1000;
+      const base = Math.floor(now / bucket) * bucket;
+      insertAt(base + 1000, 10, 20, 30);
+      insertAt(base + 2000, 30, 40, 50);
+
+      const samples = getHostMetricsWindow(60 * 60 * 1000, bucket);
+      assert.equal(samples.length, 1);
+      assert.equal(samples[0].sampled_at, base);
+      assert.equal(samples[0].cpu, 20);
+      assert.equal(samples[0].ram, 30);
+      assert.equal(samples[0].disk, 40);
+    });
+
+    it('keeps separate buckets apart and orders them oldest-first', () => {
+      const bucket = 5 * 60 * 1000;
+      const base = Math.floor(Date.now() / bucket) * bucket;
+      insertAt(base - bucket + 1000, 10, 10, 10);
+      insertAt(base + 1000, 50, 50, 50);
+
+      const samples = getHostMetricsWindow(60 * 60 * 1000, bucket);
+      assert.equal(samples.length, 2);
+      assert.ok(samples[0].sampled_at < samples[1].sampled_at);
+      assert.equal(samples[0].cpu, 10);
+      assert.equal(samples[1].cpu, 50);
+    });
+
+    it('ignores samples older than the window', () => {
+      const bucket = 5 * 60 * 1000;
+      insertAt(Date.now() - 4 * 60 * 60 * 1000, 99, 99, 99);
+      insertAt(Date.now(), 1, 2, 3);
+
+      const samples = getHostMetricsWindow(60 * 60 * 1000, bucket);
+      assert.equal(samples.length, 1);
+      assert.equal(samples[0].cpu, 1);
+    });
   });
 });

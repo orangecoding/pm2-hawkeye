@@ -109,6 +109,29 @@
   white-space: nowrap;
 }
 
+/* cpu and mem are shortcuts into the Metrics tab, so they are real buttons.
+   They must not read as buttons: same type, one quiet hover cue. */
+.stat-strip-item--link {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  .stat-strip-value {
+    text-decoration: underline dotted var(--border-strong);
+    text-underline-offset: 0.25em;
+  }
+
+  &:hover .stat-strip-value,
+  &:focus-visible .stat-strip-value {
+    color: var(--text);
+    text-decoration-color: var(--accent-line);
+  }
+}
+
 .stat-strip-label {
   color: var(--muted);
 }

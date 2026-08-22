@@ -825,6 +825,25 @@ h4 {
   gap: var(--s-2);
   white-space: nowrap;
 }
+/* Same shortcut idiom as the process stat strip: a button that reads as text. */
+.host-stat--link {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.host-stat--link .host-stat-value {
+  text-decoration: underline dotted var(--border-strong);
+  text-underline-offset: 0.25em;
+}
+.host-stat--link:hover .host-stat-value,
+.host-stat--link:focus-visible .host-stat-value {
+  color: var(--text);
+  text-decoration-color: var(--accent-line);
+}
 .host-stat-label {
   font-size: 0.6875rem;
   color: var(--muted);
@@ -1123,6 +1142,26 @@ h4 {
   align-items: baseline;
   gap: var(--s-2);
   white-space: nowrap;
+}
+/* cpu and mem are shortcuts into the Metrics tab, so they are real buttons.
+   They must not read as buttons: same type, one quiet hover cue. */
+.stat-strip-item--link {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.stat-strip-item--link .stat-strip-value {
+  text-decoration: underline dotted var(--border-strong);
+  text-underline-offset: 0.25em;
+}
+.stat-strip-item--link:hover .stat-strip-value,
+.stat-strip-item--link:focus-visible .stat-strip-value {
+  color: var(--text);
+  text-decoration-color: var(--accent-line);
 }
 .stat-strip-label {
   color: var(--muted);
@@ -1502,20 +1541,13 @@ h4 {
   padding-bottom: var(--s-2);
   border-bottom: 0.0625rem solid var(--border);
 }
+/* One chart per row. Side by side, three to a row, each curve was a few
+   hundred pixels wide and a 24-hour window collapsed into an unreadable smear;
+   full width buys the horizontal resolution the time axis needs. */
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-4);
-}
-@media (max-width: 68rem) {
-  .metrics-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 45rem) {
-  .metrics-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 .metrics-notice {
   display: flex;
@@ -1556,7 +1588,9 @@ h4 {
   color: var(--text);
 }
 .metric-card-chart {
-  height: 4.5rem;
+  /* Taller than the old three-up cards: a full-width chart needs the vertical
+     room to stay in proportion. */
+  height: 8rem;
   margin: 0 calc(var(--s-1) * -1);
 }
 .metric-card-foot {

@@ -47,7 +47,13 @@ per-process function lives in exactly one of them.
 | **Manage** | Monitoring, per-process alerts, custom actions, deployment config, delete |
 
 Restart and Stop/Start sit in the process header, alongside a live strip of CPU,
-memory, restart count, and uptime that stays visible on every tab.
+memory, restart count, and uptime that stays visible on every tab. The cpu and
+mem readouts there, and the host CPU/RAM/disk readouts in the top bar, are
+shortcuts: clicking one opens the Metrics tab scrolled to that chart. They never
+draw a chart of their own, so every chart still lives in exactly one place.
+
+Process charts cover the last hour of samples; the host charts cover the full
+24-hour retention window, averaged into five-minute buckets.
 
 ---
 

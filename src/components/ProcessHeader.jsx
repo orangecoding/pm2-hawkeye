@@ -43,6 +43,10 @@ function shortRepo(url) {
  * before: whether Hawkeye deployed this process, from which repository and
  * branch, with Redeploy sitting directly next to Restart and Stop.
  *
+ * The cpu and mem readouts are shortcuts: clicking one opens the Metrics tab
+ * scrolled to that chart. They do not expand in place, so the charts still
+ * live in exactly one tab.
+ *
  * @param {{
  *   selectedProcess: object | null,
  *   details: object | null,
@@ -51,6 +55,7 @@ function shortRepo(url) {
  *   onStop: () => Promise<void>,
  *   onStart: () => Promise<void>,
  *   onEditDeployment: (pm2Name: string) => void,
+ *   onShowMetrics?: ((chartId: string) => void) | null,
  *   children?: React.ReactNode,
  * }} props
  */
@@ -62,6 +67,7 @@ export default function ProcessHeader({
   onStop,
   onStart,
   onEditDeployment,
+  onShowMetrics = null,
   children,
 }) {
   if (!selectedProcess) {
@@ -79,10 +85,12 @@ export default function ProcessHeader({
   const pid = details?.process?.pid;
   const isDeployed = Boolean(selectedDeployment) && !isOrphan;
 
+  // Only cpu and mem carry a chartId: those are the two the Metrics tab plots.
+  // The rest stay plain text rather than promising a chart that is not there.
   const stats = details
     ? [
-        { label: 'cpu', value: `${details.process.cpu}%` },
-        { label: 'mem', value: formatBytes(details.process.memory) },
+        { label: 'cpu', value: `${details.process.cpu}%`, chartId: 'metric-cpu' },
+        { label: 'mem', value: formatBytes(details.process.memory), chartId: 'metric-mem' },
         { label: 'restarts', value: String(details.process.restarts) },
         {
           label: 'uptime',
@@ -143,12 +151,30 @@ export default function ProcessHeader({
 
       {stats ? (
         <div className="stat-strip">
-          {stats.map((stat) => (
-            <div className="stat-strip-item" key={stat.label} title={stat.title}>
-              <span className="stat-strip-label">{stat.label}</span>
-              <span className="stat-strip-value">{stat.value}</span>
-            </div>
-          ))}
+          {stats.map((stat) => {
+            const body = (
+              <>
+                <span className="stat-strip-label">{stat.label}</span>
+                <span className="stat-strip-value">{stat.value}</span>
+              </>
+            );
+
+            return stat.chartId && onShowMetrics ? (
+              <button
+                type="button"
+                className="stat-strip-item stat-strip-item--link"
+                key={stat.label}
+                title={`Show ${stat.label} history in Metrics`}
+                onClick={() => onShowMetrics(stat.chartId)}
+              >
+                {body}
+              </button>
+            ) : (
+              <div className="stat-strip-item" key={stat.label} title={stat.title}>
+                {body}
+              </div>
+            );
+          })}
         </div>
       ) : (
         <p className="stat-strip-empty">Waiting for the first sample.</p>

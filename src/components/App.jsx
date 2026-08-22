@@ -443,6 +443,30 @@ export default function App() {
   }, []);
 
   /**
+   * Open the Metrics tab and bring one chart into view.
+   *
+   * The readouts in the top bar and the process header are shortcuts into this
+   * tab, not chart surfaces of their own: every chart is drawn once, in
+   * MetricsPanel.
+   *
+   * @param {string} [chartId] - id of the target MetricCard, e.g. 'metric-cpu'.
+   */
+  const showMetric = useCallback((chartId) => {
+    setActiveTab('metrics');
+    if (!chartId) return;
+    // The panel only mounts once the tab switches, so wait for it to be painted
+    // before scrolling. Two frames: one for the render, one for the layout.
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const target = document.getElementById(chartId);
+        if (!target) return;
+        const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+      }),
+    );
+  }, []);
+
+  /**
    * Called by DeployModal when the server has accepted a deployment request.
    * Switches the modal to the progress view for the given deployment ID.
    *
@@ -797,7 +821,11 @@ export default function App() {
             </span>
           </a>
 
-          <HostMetrics samples={hostMetrics} current={hostCurrent} />
+          <HostMetrics
+            samples={hostMetrics}
+            current={hostCurrent}
+            onShowMetrics={hasSelection && selectedProcess ? showMetric : null}
+          />
           <span className="topbar-spacer" />
 
           <div className="conn-state" data-connected={wsConnected} title={wsConnected ? 'Live' : 'Reconnecting'}>
@@ -869,6 +897,7 @@ export default function App() {
                 onStop={onStop}
                 onStart={onStart}
                 onEditDeployment={onEditDeployment}
+                onShowMetrics={showMetric}
               >
                 <div className="tabs" role="tablist" aria-label="Process views">
                   {TABS.map((tab) => (

@@ -22,22 +22,13 @@
 // A fixed track count rather than auto-fit, so a two-card section and a
 // three-card section share the same column edges instead of each stretching to
 // fill its own row.
+/* One chart per row. Side by side, three to a row, each curve was a few
+   hundred pixels wide and a 24-hour window collapsed into an unreadable smear;
+   full width buys the horizontal resolution the time axis needs. */
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-4);
-}
-
-@media (max-width: 68rem) {
-  .metrics-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 45rem) {
-  .metrics-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
 .metrics-notice {
@@ -84,7 +75,9 @@
 }
 
 .metric-card-chart {
-  height: 4.5rem;
+  /* Taller than the old three-up cards: a full-width chart needs the vertical
+     room to stay in proportion. */
+  height: 8rem;
   margin: 0 calc(var(--s-1) * -1);
 }
 

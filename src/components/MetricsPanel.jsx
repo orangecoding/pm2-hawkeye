@@ -10,7 +10,12 @@ import { formatBytes } from '../services/format.js';
 /**
  * One metric with its history drawn underneath.
  *
+ * The `id` is the scroll target for the matching readout in the top bar or the
+ * process header, which are shortcuts into this panel rather than second homes
+ * for the chart.
+ *
  * @param {{
+ *   id?: string,
  *   label: string,
  *   value: string,
  *   samples: { t: number, v: number }[],
@@ -20,9 +25,9 @@ import { formatBytes } from '../services/format.js';
  *   loading?: boolean,
  * }} props
  */
-function MetricCard({ label, value, samples, formatValue, color, note, loading = false }) {
+function MetricCard({ id, label, value, samples, formatValue, color, note, loading = false }) {
   return (
-    <div className="metric-card">
+    <div className="metric-card" id={id}>
       <div className="metric-card-head">
         <span className="metric-card-label">{label}</span>
         <span className="metric-card-value">{value}</span>
@@ -94,6 +99,7 @@ export default function MetricsPanel({
 
         <div className="metrics-grid">
           <MetricCard
+            id="metric-cpu"
             label="CPU"
             value={details ? `${details.process.cpu}%` : '--'}
             samples={metricsHistory.map((s) => ({ t: s.sampled_at, v: s.cpu }))}
@@ -101,6 +107,7 @@ export default function MetricsPanel({
             color="var(--accent)"
           />
           <MetricCard
+            id="metric-mem"
             label="Memory"
             value={details ? formatBytes(details.process.memory) : '--'}
             samples={metricsHistory.map((s) => ({ t: s.sampled_at, v: s.memory }))}
@@ -113,13 +120,14 @@ export default function MetricsPanel({
       <section>
         <div className="metrics-group-head">
           <h2 className="manage-section-title">Host</h2>
-          <span className="hint">The machine this process runs on</span>
+          <span className="hint">The machine this process runs on, last 24 hours</span>
         </div>
 
         <div className="metrics-grid">
           {hostStats.map((stat) => (
             <MetricCard
               key={stat.key}
+              id={`metric-host-${stat.key}`}
               label={stat.label}
               value={stat.current != null ? pct(stat.current) : '--'}
               samples={hostSamples.map((s) => ({ t: s.sampled_at, v: s[stat.key] }))}
