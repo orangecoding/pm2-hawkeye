@@ -19,6 +19,8 @@ import {
   setDeploying,
   updateLastDeployed,
   deleteDeployment,
+  getWatchedDeployments,
+  updateWatchState,
 } from '../lib/storage/deploymentStorage.js';
 
 function cleanDb() {
@@ -121,5 +123,45 @@ describe('deploymentStorage', () => {
   it('rejects duplicate pm2_name (UNIQUE constraint)', () => {
     createDeployment(baseOpts());
     assert.throws(() => createDeployment(baseOpts()), /UNIQUE constraint failed/);
+  });
+  describe('branch watching', () => {
+    it('defaults to watching disabled with a 5 minute interval', () => {
+      createDeployment(baseOpts());
+      const row = getDeploymentByName('test-app');
+      assert.equal(row.watch_enabled, 0);
+      assert.equal(row.watch_interval_minutes, 5);
+      assert.equal(row.watch_last_checked_at, null);
+      assert.equal(row.watch_last_commit, null);
+      assert.equal(row.watch_last_error, null);
+    });
+
+    it('stores the watch fields passed to createDeployment', () => {
+      createDeployment(baseOpts({ watchEnabled: true, watchIntervalMinutes: 15 }));
+      const row = getDeploymentByName('test-app');
+      assert.equal(row.watch_enabled, 1);
+      assert.equal(row.watch_interval_minutes, 15);
+    });
+
+    it('getWatchedDeployments returns only watched records', () => {
+      createDeployment(baseOpts({ pm2Name: 'watched', watchEnabled: true }));
+      createDeployment(baseOpts({ pm2Name: 'unwatched' }));
+      const watched = getWatchedDeployments();
+      assert.equal(watched.length, 1);
+      assert.equal(watched[0].pm2_name, 'watched');
+    });
+
+    it('updateWatchState writes check time, commit and error', () => {
+      const { id } = createDeployment(baseOpts({ watchEnabled: true }));
+      updateWatchState(id, { lastCheckedAt: 1234, lastCommit: 'abc', lastError: 'boom' });
+      let row = getDeploymentById(id);
+      assert.equal(row.watch_last_checked_at, 1234);
+      assert.equal(row.watch_last_commit, 'abc');
+      assert.equal(row.watch_last_error, 'boom');
+
+      // A later successful poll clears the error text.
+      updateWatchState(id, { lastCheckedAt: 5678, lastCommit: 'abc', lastError: null });
+      row = getDeploymentById(id);
+      assert.equal(row.watch_last_error, null);
+    });
   });
 });

@@ -395,6 +395,13 @@ A real-time progress log streams each step in the browser.
 | Pre-setup script | Shell script that runs in `DEPLOY_BASE_DIR` before cloning. Use it to check requirements or install OS packages. |
 | Post-setup script | Shell script that runs in the cloned repo directory after the build. Use it for migrations, file permission fixes, etc. |
 
+**Auto-deploy** (optional)
+
+| Field | Description |
+|---|---|
+| Deploy automatically | Poll the branch and redeploy whenever it gets new commits. Off by default. |
+| Check every | Minutes between polls, 1 to 1440. Defaults to 5. |
+
 **Environment** (optional)
 
 | Field | Description |
@@ -411,6 +418,18 @@ A process that PM2-Hawkeye deployed is marked as such in two places: a git icon 
 In that form, **Save and redeploy** saves and immediately runs `git pull --rebase`, reinstall, rebuild, and PM2 restart. **Save only** persists the configuration without touching the running process. The same Redeploy button also sits in the **Manage** tab, next to the repository URL and the time of the last successful deploy.
 
 Deployments whose PM2 process is gone appear under **Not deployed** in the sidebar with their own Redeploy and Delete buttons.
+
+### Auto-deploy on new commits
+
+Every deployment can watch its own branch. Enable **Auto-deploy** in the deploy form and pick a poll interval; PM2-Hawkeye then runs `git ls-remote` against the repository on that interval and compares the branch head with the commit checked out on disk. When the branch has moved ahead, it runs exactly the same sequence as a manual redeploy: pull, install, build, post-setup script, PM2 restart. Progress streams over the same WebSocket, so an auto-deploy is visible live if you happen to have the app open.
+
+Three details worth knowing:
+
+- **Local changes are discarded.** A manual redeploy asks before throwing away uncommitted tracked changes in the deploy directory. An auto-deploy has nobody to ask, so it runs `git reset --hard` and continues. Do not edit deployed files in place on a watched deployment.
+- **One deploy per commit.** The SHA that triggered a deploy is recorded before the deploy starts, so a failing deploy waits for the next commit instead of retrying every interval.
+- **Results are notified.** If a webhook or ntfy reporter is enabled under **Settings - Alerting**, each auto-deploy sends one notification with its outcome. Unlike log alerts, this ignores the log-level threshold, the throttle window, and the per-process alerts toggle.
+
+The **Manage** tab shows the current state under the repository URL: the interval, when the branch was last checked, and the last error if a poll or an auto-deploy failed. Polling uses whatever git credentials the server already has, with prompts disabled, so a private repository without a usable key fails fast and records the error instead of hanging.
 
 ### Configuration
 

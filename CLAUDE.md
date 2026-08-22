@@ -163,6 +163,7 @@ When adding new backend functionality, add corresponding tests. The CI pipeline 
 - The backend connects to the local PM2 daemon on startup using the PM2 programmatic API. If PM2 is not running, the server will fail to initialize.
 - Log streaming is implemented by tailing PM2 log files directly and reading up to `MAX_LOG_BYTES_PER_FILE` bytes from each file. Logs from stdout and stderr are merged and sorted by timestamp prefix.
 - PM2 custom actions (`axm_actions`) are exposed dynamically based on what each running process registers with PM2.
+- Deployments can opt into branch watching. `lib/service/branchWatcher.js` ticks once a minute, polls `git ls-remote` for every deployment whose own interval has elapsed, and runs the normal redeploy pipeline when the branch head differs from both the local `HEAD` and the last SHA it already deployed. Watcher-triggered deploys pass `autoConfirm` so `runDeploy` discards local changes instead of waiting for a confirmation nobody will give, and the outcome is sent through the alerting reporters.
 
 ### Frontend structure
 

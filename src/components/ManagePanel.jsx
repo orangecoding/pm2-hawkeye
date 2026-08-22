@@ -157,6 +157,15 @@ export default function ManagePanel({
                   ? `, last deployed ${new Date(selectedDeployment.last_deployed_at).toLocaleString('en-GB')}`
                   : ', never deployed successfully'}
               </p>
+              {selectedDeployment.watch_enabled === 1 && (
+                <p className="hint">
+                  {`Auto-deploy every ${selectedDeployment.watch_interval_minutes} min`}
+                  {selectedDeployment.watch_last_checked_at
+                    ? `, last checked ${new Date(selectedDeployment.watch_last_checked_at).toLocaleTimeString('en-GB')}`
+                    : ', not checked yet'}
+                  {selectedDeployment.watch_last_error ? `. Last error: ${selectedDeployment.watch_last_error}` : ''}
+                </p>
+              )}
             </div>
             {/* Same label as the header button; one action, one name. */}
             <div className="manage-row-control">

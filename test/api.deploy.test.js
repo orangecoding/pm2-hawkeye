@@ -14,6 +14,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import { getDb } from '../lib/storage/db.js';
+import { setDeploying } from '../lib/storage/deploymentStorage.js';
 import app from '../lib/transport/server.js';
 
 function cleanDb() {
@@ -186,5 +187,85 @@ describe('Deployment API', () => {
 
     const getRes = await request(app).get('/api/deployments').set('Cookie', cookie);
     expect(getRes.body.deployments).to.have.length(0);
+  });
+  // ── Branch watching ────────────────────────────────────────────────────────
+
+  it('POST /api/deployments stores the branch-watch fields', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, watchEnabled: true, watchIntervalMinutes: 15 });
+
+    const getRes = await request(app).get('/api/deployments').set('Cookie', cookie);
+    expect(getRes.body.deployments[0].watch_enabled).to.equal(1);
+    expect(getRes.body.deployments[0].watch_interval_minutes).to.equal(15);
+  });
+
+  it('POST /api/deployments defaults branch watching to off', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send(validBody);
+
+    const getRes = await request(app).get('/api/deployments').set('Cookie', cookie);
+    expect(getRes.body.deployments[0].watch_enabled).to.equal(0);
+    expect(getRes.body.deployments[0].watch_interval_minutes).to.equal(5);
+  });
+
+  it('POST /api/deployments returns 400 for a non-numeric watch interval', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, watchEnabled: true, watchIntervalMinutes: 'soon' });
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.include('watch interval');
+  });
+
+  it('POST /api/deployments returns 400 for an out-of-range watch interval', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, watchEnabled: true, watchIntervalMinutes: 0 });
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.include('watch interval');
+  });
+
+  it('PUT /api/deployments/:id updates the branch-watch fields', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const createRes = await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send(validBody);
+
+    // The create above kicks off a fire-and-forget deploy, and edits are
+    // rejected while one is in progress.
+    setDeploying(createRes.body.deploymentId, false);
+
+    const sessionRes = await request(app).get('/api/auth/session').set('Cookie', cookie);
+
+    const putRes = await request(app)
+      .put(`/api/deployments/${createRes.body.deploymentId}`)
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', sessionRes.body.csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, watchEnabled: true, watchIntervalMinutes: 30 });
+
+    expect(putRes.status).to.equal(200);
+    expect(putRes.body.deployment.watch_enabled).to.equal(1);
+    expect(putRes.body.deployment.watch_interval_minutes).to.equal(30);
   });
 });

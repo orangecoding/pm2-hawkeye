@@ -19,6 +19,9 @@ const STAGE_LABELS = {
   start: 'Start',
 };
 
+/** Default branch-watch poll interval in minutes, mirroring the backend default. */
+const DEFAULT_WATCH_INTERVAL_MINUTES = 5;
+
 /**
  * Default values for pm2Options fields shown in the form.
  */
@@ -215,6 +218,10 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
   const [pm2Opts, setPm2Opts] = useState(() =>
     isEdit ? pm2OptsFromStored(editingDeployment.pm2_options) : { ...DEFAULT_PM2_OPTIONS },
   );
+  const [watchEnabled, setWatchEnabled] = useState(() => Boolean(editingDeployment?.watch_enabled));
+  const [watchIntervalMinutes, setWatchIntervalMinutes] = useState(
+    () => editingDeployment?.watch_interval_minutes ?? DEFAULT_WATCH_INTERVAL_MINUTES,
+  );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
 
@@ -256,6 +263,8 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
       postSetupScript: postSetupScript.trim(),
       envVars: envVarsObj,
       pm2Options,
+      watchEnabled,
+      watchIntervalMinutes: Number(watchIntervalMinutes) || DEFAULT_WATCH_INTERVAL_MINUTES,
     };
   }, [
     envVars,
@@ -268,6 +277,8 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
     buildCmd,
     preSetupScript,
     postSetupScript,
+    watchEnabled,
+    watchIntervalMinutes,
   ]);
 
   const onSubmit = useCallback(
@@ -447,6 +458,30 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
               onChange={(e) => setPostSetupScript(e.target.value)}
             />
           </Field>
+        </Fieldset>
+
+        <Fieldset
+          title="Auto-deploy"
+          summary={watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || 'main'}` : 'Off'}
+        >
+          <Toggle
+            label="Deploy automatically when the branch gets new commits"
+            hint="Hawkeye polls the remote branch and runs the same redeploy it runs when you click Redeploy. Local changes in the deploy directory are discarded without asking, since nobody is there to confirm."
+            checked={watchEnabled}
+            onChange={setWatchEnabled}
+          />
+          {watchEnabled && (
+            <Field label="Check every" hint="Minutes between polls, 1 to 1440.">
+              <input
+                className="input"
+                type="number"
+                min={1}
+                max={1440}
+                value={watchIntervalMinutes}
+                onChange={(e) => setWatchIntervalMinutes(e.target.value)}
+              />
+            </Field>
+          )}
         </Fieldset>
 
         <Fieldset

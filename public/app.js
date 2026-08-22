@@ -999,7 +999,7 @@
         exports.useTransition = function() {
           return resolveDispatcher().useTransition();
         };
-        exports.version = "19.2.7";
+        exports.version = "19.2.8";
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
       })();
     }
@@ -1526,7 +1526,7 @@
         exports.useFormStatus = function() {
           return resolveDispatcher().useHostTransitionStatus();
         };
-        exports.version = "19.2.7";
+        exports.version = "19.2.8";
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
       })();
     }
@@ -21318,9 +21318,9 @@
         };
         (function() {
           var isomorphicReactPackageVersion = React18.version;
-          if ("19.2.7" !== isomorphicReactPackageVersion)
+          if ("19.2.8" !== isomorphicReactPackageVersion)
             throw Error(
-              'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.7\nLearn more: https://react.dev/warnings/version-mismatch")
+              'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.8\nLearn more: https://react.dev/warnings/version-mismatch")
             );
         })();
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
@@ -21344,10 +21344,10 @@
         if (!(function() {
           var internals = {
             bundleType: 1,
-            version: "19.2.7",
+            version: "19.2.8",
             rendererPackageName: "react-dom",
             currentDispatcherRef: ReactSharedInternals,
-            reconcilerVersion: "19.2.7"
+            reconcilerVersion: "19.2.8"
           };
           internals.overrideHookState = overrideHookState;
           internals.overrideHookStateDeletePath = overrideHookStateDeletePath;
@@ -21438,7 +21438,7 @@
           listenToAllSupportedEvents(container);
           return new ReactDOMHydrationRoot(initialChildren);
         };
-        exports.version = "19.2.7";
+        exports.version = "19.2.8";
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
       })();
     }
@@ -23452,7 +23452,7 @@
         csrfToken,
         onCsrfRefresh
       }
-    )), selectedDeployment && !isOrphan && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Deployment")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, selectedDeployment.repo_url), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Branch ", selectedDeployment.branch, selectedDeployment.last_deployed_at ? `, last deployed ${new Date(selectedDeployment.last_deployed_at).toLocaleString("en-GB")}` : ", never deployed successfully")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn", onClick: () => onEditDeployment(name2) }, "Redeploy")))), (isOrphan || isDeletable) && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section manage-section--danger" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Remove")), isOrphan && /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Orphaned record"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "This process is tracked by Hawkeye but no longer exists in PM2. Removing it deletes its stored history.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement(
+    )), selectedDeployment && !isOrphan && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Deployment")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, selectedDeployment.repo_url), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Branch ", selectedDeployment.branch, selectedDeployment.last_deployed_at ? `, last deployed ${new Date(selectedDeployment.last_deployed_at).toLocaleString("en-GB")}` : ", never deployed successfully"), selectedDeployment.watch_enabled === 1 && /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, `Auto-deploy every ${selectedDeployment.watch_interval_minutes} min`, selectedDeployment.watch_last_checked_at ? `, last checked ${new Date(selectedDeployment.watch_last_checked_at).toLocaleTimeString("en-GB")}` : ", not checked yet", selectedDeployment.watch_last_error ? `. Last error: ${selectedDeployment.watch_last_error}` : "")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn", onClick: () => onEditDeployment(name2) }, "Redeploy")))), (isOrphan || isDeletable) && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section manage-section--danger" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Remove")), isOrphan && /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Orphaned record"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "This process is tracked by Hawkeye but no longer exists in PM2. Removing it deletes its stored history.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement(
       ConfirmButton,
       {
         label: "Remove record",
@@ -33876,6 +33876,7 @@
     post_setup: "Post-setup",
     start: "Start"
   };
+  var DEFAULT_WATCH_INTERVAL_MINUTES = 5;
   var DEFAULT_PM2_OPTIONS = {
     interpreter: "node",
     interpreter_args: "",
@@ -33961,6 +33962,10 @@
     const [pm2Opts, setPm2Opts] = (0, import_react18.useState)(
       () => isEdit ? pm2OptsFromStored(editingDeployment.pm2_options) : { ...DEFAULT_PM2_OPTIONS }
     );
+    const [watchEnabled, setWatchEnabled] = (0, import_react18.useState)(() => Boolean(editingDeployment?.watch_enabled));
+    const [watchIntervalMinutes, setWatchIntervalMinutes] = (0, import_react18.useState)(
+      () => editingDeployment?.watch_interval_minutes ?? DEFAULT_WATCH_INTERVAL_MINUTES
+    );
     const [submitting, setSubmitting] = (0, import_react18.useState)(false);
     const [error, setError] = (0, import_react18.useState)("");
     const setOpt = (key, val) => setPm2Opts((prev) => ({ ...prev, [key]: val }));
@@ -33991,7 +33996,9 @@
         preSetupScript: preSetupScript.trim(),
         postSetupScript: postSetupScript.trim(),
         envVars: envVarsObj,
-        pm2Options
+        pm2Options,
+        watchEnabled,
+        watchIntervalMinutes: Number(watchIntervalMinutes) || DEFAULT_WATCH_INTERVAL_MINUTES
       };
     }, [
       envVars,
@@ -34003,7 +34010,9 @@
       installArgs,
       buildCmd,
       preSetupScript,
-      postSetupScript
+      postSetupScript,
+      watchEnabled,
+      watchIntervalMinutes
     ]);
     const onSubmit = (0, import_react18.useCallback)(
       async (e34) => {
@@ -34150,6 +34159,32 @@
         }
       )
     )), /* @__PURE__ */ import_react18.default.createElement(
+      Fieldset,
+      {
+        title: "Auto-deploy",
+        summary: watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || "main"}` : "Off"
+      },
+      /* @__PURE__ */ import_react18.default.createElement(
+        Toggle,
+        {
+          label: "Deploy automatically when the branch gets new commits",
+          hint: "Hawkeye polls the remote branch and runs the same redeploy it runs when you click Redeploy. Local changes in the deploy directory are discarded without asking, since nobody is there to confirm.",
+          checked: watchEnabled,
+          onChange: setWatchEnabled
+        }
+      ),
+      watchEnabled && /* @__PURE__ */ import_react18.default.createElement(Field, { label: "Check every", hint: "Minutes between polls, 1 to 1440." }, /* @__PURE__ */ import_react18.default.createElement(
+        "input",
+        {
+          className: "input",
+          type: "number",
+          min: 1,
+          max: 1440,
+          value: watchIntervalMinutes,
+          onChange: (e34) => setWatchIntervalMinutes(e34.target.value)
+        }
+      ))
+    ), /* @__PURE__ */ import_react18.default.createElement(
       Fieldset,
       {
         title: "Environment",
@@ -34577,6 +34612,7 @@
     const wsRef = (0, import_react20.useRef)(null);
     const logPausedRef = (0, import_react20.useRef)(false);
     const pausedBufferRef = (0, import_react20.useRef)([]);
+    const activeDeploymentIdRef = (0, import_react20.useRef)(null);
     const loadProcesses = (0, import_react20.useCallback)(async () => {
       try {
         const payload = await fetchJson("/api/processes");
@@ -34614,6 +34650,13 @@
       return () => clearInterval(interval);
     }, [loadHostMetrics]);
     (0, import_react20.useEffect)(() => {
+      activeDeploymentIdRef.current = activeDeploymentId;
+    }, [activeDeploymentId]);
+    (0, import_react20.useEffect)(() => {
+      const interval = setInterval(loadDeployments, 6e4);
+      return () => clearInterval(interval);
+    }, [loadDeployments]);
+    (0, import_react20.useEffect)(() => {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const ws = new WebSocket(`${protocol}//${window.location.host}/ws/stream`);
       wsRef.current = ws;
@@ -34646,6 +34689,10 @@
           } else if (type === "error") {
             setError(data.error);
           } else if (type === "deploy_progress") {
+            if (activeDeploymentIdRef.current !== data.deploymentId) {
+              if (data.stage === "done" || data.stage === "error") loadDeployments();
+              return;
+            }
             if (data.status === "confirm") {
               setDeployConfirmChanges(data.line);
             } else {
@@ -35238,4 +35285,3 @@ react/cjs/react-jsx-runtime.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
-//# sourceMappingURL=app.js.map

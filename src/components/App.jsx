@@ -106,6 +106,8 @@ export default function App() {
   const logPausedRef = useRef(false);
   /** Lines that arrived while the stream was paused, flushed on resume. */
   const pausedBufferRef = useRef([]);
+  /** Mirrors activeDeploymentId for the WebSocket handler, which closes over its first render. */
+  const activeDeploymentIdRef = useRef(null);
 
   const loadProcesses = useCallback(async () => {
     try {
@@ -153,6 +155,17 @@ export default function App() {
     return () => clearInterval(interval);
   }, [loadHostMetrics]);
 
+  useEffect(() => {
+    activeDeploymentIdRef.current = activeDeploymentId;
+  }, [activeDeploymentId]);
+
+  // Poll deployments every 60 s so branch-watch state (last check, last error)
+  // stays current even when no deployment is running.
+  useEffect(() => {
+    const interval = setInterval(loadDeployments, 60_000);
+    return () => clearInterval(interval);
+  }, [loadDeployments]);
+
   // Single unified WebSocket connection for all real-time data.
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -194,6 +207,13 @@ export default function App() {
         } else if (type === 'error') {
           setError(data.error);
         } else if (type === 'deploy_progress') {
+          // Deploys started by the branch watcher run in the background and are
+          // broadcast to every client. Only the deployment the user is watching
+          // right now may feed the modal; the rest just refresh the list.
+          if (activeDeploymentIdRef.current !== data.deploymentId) {
+            if (data.stage === 'done' || data.stage === 'error') loadDeployments();
+            return;
+          }
           if (data.status === 'confirm') {
             // Deployment is paused waiting for the user to approve discarding local changes.
             setDeployConfirmChanges(data.line);
