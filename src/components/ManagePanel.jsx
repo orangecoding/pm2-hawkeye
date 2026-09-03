@@ -16,6 +16,15 @@ const MONITORING_BENEFITS = [
 ];
 
 /**
+ * Levels the picker offers, most verbose first.
+ *
+ * Mirrors LOG_LEVELS in lib/service/logLevelService.js. `silent` is included
+ * because a noisy process sometimes needs shutting up, but it is set apart in
+ * the row so it is not picked by accident.
+ */
+const LOG_LEVEL_CHOICES = ['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'silent'];
+
+/**
  * Manage tab: every function that changes the selected process.
  *
  * Before this panel existed these controls were spread across four surfaces:
@@ -30,6 +39,8 @@ const MONITORING_BENEFITS = [
  *   onToggleMonitoring: (pm2Name: string, currentlyMonitored: boolean) => void,
  *   onToggleAlerts: (pm2Name: string, alertsEnabled: boolean) => void,
  *   actions: object[],
+ *   logLevel: { supported: boolean|null, level: string|null, busy: boolean },
+ *   onSetLogLevel: (level: string) => Promise<void>,
  *   selectedProcessId: string | null,
  *   csrfToken: string | null,
  *   onCsrfRefresh: () => Promise<string>,
@@ -45,6 +56,8 @@ export default function ManagePanel({
   onToggleMonitoring,
   onToggleAlerts,
   actions,
+  logLevel,
+  onSetLogLevel,
   selectedProcessId,
   csrfToken,
   onCsrfRefresh,
@@ -58,6 +71,7 @@ export default function ManagePanel({
   const alertsEnabled = selectedProcess.alertsEnabled !== false;
   const statusLower = String(selectedProcess.status ?? '').toLowerCase();
   const isDeletable = !isOrphan && ['stopped', 'errored', 'error', 'one-launch-status'].includes(statusLower);
+  const isOnline = statusLower === 'online';
 
   return (
     <div className="manage-panel fade-in">
@@ -125,6 +139,51 @@ export default function ManagePanel({
           </div>
         )}
       </section>
+
+      {/* ── Log level ───────────────────────────────────────────────────── */}
+      {isOnline && (
+        <section className="manage-section">
+          <div className="manage-section-head">
+            <h2 className="manage-section-title">Log level</h2>
+            <p className="hint">
+              Changes how much the running process logs, without restarting it. It applies to this instance only and
+              is gone as soon as the process restarts.
+            </p>
+          </div>
+
+          <div className="manage-row">
+            <div className="manage-row-text">
+              <p className="manage-row-label">
+                Current level
+                {logLevel.level && <span className="tag tag--accent">{logLevel.level}</span>}
+              </p>
+              {logLevel.supported === false && (
+                <p className="hint">
+                  {name} did not answer. It needs the Hawkeye log-level listener, see the README for the snippet.
+                </p>
+              )}
+            </div>
+            <div className="manage-row-control">
+              <div className="level-picker" role="group" aria-label="Log level">
+                {LOG_LEVEL_CHOICES.map((choice) => (
+                  <button
+                    key={choice}
+                    type="button"
+                    className="btn btn--sm"
+                    data-active={logLevel.level === choice}
+                    data-quiet={choice === 'silent'}
+                    aria-pressed={logLevel.level === choice}
+                    disabled={logLevel.busy}
+                    onClick={() => onSetLogLevel(choice)}
+                  >
+                    {choice}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── PM2 custom actions ──────────────────────────────────────────── */}
       {actions.length > 0 && (

@@ -166,3 +166,26 @@
     color: var(--critical);
   }
 }
+
+/* ── Log level picker ───────────────────────────────────────────────────────
+   One button per level rather than a dropdown, matching the custom-action
+   rows: every level is visible without opening anything, and the active one
+   reads at a glance. `silent` is dimmed because it stops output entirely.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.level-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  justify-content: flex-end;
+
+  .btn[data-active='true'] {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .btn[data-quiet='true'] {
+    margin-left: var(--s-2);
+    color: var(--muted);
+  }
+}

@@ -30,6 +30,7 @@
 - **Persistent monitoring** - CPU/memory history and logs stored in SQLite, survives page reloads
 - **One-click restart** - restart any process with an inline confirmation
 - **PM2 custom actions** - trigger any `axm_actions` your processes expose
+- **Runtime log level** - switch a running process to `debug` without restarting it, reverts on restart
 - **Secure by default** - scrypt password hashing, CSRF protection, rate limiting, CSP headers
 - **Single WebSocket connection** - no polling, no SSE; all real-time data over one multiplexed stream
 - **Alerting** - webhook and ntfy notifications when monitored processes log errors, with per-process mute and throttle support
@@ -44,7 +45,7 @@ per-process function lives in exactly one of them.
 |---|---|
 | **Logs** | Merged stdout and stderr, level filters, search, pause, copy, download |
 | **Metrics** | CPU and memory history for the process, next to host CPU, RAM, and disk |
-| **Manage** | Monitoring, per-process alerts, custom actions, deployment config, delete |
+| **Manage** | Monitoring, per-process alerts, log level, custom actions, deployment config, delete |
 
 Restart and Stop/Start sit in the process header, alongside a live strip of CPU,
 memory, restart count, and uptime that stays visible on every tab. The cpu and
@@ -255,11 +256,14 @@ tx2.action('clear cache', (done) => {
 });
 
 // Action with a parameter
-tx2.action('set log level', (level, done) => {
-  logger.setLevel(level);
-  done({ level });
+tx2.action('set sample rate', (rate, done) => {
+  sampler.rate = Number(rate);
+  done({ rate: sampler.rate });
 });
 ```
+
+For log levels specifically there is a dedicated control that needs no tx2, see
+[Runtime log level](#runtime-log-level) below.
 
 `done()` must always be called - it signals to PM2 that the action has completed and sends the return value back to the dashboard.
 
@@ -276,6 +280,57 @@ Once your process is running, open it in PM2-Hawkeye and go to the **Manage** ta
 | `tx2.metric(name, fn)` | Expose a live metric |
 | `tx2.counter(name)` | Incrementing counter |
 | `tx2.histogram(name)` | Value distribution histogram |
+
+---
+
+## Runtime log level
+
+The **Manage** tab can raise or lower the log level of a running process
+without restarting it. The level applies to that instance only: as soon as the
+process restarts it is back to whatever the application boots with.
+
+Node has no log level that can be changed from outside a process, so the
+application has to listen. PM2 opens an IPC channel to every Node process it
+starts, so this needs no dependency:
+
+```js
+process.on('message', (packet) => {
+  if (packet?.topic !== 'hawkeye:log-level') return;
+  if (packet.data?.level) logger.level = packet.data.level;
+  process.send({
+    type: 'hawkeye:log-level:ack',
+    data: { level: logger.level },
+  });
+});
+```
+
+The answer is identified by its `type`, not by a topic: PM2 delivers `topic`
+intact on the way in but strips it from anything a process sends back.
+
+A message with `data.level` sets the level. A message without one only
+answers, which is how the dashboard reads the current level without changing
+anything. Always answer with the level the logger actually ended up on, not
+the one that was requested, so the dashboard shows the truth. A process that
+does not answer within 1.5 s is reported in the UI as not supporting this.
+
+Accepted levels: `trace`, `debug`, `info`, `warn`, `error`, `fatal`, `silent`.
+
+This works with any logger that can change its level at runtime. It is tested
+with pino, where three details are worth knowing:
+
+- `logger.level = 'debug'` takes effect immediately, and child loggers without
+  a level of their own follow the root, including ones created earlier.
+- A child created with an explicit `{ level: 'warn' }` stays at `warn`.
+- `pino-pretty` only formats and does not filter, but a transport configured
+  with its own `level` is a second gate and will still drop lines.
+
+One display note: the Logs tab detects a line's level from its text. Pretty
+printed output (`DEBUG (1234): ...`) is recognised, raw pino JSON is not,
+because it writes levels as numbers (`"level":20`). Those lines still show,
+they just carry no level badge and are unaffected by the level filters.
+
+Processes with no IPC channel, so anything not started as a Node process by
+PM2, cannot be controlled this way and will report as unsupported.
 
 ---
 

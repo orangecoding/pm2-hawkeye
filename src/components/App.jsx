@@ -95,6 +95,15 @@ export default function App() {
   const [logPaused, setLogPaused] = useState(false);
   /** How many lines are waiting behind the pause, shown in the toolbar. */
   const [pausedCount, setPausedCount] = useState(0);
+  /**
+   * Last known log level of the selected process, plus whether it answered.
+   *
+   * `supported` is null until the process has been asked, false when it did
+   * not answer within the service's timeout.
+   *
+   * @type {[{supported: boolean|null, level: string|null, busy: boolean}, React.Dispatch<object>]}
+   */
+  const [logLevel, setLogLevel] = useState({ supported: null, level: null, busy: false });
   /** @type {['logs'|'metrics'|'manage', React.Dispatch<string>]} the active process tab */
   const [activeTab, setActiveTab] = useState('logs');
   const logRef = useRef(null);
@@ -342,6 +351,11 @@ export default function App() {
     fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`)
       .then((payload) => setActions(payload.actions || []))
       .catch(() => setActions([]));
+
+    setLogLevel({ supported: null, level: null, busy: false });
+    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`)
+      .then((payload) => setLogLevel({ supported: payload.supported, level: payload.level, busy: false }))
+      .catch(() => setLogLevel({ supported: false, level: null, busy: false }));
   }, [selectedProcessId, wsConnected]);
 
   // Poll metrics every 20 s (matching the scheduler interval) so sparklines
@@ -793,6 +807,44 @@ export default function App() {
     [csrfToken, refreshCsrf],
   );
 
+  /**
+   * Set the log level of the running process.
+   *
+   * The level is not stored anywhere: it lives in the process until it
+   * restarts, and the answer reports what the process actually ended up with,
+   * which can differ from what was asked for.
+   *
+   * @param {string} level
+   */
+  const onSetLogLevel = useCallback(
+    async (level) => {
+      if (!csrfToken || selectedProcessId == null) return;
+      setLogLevel((prev) => ({ ...prev, busy: true }));
+      try {
+        const payload = await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`, {
+          method: 'POST',
+          headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ level }),
+        });
+        setLogLevel({ supported: payload.supported, level: payload.level, busy: false });
+
+        // A narrowed log filter would hide the very lines the user just asked
+        // for, which reads as the feature being broken. The filter row has no
+        // debug button, so widen it here rather than leaving a dead end.
+        if (payload.supported && (level === 'debug' || level === 'trace')) {
+          setLogFilters((prev) => (prev.size < 3 ? new Set([...prev, 'debug']) : prev));
+        }
+      } catch (err) {
+        setLogLevel((prev) => ({ ...prev, busy: false }));
+        setError(err.message);
+      } finally {
+        // The token is consumed even when the request was rejected.
+        await refreshCsrf();
+      }
+    },
+    [csrfToken, selectedProcessId, refreshCsrf],
+  );
+
   const hasSelection = selectedProcessId != null;
 
   return (
@@ -981,6 +1033,8 @@ export default function App() {
                     onToggleMonitoring={onToggleMonitoring}
                     onToggleAlerts={onToggleAlerts}
                     actions={actions}
+                    logLevel={logLevel}
+                    onSetLogLevel={onSetLogLevel}
                     selectedProcessId={selectedProcessId}
                     csrfToken={csrfToken}
                     onCsrfRefresh={refreshCsrf}

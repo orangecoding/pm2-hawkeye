@@ -163,6 +163,16 @@ When adding new backend functionality, add corresponding tests. The CI pipeline 
 - The backend connects to the local PM2 daemon on startup using the PM2 programmatic API. If PM2 is not running, the server will fail to initialize.
 - Log streaming is implemented by tailing PM2 log files directly and reading up to `MAX_LOG_BYTES_PER_FILE` bytes from each file. Logs from stdout and stderr are merged and sorted by timestamp prefix.
 - PM2 custom actions (`axm_actions`) are exposed dynamically based on what each running process registers with PM2.
+- The Manage tab can set the log level of a running process. Node exposes no
+  log level from outside a process, so `lib/service/logLevelService.js` sends a
+  `hawkeye:log-level` IPC message through `pm2.sendDataToProcessId` and waits up
+  to 1.5 s for a `hawkeye:log-level:ack` answer, which arrives on the log bus
+  that `lib/service/logBus.js` already has open. PM2 names the bus event after
+  the packet's `type` and strips `topic` from anything a process sends back, so
+  the answer travels as its own bus event. The acknowledged level is held in
+  memory against the process's `pm_uptime`, so a restart makes the entry stale
+  and the level reverts to whatever the application boots with. Applications opt
+  in with a ten-line `process.on('message')` listener, see the README.
 - Deployments can opt into branch watching. `lib/service/branchWatcher.js` ticks once a minute, polls `git ls-remote` for every deployment whose own interval has elapsed, and runs the normal redeploy pipeline when the branch head differs from both the local `HEAD` and the last SHA it already deployed. Watcher-triggered deploys pass `autoConfirm` so `runDeploy` discards local changes instead of waiting for a confirmation nobody will give, and the outcome is sent through the alerting reporters.
 
 ### Frontend structure
@@ -177,7 +187,7 @@ App.jsx                 shell, all state and API calls, tab routing
 │   └── (tabs)
 ├── LogStream.jsx       Logs tab
 ├── MetricsPanel.jsx    Metrics tab - process and host charts
-├── ManagePanel.jsx     Manage tab - monitoring, alerts, actions, deploy, delete
+├── ManagePanel.jsx     Manage tab - monitoring, alerts, log level, actions, deploy, delete
 │   └── Actions.jsx     PM2 axm_actions, one row per action
 ├── Settings.jsx        overlay, General + Alerting pages
 ├── DeployModal.jsx     single-scroll deploy form and live progress view

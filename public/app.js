@@ -23427,12 +23427,15 @@
     "Log lines stored and searchable for 14 days",
     "Alerts when a matching log line appears"
   ];
+  var LOG_LEVEL_CHOICES = ["trace", "debug", "info", "warn", "error", "fatal", "silent"];
   function ManagePanel({
     selectedProcess,
     isMonitored,
     onToggleMonitoring,
     onToggleAlerts,
     actions,
+    logLevel,
+    onSetLogLevel,
     selectedProcessId,
     csrfToken,
     onCsrfRefresh,
@@ -23446,6 +23449,7 @@
     const alertsEnabled = selectedProcess.alertsEnabled !== false;
     const statusLower = String(selectedProcess.status ?? "").toLowerCase();
     const isDeletable = !isOrphan && ["stopped", "errored", "error", "one-launch-status"].includes(statusLower);
+    const isOnline = statusLower === "online";
     return /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-panel fade-in" }, /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Monitoring"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Without monitoring you see live data only. Nothing survives a page reload.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Store history for ", name2, isMonitored && /* @__PURE__ */ import_react10.default.createElement("span", { className: "tag tag--accent" }, "On")), !isMonitored && /* @__PURE__ */ import_react10.default.createElement("ul", { className: "manage-benefits" }, MONITORING_BENEFITS.map((benefit) => /* @__PURE__ */ import_react10.default.createElement("li", { key: benefit }, /* @__PURE__ */ import_react10.default.createElement(n, { size: 11, weight: "bold" }), /* @__PURE__ */ import_react10.default.createElement("span", null, benefit))))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, isMonitored ? /* @__PURE__ */ import_react10.default.createElement(
       ConfirmButton,
       {
@@ -23461,7 +23465,20 @@
         checked: alertsEnabled,
         onChange: (e34) => onToggleAlerts(name2, e34.target.checked)
       }
-    ), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-label" }, alertsEnabled ? "Enabled" : "Disabled"))))), actions.length > 0 && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Custom actions"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Actions this process registered with PM2 through axm_actions.")), /* @__PURE__ */ import_react10.default.createElement(
+    ), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-label" }, alertsEnabled ? "Enabled" : "Disabled"))))), isOnline && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Log level"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Changes how much the running process logs, without restarting it. It applies to this instance only and is gone as soon as the process restarts.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Current level", logLevel.level && /* @__PURE__ */ import_react10.default.createElement("span", { className: "tag tag--accent" }, logLevel.level)), logLevel.supported === false && /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, name2, " did not answer. It needs the Hawkeye log-level listener, see the README for the snippet.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "level-picker", role: "group", "aria-label": "Log level" }, LOG_LEVEL_CHOICES.map((choice) => /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        key: choice,
+        type: "button",
+        className: "btn btn--sm",
+        "data-active": logLevel.level === choice,
+        "data-quiet": choice === "silent",
+        "aria-pressed": logLevel.level === choice,
+        disabled: logLevel.busy,
+        onClick: () => onSetLogLevel(choice)
+      },
+      choice
+    )))))), actions.length > 0 && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Custom actions"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Actions this process registered with PM2 through axm_actions.")), /* @__PURE__ */ import_react10.default.createElement(
       Actions,
       {
         actions,
@@ -34635,6 +34652,7 @@
     const [logSearch, setLogSearch] = (0, import_react20.useState)("");
     const [logPaused, setLogPaused] = (0, import_react20.useState)(false);
     const [pausedCount, setPausedCount] = (0, import_react20.useState)(0);
+    const [logLevel, setLogLevel] = (0, import_react20.useState)({ supported: null, level: null, busy: false });
     const [activeTab, setActiveTab] = (0, import_react20.useState)("logs");
     const logRef = (0, import_react20.useRef)(null);
     const autoStickRef = (0, import_react20.useRef)(true);
@@ -34797,6 +34815,8 @@
       if (isOpen) ws.send(JSON.stringify({ type: "select", data: { processId: String(selectedProcessId) } }));
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`).then((payload) => setMetricsHistory(payload.samples || [])).catch(() => setMetricsHistory([]));
       fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`).then((payload) => setActions(payload.actions || [])).catch(() => setActions([]));
+      setLogLevel({ supported: null, level: null, busy: false });
+      fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`).then((payload) => setLogLevel({ supported: payload.supported, level: payload.level, busy: false })).catch(() => setLogLevel({ supported: false, level: null, busy: false }));
     }, [selectedProcessId, wsConnected]);
     (0, import_react20.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0 || !isSelectedMonitored) return;
@@ -35089,6 +35109,29 @@
       },
       [csrfToken, refreshCsrf]
     );
+    const onSetLogLevel = (0, import_react20.useCallback)(
+      async (level) => {
+        if (!csrfToken || selectedProcessId == null) return;
+        setLogLevel((prev) => ({ ...prev, busy: true }));
+        try {
+          const payload = await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`, {
+            method: "POST",
+            headers: { "X-CSRF-Token": csrfToken, "Content-Type": "application/json" },
+            body: JSON.stringify({ level })
+          });
+          setLogLevel({ supported: payload.supported, level: payload.level, busy: false });
+          if (payload.supported && (level === "debug" || level === "trace")) {
+            setLogFilters((prev) => prev.size < 3 ? /* @__PURE__ */ new Set([...prev, "debug"]) : prev);
+          }
+        } catch (err) {
+          setLogLevel((prev) => ({ ...prev, busy: false }));
+          setError(err.message);
+        } finally {
+          await refreshCsrf();
+        }
+      },
+      [csrfToken, selectedProcessId, refreshCsrf]
+    );
     const hasSelection = selectedProcessId != null;
     return /* @__PURE__ */ import_react20.default.createElement(o.Provider, { value: ICON_DEFAULTS }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react20.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react20.default.createElement("header", { className: "app-topbar" }, /* @__PURE__ */ import_react20.default.createElement(
       "button",
@@ -35233,6 +35276,8 @@
           onToggleMonitoring,
           onToggleAlerts,
           actions,
+          logLevel,
+          onSetLogLevel,
           selectedProcessId,
           csrfToken,
           onCsrfRefresh: refreshCsrf,

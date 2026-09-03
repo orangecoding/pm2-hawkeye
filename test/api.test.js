@@ -161,4 +161,42 @@ describe('API Integration Tests', () => {
       expect(locked.status).to.equal(429);
     });
   });
+  describe('Runtime log level', () => {
+    it('should return 401 for GET when unauthenticated', async () => {
+      const res = await request(app).get('/api/processes/1/log-level');
+      expect(res.status).to.equal(401);
+    });
+
+    it('should return 401 for POST when unauthenticated', async () => {
+      const res = await request(app).post('/api/processes/1/log-level').send({ level: 'debug' });
+      expect(res.status).to.equal(401);
+    });
+
+    it('should return 403 for POST without a CSRF token', async () => {
+      const { cookie } = await getAuthSession();
+      const res = await request(app).post('/api/processes/1/log-level').set('Cookie', cookie).send({ level: 'debug' });
+      expect(res.status).to.equal(403);
+    });
+
+    it('should return 400 for an unsupported level', async () => {
+      const { cookie, csrfToken } = await getAuthSession();
+      const res = await request(app)
+        .post('/api/processes/1/log-level')
+        .set('Cookie', cookie)
+        .set('X-CSRF-Token', csrfToken)
+        .send({ level: 'chatty' });
+      expect(res.status).to.equal(400);
+      expect(res.body.error).to.include('level');
+    });
+
+    it('should return 400 when the level is missing', async () => {
+      const { cookie, csrfToken } = await getAuthSession();
+      const res = await request(app)
+        .post('/api/processes/1/log-level')
+        .set('Cookie', cookie)
+        .set('X-CSRF-Token', csrfToken)
+        .send({});
+      expect(res.status).to.equal(400);
+    });
+  });
 });
