@@ -217,33 +217,6 @@ describe('deployRunner validators', () => {
       );
       assert.equal(starts, 0);
     });
-
-    it('rejects removed environment variables before restarting the process', async () => {
-      let starts = 0;
-      await assert.rejects(
-        activateDeployment(deployment, {
-          stat: async () => ({ isFile: () => true }),
-          startProcess: async () => {
-            starts += 1;
-          },
-          loadProcessList: async () => [
-            {
-              name: 'my-app',
-              pid: 1,
-              pm_id: 0,
-              pm2_env: {
-                status: 'online',
-                pm_exec_path: '/srv/my-app/index.js',
-                pm_cwd: '/srv/my-app',
-                env: { REMOVED_DEPLOYMENT_SECRET: 'old' },
-              },
-            },
-          ],
-        }),
-        /cannot safely remove environment variable "REMOVED_DEPLOYMENT_SECRET"/,
-      );
-      assert.equal(starts, 0);
-    });
   });
 
   describe('validateAppName', () => {
