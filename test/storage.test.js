@@ -168,6 +168,30 @@ describe('logStorage', () => {
     assert.ok(entries.every((e) => e.logged_at < base + 3000));
   });
 
+  it('paginates entries sharing a timestamp without skipping them', () => {
+    const { id } = addMonitored('cursor-app');
+    const timestamp = Date.now();
+    for (let i = 0; i < 4; i++) {
+      insertLogEntry(id, {
+        loggedAt: timestamp,
+        logLevel: 'info',
+        log: JSON.stringify({ lines: [`line ${i}`], raw: `line ${i}` }),
+      });
+    }
+
+    const first = getLogEntries(id, { limit: 2 });
+    const second = getLogEntries(id, {
+      limit: 2,
+      before: first.at(-1).logged_at,
+      beforeId: first.at(-1).id,
+    });
+
+    assert.deepEqual(
+      [...first, ...second].map((entry) => JSON.parse(entry.log).raw),
+      ['line 3', 'line 2', 'line 1', 'line 0'],
+    );
+  });
+
   it('purgeOldLogs removes records older than the retention window', () => {
     const { id } = addMonitored('log-app');
     const db = getDb();

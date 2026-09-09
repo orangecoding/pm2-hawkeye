@@ -138,25 +138,40 @@ describe('API Integration Tests', () => {
   });
 
   describe('Login lockout (aggressive)', () => {
-    // A distinct User-Agent gives this client its own rate-limit identity, so the
-    // long lockout it triggers does not bleed into other tests' shared identity.
-    const ua = 'lockout-spec-agent';
+    // A distinct forwarded IP gives this client its own rate-limit identity, so
+    // the long lockout it triggers does not bleed into later integration tests.
+    const clientIp = '192.0.2.123';
     const wrong = { username: 'admin', password: 'definitely-wrong' };
 
     it('locks the client out after 3 failed attempts, rejecting even valid credentials', async () => {
       // First two failures: 401, no lockout yet.
-      await request(app).post('/api/auth/login').set('User-Agent', ua).send(wrong).expect(401);
-      await request(app).post('/api/auth/login').set('User-Agent', ua).send(wrong).expect(401);
+      await request(app)
+        .post('/api/auth/login')
+        .set('X-Forwarded-For', clientIp)
+        .set('User-Agent', 'rotated-agent-1')
+        .send(wrong)
+        .expect(401);
+      await request(app)
+        .post('/api/auth/login')
+        .set('X-Forwarded-For', clientIp)
+        .set('User-Agent', 'rotated-agent-2')
+        .send(wrong)
+        .expect(401);
 
       // Third failure: still 401, but now a lockout is applied (retryAfterSeconds set).
-      const third = await request(app).post('/api/auth/login').set('User-Agent', ua).send(wrong);
+      const third = await request(app)
+        .post('/api/auth/login')
+        .set('X-Forwarded-For', clientIp)
+        .set('User-Agent', 'rotated-agent-3')
+        .send(wrong);
       expect(third.status).to.equal(401);
       expect(third.body.retryAfterSeconds).to.be.a('number').that.is.greaterThan(0);
 
       // While locked, even the correct credentials are rejected with 429.
       const locked = await request(app)
         .post('/api/auth/login')
-        .set('User-Agent', ua)
+        .set('X-Forwarded-For', clientIp)
+        .set('User-Agent', 'rotated-agent-4')
         .send({ username: 'admin', password: 'admin' });
       expect(locked.status).to.equal(429);
     });

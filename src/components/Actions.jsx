@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { fetchJson } from '../services/api.js';
+import { fetchWithCsrf } from '../services/api.js';
 import { CheckCircle, WarningCircle } from './Icon.jsx';
 
 /**
@@ -55,12 +55,12 @@ export default function Actions({ actions, selectedProcessId, csrfToken, onCsrfR
     try {
       const body = { actionName: name };
       if (requiresParams && params.trim()) body.params = params.trim();
-      await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions/trigger`, {
+      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions/trigger`, {
+        onCsrfRefresh,
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      await onCsrfRefresh?.();
       setResult({ ok: true, text: `${name} triggered.` });
     } catch (err) {
       setResult({ ok: false, text: err.message ?? `${name} failed.` });

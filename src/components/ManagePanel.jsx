@@ -79,9 +79,7 @@ export default function ManagePanel({
       <section className="manage-section">
         <div className="manage-section-head">
           <h2 className="manage-section-title">Monitoring</h2>
-          <p className="hint">
-            Without monitoring you see live data only. Nothing survives a page reload.
-          </p>
+          <p className="hint">Without monitoring you see live data only. Nothing survives a page reload.</p>
         </div>
 
         <div className="manage-row">
@@ -146,8 +144,8 @@ export default function ManagePanel({
           <div className="manage-section-head">
             <h2 className="manage-section-title">Log level</h2>
             <p className="hint">
-              Changes how much the running process logs, without restarting it. It applies to this instance only and
-              is gone as soon as the process restarts.
+              Changes how much the running process logs, without restarting it. It applies to this instance only and is
+              gone as soon as the process restarts.
             </p>
           </div>
 

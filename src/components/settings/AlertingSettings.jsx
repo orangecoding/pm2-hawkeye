@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { fetchJson } from '../../services/api.js';
+import { fetchWithCsrf } from '../../services/api.js';
 import { CheckCircle, Plus, WarningCircle, X } from '../Icon.jsx';
 
 /**
@@ -136,7 +136,12 @@ function KeyValueList({ label, hint, rows, keyPlaceholder, valuePlaceholder, onA
             value={row.value}
             onChange={(e) => onUpdate(i, 'value', e.target.value)}
           />
-          <button type="button" className="btn btn--icon" aria-label={`Remove ${label} ${i + 1}`} onClick={() => onRemove(i)}>
+          <button
+            type="button"
+            className="btn btn--icon"
+            aria-label={`Remove ${label} ${i + 1}`}
+            onClick={() => onRemove(i)}
+          >
             <X size={13} />
           </button>
         </div>
@@ -252,12 +257,12 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
     setWebhookTesting(true);
     setWebhookTestResult(null);
     try {
-      const result = await fetchJson('/api/alerting/test/webhook', {
+      const result = await fetchWithCsrf('/api/alerting/test/webhook', {
+        onCsrfRefresh,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: webhookUrl, headers: webhookHeaders, body: webhookBody }),
       });
-      await onCsrfRefresh();
       setWebhookTestResult(result);
     } catch (err) {
       setWebhookTestResult({ ok: false, error: err.message });
@@ -271,12 +276,12 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
     setNtfyTesting(true);
     setNtfyTestResult(null);
     try {
-      const result = await fetchJson('/api/alerting/test/ntfy', {
+      const result = await fetchWithCsrf('/api/alerting/test/ntfy', {
+        onCsrfRefresh,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ serverUrl: ntfyServerUrl, topic: ntfyTopic, priority: ntfyPriority, token: ntfyToken }),
       });
-      await onCsrfRefresh();
       setNtfyTestResult(result);
     } catch (err) {
       setNtfyTestResult({ ok: false, error: err.message });
@@ -303,8 +308,8 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
   return (
     <div className="settings-page">
       <p className="hint">
-        These rules apply to every process that has monitoring and alerts turned on. Alerts are switched on per
-        process in its Manage tab.
+        These rules apply to every process that has monitoring and alerts turned on. Alerts are switched on per process
+        in its Manage tab.
       </p>
 
       {saveError && <div className="settings-notice settings-notice--error">{saveError}</div>}
@@ -446,12 +451,7 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
             </div>
 
             <div className="test-row">
-              <button
-                type="button"
-                className="btn"
-                onClick={sendWebhookTest}
-                disabled={webhookTesting || !webhookUrl}
-              >
+              <button type="button" className="btn" onClick={sendWebhookTest} disabled={webhookTesting || !webhookUrl}>
                 {webhookTesting ? 'Sending' : 'Send a test'}
               </button>
               {testResult(webhookTestResult)}

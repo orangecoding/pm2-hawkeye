@@ -132,6 +132,92 @@ describe('alertingService', () => {
 
       assert.strictEqual(reporter.calls.length, 2);
     });
+
+    it('does not throttle a later alert when every reporter failed', async () => {
+      addMonitored('throttle-failure-app');
+      setSettings({
+        'alert.mode': 'throttle',
+        'alert.throttleMinutes': '60',
+        'alert.logLevelThreshold': '["error"]',
+      });
+      let attempts = 0;
+      const reporter = {
+        name: 'failing',
+        config: {},
+        send: async () => {
+          attempts += 1;
+          throw new Error('network timeout');
+        },
+      };
+
+      await evaluateAndDispatch('throttle-failure-app', 'error', 'first', [reporter]);
+      await evaluateAndDispatch('throttle-failure-app', 'error', 'second', [reporter]);
+
+      assert.strictEqual(attempts, 2);
+    });
+
+    it('serializes concurrent alerts so only one dispatches inside the throttle window', async () => {
+      addMonitored('throttle-concurrent-app');
+      setSettings({
+        'alert.mode': 'throttle',
+        'alert.throttleMinutes': '60',
+        'alert.logLevelThreshold': '["error"]',
+      });
+      let releaseFirst;
+      const firstPending = new Promise((resolve) => {
+        releaseFirst = resolve;
+      });
+      let attempts = 0;
+      const reporter = {
+        name: 'slow',
+        config: {},
+        send: async () => {
+          attempts += 1;
+          await firstPending;
+        },
+      };
+
+      const first = evaluateAndDispatch('throttle-concurrent-app', 'error', 'first', [reporter]);
+      const second = evaluateAndDispatch('throttle-concurrent-app', 'error', 'second', [reporter]);
+      await new Promise((resolve) => setImmediate(resolve));
+      assert.equal(attempts, 1);
+
+      releaseFirst();
+      await Promise.all([first, second]);
+      assert.equal(attempts, 1);
+    });
+
+    it('coalesces concurrent alerts into one attempt when the reporter fails', async () => {
+      addMonitored('throttle-concurrent-failure');
+      setSettings({
+        'alert.mode': 'throttle',
+        'alert.throttleMinutes': '60',
+        'alert.logLevelThreshold': '["error"]',
+      });
+      let release;
+      const pending = new Promise((resolve) => {
+        release = resolve;
+      });
+      let attempts = 0;
+      const reporter = {
+        name: 'slow-failure',
+        config: {},
+        send: async () => {
+          attempts += 1;
+          await pending;
+          throw new Error('network timeout');
+        },
+      };
+
+      const alerts = Array.from({ length: 20 }, (_, index) =>
+        evaluateAndDispatch('throttle-concurrent-failure', 'error', `event ${index}`, [reporter]),
+      );
+      await new Promise((resolve) => setImmediate(resolve));
+      release();
+      await Promise.all(alerts);
+
+      assert.equal(attempts, 1);
+    });
   });
 
   it('reporter promise rejection is caught and does not throw', async () => {

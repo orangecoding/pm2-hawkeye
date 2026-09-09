@@ -3,8 +3,9 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { fetchJson } from '../services/api.js';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { fetchJson, fetchWithCsrf } from '../services/api.js';
+import { useDialogFocus } from '../services/dialog.js';
 import GeneralSettings from './settings/GeneralSettings.jsx';
 import AlertingSettings from './settings/AlertingSettings.jsx';
 import { X } from './Icon.jsx';
@@ -38,6 +39,7 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
   const [saveSuccess, setSaveSuccess] = useState(false);
   /** True once the user has tried to close with unsaved alerting changes. */
   const [confirmingClose, setConfirmingClose] = useState(false);
+  const modalRef = useRef(null);
 
   // Load alerting settings once on mount.
   useEffect(() => {
@@ -46,7 +48,8 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
         setAlertingSettings(payload.settings ?? {});
         setAlertingSettingsLoaded(true);
       })
-      .catch(() => {
+      .catch((loadError) => {
+        setSaveError(`Failed to load alerting settings: ${loadError.message}`);
         setAlertingSettingsLoaded(true);
       });
   }, []);
@@ -63,15 +66,7 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
     onClose();
   }, [isDirty, onClose]);
 
-  // Close on Escape.
-  useEffect(() => {
-    /** @param {KeyboardEvent} e */
-    function onKeyDown(e) {
-      if (e.key === 'Escape') handleClose();
-    }
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [handleClose]);
+  useDialogFocus(modalRef, handleClose);
 
   /**
    * Handle alerting settings form changes.
@@ -93,12 +88,12 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
     setSaveError(null);
     setSaveSuccess(false);
     try {
-      await fetchJson('/api/alerting/settings', {
+      await fetchWithCsrf('/api/alerting/settings', {
+        onCsrfRefresh,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ settings: alertingSettings }),
       });
-      await onCsrfRefresh();
       setIsDirty(false);
       setSaveSuccess(true);
     } catch (err) {
@@ -119,7 +114,7 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
 
   return (
     <div className="overlay" onClick={handleOverlayClick} role="dialog" aria-modal="true" aria-label="Settings">
-      <div className="modal modal--settings">
+      <div ref={modalRef} className="modal modal--settings" tabIndex={-1}>
         <nav className="settings-sidebar">
           <p className="section-label settings-sidebar-title">Settings</p>
           {PAGES.map((page) => (
@@ -145,11 +140,7 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
                   <button type="button" className="btn btn--sm btn--danger" onClick={onClose}>
                     Discard
                   </button>
-                  <button
-                    type="button"
-                    className="btn btn--sm btn--quiet"
-                    onClick={() => setConfirmingClose(false)}
-                  >
+                  <button type="button" className="btn btn--sm btn--quiet" onClick={() => setConfirmingClose(false)}>
                     Keep editing
                   </button>
                 </span>

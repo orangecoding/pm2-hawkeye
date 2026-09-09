@@ -32,6 +32,7 @@ export default function Sparkline({ samples, height = 32, color = 'var(--accent)
   const wrapperRef = useRef(null);
   const [tooltip, setTooltip] = useState(null);
   const [dims, setDims] = useState({ w: 0, h: 0 });
+  const hasSamples = Boolean(samples && samples.length >= 2);
 
   // Track the wrapper's rendered pixel size so the SVG coordinate space matches
   // the screen 1:1. useLayoutEffect + ResizeObserver re-measures on any layout
@@ -47,11 +48,11 @@ export default function Sparkline({ samples, height = 32, color = 'var(--accent)
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [hasSamples]);
 
   const heightStyle = typeof height === 'number' ? `${height}px` : height;
 
-  if (!samples || samples.length < 2) return null;
+  if (!hasSamples) return null;
 
   const w = dims.w;
   const h = dims.h;

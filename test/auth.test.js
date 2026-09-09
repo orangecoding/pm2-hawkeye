@@ -5,9 +5,28 @@
 
 import { expect } from 'chai';
 import * as auth from '../lib/security/auth.js';
+import { getClientIdentity, getRateLimitIdentity } from '../lib/security/security.js';
 import config from '../lib/config.js';
 
 describe('Authentication Logic (auth.js)', () => {
+  describe('client identity', () => {
+    it('uses only the client IP for rate limiting', () => {
+      const first = { ip: '192.0.2.10', headers: { 'user-agent': 'first-agent' } };
+      const second = { ip: '192.0.2.10', headers: { 'user-agent': 'rotated-agent' } };
+
+      expect(getRateLimitIdentity(first)).to.equal(getRateLimitIdentity(second));
+      expect(getClientIdentity(first)).not.to.equal(getClientIdentity(second));
+    });
+
+    it('bounds and sanitizes user-agent text used in logs', () => {
+      const req = { ip: '192.0.2.10', headers: { 'user-agent': `bad\u001b[31m${'x'.repeat(500)}` } };
+      const identity = getClientIdentity(req);
+
+      expect(identity).not.to.include('\u001b');
+      expect(identity.length).to.be.lessThan(240);
+    });
+  });
+
   describe('verifyCredentials', () => {
     it('should return true for correct credentials', () => {
       // setup.mjs sets AUTH_USERNAME=admin and hash for password 'admin'

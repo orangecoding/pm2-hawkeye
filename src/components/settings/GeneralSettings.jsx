@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { fetchJson } from '../../services/api.js';
+import { fetchJson, fetchWithCsrf } from '../../services/api.js';
 
 /**
  * Human-readable presentation for each known .env key.
@@ -176,12 +176,12 @@ export default function GeneralSettings({ csrfToken, onCsrfRefresh }) {
       if (newPassword.trim()) {
         settings.authPassword = newPassword.trim();
       }
-      await fetchJson('/api/settings/general', {
+      await fetchWithCsrf('/api/settings/general', {
+        onCsrfRefresh,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ settings }),
       });
-      await onCsrfRefresh();
       setNotice({ type: 'success', text: 'Saved. Restart pm2-hawkeye for the changes to take effect.' });
       setNewPassword('');
     } catch (err) {

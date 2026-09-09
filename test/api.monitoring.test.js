@@ -190,6 +190,30 @@ describe('Monitoring API', () => {
       expect(res.status).to.equal(200);
       expect(res.body.entries).to.have.length(1);
       expect(res.body.entries[0].log_level).to.equal('info');
+      expect(res.body.nextCursor).to.equal(null);
+    });
+
+    it('returns a cursor only when another stored-log page exists', async () => {
+      const { id } = addMonitored('some-app');
+      for (let index = 1; index <= 3; index += 1) {
+        insertLogEntry(id, {
+          loggedAt: index,
+          logLevel: 'info',
+          log: JSON.stringify({ lines: [`line ${index}`], raw: `line ${index}` }),
+        });
+      }
+
+      const first = await request(app).get('/api/processes/some-app/logs/stored?limit=2').set('Cookie', auth.cookie);
+      const second = await request(app)
+        .get(
+          `/api/processes/some-app/logs/stored?limit=2&before=${first.body.nextCursor.before}&beforeId=${first.body.nextCursor.beforeId}`,
+        )
+        .set('Cookie', auth.cookie);
+
+      expect(first.body.entries).to.have.length(2);
+      expect(first.body.nextCursor).to.deep.equal({ before: 2, beforeId: first.body.entries[1].id });
+      expect(second.body.entries).to.have.length(1);
+      expect(second.body.nextCursor).to.equal(null);
     });
   });
 });

@@ -25,7 +25,11 @@ process.env.AUTH_PASSWORD_HASH = hash.toString('hex');
 
 // Raise the login rate limit so that the full test suite can run without
 // triggering the sliding-window lockout.
-process.env.LOGIN_MAX_REQUESTS = '100';
+process.env.LOGIN_MAX_REQUESTS = '1000';
+
+// Allow integration tests to assign isolated client IPs through
+// X-Forwarded-For when exercising the IP-based login lockout.
+process.env.TRUST_PROXY = '1';
 
 // Skip the artificial minimum auth response delay so the suite runs fast
 // (mirrors the CI workflow's AUTH_MIN_RESPONSE_MS=0).

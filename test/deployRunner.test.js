@@ -11,11 +11,241 @@
  */
 
 import { strict as assert } from 'node:assert';
-import { validateAppName, validateRepoUrl, resolveDeployPath, parseEnvFile } from '../lib/service/deployRunner.js';
+import {
+  activateDeployment,
+  validateAppName,
+  validateRepoUrl,
+  resolveDeployPath,
+  parseEnvFile,
+} from '../lib/service/deployRunner.js';
 import path from 'node:path';
 import config from '../lib/config.js';
 
 describe('deployRunner validators', () => {
+  describe('activateDeployment', () => {
+    const deployment = {
+      pm2_name: 'my-app',
+      start_script: 'index.js',
+      deploy_path: '/srv/my-app',
+      pm2_options: {},
+      env_vars: {},
+    };
+
+    it('preflights the start script before asking PM2 to activate the deployment', async () => {
+      let starts = 0;
+
+      await assert.rejects(
+        activateDeployment(deployment, {
+          stat: async () => {
+            const error = new Error('missing');
+            error.code = 'ENOENT';
+            throw error;
+          },
+          startProcess: async () => {
+            starts += 1;
+          },
+        }),
+        /Start script not found/,
+      );
+
+      assert.equal(starts, 0);
+    });
+
+    it('updates an existing PM2 application without deleting it first', async () => {
+      let receivedOptions;
+      let listCalls = 0;
+
+      await activateDeployment(deployment, {
+        stat: async () => ({ isFile: () => true }),
+        startProcess: async (options) => {
+          receivedOptions = options;
+        },
+        loadProcessList: async () => {
+          listCalls += 1;
+          return [
+            {
+              name: 'my-app',
+              pid: listCalls,
+              pm_id: 0,
+              pm2_env: {
+                status: 'online',
+                pm_exec_path: '/srv/my-app/index.js',
+                pm_cwd: '/srv/my-app',
+                pm_uptime: listCalls,
+                restart_time: listCalls - 1,
+                args: [],
+                node_args: [],
+              },
+            },
+          ];
+        },
+      });
+
+      assert.equal(receivedOptions.name, 'my-app');
+      assert.equal(receivedOptions.script, 'index.js');
+      assert.deepEqual(receivedOptions.args, []);
+      assert.equal(receivedOptions.cron_restart, null);
+    });
+
+    it('rejects when PM2 resolves the start but keeps the old process configuration', async () => {
+      await assert.rejects(
+        activateDeployment(deployment, {
+          stat: async () => ({ isFile: () => true }),
+          startProcess: async () => {},
+          loadProcessList: async () => [
+            {
+              name: 'my-app',
+              pid: 1,
+              pm_id: 0,
+              pm2_env: {
+                status: 'online',
+                pm_exec_path: '/srv/my-app/old.js',
+                pm_cwd: '/srv/my-app',
+                pm_uptime: 1,
+                restart_time: 0,
+              },
+            },
+          ],
+        }),
+        /did not apply the requested start script/,
+      );
+    });
+
+    it('rejects when the activated PM2 process is not online', async () => {
+      await assert.rejects(
+        activateDeployment(deployment, {
+          stat: async () => ({ isFile: () => true }),
+          startProcess: async () => {},
+          loadProcessList: async () => [
+            {
+              name: 'my-app',
+              pid: 2,
+              pm_id: 0,
+              pm2_env: {
+                status: 'errored',
+                pm_exec_path: '/srv/my-app/index.js',
+                pm_cwd: '/srv/my-app',
+                pm_uptime: 2,
+                restart_time: 1,
+              },
+            },
+          ],
+        }),
+        /status is "errored"/,
+      );
+    });
+
+    it('rejects when PM2 swallows the restart error and leaves the old process unchanged', async () => {
+      const unchanged = {
+        name: 'my-app',
+        pid: 10,
+        pm_id: 0,
+        pm2_env: {
+          status: 'online',
+          pm_exec_path: '/srv/my-app/index.js',
+          pm_cwd: '/srv/my-app',
+          pm_uptime: 100,
+          restart_time: 3,
+          args: [],
+          node_args: [],
+        },
+      };
+
+      await assert.rejects(
+        activateDeployment(deployment, {
+          stat: async () => ({ isFile: () => true }),
+          startProcess: async () => {},
+          loadProcessList: async () => [unchanged],
+        }),
+        /did not restart/,
+      );
+    });
+
+    it('rejects when PM2 retains an option that the deployment removed', async () => {
+      let listCalls = 0;
+      await assert.rejects(
+        activateDeployment(deployment, {
+          stat: async () => ({ isFile: () => true }),
+          startProcess: async () => {},
+          loadProcessList: async () => {
+            listCalls += 1;
+            return [
+              {
+                name: 'my-app',
+                pid: listCalls,
+                pm_id: 0,
+                pm2_env: {
+                  status: 'online',
+                  pm_exec_path: '/srv/my-app/index.js',
+                  pm_cwd: '/srv/my-app',
+                  pm_uptime: listCalls,
+                  restart_time: listCalls,
+                  args: ['--old-option'],
+                  node_args: [],
+                },
+              },
+            ];
+          },
+        }),
+        /did not clear args/,
+      );
+    });
+
+    it('rejects unsupported PM2 option removals before restarting the process', async () => {
+      let starts = 0;
+      await assert.rejects(
+        activateDeployment(deployment, {
+          stat: async () => ({ isFile: () => true }),
+          startProcess: async () => {
+            starts += 1;
+          },
+          loadProcessList: async () => [
+            {
+              name: 'my-app',
+              pid: 1,
+              pm_id: 0,
+              pm2_env: {
+                status: 'online',
+                pm_exec_path: '/srv/my-app/index.js',
+                pm_cwd: '/srv/my-app',
+                max_memory_restart: 1024,
+              },
+            },
+          ],
+        }),
+        /cannot safely remove memory restart limit/,
+      );
+      assert.equal(starts, 0);
+    });
+
+    it('rejects removed environment variables before restarting the process', async () => {
+      let starts = 0;
+      await assert.rejects(
+        activateDeployment(deployment, {
+          stat: async () => ({ isFile: () => true }),
+          startProcess: async () => {
+            starts += 1;
+          },
+          loadProcessList: async () => [
+            {
+              name: 'my-app',
+              pid: 1,
+              pm_id: 0,
+              pm2_env: {
+                status: 'online',
+                pm_exec_path: '/srv/my-app/index.js',
+                pm_cwd: '/srv/my-app',
+                env: { REMOVED_DEPLOYMENT_SECRET: 'old' },
+              },
+            },
+          ],
+        }),
+        /cannot safely remove environment variable "REMOVED_DEPLOYMENT_SECRET"/,
+      );
+      assert.equal(starts, 0);
+    });
+  });
+
   describe('validateAppName', () => {
     it('accepts simple alphanumeric names', () => {
       assert.equal(validateAppName('myapp'), true);

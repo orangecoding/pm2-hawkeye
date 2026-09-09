@@ -72,8 +72,7 @@ export default function LoginApp() {
             <span className="brand-hawkeye">-hawkeye</span>
           </h1>
           <p className="subtle">
-            Live process monitoring, merged log streaming, and one-click deployments for the PM2 daemon on this
-            server.
+            Live process monitoring, merged log streaming, and one-click deployments for the PM2 daemon on this server.
           </p>
         </div>
 

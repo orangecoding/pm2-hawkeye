@@ -4,7 +4,9 @@
  */
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { fetchJson } from '../services/api.js';
+import { fetchWithCsrf } from '../services/api.js';
+import { normalizePm2Number } from '../services/deployment.js';
+import { useDialogFocus } from '../services/dialog.js';
 import { CheckCircle, Plus, WarningCircle, X } from './Icon.jsx';
 
 // All PM2 ecosystem stages that may appear in progress messages.
@@ -240,11 +242,11 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
     }
     const pm2Options = {
       ...pm2Opts,
-      instances: Number(pm2Opts.instances) || 1,
-      max_restarts: Number(pm2Opts.max_restarts) || 10,
-      restart_delay: Number(pm2Opts.restart_delay) || 0,
-      kill_timeout: Number(pm2Opts.kill_timeout) || 1600,
-      listen_timeout: Number(pm2Opts.listen_timeout) || 3000,
+      instances: normalizePm2Number(pm2Opts.instances, 1),
+      max_restarts: normalizePm2Number(pm2Opts.max_restarts, 10),
+      restart_delay: normalizePm2Number(pm2Opts.restart_delay, 0),
+      kill_timeout: normalizePm2Number(pm2Opts.kill_timeout, 1600),
+      listen_timeout: normalizePm2Number(pm2Opts.listen_timeout, 3000),
       min_uptime: pm2Opts.min_uptime ? Number(pm2Opts.min_uptime) : undefined,
       ignore_watch: pm2Opts.ignore_watch
         ? pm2Opts.ignore_watch
@@ -288,21 +290,20 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
       setSubmitting(true);
 
       try {
-        // Always fetch a fresh CSRF token immediately before submitting to avoid
-        // stale-token mismatches caused by intervening mutations on the same page.
-        const freshToken = await onCsrfRefresh();
         if (isEdit) {
-          await fetchJson(`/api/deployments/${editingDeployment.id}`, {
+          await fetchWithCsrf(`/api/deployments/${editingDeployment.id}`, {
+            onCsrfRefresh,
             method: 'PUT',
-            headers: { 'X-CSRF-Token': freshToken, 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(buildPayload()),
           });
           if (onEditSaved) await onEditSaved();
         } else {
           const payload = buildPayload();
-          const result = await fetchJson('/api/deployments', {
+          const result = await fetchWithCsrf('/api/deployments', {
+            onCsrfRefresh,
             method: 'POST',
-            headers: { 'X-CSRF-Token': freshToken, 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ appName: appName.trim(), ...payload }),
           });
           onDeployStarted(result.deploymentId);
@@ -323,12 +324,10 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
     setError('');
     setSubmitting(true);
     try {
-      // Fetch a fresh token before the PUT so the subsequent redeploy POST
-      // in onSaveAndRedeploy can also get a valid token after rotation.
-      const freshToken = await onCsrfRefresh();
-      await fetchJson(`/api/deployments/${editingDeployment.id}`, {
+      await fetchWithCsrf(`/api/deployments/${editingDeployment.id}`, {
+        onCsrfRefresh,
         method: 'PUT',
-        headers: { 'X-CSRF-Token': freshToken, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(buildPayload()),
       });
       if (onSaveAndRedeploy) await onSaveAndRedeploy(editingDeployment.id);
@@ -344,8 +343,8 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
         {/* ── Required ─────────────────────────────────────────────────── */}
         <section className="deploy-required">
           <p className="hint">
-            Hawkeye clones the repository into the deploy base directory and starts it under PM2. On a redeploy it
-            runs git pull instead of cloning again.
+            Hawkeye clones the repository into the deploy base directory and starts it under PM2. On a redeploy it runs
+            git pull instead of cloning again.
           </p>
 
           <div className="deploy-two-col">
@@ -577,7 +576,11 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
           </Field>
           <div className="deploy-two-col">
             <Field label="Exec mode" hint="Cluster spawns several workers sharing one port.">
-              <select className="select" value={pm2Opts.exec_mode} onChange={(e) => setOpt('exec_mode', e.target.value)}>
+              <select
+                className="select"
+                value={pm2Opts.exec_mode}
+                onChange={(e) => setOpt('exec_mode', e.target.value)}
+              >
                 <option value="fork">fork</option>
                 <option value="cluster">cluster</option>
               </select>
@@ -761,12 +764,7 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
         <span className="modal-footer-spacer" />
         {/* In edit mode the user got here by asking to redeploy, so redeploying
             is the primary action and saving without restarting is the aside. */}
-        <button
-          type="submit"
-          form="deploy-form"
-          className={isEdit ? 'btn' : 'btn btn--primary'}
-          disabled={submitting}
-        >
+        <button type="submit" form="deploy-form" className={isEdit ? 'btn' : 'btn btn--primary'} disabled={submitting}>
           {submitting ? (isEdit ? 'Saving' : 'Starting') : isEdit ? 'Save only' : 'Deploy'}
         </button>
         {isEdit && (
@@ -822,8 +820,8 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose, c
         {isConfirming && confirmChanges && (
           <div className="deploy-confirm" ref={confirmRef}>
             <p>
-              The deploy directory has local changes, so <code>git pull</code> cannot run. Discard them to continue,
-              or cancel the deployment.
+              The deploy directory has local changes, so <code>git pull</code> cannot run. Discard them to continue, or
+              cancel the deployment.
             </p>
             <pre className="code-preview">{confirmChanges}</pre>
             <div className="deploy-confirm-actions">
@@ -920,6 +918,9 @@ export default function DeployModal({
   const isEdit = Boolean(editingDeployment);
   const showProgress = !isEdit && activeDeploymentId !== null;
   const isDoneOrError = deployProgressStatus === 'success' || deployProgressStatus === 'error';
+  const canClose = !showProgress || isDoneOrError;
+  const modalRef = useRef(null);
+  useDialogFocus(modalRef, canClose ? onClose : null);
 
   // Visible stages: always show clone/install/start; show pre/post/build only
   // if they actually appear in the received progress lines.
@@ -934,12 +935,12 @@ export default function DeployModal({
   return (
     <div
       className="overlay"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
+      onClick={(e) => e.target === e.currentTarget && canClose && onClose()}
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
-      <div className="modal modal--deploy">
+      <div ref={modalRef} className="modal modal--deploy" tabIndex={-1}>
         <div className="modal-header">
           <span className="modal-title">{title}</span>
           {(!showProgress || isDoneOrError) && (

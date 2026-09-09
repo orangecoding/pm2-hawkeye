@@ -3,7 +3,7 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { useMemo } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { detectLogLevel } from '../services/format.js';
 import { ArrowDown, Copy, DownloadSimple, MagnifyingGlass, Pause, Play } from './Icon.jsx';
 
@@ -47,6 +47,22 @@ function splitLine(text) {
   return { time: m[1].slice(11, 19), message: text.slice(m[0].length) };
 }
 
+/** Render one stable log row so appending a line does not redraw old rows. */
+const LogLine = memo(function LogLine({ text, effectiveLevel, isMain }) {
+  const { time, message } = splitLine(text);
+  return (
+    <div className={`log-line${effectiveLevel ? ` ${levelClass(effectiveLevel)}` : ''}`}>
+      <span className="log-time">{time}</span>
+      {isMain && effectiveLevel ? (
+        <span className={`log-level-badge log-level-badge--${effectiveLevel}`}>{levelLabel(effectiveLevel)}</span>
+      ) : (
+        <span className="log-level-badge log-level-badge--spacer" />
+      )}
+      <span className="log-text">{message}</span>
+    </div>
+  );
+});
+
 /**
  * Log viewer.
  *
@@ -69,6 +85,9 @@ function splitLine(text) {
  *   logPaused: boolean,
  *   pausedCount: number,
  *   onTogglePause: () => void,
+ *   hasOlderLogs: boolean,
+ *   loadingOlderLogs: boolean,
+ *   onLoadOlderLogs: () => void,
  * }} props
  */
 export default function LogStream({
@@ -85,7 +104,11 @@ export default function LogStream({
   logPaused = false,
   pausedCount = 0,
   onTogglePause,
+  hasOlderLogs = false,
+  loadingOlderLogs = false,
+  onLoadOlderLogs,
 }) {
+  const [copyStatus, setCopyStatus] = useState('');
   const annotatedLines = useMemo(() => {
     const result = [];
     let currentLevel = '';
@@ -114,9 +137,18 @@ export default function LogStream({
   const isFiltered = filteredLines.length !== allLines.length;
 
   /** Copy filtered log lines to clipboard. */
-  const copyLogs = () => {
+  const copyLogs = async () => {
     const text = filteredLines.map((l) => l.text).join('\n');
-    navigator.clipboard?.writeText(text).catch(() => {});
+    if (!navigator.clipboard) {
+      setCopyStatus('Clipboard access is unavailable.');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyStatus('Copied.');
+    } catch {
+      setCopyStatus('Copy failed.');
+    }
   };
 
   /** Download filtered log lines as a plain-text file. */
@@ -162,6 +194,7 @@ export default function LogStream({
         </div>
 
         <div className="log-toolbar-status">
+          {copyStatus && <span role="status">{copyStatus}</span>}
           <span className="log-status-dot" data-paused={logPaused} />
           <span>{logPaused ? `Paused${pausedCount > 0 ? `, ${pausedCount} held` : ''}` : 'Live'}</span>
           <span className="log-count">
@@ -202,23 +235,24 @@ export default function LogStream({
       </div>
 
       <div className="log-stream-wrapper">
-        <div ref={logRef} className={filteredLines.length ? 'log-stream' : 'log-stream log-empty'}>
+        <div ref={logRef} className={filteredLines.length || hasOlderLogs ? 'log-stream' : 'log-stream log-empty'}>
+          {hasOlderLogs && (
+            <div className="log-load-older">
+              <button type="button" className="btn btn--sm" disabled={loadingOlderLogs} onClick={onLoadOlderLogs}>
+                {loadingOlderLogs ? 'Loading' : 'Load older logs'}
+              </button>
+            </div>
+          )}
           {filteredLines.length ? (
             filteredLines.map((line, i) => {
               const effectiveLevel = line.level || line.inheritedLevel || '';
-              const { time, message } = splitLine(line.text);
               return (
-                <div className={`log-line${effectiveLevel ? ` ${levelClass(effectiveLevel)}` : ''}`} key={i}>
-                  <span className="log-time">{time}</span>
-                  {line.isMain && effectiveLevel ? (
-                    <span className={`log-level-badge log-level-badge--${effectiveLevel}`}>
-                      {levelLabel(effectiveLevel)}
-                    </span>
-                  ) : (
-                    <span className="log-level-badge log-level-badge--spacer" />
-                  )}
-                  <span className="log-text">{message}</span>
-                </div>
+                <LogLine
+                  key={line.key ?? `${i}-${line.text}`}
+                  text={line.text}
+                  effectiveLevel={effectiveLevel}
+                  isMain={line.isMain}
+                />
               );
             })
           ) : (

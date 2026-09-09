@@ -145,6 +145,8 @@
   gap: var(--s-2);
   padding: 0 var(--s-5) 0 var(--s-4);
   border-left: 0.125rem solid transparent;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1.25rem;
 
   &:hover {
     background: var(--bg-1);
@@ -163,6 +165,12 @@
   &.level-info {
     .log-text { color: var(--log-default); }
   }
+}
+
+.log-load-older {
+  display: flex;
+  justify-content: center;
+  padding: var(--s-2) var(--s-4) var(--s-3);
 }
 
 .log-time {

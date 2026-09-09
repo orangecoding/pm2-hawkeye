@@ -4,9 +4,25 @@
  */
 
 import { expect } from 'chai';
+import { strict as assert } from 'node:assert';
 import * as pm2 from '../lib/service/pm2Service.js';
 
 describe('PM2 Service Logic (pm2Service.js)', () => {
+  describe('createConnectionGate', () => {
+    it('retries after the initial connection attempt fails', async () => {
+      let attempts = 0;
+      const gate = pm2.createConnectionGate(async () => {
+        attempts += 1;
+        if (attempts === 1) throw new Error('daemon unavailable');
+      });
+
+      await assert.rejects(gate.ensureConnected(), /daemon unavailable/);
+      await gate.ensureConnected();
+
+      expect(attempts).to.equal(2);
+    });
+  });
+
   // ── extractTimestamp ───────────────────────────────────────────────────────
 
   describe('extractTimestamp', () => {
@@ -17,6 +33,10 @@ describe('PM2 Service Logic (pm2Service.js)', () => {
 
     it('should extract space-separated timestamp', () => {
       expect(pm2.extractTimestamp('2026-03-14 16:25:41 some message')).to.equal('2026-03-14 16:25:41');
+    });
+
+    it('preserves fractional seconds and timezone offsets', () => {
+      expect(pm2.extractTimestamp('2026-03-14T16:25:41.123+02:00 message')).to.equal('2026-03-14T16:25:41.123+02:00');
     });
 
     it('should find a timestamp that appears mid-line', () => {

@@ -22,3 +22,43 @@ export async function fetchJson(url, options = {}) {
   }
   return payload;
 }
+
+/**
+ * Send a state-changing request and refresh its single-use CSRF token whether
+ * the request succeeds or fails.
+ *
+ * @param {string} url
+ * @param {{ onCsrfRefresh: () => Promise<string>, onCsrfRefreshError?: (error: Error) => void } & RequestInit} options
+ * @returns {Promise<object>}
+ */
+let csrfMutationQueue = Promise.resolve();
+
+export function fetchWithCsrf(url, { onCsrfRefresh, onCsrfRefreshError, headers, ...options }) {
+  const execute = async () => {
+    const csrfToken = await onCsrfRefresh();
+    let result;
+    let requestError;
+    try {
+      result = await fetchJson(url, {
+        ...options,
+        headers: { ...headers, 'X-CSRF-Token': csrfToken },
+      });
+    } catch (error) {
+      requestError = error;
+    }
+
+    try {
+      await onCsrfRefresh();
+    } catch (refreshError) {
+      if (onCsrfRefreshError) onCsrfRefreshError(refreshError);
+      else console.warn(`Failed to refresh the CSRF token after ${options.method || 'request'} ${url}:`, refreshError);
+    }
+
+    if (requestError) throw requestError;
+    return result;
+  };
+
+  const queued = csrfMutationQueue.then(execute, execute);
+  csrfMutationQueue = queued.catch(() => undefined);
+  return queued;
+}

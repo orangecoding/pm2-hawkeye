@@ -129,11 +129,13 @@ export default function ProcessHeader({
               Redeploy
             </button>
           )}
-          <ConfirmButton
-            label="Restart"
-            question={`Restart ${selectedProcess.name}?`}
-            choices={[{ label: 'Restart', onConfirm: onRestart }]}
-          />
+          {!isOrphan && (
+            <ConfirmButton
+              label="Restart"
+              question={`Restart ${selectedProcess.name}?`}
+              choices={[{ label: 'Restart', onConfirm: onRestart }]}
+            />
+          )}
           {!isOrphan &&
             (isOnline ? (
               <ConfirmButton

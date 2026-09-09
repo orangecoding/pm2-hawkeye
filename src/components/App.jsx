@@ -4,7 +4,9 @@
  */
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { fetchJson } from '../services/api.js';
+import { fetchJson, fetchWithCsrf } from '../services/api.js';
+import { appendBounded, buildStoredLogsUrl, convertEntriesToLines, prependStoredLogPage } from '../services/logs.js';
+import { createReconnectingWebSocket } from '../services/realtime.js';
 import ProcessList from './ProcessList.jsx';
 import ProcessHeader from './ProcessHeader.jsx';
 import MetricsPanel from './MetricsPanel.jsx';
@@ -34,32 +36,6 @@ const TABS = [
   { id: 'manage', label: 'Manage' },
 ];
 
-/**
- * Convert DB log entries (newest-first) to flat display lines (oldest-first).
- *
- * The `logLevel` field carries the level that was resolved on the backend at
- * insert time (text-based detection + stderr fallback), so the frontend does
- * not need to re-detect it.  'unknown' is normalised to '' to match the
- * frontend convention used by detectLogLevel.
- *
- * @param {object[]} entries - Raw entries from `/api/processes/:id/logs/stored`.
- * @returns {{text: string, source: string, logLevel: string}[]}
- */
-function convertEntriesToLines(entries) {
-  return entries
-    .slice()
-    .reverse()
-    .flatMap((entry) => {
-      const logLevel = entry.log_level || '';
-      try {
-        const parsed = JSON.parse(entry.log);
-        return (parsed.lines || []).map((text) => ({ text, source: 'stored', logLevel }));
-      } catch {
-        return [{ text: entry.log, source: 'stored', logLevel }];
-      }
-    });
-}
-
 export default function App() {
   const [csrfToken, setCsrfToken] = useState(null);
   const [processes, setProcesses] = useState([]);
@@ -75,6 +51,8 @@ export default function App() {
   const [hostCurrent, setHostCurrent] = useState(null);
   const [storedLogs, setStoredLogs] = useState([]);
   const [storedLogsReady, setStoredLogsReady] = useState(false);
+  const [storedLogsCursor, setStoredLogsCursor] = useState(null);
+  const [loadingOlderLogs, setLoadingOlderLogs] = useState(false);
   const [unreadLogCount, setUnreadLogCount] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [appConfig, setAppConfig] = useState(null);
@@ -110,6 +88,11 @@ export default function App() {
   const autoStickRef = useRef(true);
   const prevLiveLinesLengthRef = useRef(0);
   const wsRef = useRef(null);
+  const selectedProcessIdRef = useRef(null);
+  const liveQueueRef = useRef([]);
+  const liveFrameRef = useRef(null);
+  const liveSequenceRef = useRef(0);
+  const olderLogsControllerRef = useRef(null);
   // Pause has to be readable from inside the WebSocket handler, which closes
   // over its first render. A ref keeps the current value available there.
   const logPausedRef = useRef(false);
@@ -135,7 +118,7 @@ export default function App() {
   const loadDeployments = useCallback(() => {
     fetchJson('/api/deployments')
       .then((payload) => setDeployments(payload.deployments || []))
-      .catch(() => {});
+      .catch((loadError) => setError(`Failed to load deployments: ${loadError.message}`));
   }, []);
 
   const loadHostMetrics = useCallback(() => {
@@ -144,7 +127,7 @@ export default function App() {
         setHostMetrics(payload.samples || []);
         setHostCurrent(payload.current || null);
       })
-      .catch(() => {});
+      .catch((loadError) => setError(`Failed to load host metrics: ${loadError.message}`));
   }, []);
 
   useEffect(() => {
@@ -168,6 +151,10 @@ export default function App() {
     activeDeploymentIdRef.current = activeDeploymentId;
   }, [activeDeploymentId]);
 
+  useEffect(() => {
+    selectedProcessIdRef.current = selectedProcessId;
+  }, [selectedProcessId]);
+
   // Poll deployments every 60 s so branch-watch state (last check, last error)
   // stays current even when no deployment is running.
   useEffect(() => {
@@ -178,75 +165,86 @@ export default function App() {
   // Single unified WebSocket connection for all real-time data.
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const ws = new WebSocket(`${protocol}//${window.location.host}/ws/stream`);
-    wsRef.current = ws;
-
-    ws.onopen = () => setWsConnected(true);
-    ws.onclose = () => {
-      setWsConnected(false);
-      wsRef.current = null;
+    const flushLiveQueue = () => {
+      liveFrameRef.current = null;
+      const queued = liveQueueRef.current;
+      liveQueueRef.current = [];
+      if (queued.length === 0) return;
+      if (logPausedRef.current) {
+        pausedBufferRef.current = [...pausedBufferRef.current, ...queued].slice(-800);
+        setPausedCount(pausedBufferRef.current.length);
+      } else {
+        setLiveLines((prev) => [...prev, ...queued].slice(-800));
+      }
     };
-    ws.onerror = () => setWsConnected(false);
-
-    ws.onmessage = (event) => {
-      try {
-        const { type, data } = JSON.parse(event.data);
-        if (type === 'processes') {
-          setProcesses(data.items);
-          setSelectedProcessId((prev) =>
-            data.items.some((item) => String(item.id ?? item.name) === String(prev))
-              ? prev
-              : (data.items[0]?.id ?? data.items[0]?.name ?? null),
-          );
-          if (data.hostCurrent !== undefined) setHostCurrent(data.hostCurrent);
-        } else if (type === 'details') {
-          setDetails(data);
-        } else if (type === 'snapshot') {
-          setLiveLines(data.lines.map((l) => ({ text: l.text })));
-        } else if (type === 'log') {
-          // While paused, hold the line back instead of appending it. The
-          // Pause button used to only change its own icon: lines kept arriving
-          // and the view kept scrolling.
-          if (logPausedRef.current) {
-            pausedBufferRef.current = [...pausedBufferRef.current, { text: data.text }].slice(-800);
-            setPausedCount(pausedBufferRef.current.length);
-          } else {
-            setLiveLines((prev) => [...prev, { text: data.text }].slice(-800));
-          }
-        } else if (type === 'error') {
-          setError(data.error);
-        } else if (type === 'deploy_progress') {
-          // Deploys started by the branch watcher run in the background and are
-          // broadcast to every client. Only the deployment the user is watching
-          // right now may feed the modal; the rest just refresh the list.
-          if (activeDeploymentIdRef.current !== data.deploymentId) {
-            if (data.stage === 'done' || data.stage === 'error') loadDeployments();
-            return;
-          }
-          if (data.status === 'confirm') {
-            // Deployment is paused waiting for the user to approve discarding local changes.
-            setDeployConfirmChanges(data.line);
-          } else {
-            // Any other progress clears a stale confirmation prompt.
-            setDeployConfirmChanges(null);
-          }
-          setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
-          setDeployProgressStage(data.stage);
-          setDeployProgressStatus(data.status);
-          // Refresh deployments list when a deploy finishes or fails.
-          if (data.stage === 'done' || data.stage === 'error') {
-            loadDeployments();
-          }
-        }
-        // heartbeat and connected are intentionally ignored
-      } catch {
-        // Ignore malformed messages.
+    const queueLiveLine = (line) => {
+      liveQueueRef.current = appendBounded(liveQueueRef.current, [line], 800);
+      if (liveFrameRef.current === null) {
+        liveFrameRef.current = requestAnimationFrame(flushLiveQueue);
       }
     };
 
+    const connection = createReconnectingWebSocket({
+      url: `${protocol}//${window.location.host}/ws/stream`,
+      onStateChange: setWsConnected,
+      onSocket: (socket) => {
+        wsRef.current = socket;
+      },
+      onMessage: (event) => {
+        try {
+          const { type, data } = JSON.parse(event.data);
+          if (type === 'processes') {
+            setProcesses(data.items);
+            setSelectedProcessId((prev) =>
+              data.items.some((item) => String(item.id ?? item.name) === String(prev))
+                ? prev
+                : (data.items[0]?.id ?? data.items[0]?.name ?? null),
+            );
+            if (data.hostCurrent !== undefined) setHostCurrent(data.hostCurrent);
+          } else if (type === 'details') {
+            setDetails(data);
+          } else if (type === 'snapshot') {
+            setLiveLines(data.lines.map((l, index) => ({ key: `snapshot-${index}`, text: l.text })));
+          } else if (type === 'log') {
+            liveSequenceRef.current += 1;
+            queueLiveLine({ key: `live-${liveSequenceRef.current}`, text: data.text });
+          } else if (type === 'error') {
+            setError(data.error);
+          } else if (type === 'deploy_progress') {
+            // Deploys started by the branch watcher run in the background and are
+            // broadcast to every client. Only the deployment the user is watching
+            // right now may feed the modal; the rest just refresh the list.
+            if (activeDeploymentIdRef.current !== data.deploymentId) {
+              if (data.stage === 'done' || data.stage === 'error') loadDeployments();
+              return;
+            }
+            if (data.status === 'confirm') {
+              // Deployment is paused waiting for the user to approve discarding local changes.
+              setDeployConfirmChanges(data.line);
+            } else {
+              // Any other progress clears a stale confirmation prompt.
+              setDeployConfirmChanges(null);
+            }
+            setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
+            setDeployProgressStage(data.stage);
+            setDeployProgressStatus(data.status);
+            // Refresh deployments list when a deploy finishes or fails.
+            if (data.stage === 'done' || data.stage === 'error') {
+              loadDeployments();
+            }
+          }
+          // heartbeat and connected are intentionally ignored
+        } catch {
+          // Ignore malformed messages.
+        }
+      },
+    });
+
     return () => {
-      ws.close();
-      wsRef.current = null;
+      connection.close();
+      if (liveFrameRef.current !== null) cancelAnimationFrame(liveFrameRef.current);
+      liveFrameRef.current = null;
+      liveQueueRef.current = [];
     };
   }, []);
 
@@ -295,27 +293,35 @@ export default function App() {
   // state.  storedLogsReady gates the switch in allLines so combinedLines remain
   // visible until the fetch settles - preventing a blank flash on load.
   useEffect(() => {
+    const controller = new AbortController();
+    olderLogsControllerRef.current?.abort();
+    olderLogsControllerRef.current = null;
+    setLoadingOlderLogs(false);
     setStoredLogsReady(false);
+    setStoredLogsCursor(null);
     if (selectedProcessId === null || selectedProcessId === undefined) {
       setStoredLogs([]);
       setStoredLogsReady(true);
-      return;
+      return () => controller.abort();
     }
-    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/logs/stored`)
+    fetchJson(buildStoredLogsUrl(selectedProcessId), { signal: controller.signal })
       .then((payload) => {
         setStoredLogs(convertEntriesToLines(payload.entries || []));
+        setStoredLogsCursor(payload.nextCursor || null);
         setStoredLogsReady(true);
       })
-      .catch(() => {
+      .catch((loadError) => {
+        if (loadError.name === 'AbortError') return;
         setStoredLogs([]);
         setStoredLogsReady(true);
+        setError(`Failed to load stored logs: ${loadError.message}`);
       });
+    return () => controller.abort();
   }, [selectedProcessId]);
 
-  // Reset local state and send select/deselect to the unified WS when the
-  // selected process changes.  wsConnected is included so that on reconnect
-  // the server is immediately told which process to stream.
+  // Reset process-scoped state and cancel requests when the selection changes.
   useEffect(() => {
+    const controller = new AbortController();
     setDetails(null);
     setLiveLines([]);
     setActions([]);
@@ -324,6 +330,10 @@ export default function App() {
     // Held lines belong to the process we are leaving, so they are dropped
     // rather than flushed into the next one's stream.
     pausedBufferRef.current = [];
+    liveQueueRef.current = [];
+    liveSequenceRef.current = 0;
+    if (liveFrameRef.current !== null) cancelAnimationFrame(liveFrameRef.current);
+    liveFrameRef.current = null;
     setPausedCount(0);
     prevLiveLinesLengthRef.current = 0;
     autoStickRef.current = true;
@@ -331,43 +341,64 @@ export default function App() {
     setDrawerOpen(false);
     setActiveTab('logs');
 
-    const ws = wsRef.current;
-    const isOpen = ws?.readyState === WebSocket.OPEN;
-
     if (selectedProcessId === null || selectedProcessId === undefined) {
-      if (isOpen) ws.send(JSON.stringify({ type: 'deselect' }));
-      return;
+      return () => controller.abort();
     }
 
-    // Only send if the connection is fully open. When it is still
-    // connecting, wsConnected will flip to true once onopen fires,
-    // which re-runs this effect and sends the message then.
-    if (isOpen) ws.send(JSON.stringify({ type: 'select', data: { processId: String(selectedProcessId) } }));
-
-    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`)
+    const requestOptions = { signal: controller.signal };
+    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`, requestOptions)
       .then((payload) => setMetricsHistory(payload.samples || []))
-      .catch(() => setMetricsHistory([]));
+      .catch((loadError) => {
+        if (loadError.name !== 'AbortError') setError(`Failed to load metrics: ${loadError.message}`);
+      });
 
-    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`)
+    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`, requestOptions)
       .then((payload) => setActions(payload.actions || []))
-      .catch(() => setActions([]));
+      .catch((loadError) => {
+        if (loadError.name !== 'AbortError') setError(`Failed to load actions: ${loadError.message}`);
+      });
 
     setLogLevel({ supported: null, level: null, busy: false });
-    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`)
+    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`, requestOptions)
       .then((payload) => setLogLevel({ supported: payload.supported, level: payload.level, busy: false }))
-      .catch(() => setLogLevel({ supported: false, level: null, busy: false }));
+      .catch((loadError) => {
+        if (loadError.name !== 'AbortError') {
+          setLogLevel({ supported: false, level: null, busy: false });
+          setError(`Failed to load the log level: ${loadError.message}`);
+        }
+      });
+    return () => controller.abort();
+  }, [selectedProcessId]);
+
+  // Select again after reconnecting so the server resumes the current stream.
+  useEffect(() => {
+    const ws = wsRef.current;
+    if (!wsConnected || ws?.readyState !== WebSocket.OPEN) return;
+    const message =
+      selectedProcessId === null || selectedProcessId === undefined
+        ? { type: 'deselect' }
+        : { type: 'select', data: { processId: String(selectedProcessId) } };
+    ws.send(JSON.stringify(message));
   }, [selectedProcessId, wsConnected]);
 
   // Poll metrics every 20 s (matching the scheduler interval) so sparklines
   // update in real time without requiring a page refresh.
   useEffect(() => {
     if (selectedProcessId === null || selectedProcessId === undefined || !isSelectedMonitored) return;
+    let controller = null;
     const interval = setInterval(() => {
-      fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`)
+      controller?.abort();
+      controller = new AbortController();
+      fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`, { signal: controller.signal })
         .then((payload) => setMetricsHistory(payload.samples || []))
-        .catch(() => {});
+        .catch((loadError) => {
+          if (loadError.name !== 'AbortError') setError(`Failed to refresh metrics: ${loadError.message}`);
+        });
     }, 20_000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      controller?.abort();
+    };
   }, [selectedProcessId, isSelectedMonitored]);
 
   // Track whether the user is parked at the bottom of the log viewer. The
@@ -450,6 +481,33 @@ export default function App() {
     return liveLines;
   }, [isSelectedMonitored, storedLogsReady, storedLogs, liveLines]);
 
+  /** Load the next older stored-log page without replacing newer lines. */
+  const loadOlderLogs = useCallback(async () => {
+    const processId = selectedProcessIdRef.current;
+    if (processId == null || !storedLogsCursor || loadingOlderLogs) return;
+    const controller = new AbortController();
+    olderLogsControllerRef.current?.abort();
+    olderLogsControllerRef.current = controller;
+    setLoadingOlderLogs(true);
+    try {
+      const payload = await fetchJson(buildStoredLogsUrl(processId, storedLogsCursor), { signal: controller.signal });
+      if (String(selectedProcessIdRef.current) !== String(processId)) return;
+      const older = convertEntriesToLines(payload.entries || []);
+      setStoredLogs((current) => prependStoredLogPage(current, older));
+      setStoredLogsCursor(payload.nextCursor || null);
+    } catch (loadError) {
+      if (loadError.name === 'AbortError') return;
+      if (String(selectedProcessIdRef.current) === String(processId)) {
+        setError(`Failed to load older logs: ${loadError.message}`);
+      }
+    } finally {
+      if (olderLogsControllerRef.current === controller) {
+        olderLogsControllerRef.current = null;
+        setLoadingOlderLogs(false);
+      }
+    }
+  }, [loadingOlderLogs, storedLogsCursor]);
+
   const refreshCsrf = useCallback(async () => {
     const session = await fetchJson('/api/auth/session');
     setCsrfToken(session.csrfToken);
@@ -486,18 +544,12 @@ export default function App() {
    *
    * @param {string} deploymentId
    */
-  const onDeployStarted = useCallback(
-    (deploymentId) => {
-      setDeployProgressLines([]);
-      setDeployProgressStage('clone');
-      setDeployProgressStatus('running');
-      setActiveDeploymentId(deploymentId);
-      // The deploy POST consumed the CSRF token - refresh it so subsequent
-      // mutations (restart, stop, etc.) continue to work.
-      refreshCsrf();
-    },
-    [refreshCsrf],
-  );
+  const onDeployStarted = useCallback((deploymentId) => {
+    setDeployProgressLines([]);
+    setDeployProgressStage('clone');
+    setDeployProgressStatus('running');
+    setActiveDeploymentId(deploymentId);
+  }, []);
 
   /**
    * Called by DeployModal when the user clicks "Redeploy" while in edit mode.
@@ -509,19 +561,16 @@ export default function App() {
    */
   const onSaveAndRedeploy = useCallback(
     async (deploymentId) => {
-      // PUT already consumed the CSRF token -- get a fresh one before the POST.
-      const newToken = await refreshCsrf();
       setEditingDeployment(null);
       setDeployProgressLines([]);
       setDeployProgressStage('clone');
       setDeployProgressStatus('running');
       setActiveDeploymentId(deploymentId);
       try {
-        await fetchJson(`/api/deployments/${deploymentId}/redeploy`, {
+        await fetchWithCsrf(`/api/deployments/${deploymentId}/redeploy`, {
+          onCsrfRefresh: refreshCsrf,
           method: 'POST',
-          headers: { 'X-CSRF-Token': newToken },
         });
-        await refreshCsrf();
       } catch (err) {
         setDeployProgressLines((prev) => [...prev, { stage: 'error', line: err.message, status: 'error' }]);
         setDeployProgressStage('error');
@@ -542,13 +591,12 @@ export default function App() {
       if (!activeDeploymentId) return;
       setDeployConfirmChanges(null);
       try {
-        const freshToken = await refreshCsrf();
-        await fetchJson(`/api/deployments/${activeDeploymentId}/confirm`, {
+        await fetchWithCsrf(`/api/deployments/${activeDeploymentId}/confirm`, {
+          onCsrfRefresh: refreshCsrf,
           method: 'POST',
-          headers: { 'X-CSRF-Token': freshToken, 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ confirmed }),
         });
-        await refreshCsrf();
       } catch (err) {
         setDeployProgressLines((prev) => [...prev, { stage: 'error', line: err.message, status: 'error' }]);
         setDeployProgressStage('error');
@@ -583,11 +631,10 @@ export default function App() {
     async (deploymentId) => {
       if (!csrfToken) return;
       try {
-        await fetchJson(`/api/deployments/${deploymentId}`, {
+        await fetchWithCsrf(`/api/deployments/${deploymentId}`, {
+          onCsrfRefresh: refreshCsrf,
           method: 'DELETE',
-          headers: { 'X-CSRF-Token': csrfToken },
         });
-        await refreshCsrf();
         loadDeployments();
       } catch (err) {
         setError(err.message);
@@ -598,25 +645,23 @@ export default function App() {
 
   /**
    * Called after a deployment record has been successfully edited.
-   * Refreshes the CSRF token, reloads the deployments list, and closes the modal.
+   * Reloads the deployments list and closes the modal.
    */
   const onEditSaved = useCallback(async () => {
-    await refreshCsrf();
     loadDeployments();
     setDeployOpen(false);
     setEditingDeployment(null);
-  }, [refreshCsrf, loadDeployments]);
+  }, [loadDeployments]);
 
   const onRestart = async () => {
     if (selectedProcessId === null || selectedProcessId === undefined || !csrfToken) {
       return;
     }
     try {
-      await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/restart`, {
+      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/restart`, {
+        onCsrfRefresh: refreshCsrf,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken },
       });
-      await refreshCsrf();
     } catch (restartError) {
       setError(restartError.message);
     }
@@ -632,11 +677,10 @@ export default function App() {
       return;
     }
     try {
-      await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/stop`, {
+      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/stop`, {
+        onCsrfRefresh: refreshCsrf,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken },
       });
-      await refreshCsrf();
     } catch (stopError) {
       setError(stopError.message);
     }
@@ -650,11 +694,10 @@ export default function App() {
       return;
     }
     try {
-      await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/start`, {
+      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/start`, {
+        onCsrfRefresh: refreshCsrf,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken },
       });
-      await refreshCsrf();
     } catch (startError) {
       setError(startError.message);
     }
@@ -674,11 +717,10 @@ export default function App() {
     }
     try {
       const url = `/api/processes/${encodeURIComponent(selectedProcessId)}${withDeploy ? '?deleteDeploy=true' : ''}`;
-      await fetchJson(url, {
+      await fetchWithCsrf(url, {
+        onCsrfRefresh: refreshCsrf,
         method: 'DELETE',
-        headers: { 'X-CSRF-Token': csrfToken },
       });
-      await refreshCsrf();
       if (withDeploy) loadDeployments();
       setSelectedProcessId(null);
     } catch (deleteError) {
@@ -695,24 +737,27 @@ export default function App() {
   const onRemoveOrphan = async (pm2Name) => {
     if (!csrfToken) return;
     try {
-      await fetchJson('/api/monitoring', {
+      await fetchWithCsrf('/api/monitoring', {
+        onCsrfRefresh: refreshCsrf,
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pm2Name, monitored: false }),
       });
-      await refreshCsrf();
       // If the orphan was selected, clear the selection.
       setSelectedProcessId((prev) => (String(prev) === pm2Name ? null : prev));
-    } catch {
-      // Ignore - the WS stream will reflect the updated state shortly.
+    } catch (removeError) {
+      setError(removeError.message);
     }
   };
 
   const onLogout = async () => {
     if (csrfToken) {
-      await fetchJson('/api/auth/logout', {
+      await fetchWithCsrf('/api/auth/logout', {
+        onCsrfRefresh: refreshCsrf,
+        // A successful logout destroys the session, so the post-request token
+        // refresh is expected to fail immediately before navigation.
+        onCsrfRefreshError: () => {},
         method: 'POST',
-        headers: { 'X-CSRF-Token': csrfToken },
       }).catch(() => undefined);
     }
     window.location.replace('/login');
@@ -728,50 +773,19 @@ export default function App() {
     async (pm2Name, currentlyMonitored) => {
       if (!csrfToken) return;
       try {
-        await fetchJson(`/api/monitoring`, {
+        await fetchWithCsrf(`/api/monitoring`, {
+          onCsrfRefresh: refreshCsrf,
           method: 'POST',
-          headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ pm2Name, monitored: !currentlyMonitored }),
         });
-        await refreshCsrf();
 
         // Optimistically flip isMonitored in the local process list so the UI
         // updates immediately without waiting for the next WebSocket tick.
         const newMonitored = !currentlyMonitored;
         setProcesses((prev) => prev.map((p) => (p.name === pm2Name ? { ...p, isMonitored: newMonitored } : p)));
-
-        // After enabling monitoring, refresh stored data once the server has
-        // had time to complete the log backfill (async on the server side).
-        if (newMonitored) {
-          // Close the gate immediately so allLines keeps showing liveLines
-          // (the current snapshot) while the fetch is in flight, preventing
-          // a blank flash during the 1500 ms backfill window.
-          setStoredLogsReady(false);
-          setTimeout(() => {
-            fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/metrics`)
-              .then((payload) => setMetricsHistory(payload.samples || []))
-              .catch(() => {});
-            fetchJson(`/api/processes/${encodeURIComponent(pm2Name)}/logs/stored`)
-              .then((payload) => {
-                // Batch all three updates so React renders them together:
-                // storedLogs carries the backfilled history, liveLines is
-                // cleared to avoid duplicating those same lines, and
-                // storedLogsReady opens the gate so allLines = storedLogs + [].
-                setStoredLogs(convertEntriesToLines(payload.entries || []));
-                setLiveLines([]);
-                setStoredLogsReady(true);
-              })
-              .catch(() => {
-                setStoredLogsReady(true);
-              });
-          }, 1500);
-        } else {
-          setMetricsHistory([]);
-          setStoredLogs([]);
-          setStoredLogsReady(true); // keep gate open so combinedLines show immediately
-        }
-      } catch {
-        // Ignore toggle errors; the WS stream will reflect the new state shortly.
+      } catch (toggleError) {
+        setError(toggleError.message);
       }
     },
     [csrfToken, refreshCsrf],
@@ -792,12 +806,12 @@ export default function App() {
       // Optimistic update so the switch responds immediately.
       setProcesses((prev) => prev.map((p) => (p.name === pm2Name ? { ...p, alertsEnabled } : p)));
       try {
-        await fetchJson('/api/notification-prefs', {
+        await fetchWithCsrf('/api/notification-prefs', {
+          onCsrfRefresh: refreshCsrf,
           method: 'POST',
-          headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ pm2Name, alertsEnabled }),
         });
-        await refreshCsrf();
       } catch (err) {
         // Roll back the optimistic flip and surface the failure.
         setProcesses((prev) => prev.map((p) => (p.name === pm2Name ? { ...p, alertsEnabled: !alertsEnabled } : p)));
@@ -819,13 +833,16 @@ export default function App() {
   const onSetLogLevel = useCallback(
     async (level) => {
       if (!csrfToken || selectedProcessId == null) return;
+      const processId = selectedProcessId;
       setLogLevel((prev) => ({ ...prev, busy: true }));
       try {
-        const payload = await fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`, {
+        const payload = await fetchWithCsrf(`/api/processes/${encodeURIComponent(processId)}/log-level`, {
+          onCsrfRefresh: refreshCsrf,
           method: 'POST',
-          headers: { 'X-CSRF-Token': csrfToken, 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ level }),
         });
+        if (String(selectedProcessIdRef.current) !== String(processId)) return;
         setLogLevel({ supported: payload.supported, level: payload.level, busy: false });
 
         // A narrowed log filter would hide the very lines the user just asked
@@ -835,11 +852,9 @@ export default function App() {
           setLogFilters((prev) => (prev.size < 3 ? new Set([...prev, 'debug']) : prev));
         }
       } catch (err) {
+        if (String(selectedProcessIdRef.current) !== String(processId)) return;
         setLogLevel((prev) => ({ ...prev, busy: false }));
         setError(err.message);
-      } finally {
-        // The token is consumed even when the request was rejected.
-        await refreshCsrf();
       }
     },
     [csrfToken, selectedProcessId, refreshCsrf],
@@ -910,13 +925,7 @@ export default function App() {
             >
               <GearSix size={15} />
             </button>
-            <button
-              className="btn btn--icon"
-              type="button"
-              title="Sign out"
-              aria-label="Sign out"
-              onClick={onLogout}
-            >
+            <button className="btn btn--icon" type="button" title="Sign out" aria-label="Sign out" onClick={onLogout}>
               <SignOut size={15} />
             </button>
           </div>
@@ -939,6 +948,15 @@ export default function App() {
         />
 
         <main className="content">
+          {error && (
+            <div className="action-result" data-ok="false" style={{ margin: 'var(--s-3) var(--s-5) 0' }}>
+              <span>{error}</span>
+              <button type="button" className="btn btn--sm btn--quiet" onClick={() => setError('')}>
+                Dismiss
+              </button>
+            </div>
+          )}
+
           {hasSelection && selectedProcess ? (
             <>
               <ProcessHeader
@@ -964,9 +982,7 @@ export default function App() {
                       onClick={() => setActiveTab(tab.id)}
                     >
                       {tab.label}
-                      {tab.id === 'logs' && allLines.length > 0 && (
-                        <span className="tab-count">{allLines.length}</span>
-                      )}
+                      {tab.id === 'logs' && allLines.length > 0 && <span className="tab-count">{allLines.length}</span>}
                       {tab.id === 'manage' && !isSelectedMonitored && (
                         <span className="tab-flag" title="Monitoring is off for this process" />
                       )}
@@ -974,15 +990,6 @@ export default function App() {
                   ))}
                 </div>
               </ProcessHeader>
-
-              {error && (
-                <div className="action-result" data-ok="false" style={{ margin: 'var(--s-3) var(--s-5) 0' }}>
-                  <span>{error}</span>
-                  <button type="button" className="btn btn--sm btn--quiet" onClick={() => setError('')}>
-                    Dismiss
-                  </button>
-                </div>
-              )}
 
               <div
                 className={activeTab === 'logs' ? 'tab-panel' : 'tab-panel tab-panel--scroll'}
@@ -1012,6 +1019,9 @@ export default function App() {
                     logPaused={logPaused}
                     pausedCount={pausedCount}
                     onTogglePause={onTogglePause}
+                    hasOlderLogs={Boolean(storedLogsCursor)}
+                    loadingOlderLogs={loadingOlderLogs}
+                    onLoadOlderLogs={loadOlderLogs}
                   />
                 )}
 

@@ -3,9 +3,9 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { useEffect, useRef, useState } from "react";
-import Markdown from "react-markdown";
-import { fetchJson } from "../services/api.js";
+import React, { useEffect, useRef, useState } from 'react';
+import Markdown from 'react-markdown';
+import { fetchJson } from '../services/api.js';
 
 // ── Component ────────────────────────────────────────────────────────────────
 
@@ -15,14 +15,14 @@ import { fetchJson } from "../services/api.js";
  * opens a slide-up panel containing the formatted release notes.
  */
 export default function UpdateBanner() {
-  const [update, setUpdate]     = useState(null);
-  const [open, setOpen]         = useState(false);
+  const [update, setUpdate] = useState(null);
+  const [open, setOpen] = useState(false);
   const [dismissed, setDismiss] = useState(false);
-  const panelRef                = useRef(null);
+  const panelRef = useRef(null);
 
   // Fetch once on mount; no interval - the backend does the polling.
   useEffect(() => {
-    fetchJson("/api/update")
+    fetchJson('/api/update')
       .then(({ update: info }) => {
         if (info) setUpdate(info);
       })
@@ -37,22 +37,24 @@ export default function UpdateBanner() {
         setOpen(false);
       }
     };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
   }, [open]);
 
   // Close on Escape.
   useEffect(() => {
     if (!open) return;
-    const handler = (e) => { if (e.key === "Escape") setOpen(false); };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+    const handler = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
   }, [open]);
 
   if (!update || dismissed) return null;
 
   const published = update.publishedAt
-    ? new Date(update.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })
+    ? new Date(update.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
     : null;
 
   return (
@@ -80,24 +82,25 @@ export default function UpdateBanner() {
           </div>
 
           <div className="update-panel-body">
-            {update.releaseNotes
-              ? (
-                <Markdown
-                  components={{
-                    // Open all links in a new tab safely
-                    a: ({ href, children }) => (
-                      <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
-                    ),
-                    // Map h2/h3 down to h4/h5 so they fit the panel's visual hierarchy
-                    h2: ({ children }) => <h4>{children}</h4>,
-                    h3: ({ children }) => <h5>{children}</h5>,
-                  }}
-                >
-                  {update.releaseNotes}
-                </Markdown>
-              )
-              : <p className="update-empty">No release notes provided.</p>
-            }
+            {update.releaseNotes ? (
+              <Markdown
+                components={{
+                  // Open all links in a new tab safely
+                  a: ({ href, children }) => (
+                    <a href={href} target="_blank" rel="noopener noreferrer">
+                      {children}
+                    </a>
+                  ),
+                  // Map h2/h3 down to h4/h5 so they fit the panel's visual hierarchy
+                  h2: ({ children }) => <h4>{children}</h4>,
+                  h3: ({ children }) => <h5>{children}</h5>,
+                }}
+              >
+                {update.releaseNotes}
+              </Markdown>
+            ) : (
+              <p className="update-empty">No release notes provided.</p>
+            )}
           </div>
 
           <div className="update-panel-footer">
