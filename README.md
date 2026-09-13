@@ -95,6 +95,9 @@ Monitoring state survives server restarts. You can stop monitoring at any time -
 - PM2 installed globally (`npm i -g pm2`)
 - At least one PM2 process running
 
+> [!IMPORTANT]
+> **Node.js only** - PM2-Hawkeye must run on Node.js. Alternative runtimes such as Bun or Deno are not supported, because the native SQLite addon (`better-sqlite3`) crashes there with a segmentation fault. Keep in mind that `bun run` and `bun start` replace `node` inside `package.json` scripts with Bun itself, so `bun start` does not start the server on Node.js. Use `npm start`, or build with any package manager and start the server explicitly with `node lib/transport/server.js`. Startup aborts with an explanatory message when an unsupported runtime is detected.
+
 ### 1. Clone & install
 
 ```bash
