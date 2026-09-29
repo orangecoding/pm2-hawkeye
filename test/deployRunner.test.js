@@ -217,6 +217,78 @@ describe('deployRunner validators', () => {
       );
       assert.equal(starts, 0);
     });
+
+    it('redeploys a single fork process that PM2 started with combined logs', async () => {
+      let starts = 0;
+      let listCalls = 0;
+
+      // `pm2 start app.js` without an instance count makes PM2 enable
+      // merge_logs on its own, and PM2 drops merge_logs: false on restart.
+      await activateDeployment(deployment, {
+        stat: async () => ({ isFile: () => true }),
+        startProcess: async () => {
+          starts += 1;
+        },
+        loadProcessList: async () => {
+          listCalls += 1;
+          return [
+            {
+              name: 'my-app',
+              pid: listCalls,
+              pm_id: 0,
+              pm2_env: {
+                status: 'online',
+                exec_mode: 'fork_mode',
+                instances: 1,
+                merge_logs: true,
+                pm_exec_path: '/srv/my-app/index.js',
+                pm_cwd: '/srv/my-app',
+                pm_out_log_path: '/home/app/.pm2/logs/my-app-out.log',
+                pm_err_log_path: '/home/app/.pm2/logs/my-app-error.log',
+                pm_uptime: listCalls,
+                restart_time: listCalls - 1,
+                args: [],
+                node_args: [],
+              },
+            },
+          ];
+        },
+      });
+
+      assert.equal(starts, 1);
+    });
+
+    it('rejects disabling combined logs for cluster processes before restarting', async () => {
+      let starts = 0;
+      await assert.rejects(
+        activateDeployment(
+          { ...deployment, pm2_options: { exec_mode: 'cluster', instances: 2 } },
+          {
+            stat: async () => ({ isFile: () => true }),
+            startProcess: async () => {
+              starts += 1;
+            },
+            loadProcessList: async () => [
+              {
+                name: 'my-app',
+                pid: 1,
+                pm_id: 0,
+                pm2_env: {
+                  status: 'online',
+                  exec_mode: 'cluster_mode',
+                  instances: 2,
+                  merge_logs: true,
+                  pm_exec_path: '/srv/my-app/index.js',
+                  pm_cwd: '/srv/my-app',
+                },
+              },
+            ],
+          },
+        ),
+        /cannot safely disable combined logs/,
+      );
+      assert.equal(starts, 0);
+    });
   });
 
   describe('validateAppName', () => {
