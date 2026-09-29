@@ -289,6 +289,76 @@ describe('deployRunner validators', () => {
       );
       assert.equal(starts, 0);
     });
+
+    it('sends string arguments as the array PM2 stores so verification matches', async () => {
+      let receivedOptions;
+      let listCalls = 0;
+      const storedArgs = ['--port', '3000', '--title', 'Finance Tracker'];
+
+      await activateDeployment(
+        {
+          ...deployment,
+          pm2_options: { args: '--port 3000 --title "Finance Tracker"', interpreter_args: '--max-old-space-size=512' },
+        },
+        {
+          stat: async () => ({ isFile: () => true }),
+          startProcess: async (options) => {
+            receivedOptions = options;
+          },
+          loadProcessList: async () => {
+            listCalls += 1;
+            return [
+              {
+                name: 'my-app',
+                pid: listCalls,
+                pm_id: 0,
+                pm2_env: {
+                  status: 'online',
+                  pm_exec_path: '/srv/my-app/index.js',
+                  pm_cwd: '/srv/my-app',
+                  pm_uptime: listCalls,
+                  restart_time: listCalls - 1,
+                  args: storedArgs,
+                  node_args: ['--max-old-space-size=512'],
+                },
+              },
+            ];
+          },
+        },
+      );
+
+      assert.deepEqual(receivedOptions.args, storedArgs);
+      assert.deepEqual(receivedOptions.interpreter_args, ['--max-old-space-size=512']);
+    });
+
+    it('ignores environment keys PM2 adds to every process when checking removals', async () => {
+      let listCalls = 0;
+
+      await activateDeployment(deployment, {
+        stat: async () => ({ isFile: () => true }),
+        startProcess: async () => {},
+        loadProcessList: async () => {
+          listCalls += 1;
+          return [
+            {
+              name: 'my-app',
+              pid: listCalls,
+              pm_id: 0,
+              pm2_env: {
+                status: 'online',
+                pm_exec_path: '/srv/my-app/index.js',
+                pm_cwd: '/srv/my-app',
+                pm_uptime: listCalls,
+                restart_time: listCalls - 1,
+                args: [],
+                node_args: [],
+                env: { 'my-app': '{}', unique_id: 'd9c1e3f0', updateEnv: true },
+              },
+            },
+          ];
+        },
+      });
+    });
   });
 
   describe('validateAppName', () => {
