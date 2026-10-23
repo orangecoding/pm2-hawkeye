@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# update.sh — update a self-hosted pm2-hawkeye installation to the latest version.
+# update.sh: update a self-hosted pm2-hawkeye installation to the latest version.
 #
 # Usage:
 #   chmod +x update.sh
@@ -32,7 +32,7 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
     die "Working directory has uncommitted changes. Commit or stash them first."
 fi
 
-git pull --ff-only || die "git pull failed — resolve any conflicts and try again."
+git pull --ff-only || die "git pull failed, resolve any conflicts and try again."
 
 # ── 2. Install / update dependencies ─────────────────────────────────────────
 info "Installing dependencies..."

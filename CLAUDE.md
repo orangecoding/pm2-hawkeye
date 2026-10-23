@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-pm2-hawkeye is a modern, real-time web dashboard for PM2 processes. It provides live process monitoring (CPU, memory, uptime, restart count), real-time log streaming (stdout + stderr merged and sorted chronologically), one-click process restart with confirmation, and support for triggering PM2 custom actions (`axm_actions`). The entire transport layer is WebSocket-based, no polling, no SSE.
+pm2-hawkeye is a modern, real-time web dashboard for PM2 processes. It provides live process monitoring (CPU, memory, uptime, restart count), real-time log streaming (stdout + stderr merged and sorted chronologically), one-click process restart with confirmation, and support for triggering PM2 custom actions (`axm_actions`). All real-time data (process list, live stats, log lines, deploy progress) flows over one WebSocket, no SSE; stored history (metrics, host metrics, deployments) is refreshed over HTTP on a timer.
 
 The app must run on the same server as the PM2 daemon. It communicates with PM2 via its local API. Remote connections are not supported.
 
@@ -115,6 +115,8 @@ This ensures the dashboard is supervised and auto-restarted, and is included in 
 
 ## PM2 Requirements
 
+PM2 7 or newer must be installed globally and the running daemon must be on it too (`pm2 update` after upgrading). The server refuses to start otherwise.
+
 All managed PM2 processes should be started with the `--time` flag so that log lines include timestamps. pm2-hawkeye merges stdout and stderr and sorts lines chronologically - without timestamps, this sort is undefined and error lines will always appear after info lines.
 
 ```bash
@@ -159,20 +161,22 @@ When adding new backend functionality, add corresponding tests. The CI pipeline 
 
 ## Architecture Notes
 
-- The WebSocket connection is the single channel for all real-time data: process list updates, log lines, and action results all flow through it.
-- The backend connects to the local PM2 daemon on startup using the PM2 programmatic API. If PM2 is not running, the server will fail to initialize.
-- Log streaming is implemented by tailing PM2 log files directly and reading up to `MAX_LOG_BYTES_PER_FILE` bytes from each file. Logs from stdout and stderr are merged and sorted by timestamp prefix.
+- The WebSocket connection is the single channel for all real-time data: the process list, live stats of the selected process (`details`), its log lines and deploy progress all flow through it. Process-scoped messages carry the `processId` the client selected, so the client drops messages still in flight for a previous selection. Action results come back in the HTTP response of the trigger request.
+- Before anything else starts, `lib/service/pm2Requirement.js` runs `pm2 --version` and asks the daemon for its version; startup aborts with instructions unless both are PM2 >= 7 (skipped in tests). The `pm2 --version` call comes first so a missing daemon is started by the installed PM2 rather than by the client bundled in node_modules. The backend then connects to the local PM2 daemon using the PM2 programmatic API. All RPC calls share one connection (`withConnection` in `lib/service/pm2Service.js`), reset only on transport errors. If no daemon is running, `pm2.connect` starts one for the current user, so Hawkeye must run as the user that owns the PM2 processes.
+- Live log lines arrive through the PM2 log bus (`lib/service/logBus.js`). For a process that is not monitored, the WS first sends a snapshot read from its PM2 log files, up to `MAX_LOG_BYTES_PER_FILE` bytes per file, with stdout and stderr merged and sorted by timestamp prefix. Monitored processes load their history from SQLite over HTTP instead.
 - PM2 custom actions (`axm_actions`) are exposed dynamically based on what each running process registers with PM2.
+- Application metrics come from `pm2_env.axm_monitor`, where the PM2 daemon keeps the latest value of every metric a process reports through tx2 or @pm2/io (PM2 injects @pm2/io into every Node process, so heap and event loop metrics are always there). `extractCustomMetrics` in `lib/service/pm2Service.js` turns that into `{ name, value, unit }` rows: live values ride on the WS `details` push, and `lib/service/metricsScheduler.js` stores them for monitored processes in `custom_metrics_history` next to CPU/memory. `GET /api/processes/:id/metrics` returns them under `custom`.
 - The Manage tab can set the log level of a running process. Node exposes no
   log level from outside a process, so `lib/service/logLevelService.js` sends a
   `hawkeye:log-level` IPC message through `pm2.sendDataToProcessId` and waits up
   to 1.5 s for a `hawkeye:log-level:ack` answer, which arrives on the log bus
   that `lib/service/logBus.js` already has open. PM2 names the bus event after
   the packet's `type` and strips `topic` from anything a process sends back, so
-  the answer travels as its own bus event. The acknowledged level is held in
-  memory against the process's `pm_uptime`, so a restart makes the entry stale
-  and the level reverts to whatever the application boots with. Applications opt
-  in with a ten-line `process.on('message')` listener, see the README.
+  the answer travels as its own bus event. Hawkeye stores no level: every read
+  asks the process again, so after a restart the UI shows whatever level the
+  application booted with. Applications opt in with a ten-line
+  `process.on('message')` listener, see the README.
+- A redeploy updates the clone with `git remote set-url` (the stored repo URL), `git fetch --depth 1 origin <branch>` and `git checkout -B <branch> FETCH_HEAD`, so edits to the repo URL or branch take effect and local commits are dropped; untracked files such as `.env` stay. A redeploy that finds tracked local changes in the deploy directory pauses on `waitForConfirmation` until the user discards or cancels. A deployment with `discard_local_changes` set, and every watcher-triggered deploy, skips that question and resets the working copy directly.
 - Deployments can opt into branch watching. `lib/service/branchWatcher.js` ticks once a minute, polls `git ls-remote` for every deployment whose own interval has elapsed, and runs the normal redeploy pipeline when the branch head differs from both the local `HEAD` and the last SHA it already deployed. Watcher-triggered deploys pass `autoConfirm` so `runDeploy` discards local changes instead of waiting for a confirmation nobody will give, and the outcome is sent through the alerting reporters.
 
 ### Frontend structure
@@ -186,12 +190,13 @@ App.jsx                 shell, all state and API calls, tab routing
 ├── ProcessHeader.jsx   name, status, live stat strip, Restart + Stop/Start
 │   └── (tabs)
 ├── LogStream.jsx       Logs tab
-├── MetricsPanel.jsx    Metrics tab - process and host charts
+├── MetricsPanel.jsx    Metrics tab - process, application (tx2) and host charts
 ├── ManagePanel.jsx     Manage tab - monitoring, alerts, log level, actions, deploy, delete
 │   └── Actions.jsx     PM2 axm_actions, one row per action
 ├── Settings.jsx        overlay, General + Alerting pages
 ├── DeployModal.jsx     single-scroll deploy form and live progress view
 ├── ConfirmButton.jsx   the app's only confirmation idiom
+├── KeyValueList.jsx    key/value row editor (env vars, webhook headers and body)
 └── Icon.jsx            re-exports Phosphor icons plus shared defaults
 ```
 
@@ -200,7 +205,10 @@ Conventions worth keeping:
 - **Every per-process function belongs to exactly one tab.** Do not add a
   second entry point for something that already has a home.
 - **Confirmations go through `ConfirmButton`.** No `window.confirm`, no
-  bespoke inline yes/no markup.
+  bespoke inline yes/no markup. The only exceptions are prompts a button
+  cannot open: questions the app raises on its own (unsaved Settings changes
+  on close, the server's local-changes question during a deploy) and the
+  custom-action form in `Actions.jsx`, which also collects parameters.
 - **Icons come from `Icon.jsx` only.** One family, one weight, set through
   `IconContext` in `App.jsx`. Never hand-roll SVG paths.
 - **Styling uses the tokens in `src/styles/variables.less`.** Two radii

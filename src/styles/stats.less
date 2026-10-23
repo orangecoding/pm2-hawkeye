@@ -81,43 +81,17 @@
   margin: 0 calc(var(--s-1) * -1);
 }
 
-.metric-card-foot {
-  font-size: 0.6875rem;
-  color: var(--muted);
-}
-
-/* Placeholder that keeps the card's height so the grid does not reflow when
+/* Placeholder with the chart's height so the grid does not reflow when
    history arrives. */
 .metric-card-nodata {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4.5rem;
+  height: 8rem;
   font-size: 0.75rem;
   color: var(--muted);
   border: 0.0625rem dashed var(--border);
   border-radius: var(--r-1);
-}
-
-/* Skeleton shown while the first metrics request is in flight. */
-.metric-card-skeleton {
-  height: 4.5rem;
-  border-radius: var(--r-1);
-  background: linear-gradient(90deg, var(--bg-3) 25%, var(--bg-2) 50%, var(--bg-3) 75%);
-  background-size: 200% 100%;
-  animation: metric-shimmer 1.4s ease-in-out infinite;
-}
-
-@keyframes metric-shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .metric-card-skeleton {
-    animation: none;
-    background: var(--bg-3);
-  }
 }
 
 /* ── Sparkline internals ────────────────────────────────────────────────── */

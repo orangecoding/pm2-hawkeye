@@ -73,7 +73,7 @@ describe('branchWatcher', () => {
     });
 
     it('does not deploy the same remote SHA twice, even if the local HEAD differs', () => {
-      // git pull --rebase can leave HEAD permanently different from the remote
+      // A failed update can leave HEAD permanently different from the remote
       // SHA; without this guard every poll would redeploy.
       assert.equal(needsDeploy({ remote: SHA_B, local: SHA_A, lastCommit: SHA_B }), false);
     });

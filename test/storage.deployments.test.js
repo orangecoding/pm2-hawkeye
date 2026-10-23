@@ -21,6 +21,7 @@ import {
   deleteDeployment,
   getWatchedDeployments,
   updateWatchState,
+  updateDeployment,
 } from '../lib/storage/deploymentStorage.js';
 
 function cleanDb() {
@@ -124,6 +125,21 @@ describe('deploymentStorage', () => {
     createDeployment(baseOpts());
     assert.throws(() => createDeployment(baseOpts()), /UNIQUE constraint failed/);
   });
+  describe('discard local changes', () => {
+    it('defaults to asking before discarding', () => {
+      createDeployment(baseOpts());
+      assert.equal(getDeploymentByName('test-app').discard_local_changes, 0);
+    });
+
+    it('stores the flag on create and update', () => {
+      const { id } = createDeployment(baseOpts({ discardLocalChanges: true }));
+      assert.equal(getDeploymentById(id).discard_local_changes, 1);
+
+      updateDeployment(id, { ...baseOpts(), discardLocalChanges: false });
+      assert.equal(getDeploymentById(id).discard_local_changes, 0);
+    });
+  });
+
   describe('branch watching', () => {
     it('defaults to watching disabled with a 5 minute interval', () => {
       createDeployment(baseOpts());

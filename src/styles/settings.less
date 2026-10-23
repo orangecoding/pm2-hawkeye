@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--s-6);
-  background: rgba(6, 6, 8, 0.72);
+  background: var(--scrim);
   animation: fade-in 120ms ease both;
 }
 
@@ -126,17 +126,6 @@
   max-width: 36rem;
 }
 
-.settings-page-head {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-1);
-}
-
-.settings-page-title {
-  margin: 0;
-  font-size: 1rem;
-}
-
 .settings-group {
   display: flex;
   flex-direction: column;
@@ -168,7 +157,7 @@
   color: var(--muted);
   background: var(--bg-2);
   padding: 0.0625rem 0.25rem;
-  border-radius: 0.125rem;
+  border-radius: var(--r-1);
 }
 
 .settings-unit {

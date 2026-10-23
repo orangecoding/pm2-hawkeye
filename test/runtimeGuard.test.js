@@ -18,9 +18,9 @@ function spies() {
 
 describe('runtime guard', () => {
   it('detects Node.js', () => {
-    assert.deepEqual(detectRuntime({ process: { versions: { node: '22.14.0' } } }), {
+    assert.deepEqual(detectRuntime({ process: { versions: { node: '24.1.0' } } }), {
       name: 'node',
-      version: '22.14.0',
+      version: '24.1.0',
     });
   });
 
@@ -33,7 +33,16 @@ describe('runtime guard', () => {
   });
 
   it('returns no message for Node.js', () => {
-    assert.equal(unsupportedRuntimeMessage({ name: 'node', version: '22.14.0' }), null);
+    assert.equal(unsupportedRuntimeMessage({ name: 'node', version: '24.1.0' }), null);
+  });
+
+  it('rejects Node.js below the minimum major version', () => {
+    const message = unsupportedRuntimeMessage({ name: 'node', version: '22.14.0' });
+    assert.match(message, /requires Node\.js >= 24, but is running on Node\.js 22\.14\.0/);
+  });
+
+  it('lets an unreadable Node.js version through', () => {
+    assert.equal(unsupportedRuntimeMessage({ name: 'node', version: '' }), null);
   });
 
   it('explains the Bun incompatibility', () => {
@@ -46,7 +55,7 @@ describe('runtime guard', () => {
   it('lets Node.js start up', () => {
     const { calls, exit, onError } = spies();
     const ok = assertSupportedRuntime({
-      globalObject: { process: { versions: { node: '22.14.0' } } },
+      globalObject: { process: { versions: { node: '24.1.0' } } },
       env: {},
       exit,
       onError,
@@ -61,6 +70,20 @@ describe('runtime guard', () => {
     const { calls, exit, onError } = spies();
     const ok = assertSupportedRuntime({
       globalObject: { Bun: { version: '1.4.2' } },
+      env: {},
+      exit,
+      onError,
+    });
+
+    assert.equal(ok, false);
+    assert.deepEqual(calls.exitCodes, [1]);
+    assert.equal(calls.messages.length, 1);
+  });
+
+  it('aborts startup on an outdated Node.js with exit code 1', () => {
+    const { calls, exit, onError } = spies();
+    const ok = assertSupportedRuntime({
+      globalObject: { process: { versions: { node: '22.14.0' } } },
       env: {},
       exit,
       onError,

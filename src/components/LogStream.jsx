@@ -12,6 +12,9 @@ function isContinuationLine(text) {
   return /^\s+at\s/.test(text);
 }
 
+/** Levels the toolbar can switch off, in button order. */
+const FILTER_LEVELS = ['info', 'warn', 'error'];
+
 /** @param {string} level */
 function levelClass(level) {
   if (level === 'error') return 'level-error';
@@ -123,12 +126,10 @@ export default function LogStream({
 
   const filteredLines = useMemo(() => {
     return annotatedLines.filter((line) => {
+      // The toolbar only toggles info, warn and error. Lines of any other level
+      // (debug, trace, or none detected) have no button and are always shown.
       const effectiveLevel = line.level || line.inheritedLevel || '';
-      if (!logFilters.has(effectiveLevel) && logFilters.size < 3) {
-        // Only apply level filter when at least one level is toggled off.
-        // If effectiveLevel is empty (log/unknown), always show.
-        if (effectiveLevel && !logFilters.has(effectiveLevel)) return false;
-      }
+      if (FILTER_LEVELS.includes(effectiveLevel) && !logFilters.has(effectiveLevel)) return false;
       if (logSearch && !line.text.toLowerCase().includes(logSearch.toLowerCase())) return false;
       return true;
     });
@@ -158,7 +159,7 @@ export default function LogStream({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${details?.name ?? 'logs'}.log`;
+    a.download = `${details?.process?.name ?? 'logs'}.log`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -167,7 +168,7 @@ export default function LogStream({
     <section className="log-panel">
       <div className="log-toolbar">
         <div className="log-filters" role="group" aria-label="Filter by log level">
-          {['info', 'warn', 'error'].map((level) => (
+          {FILTER_LEVELS.map((level) => (
             <button
               key={level}
               type="button"

@@ -5,7 +5,7 @@
 
 import { expect } from 'chai';
 import * as auth from '../lib/security/auth.js';
-import { getClientIdentity, getRateLimitIdentity } from '../lib/security/security.js';
+import { getClientIdentity, getRateLimitIdentity, sanitizeForLog } from '../lib/security/security.js';
 import config from '../lib/config.js';
 
 describe('Authentication Logic (auth.js)', () => {
@@ -16,6 +16,23 @@ describe('Authentication Logic (auth.js)', () => {
 
       expect(getRateLimitIdentity(first)).to.equal(getRateLimitIdentity(second));
       expect(getClientIdentity(first)).not.to.equal(getClientIdentity(second));
+    });
+
+    it('keys IPv6 clients by their /64 so rotating addresses inside it does not help', () => {
+      const a = { ip: '2001:db8:abcd:12:1::5', headers: {} };
+      const b = { ip: '2001:db8:abcd:12:ffff:ffff:ffff:1', headers: {} };
+      const other = { ip: '2001:db8:abcd:13::1', headers: {} };
+      expect(getRateLimitIdentity(a)).to.equal(getRateLimitIdentity(b));
+      expect(getRateLimitIdentity(a)).not.to.equal(getRateLimitIdentity(other));
+    });
+
+    it('treats IPv4-mapped IPv6 addresses as their IPv4 address', () => {
+      expect(getRateLimitIdentity({ ip: '::ffff:192.0.2.10', headers: {} })).to.equal('192.0.2.10');
+    });
+
+    it('strips line breaks from client text so it cannot forge log lines', () => {
+      expect(sanitizeForLog('x\n[INFO] fake success')).to.equal('x[INFO] fake success');
+      expect(sanitizeForLog('y'.repeat(500), 100)).to.have.length(100);
     });
 
     it('bounds and sanitizes user-agent text used in logs', () => {

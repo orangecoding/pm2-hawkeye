@@ -11,10 +11,10 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import path from 'node:path';
-import os from 'node:os';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import app from '../lib/transport/server.js';
+import config from '../lib/config.js';
 import { getDb } from '../lib/storage/db.js';
 import { addMonitored } from '../lib/storage/monitoringStorage.js';
 
@@ -151,126 +151,66 @@ describe('GET /api/auth/session (config block)', () => {
 
 // ── General settings ──────────────────────────────────────────────────────────
 
+// Safety net: these tests rewrite config.ENV_FILE_PATH, which test/setup.mjs
+// points at a temp file. Refuse to run if it ever resolves to the real .env.
+before(() => {
+  expect(config.ENV_FILE_PATH).to.not.equal(path.resolve(__dirname, '..', '.env'));
+});
+
 describe('GET /api/settings/general', () => {
   it('returns settings object read from the .env file', async () => {
-    const realEnvPath = path.resolve(__dirname, '..', '.env');
-    let originalEnv = null;
-    try {
-      originalEnv = fs.readFileSync(realEnvPath, 'utf8');
-    } catch {
-      // .env may not exist.
-    }
-    fs.writeFileSync(realEnvPath, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
+    fs.writeFileSync(config.ENV_FILE_PATH, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
 
-    try {
-      const { cookie } = await getAuthSession();
-      const res = await request(app).get('/api/settings/general').set('Cookie', cookie);
-      expect(res.status).to.equal(200);
-      expect(res.body.settings).to.be.an('object');
-      // Raw env key names are returned (not camelCase field names).
-      expect(res.body.settings.HOST).to.be.a('string');
-      expect(res.body.settings.PORT).to.be.a('string');
-    } finally {
-      if (originalEnv !== null) {
-        fs.writeFileSync(realEnvPath, originalEnv, 'utf8');
-      } else {
-        try {
-          fs.unlinkSync(realEnvPath);
-        } catch {
-          /* ignore */
-        }
-      }
-    }
+    const { cookie } = await getAuthSession();
+    const res = await request(app).get('/api/settings/general').set('Cookie', cookie);
+    expect(res.status).to.equal(200);
+    expect(res.body.settings).to.be.an('object');
+    // Raw env key names are returned (not camelCase field names).
+    expect(res.body.settings.HOST).to.be.a('string');
+    expect(res.body.settings.PORT).to.be.a('string');
   });
 });
 
 describe('POST /api/settings/general', () => {
   it('returns { ok: true, restartRequired: true }', async () => {
-    // Point the env path to a temp file to avoid touching the real .env.
-    const tmpEnv = path.join(os.tmpdir(), `pm2-hawkeye-test-${Date.now()}.env`);
-    fs.writeFileSync(tmpEnv, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
+    // test/setup.mjs points config.ENV_FILE_PATH at a temp file.
+    fs.writeFileSync(config.ENV_FILE_PATH, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
 
     const { cookie, csrfToken } = await getAuthSession();
 
-    // Temporarily override __dirname-relative env resolution by patching env.
-    // The router resolves .env relative to __dirname/../.. = project root.
-    // We write to the real .env path during the test and restore it.
-    const realEnvPath = path.resolve(__dirname, '..', '.env');
-    let originalEnv = null;
-    try {
-      originalEnv = fs.readFileSync(realEnvPath, 'utf8');
-    } catch {
-      // .env may not exist in CI.
-    }
+    // POST accepts raw env key names directly.
+    const res = await request(app)
+      .post('/api/settings/general')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .send({ settings: { HOST: '127.0.0.1' } });
 
-    // Write a minimal .env for the test.
-    fs.writeFileSync(realEnvPath, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
+    expect(res.status).to.equal(200);
+    expect(res.body.ok).to.equal(true);
+    expect(res.body.restartRequired).to.equal(true);
 
-    try {
-      // POST accepts raw env key names directly.
-      const res = await request(app)
-        .post('/api/settings/general')
-        .set('Cookie', cookie)
-        .set('X-CSRF-Token', csrfToken)
-        .send({ settings: { HOST: '127.0.0.1' } });
-
-      expect(res.status).to.equal(200);
-      expect(res.body.ok).to.equal(true);
-      expect(res.body.restartRequired).to.equal(true);
-
-      // Verify the .env was updated.
-      const written = fs.readFileSync(realEnvPath, 'utf8');
-      expect(written).to.include('HOST=127.0.0.1');
-    } finally {
-      // Restore original .env.
-      if (originalEnv !== null) {
-        fs.writeFileSync(realEnvPath, originalEnv, 'utf8');
-      } else {
-        try {
-          fs.unlinkSync(realEnvPath);
-        } catch {
-          /* ignore */
-        }
-      }
-    }
+    // Verify the .env was updated.
+    const written = fs.readFileSync(config.ENV_FILE_PATH, 'utf8');
+    expect(written).to.include('HOST=127.0.0.1');
   });
 
   it('rejects values containing line breaks to prevent .env injection', async () => {
     const { cookie, csrfToken } = await getAuthSession();
 
-    const realEnvPath = path.resolve(__dirname, '..', '.env');
-    let originalEnv = null;
-    try {
-      originalEnv = fs.readFileSync(realEnvPath, 'utf8');
-    } catch {
-      // .env may not exist in CI.
-    }
-    fs.writeFileSync(realEnvPath, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
+    fs.writeFileSync(config.ENV_FILE_PATH, 'HOST=0.0.0.0\nPORT=3030\n', 'utf8');
 
-    try {
-      const res = await request(app)
-        .post('/api/settings/general')
-        .set('Cookie', cookie)
-        .set('X-CSRF-Token', csrfToken)
-        .send({ settings: { HOST: '0.0.0.0\nAUTH_PASSWORD_HASH=deadbeef' } });
+    const res = await request(app)
+      .post('/api/settings/general')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .send({ settings: { HOST: '0.0.0.0\nAUTH_PASSWORD_HASH=deadbeef' } });
 
-      expect(res.status).to.equal(400);
-      expect(res.body.error).to.include('line breaks');
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.include('line breaks');
 
-      // The injected line must not have been written to disk.
-      const written = fs.readFileSync(realEnvPath, 'utf8');
-      expect(written).to.not.include('AUTH_PASSWORD_HASH=deadbeef');
-    } finally {
-      if (originalEnv !== null) {
-        fs.writeFileSync(realEnvPath, originalEnv, 'utf8');
-      } else {
-        try {
-          fs.unlinkSync(realEnvPath);
-        } catch {
-          /* ignore */
-        }
-      }
-    }
+    // The injected line must not have been written to disk.
+    const written = fs.readFileSync(config.ENV_FILE_PATH, 'utf8');
+    expect(written).to.not.include('AUTH_PASSWORD_HASH=deadbeef');
   });
 });
 

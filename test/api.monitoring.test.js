@@ -12,7 +12,7 @@ import request from 'supertest';
 import app from '../lib/transport/server.js';
 import { getDb } from '../lib/storage/db.js';
 import { addMonitored } from '../lib/storage/monitoringStorage.js';
-import { insertMetric } from '../lib/storage/metricsStorage.js';
+import { insertMetric, insertCustomMetrics } from '../lib/storage/metricsStorage.js';
 import { insertLogEntry } from '../lib/storage/logStorage.js';
 
 // ── Auth helper ──────────────────────────────────────────────────────────────
@@ -33,6 +33,7 @@ function cleanDb() {
   const db = getDb();
   db.prepare('DELETE FROM log_entries').run();
   db.prepare('DELETE FROM metrics_history').run();
+  db.prepare('DELETE FROM custom_metrics_history').run();
   db.prepare('DELETE FROM monitored_processes').run();
 }
 
@@ -152,6 +153,20 @@ describe('Monitoring API', () => {
 
       expect(res.status).to.equal(200);
       expect(res.body.samples).to.deep.equal([]);
+      expect(res.body.custom).to.deep.equal([]);
+    });
+
+    it('returns stored application metrics under custom', async () => {
+      const { id } = addMonitored('some-app');
+      insertCustomMetrics(id, [{ name: 'queue size', value: 4, unit: 'jobs' }]);
+
+      const res = await request(app).get('/api/processes/some-app/metrics').set('Cookie', auth.cookie);
+
+      expect(res.status).to.equal(200);
+      expect(res.body.custom).to.have.length(1);
+      expect(res.body.custom[0].name).to.equal('queue size');
+      expect(res.body.custom[0].unit).to.equal('jobs');
+      expect(res.body.custom[0].samples[0].value).to.equal(4);
     });
 
     it('returns stored metric samples for a monitored process', async () => {

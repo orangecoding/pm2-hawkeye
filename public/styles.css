@@ -47,12 +47,10 @@
   --critical: #f87171;
   --critical-soft: rgba(248, 113, 113, 0.13);
   --info: #60a5fa;
-  --info-soft: rgba(96, 165, 250, 0.13);
   /* ── Log level colours ───────────────────────────────────────────────── */
   --log-error: #f87171;
   --log-warn: #fbbf24;
   --log-info: #60a5fa;
-  --log-debug: #77777f;
   --log-default: #c4c4cc;
   /* ── Shape lock: two radii only ──────────────────────────────────────── */
   --r-1: 0.25rem;
@@ -71,6 +69,8 @@
   /* ── Elevation - tinted to the ground, never pure black ──────────────── */
   --shadow-1: 0 0.0625rem 0.125rem rgba(6, 6, 8, 0.6);
   --shadow-2: 0 1rem 2.5rem rgba(6, 6, 8, 0.55);
+  /* Backdrop behind modals and the mobile drawer. */
+  --scrim: rgba(6, 6, 8, 0.72);
   /* ── Type ────────────────────────────────────────────────────────────── */
   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", "Consolas", monospace;
@@ -169,9 +169,6 @@ h4 {
   margin: 0;
   font-size: 0.8125rem;
   max-width: 32rem;
-}
-.empty-note.compact {
-  padding: var(--s-4);
 }
 /* ── Focus ──────────────────────────────────────────────────────────────── */
 :focus-visible {
@@ -524,14 +521,6 @@ h4 {
   background: var(--accent-soft);
   color: var(--accent);
 }
-.tag--success {
-  background: var(--success-soft);
-  color: var(--success);
-}
-.tag--warning {
-  background: var(--warning-soft);
-  color: var(--warning);
-}
 .tag--critical {
   background: var(--critical-soft);
   color: var(--critical);
@@ -633,7 +622,7 @@ h4 {
   display: none;
   position: fixed;
   inset: var(--topbar-h) 0 0 0;
-  background: rgba(6, 6, 8, 0.6);
+  background: var(--scrim);
   z-index: 40;
 }
 /* ── Connection state ───────────────────────────────────────────────────────
@@ -1041,11 +1030,16 @@ h4 {
     width: min(17rem, 82vw);
     z-index: 50;
     transform: translateX(-100%);
-    transition: transform 160ms ease;
+    /* Hidden once it has slid out, so keyboard focus and screen readers skip
+       the rows of a closed drawer. */
+    visibility: hidden;
+    transition: transform 160ms ease, visibility 0s linear 160ms;
     box-shadow: var(--shadow-2);
   }
   .app-sidebar[data-open='true'] {
     transform: translateX(0);
+    visibility: visible;
+    transition: transform 160ms ease;
   }
 }
 /* Process workspace */
@@ -1112,7 +1106,7 @@ h4 {
 .deploy-chip-branch {
   flex-shrink: 0;
   padding: 0 var(--s-1);
-  border-radius: 0.125rem;
+  border-radius: var(--r-1);
   background: var(--bg-3);
   font-family: var(--font-mono);
 }
@@ -1175,13 +1169,6 @@ h4 {
   color: var(--muted);
 }
 /* ── Header empty state ─────────────────────────────────────────────────── */
-.process-header--empty {
-  display: flex;
-  align-items: center;
-  min-height: 3.5rem;
-  color: var(--muted);
-  font-size: 0.8125rem;
-}
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 62rem) {
   .process-header-row {
@@ -1323,7 +1310,7 @@ h4 {
   height: 1.5rem;
   padding: 0 var(--s-2);
   border: 0;
-  border-radius: 0.1875rem;
+  border-radius: var(--r-1);
   background: transparent;
   color: var(--muted);
   font-family: var(--font-mono);
@@ -1459,7 +1446,7 @@ h4 {
   letter-spacing: 0.04em;
   text-align: center;
   align-self: center;
-  border-radius: 0.125rem;
+  border-radius: var(--r-1);
   color: var(--muted);
   user-select: none;
 }
@@ -1600,43 +1587,17 @@ h4 {
   height: 8rem;
   margin: 0 calc(var(--s-1) * -1);
 }
-.metric-card-foot {
-  font-size: 0.6875rem;
-  color: var(--muted);
-}
-/* Placeholder that keeps the card's height so the grid does not reflow when
+/* Placeholder with the chart's height so the grid does not reflow when
    history arrives. */
 .metric-card-nodata {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4.5rem;
+  height: 8rem;
   font-size: 0.75rem;
   color: var(--muted);
   border: 0.0625rem dashed var(--border);
   border-radius: var(--r-1);
-}
-/* Skeleton shown while the first metrics request is in flight. */
-.metric-card-skeleton {
-  height: 4.5rem;
-  border-radius: var(--r-1);
-  background: linear-gradient(90deg, var(--bg-3) 25%, var(--bg-2) 50%, var(--bg-3) 75%);
-  background-size: 200% 100%;
-  animation: metric-shimmer 1.4s ease-in-out infinite;
-}
-@keyframes metric-shimmer {
-  from {
-    background-position: 200% 0;
-  }
-  to {
-    background-position: -200% 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .metric-card-skeleton {
-    animation: none;
-    background: var(--bg-3);
-  }
 }
 /* ── Sparkline internals ────────────────────────────────────────────────── */
 .sparkline-wrapper {
@@ -1846,7 +1807,7 @@ h4 {
   align-items: center;
   justify-content: center;
   padding: var(--s-6);
-  background: rgba(6, 6, 8, 0.72);
+  background: var(--scrim);
   animation: fade-in 120ms ease both;
 }
 .modal {
@@ -1943,15 +1904,6 @@ h4 {
   gap: var(--s-6);
   max-width: 36rem;
 }
-.settings-page-head {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-1);
-}
-.settings-page-title {
-  margin: 0;
-  font-size: 1rem;
-}
 .settings-group {
   display: flex;
   flex-direction: column;
@@ -1980,7 +1932,7 @@ h4 {
   color: var(--muted);
   background: var(--bg-2);
   padding: 0.0625rem 0.25rem;
-  border-radius: 0.125rem;
+  border-radius: var(--r-1);
 }
 .settings-unit {
   margin-left: var(--s-2);
@@ -2466,13 +2418,6 @@ h4 {
   font-size: 0.6875rem;
   color: var(--muted);
 }
-.update-panel-link {
-  color: var(--text-dim);
-  text-decoration: none;
-}
-.update-panel-link:hover {
-  color: var(--accent);
-}
 .update-panel-body {
   flex: 1;
   overflow-y: auto;
@@ -2509,7 +2454,7 @@ h4 {
 }
 .update-panel-body code {
   padding: 0.0625rem 0.25rem;
-  border-radius: 0.125rem;
+  border-radius: var(--r-1);
   background: var(--bg-3);
   font-family: var(--font-mono);
   font-size: 0.75rem;

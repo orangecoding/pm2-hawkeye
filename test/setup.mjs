@@ -13,7 +13,16 @@
  */
 
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { initDb } from '../lib/storage/db.js';
+
+// Point config at a throwaway .env so tests of the General settings routes
+// read and rewrite a temp file, never the developer's real .env.
+const tmpEnvDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pm2-hawkeye-test-'));
+process.env.HAWKEYE_ENV_FILE = path.join(tmpEnvDir, '.env');
+fs.writeFileSync(process.env.HAWKEYE_ENV_FILE, '', 'utf8');
 
 const TEST_PASSWORD = 'admin';
 const salt = crypto.randomBytes(16);

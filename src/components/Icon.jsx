@@ -7,7 +7,6 @@ import { IconContext } from '@phosphor-icons/react';
 
 export {
   ArrowDown,
-  ArrowSquareOut,
   ChartLine,
   Check,
   CheckCircle,
@@ -22,12 +21,9 @@ export {
   Pause,
   Play,
   Plus,
-  Power,
   Record,
   RocketLaunch,
   SignOut,
-  Stop,
-  Trash,
   WarningCircle,
   X,
 } from '@phosphor-icons/react';
@@ -37,8 +33,9 @@ export { IconContext };
 /**
  * Shared icon defaults.
  *
- * One family (Phosphor), one weight, one size, applied through context so no
- * component sets them individually. The app previously drew its glyphs by hand
- * at four different stroke widths.
+ * One family (Phosphor) with one default size and weight, applied through
+ * context. Components pass `size` where their layout needs a smaller glyph,
+ * and `weight="fill"` only for solid status marks. The app previously drew
+ * its glyphs by hand at four different stroke widths.
  */
 export const ICON_DEFAULTS = { size: 15, weight: 'bold' };

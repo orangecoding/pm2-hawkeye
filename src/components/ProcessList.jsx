@@ -130,7 +130,7 @@ export default function ProcessList({
         </div>
         {items.map((proc) => (
           <ProcRow
-            key={proc.name}
+            key={proc.id ?? proc.name}
             proc={proc}
             isSelected={String(proc.id ?? proc.name) === selectedIdStr}
             isDeployed={deployedNames.has(proc.name)}

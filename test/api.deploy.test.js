@@ -174,8 +174,18 @@ describe('Deployment API', () => {
 
     const { deploymentId } = createRes.body;
 
+    // The create above kicks off a fire-and-forget deploy, and deleting is
+    // refused while one is in progress.
     const sessionRes = await request(app).get('/api/auth/session').set('Cookie', cookie);
-    const csrfToken2 = sessionRes.body.csrfToken;
+    const busyRes = await request(app)
+      .delete(`/api/deployments/${deploymentId}`)
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', sessionRes.body.csrfToken);
+    expect(busyRes.status).to.equal(409);
+
+    setDeploying(deploymentId, false);
+    const sessionRes2 = await request(app).get('/api/auth/session').set('Cookie', cookie);
+    const csrfToken2 = sessionRes2.body.csrfToken;
 
     const delRes = await request(app)
       .delete(`/api/deployments/${deploymentId}`)
@@ -267,5 +277,76 @@ describe('Deployment API', () => {
     expect(putRes.status).to.equal(200);
     expect(putRes.body.deployment.watch_enabled).to.equal(1);
     expect(putRes.body.deployment.watch_interval_minutes).to.equal(30);
+  });
+  // ── Discard local changes ──────────────────────────────────────────────────
+
+  it('POST /api/deployments stores discardLocalChanges only when it is true', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, discardLocalChanges: 'yes' });
+
+    const getRes = await request(app).get('/api/deployments').set('Cookie', cookie);
+    expect(getRes.body.deployments[0].discard_local_changes).to.equal(0);
+  });
+
+  it('PUT /api/deployments/:id updates discardLocalChanges', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const createRes = await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send(validBody);
+    setDeploying(createRes.body.deploymentId, false);
+
+    const sessionRes = await request(app).get('/api/auth/session').set('Cookie', cookie);
+    const putRes = await request(app)
+      .put(`/api/deployments/${createRes.body.deploymentId}`)
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', sessionRes.body.csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, discardLocalChanges: true });
+
+    expect(putRes.status).to.equal(200);
+    expect(putRes.body.deployment.discard_local_changes).to.equal(1);
+  });
+  // ── Input validation and confirmation ─────────────────────────────────────
+
+  it('POST /api/deployments rejects a branch git would read as an option', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, branch: '--upload-pack=touch /tmp/pwned' });
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.include('branch');
+  });
+
+  it('POST /api/deployments rejects non-string env values', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/deployments')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ ...validBody, envVars: { PORT: 3000 } });
+    expect(res.status).to.equal(400);
+  });
+
+  it('POST /api/deployments/:id/confirm answers 409 when nothing is pending', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/deployments/00000000-0000-4000-8000-000000000000/confirm')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .set('Content-Type', 'application/json')
+      .send({ confirmed: true });
+    expect(res.status).to.equal(409);
   });
 });

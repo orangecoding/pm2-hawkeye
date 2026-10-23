@@ -23,6 +23,67 @@ describe('PM2 Service Logic (pm2Service.js)', () => {
     });
   });
 
+  // ── extractCustomMetrics ───────────────────────────────────────────────────
+
+  describe('extractCustomMetrics', () => {
+    it('returns an empty list when the process reports no metrics', () => {
+      expect(pm2.extractCustomMetrics({ pm2_env: {} })).to.deep.equal([]);
+      expect(pm2.extractCustomMetrics({})).to.deep.equal([]);
+    });
+
+    it('reads numbers and numeric strings with their unit, sorted by name', () => {
+      const proc = {
+        pm2_env: {
+          axm_monitor: {
+            'Heap Usage': { value: '55.32', unit: '%' },
+            'queue size': { value: 12 },
+            'Event Loop Latency': { value: 0.41, unit: 'ms', agg_type: 'avg' },
+          },
+        },
+      };
+      expect(pm2.extractCustomMetrics(proc)).to.deep.equal([
+        { name: 'Event Loop Latency', value: 0.41, unit: 'ms' },
+        { name: 'Heap Usage', value: 55.32, unit: '%' },
+        { name: 'queue size', value: 12, unit: null },
+      ]);
+    });
+
+    it('strips the unit a tx2 meter appends to its value', () => {
+      const proc = { pm2_env: { axm_monitor: { 'req/sec': { value: '12.5req/sec', unit: 'req/sec' } } } };
+      expect(pm2.extractCustomMetrics(proc)).to.deep.equal([{ name: 'req/sec', value: 12.5, unit: 'req/sec' }]);
+    });
+
+    it('skips values that are not finite numbers', () => {
+      const proc = {
+        pm2_env: {
+          axm_monitor: {
+            text: { value: 'N/A' },
+            empty: { value: '' },
+            nan: { value: Number.NaN },
+            flag: { value: true },
+            nested: { value: { a: 1 } },
+            missing: {},
+            broken: null,
+            ok: { value: '7' },
+          },
+        },
+      };
+      expect(pm2.extractCustomMetrics(proc)).to.deep.equal([{ name: 'ok', value: 7, unit: null }]);
+    });
+
+    it('caps the metric count and the name length', () => {
+      const axm_monitor = {};
+      for (let i = 0; i < pm2.MAX_CUSTOM_METRICS + 10; i++) {
+        axm_monitor[`metric ${String(i).padStart(3, '0')}`] = { value: i };
+      }
+      axm_monitor['x'.repeat(500)] = { value: 1 };
+
+      const metrics = pm2.extractCustomMetrics({ pm2_env: { axm_monitor } });
+      expect(metrics).to.have.length(pm2.MAX_CUSTOM_METRICS);
+      expect(metrics.every((m) => m.name.length <= pm2.MAX_METRIC_NAME_LENGTH)).to.equal(true);
+    });
+  });
+
   // ── extractTimestamp ───────────────────────────────────────────────────────
 
   describe('extractTimestamp', () => {

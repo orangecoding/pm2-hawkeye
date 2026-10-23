@@ -3,7 +3,7 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 /**
  * A button that asks once before it acts.
@@ -15,42 +15,54 @@ import React, { useState } from 'react';
  * Pass more than one entry in `choices` when the action has variants (for
  * example deleting from PM2 only versus deleting from PM2 and disk).
  *
+ * The trigger is swapped for the prompt in place, so focus is managed by hand:
+ * opening the prompt focuses Cancel (the safe answer, inside a group labelled
+ * with the question so screen readers announce it), Escape cancels, and
+ * closing the prompt puts focus back on the trigger.
+ *
  * @param {{
  *   label: string,
  *   question: string,
- *   choices?: { label: string, onConfirm: () => void | Promise<void>, danger?: boolean }[],
- *   onConfirm?: () => void | Promise<void>,
- *   variant?: 'default' | 'primary' | 'danger',
+ *   choices: { label: string, onConfirm: () => void | Promise<void>, danger?: boolean }[],
+ *   variant?: 'default' | 'danger',
  *   size?: 'default' | 'sm',
- *   disabled?: boolean,
  * }} props
  */
-export default function ConfirmButton({
-  label,
-  question,
-  choices,
-  onConfirm,
-  variant = 'default',
-  size = 'default',
-  disabled = false,
-}) {
+export default function ConfirmButton({ label, question, choices, variant = 'default', size = 'default' }) {
   const [asking, setAsking] = useState(false);
   const [busy, setBusy] = useState(false);
+  const triggerRef = useRef(null);
+  const cancelRef = useRef(null);
+  /** Set when the prompt closes, so the remounted trigger takes focus back. */
+  const restoreFocusRef = useRef(false);
 
-  const options = choices ?? [{ label: 'Confirm', onConfirm, danger: variant === 'danger' }];
+  useEffect(() => {
+    if (asking) {
+      cancelRef.current?.focus();
+    } else if (restoreFocusRef.current) {
+      restoreFocusRef.current = false;
+      triggerRef.current?.focus();
+    }
+  }, [asking]);
+
+  /** Close the prompt and hand focus back to the trigger. */
+  function close() {
+    restoreFocusRef.current = true;
+    setAsking(false);
+  }
 
   /**
    * Run a choice's handler, then close the prompt.
    *
-   * @param {{ onConfirm?: () => void | Promise<void> }} choice
+   * @param {{ onConfirm: () => void | Promise<void> }} choice
    */
   async function run(choice) {
     setBusy(true);
     try {
-      await choice.onConfirm?.();
+      await choice.onConfirm();
     } finally {
       setBusy(false);
-      setAsking(false);
+      close();
     }
   }
 
@@ -59,9 +71,9 @@ export default function ConfirmButton({
   if (!asking) {
     return (
       <button
+        ref={triggerRef}
         type="button"
-        className={`btn${variant === 'danger' ? ' btn--danger' : variant === 'primary' ? ' btn--primary' : ''}${sizeClass}`}
-        disabled={disabled}
+        className={`btn${variant === 'danger' ? ' btn--danger' : ''}${sizeClass}`}
         onClick={() => setAsking(true)}
       >
         {label}
@@ -70,10 +82,21 @@ export default function ConfirmButton({
   }
 
   return (
-    <span className="confirm" role="group" aria-label={question}>
+    <span
+      className="confirm"
+      role="group"
+      aria-label={question}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape' && !busy) {
+          // Keep an enclosing dialog from closing on the same key press.
+          e.stopPropagation();
+          close();
+        }
+      }}
+    >
       <span className="confirm-label">{question}</span>
       <span className="confirm-actions">
-        {options.map((choice) => (
+        {choices.map((choice) => (
           <button
             key={choice.label}
             type="button"
@@ -84,7 +107,7 @@ export default function ConfirmButton({
             {choice.label}
           </button>
         ))}
-        <button type="button" className="btn btn--sm btn--quiet" disabled={busy} onClick={() => setAsking(false)}>
+        <button ref={cancelRef} type="button" className="btn btn--sm btn--quiet" disabled={busy} onClick={close}>
           Cancel
         </button>
       </span>

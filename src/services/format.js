@@ -7,6 +7,15 @@
  * Display formatting utilities.
  */
 
+/**
+ * Format a byte count with a binary unit, e.g. `1.5 GB` or `512 MB`.
+ *
+ * The unit is chosen from the rounded value, so 1023.6 MB reads `1.0 GB`
+ * instead of `1024 MB`, and 9.96 KB reads `10 KB` instead of `10.0 KB`.
+ *
+ * @param {number} bytes
+ * @returns {string}
+ */
 export function formatBytes(bytes) {
   if (!bytes) return '0 B';
   const units = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -16,7 +25,52 @@ export function formatBytes(bytes) {
     value /= 1024;
     i += 1;
   }
-  return `${value.toFixed(value >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
+  let digits = value >= 10 || i === 0 ? 0 : 1;
+  const rounded = Number(value.toFixed(digits));
+  if (rounded >= 1024 && i < units.length - 1) {
+    value /= 1024;
+    i += 1;
+    digits = 1;
+  } else if (digits === 1 && rounded >= 10) {
+    digits = 0;
+  }
+  return `${value.toFixed(digits)} ${units[i]}`;
+}
+
+/**
+ * Format a retention window in words, e.g. `24 hours` or `14 days`.
+ *
+ * Whole multiples of a day from two days up read as days; everything else
+ * reads as hours, or as minutes below one hour.
+ *
+ * @param {number} ms
+ * @returns {string}
+ */
+export function formatDuration(ms) {
+  const days = ms / 86_400_000;
+  if (Number.isInteger(days) && days >= 2) return `${days} days`;
+  const hours = Math.round((ms / 3_600_000) * 10) / 10;
+  if (hours >= 1) return `${hours} ${hours === 1 ? 'hour' : 'hours'}`;
+  const minutes = Math.max(Math.round(ms / 60_000), 1);
+  return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+}
+
+const metricNumberFormat = new Intl.NumberFormat('en-GB', { maximumFractionDigits: 2 });
+
+/**
+ * Format an application metric value (tx2 / @pm2/io) with its unit.
+ *
+ * Values keep at most two decimals. A percent sign is attached directly, any
+ * other unit follows after a space, and a missing unit leaves the bare number.
+ *
+ * @param {number} value
+ * @param {string | null} [unit]
+ * @returns {string}
+ */
+export function formatMetricValue(value, unit = null) {
+  const number = metricNumberFormat.format(value);
+  if (!unit) return number;
+  return unit === '%' ? `${number}%` : `${number} ${unit}`;
 }
 
 export function formatRelativeTime(timestamp) {
@@ -32,13 +86,6 @@ export function formatRelativeTime(timestamp) {
 
 export function formatDate(timestamp) {
   return timestamp ? new Date(timestamp).toLocaleString('en-GB') : '---';
-}
-
-export function getStatusTone(status) {
-  const s = String(status).toLowerCase();
-  if (['online', 'launching'].includes(s)) return 'healthy';
-  if (['stopped', 'errored', 'one-launch-status'].includes(s)) return 'critical';
-  return 'muted';
 }
 
 /**

@@ -196,11 +196,16 @@
     width: min(17rem, 82vw);
     z-index: 50;
     transform: translateX(-100%);
-    transition: transform 160ms ease;
+    /* Hidden once it has slid out, so keyboard focus and screen readers skip
+       the rows of a closed drawer. */
+    visibility: hidden;
+    transition: transform 160ms ease, visibility 0s linear 160ms;
     box-shadow: var(--shadow-2);
   }
 
   .app-sidebar[data-open='true'] {
     transform: translateX(0);
+    visibility: visible;
+    transition: transform 160ms ease;
   }
 }

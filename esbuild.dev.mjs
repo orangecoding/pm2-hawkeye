@@ -220,6 +220,10 @@ const server = http.createServer((req, res) => {
 
 // Proxy WebSocket upgrades to the backend
 server.on('upgrade', (req, socket, head) => {
+  // A reset on either side must not crash the dev server with an unhandled
+  // 'error' event; tearing down the browser socket lets the client reconnect.
+  socket.on('error', () => socket.destroy());
+
   const proxyReq = http.request({
     hostname: BACKEND_HOST,
     port: BACKEND_PORT,
@@ -228,7 +232,18 @@ server.on('upgrade', (req, socket, head) => {
     headers: req.headers,
   });
 
+  // The backend refused the upgrade (401 after the session expired, 403 for a
+  // foreign origin, 404). Pass the status on and close, otherwise the browser
+  // socket hangs forever and the client never retries.
+  proxyReq.on('response', (proxyRes) => {
+    socket.end(`HTTP/1.1 ${proxyRes.statusCode} ${proxyRes.statusMessage}\r\nConnection: close\r\n\r\n`);
+    proxyRes.resume();
+  });
+
   proxyReq.on('upgrade', (proxyRes, proxySocket, proxyHead) => {
+    proxySocket.on('error', () => socket.destroy());
+    socket.on('close', () => proxySocket.destroy());
+    proxySocket.on('close', () => socket.destroy());
     socket.write(
       `HTTP/1.1 ${proxyRes.statusCode || 101} ${proxyRes.statusMessage || 'Switching Protocols'}\r\n` +
         Object.entries(proxyRes.headers)

@@ -57,19 +57,13 @@ const FIELD_META = {
     group: 'Brute-force protection',
     label: 'Failure window',
     unit: 'ms',
-    hint: 'Period over which consecutive failures are counted for lockout.',
-  },
-  LOGIN_BASE_LOCKOUT_MS: {
-    group: 'Brute-force protection',
-    label: 'First lockout',
-    unit: 'ms',
-    hint: 'Lockout after the first burst of failures. Doubles with each further burst.',
+    hint: 'Three failed logins within this period trigger a lockout.',
   },
   LOGIN_MAX_LOCKOUT_MS: {
     group: 'Brute-force protection',
-    label: 'Longest lockout',
+    label: 'Lockout',
     unit: 'ms',
-    hint: 'Upper bound on the doubling lockout.',
+    hint: 'How long a client stays locked out after three failed logins.',
   },
   UNAUTH_WINDOW_MS: {
     group: 'Brute-force protection',
@@ -173,8 +167,10 @@ export default function GeneralSettings({ csrfToken, onCsrfRefresh }) {
     setNotice(null);
     try {
       const settings = { ...fields };
+      // Sent as typed: the login compares the password untrimmed, so trimming
+      // here would set a password that can never be entered.
       if (newPassword.trim()) {
-        settings.authPassword = newPassword.trim();
+        settings.authPassword = newPassword;
       }
       await fetchWithCsrf('/api/settings/general', {
         onCsrfRefresh,
@@ -201,7 +197,17 @@ export default function GeneralSettings({ csrfToken, onCsrfRefresh }) {
     );
   }
 
-  const keys = fields ? Object.keys(fields) : [];
+  // Without the current values there is nothing safe to save: an empty form
+  // would read as "no .env file" and saving it could drop existing keys.
+  if (!fields) {
+    return (
+      <div className="settings-page">
+        {notice && <div className={`settings-notice settings-notice--${notice.type}`}>{notice.text}</div>}
+      </div>
+    );
+  }
+
+  const keys = Object.keys(fields);
 
   // Bucket every key into its group, keeping unknown keys visible under "Other".
   const grouped = {};

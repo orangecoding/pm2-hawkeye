@@ -5,7 +5,8 @@
 
 import React, { useState } from 'react';
 import { fetchWithCsrf } from '../../services/api.js';
-import { CheckCircle, Plus, WarningCircle, X } from '../Icon.jsx';
+import KeyValueList from '../KeyValueList.jsx';
+import { CheckCircle, WarningCircle } from '../Icon.jsx';
 
 /**
  * Available template variables for header values and body values.
@@ -99,59 +100,6 @@ function buildCurlPreview(url, headers, bodyParams) {
   parts.push(`  -d '${bodyStr}'`);
 
   return parts.join('\n');
-}
-
-/**
- * Editable list of key/value pairs (webhook headers or body params).
- *
- * @param {{
- *   label: string,
- *   hint?: string,
- *   rows: { key: string, value: string }[],
- *   keyPlaceholder: string,
- *   valuePlaceholder: string,
- *   onAdd: () => void,
- *   onUpdate: (index: number, field: string, value: string) => void,
- *   onRemove: (index: number) => void,
- * }} props
- */
-function KeyValueList({ label, hint, rows, keyPlaceholder, valuePlaceholder, onAdd, onUpdate, onRemove }) {
-  return (
-    <div className="field">
-      <label>{label}</label>
-      {hint && <p className="hint">{hint}</p>}
-      {rows.map((row, i) => (
-        <div className="kv-row" key={i}>
-          <input
-            className="input"
-            placeholder={keyPlaceholder}
-            aria-label={`${label} name ${i + 1}`}
-            value={row.key}
-            onChange={(e) => onUpdate(i, 'key', e.target.value)}
-          />
-          <input
-            className="input"
-            placeholder={valuePlaceholder}
-            aria-label={`${label} value ${i + 1}`}
-            value={row.value}
-            onChange={(e) => onUpdate(i, 'value', e.target.value)}
-          />
-          <button
-            type="button"
-            className="btn btn--icon"
-            aria-label={`Remove ${label} ${i + 1}`}
-            onClick={() => onRemove(i)}
-          >
-            <X size={13} />
-          </button>
-        </div>
-      ))}
-      <button type="button" className="btn btn--sm" onClick={onAdd}>
-        <Plus size={12} weight="bold" />
-        Add
-      </button>
-    </div>
-  );
 }
 
 /**

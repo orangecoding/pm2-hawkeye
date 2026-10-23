@@ -7,6 +7,17 @@
  * Centralised HTTP helpers for the PM2 dashboard.
  */
 
+/**
+ * Fetch a JSON endpoint and return its parsed body.
+ *
+ * A 401 sends the browser to the login page. Any other failure throws an
+ * Error carrying the server's message and the HTTP status as `status`, so
+ * callers can tell an expected answer (404, 409) from a real failure.
+ *
+ * @param {string} url
+ * @param {RequestInit} [options]
+ * @returns {Promise<object>}
+ */
 export async function fetchJson(url, options = {}) {
   const response = await fetch(url, {
     ...options,
@@ -18,7 +29,9 @@ export async function fetchJson(url, options = {}) {
     throw new Error('Session expired.');
   }
   if (!response.ok) {
-    throw new Error(payload.error || `Request failed: ${response.status}`);
+    const error = new Error(payload.error || `Request failed: ${response.status}`);
+    error.status = response.status;
+    throw error;
   }
   return payload;
 }

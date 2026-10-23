@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/node-%3E%3D22.0.0-brightgreen?logo=node.js" alt="Node.js" />
+  <img src="https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen?logo=node.js" alt="Node.js" />
   <img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="License" />
   <img src="https://img.shields.io/badge/frontend-React%2019-61dafb?logo=react" alt="React" />
   <img src="https://img.shields.io/badge/transport-WebSockets-blueviolet" alt="WebSockets" />
@@ -30,9 +30,10 @@
 - **Persistent monitoring** - CPU/memory history and logs stored in SQLite, survives page reloads
 - **One-click restart** - restart any process with an inline confirmation
 - **PM2 custom actions** - trigger any `axm_actions` your processes expose
+- **Application metrics** - chart any value your app reports through tx2 or @pm2/io, with history for monitored processes
 - **Runtime log level** - switch a running process to `debug` without restarting it, reverts on restart
 - **Secure by default** - scrypt password hashing, CSRF protection, rate limiting, CSP headers
-- **Single WebSocket connection** - no polling, no SSE; all real-time data over one multiplexed stream
+- **Single WebSocket connection** - process list, live stats, log lines and deploy progress share one multiplexed stream; only stored history is refreshed over HTTP
 - **Alerting** - webhook and ntfy notifications when monitored processes log errors, with per-process mute and throttle support
 - **Dark-mode UI** - clean, responsive dashboard that works on desktop and mobile
 
@@ -44,7 +45,7 @@ per-process function lives in exactly one of them.
 | Tab | What it holds |
 |---|---|
 | **Logs** | Merged stdout and stderr, level filters, search, pause, copy, download |
-| **Metrics** | CPU and memory history for the process, next to host CPU, RAM, and disk |
+| **Metrics** | CPU and memory history for the process, its own tx2 / @pm2/io metrics, next to host CPU, RAM, and disk |
 | **Manage** | Monitoring, per-process alerts, log level, custom actions, deployment config, delete |
 
 Restart and Stop/Start sit in the process header, alongside a live strip of CPU,
@@ -53,8 +54,10 @@ mem readouts there, and the host CPU/RAM/disk readouts in the top bar, are
 shortcuts: clicking one opens the Metrics tab scrolled to that chart. They never
 draw a chart of their own, so every chart still lives in exactly one place.
 
-Process charts cover the last hour of samples; the host charts cover the full
-24-hour retention window, averaged into five-minute buckets.
+Process charts show the last 180 stored samples, and a sample is only stored
+when its value changed, so a steady process reaches further back. The host
+charts cover the full retention window (`METRICS_RETENTION_MS`, 24 hours by
+default), averaged into five-minute buckets.
 
 ---
 
@@ -76,14 +79,15 @@ When you open a process without enabling monitoring, you see real-time CPU, memo
 
 **Monitored**
 
-Click *Start Monitoring* on any process to enable persistent tracking. PM2-Hawkeye will:
+Click **Turn on** under **Monitoring** in the Manage tab (or **Turn on monitoring** in the Metrics tab) to enable persistent tracking. PM2-Hawkeye will:
 
 - Sample CPU and memory every 20 seconds and store the history (default: 24 hours)
+- Sample every [application metric](#-custom-metrics-with-tx2) the process reports, on the same schedule and retention
 - Persist incoming log lines to the database (default: 14 days)
 - Show a sparkline chart of CPU and memory over time
 - Backfill the last log entries from the PM2 log files on first enable
 
-Monitoring state survives server restarts. You can stop monitoring at any time - this removes all stored history for that process.
+Monitoring state survives server restarts. You can turn monitoring off at any time - this removes all stored history for that process.
 
 ---
 
@@ -91,12 +95,12 @@ Monitoring state survives server restarts. You can stop monitoring at any time -
 
 ### Prerequisites
 
-- Node.js 22 or higher
-- PM2 installed globally (`npm i -g pm2`)
+- Node.js 24 or higher
+- PM2 7 or newer, installed globally (`npm i -g pm2@latest`). After upgrading the global PM2, run `pm2 update` so the running daemon is replaced as well. Startup aborts with instructions when the `pm2` command is missing, older than 7, or the running daemon is still on an older version
 - At least one PM2 process running
 
 > [!IMPORTANT]
-> **Node.js only** - PM2-Hawkeye must run on Node.js. Alternative runtimes such as Bun or Deno are not supported, because the native SQLite addon (`better-sqlite3`) crashes there with a segmentation fault. Keep in mind that `bun run` and `bun start` replace `node` inside `package.json` scripts with Bun itself, so `bun start` does not start the server on Node.js. Use `npm start`, or build with any package manager and start the server explicitly with `node lib/transport/server.js`. Startup aborts with an explanatory message when an unsupported runtime is detected.
+> **Node.js only** - PM2-Hawkeye must run on Node.js. Alternative runtimes such as Bun or Deno are not supported, because the native SQLite addon (`better-sqlite3`) crashes there with a segmentation fault. Keep in mind that `bun run` and `bun start` replace `node` inside `package.json` scripts with Bun itself, so `bun start` does not start the server on Node.js. Use `npm start`, or build with any package manager and start the server explicitly with `node lib/transport/server.js`. Startup aborts with an explanatory message when an unsupported runtime or a Node.js release older than 24 is detected.
 
 ### 1. Clone & install
 
@@ -187,7 +191,9 @@ If PM2-Hawkeye is not running under PM2 when the script finishes, it will print 
 
 ## ⚙️ Configuration
 
-All settings are read from a `.env` file in the project root. Copy `.env.example` to get started.
+All settings are read from a `.env` file in the project root. Copy `.env.example` to get started. Set `HAWKEYE_ENV_FILE` to read (and, from the General settings page, write) a different file instead. Real environment variables take precedence over the file.
+
+The file's values configure PM2-Hawkeye only: they are not exported into its process environment, so processes it starts or deploys through PM2 do not inherit its port, password hash or other settings.
 
 **Server**
 
@@ -212,9 +218,8 @@ All settings are read from a `.env` file in the project root. Copy `.env.example
 | `AUTH_MIN_RESPONSE_MS` | `900` | Minimum login response time (timing-attack mitigation) |
 | `LOGIN_WINDOW_MS` | `600000` | Sliding window for login attempts (10 min) |
 | `LOGIN_MAX_REQUESTS` | `12` | Max login attempts per window |
-| `LOGIN_FAILURE_WINDOW_MS` | `1800000` | Window for exponential lockout (30 min) |
-| `LOGIN_BASE_LOCKOUT_MS` | `30000` | Initial lockout after repeated failures (30 s) |
-| `LOGIN_MAX_LOCKOUT_MS` | `43200000` | Maximum lockout period (12 h) |
+| `LOGIN_FAILURE_WINDOW_MS` | `1800000` | Three failed logins within this window lock the client out (30 min) |
+| `LOGIN_MAX_LOCKOUT_MS` | `43200000` | Lockout period after three failed logins (12 h) |
 | `UNAUTH_WINDOW_MS` | `60000` | Window for unauthenticated access attempts (1 min) |
 | `UNAUTH_MAX_REQUESTS` | `10` | Max unauthenticated hits before a 5 s penalty |
 | `UNAUTH_PENALTY_MS` | `5000` | Delay added to rate-limited unauthenticated responses |
@@ -226,11 +231,13 @@ All settings are read from a `.env` file in the project root. Copy `.env.example
 | `COOKIE_SECURE` | `auto` | `auto` / `always` / `never` |
 | `TRUST_PROXY` | `0` | Set to `1` when behind a reverse proxy |
 
+Behind a reverse proxy, set `TRUST_PROXY=1` so the client IP (used for rate limiting), HTTPS detection (`COOKIE_SECURE=auto`) and the forwarded host come from the proxy's `X-Forwarded-*` headers. The proxy must pass WebSocket upgrades on `/ws/` through and keep the original `Host` header or send `X-Forwarded-Host`: the WebSocket handshake is refused with 403 when its `Origin` does not match the host the browser used.
+
 **Storage**
 
 | Variable | Default | Description |
 |---|---|---|
-| `SQLITE_DB_PATH` | `./data` | Directory for the SQLite database (`pm2-hawkeye.db` is created inside) |
+| `SQLITE_DB_PATH` | `./data` | Directory for the SQLite database (`pm2-hawkeye.db` is created inside). Relative paths resolve against the project directory |
 | `METRICS_RETENTION_MS` | `86400000` | How long metric samples are kept (24 h) |
 | `LOGS_RETENTION_MS` | `1209600000` | How long log entries are kept (14 days) |
 | `MAX_LOG_BYTES_PER_FILE` | `5242880` | Max bytes read per PM2 log file (5 MB) |
@@ -280,9 +287,52 @@ Once your process is running, open it in PM2-Hawkeye and go to the **Manage** ta
 |---|---|
 | `tx2.action(name, fn)` | Register a triggerable action |
 | `tx2.action(name, { arity: 1 }, fn)` | Action that accepts a parameter |
-| `tx2.metric(name, fn)` | Expose a live metric |
-| `tx2.counter(name)` | Incrementing counter |
-| `tx2.histogram(name)` | Value distribution histogram |
+
+For metrics, see the next section.
+
+---
+
+## 📈 Custom Metrics with tx2
+
+Your app can hand numbers to PM2-Hawkeye and get a chart for each of them in the **Metrics** tab. There is no Hawkeye-specific API: the app reports metrics the standard PM2 way, through **[tx2](https://github.com/pm2/tx2)** or **[@pm2/io](https://github.com/keymetrics/pm2-io-apm)**, and PM2 keeps the latest value of each one in the process's `axm_monitor` data. PM2-Hawkeye reads that.
+
+```bash
+npm install tx2
+```
+
+```js
+import tx2 from 'tx2';
+
+// A value read once per second
+tx2.metric('queue size', () => queue.length);
+
+// The same, with a unit shown next to the value
+tx2.metric('cache hit rate', '%', () => cache.hitRate * 100);
+
+// A value you set yourself (pass an object: tx2.metric('name') alone is rejected)
+const users = tx2.metric({ name: 'active users' });
+users.set(42);
+
+// Counter: call .inc() / .dec()
+const jobs = tx2.counter('jobs processed');
+jobs.inc();
+
+// Histogram: mean (or min, max, p95, ...) of recorded values
+const latency = tx2.histogram({ name: 'db latency', unit: 'ms', measurement: 'p95' });
+latency.update(12);
+
+// Meter: events per second
+const requests = tx2.meter({ name: 'requests', unit: 'req/sec' });
+requests.mark();
+```
+
+**How it shows up**
+
+- The **Metrics** tab gets an **Application metrics** group with one chart per metric, sorted by name. The current value updates live every three seconds.
+- History is stored only for [monitored](#-live-vs-monitored-processes) processes: every 20 seconds, kept as long as CPU and memory history (default: 24 hours). Without monitoring you see the live value only.
+- Only numeric values are charted. Numeric strings (`'35.25'`) are accepted; anything else is skipped. At most 50 metrics per process are read.
+- PM2 injects @pm2/io into every Node.js process it starts (unless `pmx: false`), so even an app that registers nothing shows its runtime metrics: heap usage, event loop latency, active handles and requests, and HTTP latency once it serves requests.
+- PM2 clears the metrics of a process when it restarts. A metric that is no longer reported keeps its stored history until the retention window drops it.
 
 ---
 
@@ -399,7 +449,7 @@ Sends an HTTP POST request to any URL you choose. You can attach custom request 
 | `{log_message}` | The full log line text |
 | `{process_name}` | The PM2 process name |
 
-Variable substitution is JSON-aware: if a value contains `{log_message}` inside a quoted JSON string it is substituted as a raw string; if it appears as an unquoted JSON value the substituted text is JSON-encoded automatically, preventing malformed payloads.
+Variable substitution is JSON-aware: inside a quoted JSON string the value is escaped (quotes, line breaks), and as an unquoted JSON value it becomes a complete JSON string, so log lines never produce malformed payloads. A value that is not JSON at all is sent as plain text. Line breaks in header values are replaced by spaces.
 
 A live curl preview updates in real time as you fill in the form so you can verify the exact request before saving.
 
@@ -459,6 +509,12 @@ A real-time progress log streams each step in the browser.
 | Pre-setup script | Shell script that runs in `DEPLOY_BASE_DIR` before cloning. Use it to check requirements or install OS packages. |
 | Post-setup script | Shell script that runs in the cloned repo directory after the build. Use it for migrations, file permission fixes, etc. |
 
+**Redeploy** (optional)
+
+| Field | Description |
+|---|---|
+| Discard local changes without asking | When a redeploy finds modified tracked files in the deploy directory, run `git reset --hard` straight away instead of pausing to ask. Untracked files are kept. Off by default. |
+
 **Auto-deploy** (optional)
 
 | Field | Description |
@@ -479,13 +535,13 @@ Further collapsible groups cover how PM2 runs the app (interpreter, exec mode, i
 
 A process that PM2-Hawkeye deployed is marked as such in two places: a git icon next to its name in the sidebar, and a chip in its header showing the repository and branch it came from. Both a **Redeploy** button in the header and the chip itself open the saved configuration, pre-filled.
 
-In that form, **Save and redeploy** saves and immediately runs `git pull --rebase`, reinstall, rebuild, and PM2 restart. **Save only** persists the configuration without touching the running process. The same Redeploy button also sits in the **Manage** tab, next to the repository URL and the time of the last successful deploy.
+In that form, **Save and redeploy** saves and immediately fetches the configured branch from the configured repository (`git fetch` plus `git checkout -B`), then reinstalls, rebuilds, and restarts the PM2 process. Changing the repository URL or the branch therefore takes effect on the next redeploy. Commits made inside the deploy directory are dropped; untracked files such as a `.env` are kept. If the deploy directory has uncommitted changes to tracked files, the redeploy pauses and asks whether to discard them; turn on **Discard local changes without asking** under **Redeploy** to skip that question for this deployment. **Save only** persists the configuration without touching the running process. The same Redeploy button also sits in the **Manage** tab, next to the repository URL and the time of the last successful deploy.
 
 Deployments whose PM2 process is gone appear under **Not deployed** in the sidebar with their own Redeploy and Delete buttons.
 
 ### Auto-deploy on new commits
 
-Every deployment can watch its own branch. Enable **Auto-deploy** in the deploy form and pick a poll interval; PM2-Hawkeye then runs `git ls-remote` against the repository on that interval and compares the branch head with the commit checked out on disk. When the branch has moved ahead, it runs exactly the same sequence as a manual redeploy: pull, install, build, post-setup script, PM2 restart. Progress streams over the same WebSocket, so an auto-deploy is visible live if you happen to have the app open.
+Every deployment can watch its own branch. Enable **Auto-deploy** in the deploy form and pick a poll interval; PM2-Hawkeye then runs `git ls-remote` against the repository on that interval and compares the branch head with the commit checked out on disk. When the branch has moved ahead, it runs exactly the same sequence as a manual redeploy: fetch and checkout, install, build, post-setup script, PM2 restart. Progress streams over the same WebSocket, so an auto-deploy is visible live if you happen to have the app open.
 
 Three details worth knowing:
 
@@ -493,7 +549,7 @@ Three details worth knowing:
 - **One deploy per commit.** The SHA that triggered a deploy is recorded before the deploy starts, so a failing deploy waits for the next commit instead of retrying every interval.
 - **Results are notified.** If a webhook or ntfy reporter is enabled under **Settings - Alerting**, each auto-deploy sends one notification with its outcome. Unlike log alerts, this ignores the log-level threshold, the throttle window, and the per-process alerts toggle.
 
-The **Manage** tab shows the current state under the repository URL: the interval, when the branch was last checked, and the last error if a poll or an auto-deploy failed. Polling uses whatever git credentials the server already has, with prompts disabled, so a private repository without a usable key fails fast and records the error instead of hanging.
+The **Manage** tab shows the current state under the repository URL: the interval, when the branch was last checked, and the last error if a poll or an auto-deploy failed. Polling uses whatever git credentials the server already has (including `GIT_SSH_COMMAND` or a `core.sshCommand` pointing at a deploy key), with prompts disabled, so a private repository without a usable key fails fast and records the error instead of hanging.
 
 ### Configuration
 
@@ -510,7 +566,7 @@ The directory is created automatically on first deploy. Use an absolute path to 
 ## Security
 
 - **CSRF tokens** - one-time-use tokens rotated after every state-changing request
-- **Rate limiting** - sliding window + exponential backoff on failed logins; separate rate limit for unauthenticated access
+- **Rate limiting** - sliding window plus a lockout after three failed logins; separate rate limit for unauthenticated access
 - **CSP headers** - strict Content-Security-Policy including `ws:`/`wss:` for WebSockets
 - **Timing-attack mitigation** - constant-time credential comparison with a minimum response delay
 - **Secure cookies** - `HttpOnly`, `SameSite=Strict`, optional `Secure` flag

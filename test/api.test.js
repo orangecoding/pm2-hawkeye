@@ -7,6 +7,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import app from '../lib/transport/server.js';
 import config from '../lib/config.js';
+import { isAllowedOrigin } from '../lib/transport/ws.js';
 
 // ── Auth helper ─────────────────────────────────────────────────────────────
 
@@ -43,6 +44,19 @@ describe('API Integration Tests', () => {
     it('should return 400 if credentials missing', async () => {
       const res = await request(app).post('/api/auth/login').send({});
       expect(res.status).to.equal(400);
+    });
+
+    it('answers a login without a body with 400, not a 500', async () => {
+      const res = await request(app).post('/api/auth/login');
+      expect(res.status).to.equal(400);
+      expect(res.body.error).to.be.a('string');
+    });
+
+    it('answers malformed JSON with a JSON 400 and no stack trace', async () => {
+      const res = await request(app).post('/api/auth/login').set('Content-Type', 'application/json').send('{bad');
+      expect(res.status).to.equal(400);
+      expect(res.headers['content-type']).to.include('application/json');
+      expect(JSON.stringify(res.body)).not.to.include('node_modules');
     });
 
     it('should return 401 for wrong credentials', async () => {
@@ -212,6 +226,31 @@ describe('API Integration Tests', () => {
         .set('X-CSRF-Token', csrfToken)
         .send({});
       expect(res.status).to.equal(400);
+    });
+  });
+  describe('WebSocket origin check', () => {
+    it('allows a page served by this host', () => {
+      expect(isAllowedOrigin({ headers: { origin: 'http://10.0.0.5:3030', host: '10.0.0.5:3030' } })).to.equal(true);
+    });
+
+    it('rejects another port on the same host (same site, different origin)', () => {
+      expect(isAllowedOrigin({ headers: { origin: 'http://10.0.0.5:8080', host: '10.0.0.5:3030' } })).to.equal(false);
+    });
+
+    it('accepts X-Forwarded-Host behind a trusted proxy', () => {
+      // test/setup.mjs sets TRUST_PROXY=1.
+      const req = {
+        headers: {
+          origin: 'https://hawkeye.example.com',
+          host: '127.0.0.1:3030',
+          'x-forwarded-host': 'hawkeye.example.com',
+        },
+      };
+      expect(isAllowedOrigin(req)).to.equal(true);
+    });
+
+    it('allows clients that send no Origin', () => {
+      expect(isAllowedOrigin({ headers: { host: '127.0.0.1:3030' } })).to.equal(true);
     });
   });
 });

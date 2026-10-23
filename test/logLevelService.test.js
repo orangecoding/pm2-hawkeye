@@ -38,15 +38,6 @@ describe('Log Level Service (logLevelService.js)', () => {
     });
   });
 
-  // ── getState ───────────────────────────────────────────────────────────────
-
-  describe('getState', () => {
-    it('should return null for a process it has never heard from', () => {
-      const channel = createLogLevelChannel(async () => {});
-      expect(channel.getState(7, 1000)).to.equal(null);
-    });
-  });
-
   // ── Request lifecycle ──────────────────────────────────────────────────────
 
   describe('setLevel', () => {
@@ -61,7 +52,7 @@ describe('Log Level Service (logLevelService.js)', () => {
 
       // The pending request is registered synchronously, before the first
       // await inside setLevel, so acknowledging on the next line is safe.
-      const answer = channel.setLevel(3, 111, 'debug');
+      const answer = channel.setLevel(3, 'debug');
       channel.handleAck({ process: { pm_id: 3 }, data: { level: 'debug' } });
 
       const result = await answer;
@@ -76,21 +67,21 @@ describe('Log Level Service (logLevelService.js)', () => {
 
     it('should trust the level in the acknowledgement over the requested one', async () => {
       const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 200 });
-      const answer = channel.setLevel(3, 111, 'trace');
+      const answer = channel.setLevel(3, 'trace');
       channel.handleAck({ process: { pm_id: 3 }, data: { level: 'info' } });
       expect((await answer).level).to.equal('info');
     });
 
     it('should resolve with no-ack when the process stays silent', async () => {
       const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 20 });
-      const result = await channel.setLevel(3, 111, 'debug');
+      const result = await channel.setLevel(3, 'debug');
       expect(result).to.deep.equal({ ok: false, reason: 'no-ack' });
     });
 
     it('should supersede an in-flight request for the same process', async () => {
       const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 200 });
-      const first = channel.setLevel(3, 111, 'debug');
-      const second = channel.setLevel(3, 111, 'warn');
+      const first = channel.setLevel(3, 'debug');
+      const second = channel.setLevel(3, 'warn');
       channel.handleAck({ process: { pm_id: 3 }, data: { level: 'warn' } });
 
       expect(await first).to.deep.equal({ ok: false, reason: 'superseded' });
@@ -107,15 +98,14 @@ describe('Log Level Service (logLevelService.js)', () => {
 
       let message = '';
       try {
-        await channel.setLevel(3, 111, 'debug');
+        await channel.setLevel(3, 'debug');
       } catch (err) {
         message = err.message;
       }
       expect(message).to.equal('pm2 socket closed');
 
-      // A late acknowledgement for a forgotten request must not be stored.
-      channel.handleAck({ process: { pm_id: 3 }, data: { level: 'debug' } });
-      expect(channel.getState(3, 111)).to.equal(null);
+      // A late acknowledgement for a forgotten request is ignored.
+      expect(() => channel.handleAck({ process: { pm_id: 3 }, data: { level: 'debug' } })).to.not.throw();
     });
   });
 
@@ -129,7 +119,7 @@ describe('Log Level Service (logLevelService.js)', () => {
         { ackTimeoutMs: 200 },
       );
 
-      const answer = channel.queryLevel(3, 111);
+      const answer = channel.queryLevel(3);
       channel.handleAck({ process: { pm_id: 3 }, data: { level: 'info' } });
 
       expect((await answer).level).to.equal('info');
@@ -140,43 +130,21 @@ describe('Log Level Service (logLevelService.js)', () => {
   describe('handleAck', () => {
     it('should ignore an acknowledgement for a process with no pending request', async () => {
       const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 20 });
-      channel.handleAck({ process: { pm_id: 9 }, data: { level: 'debug' } });
-      expect(channel.getState(9, 111)).to.equal(null);
+      expect(() => channel.handleAck({ process: { pm_id: 9 }, data: { level: 'debug' } })).to.not.throw();
     });
 
     it('should not resolve a pending request from another process', async () => {
       const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 20 });
-      const answer = channel.setLevel(3, 111, 'debug');
+      const answer = channel.setLevel(3, 'debug');
       channel.handleAck({ process: { pm_id: 4 }, data: { level: 'debug' } });
       expect(await answer).to.deep.equal({ ok: false, reason: 'no-ack' });
     });
 
     it('should ignore an acknowledgement carrying an unsupported level', async () => {
       const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 20 });
-      const answer = channel.setLevel(3, 111, 'debug');
+      const answer = channel.setLevel(3, 'debug');
       channel.handleAck({ process: { pm_id: 3 }, data: { level: 'chatty' } });
       expect(await answer).to.deep.equal({ ok: false, reason: 'no-ack' });
-    });
-  });
-
-  describe('getState after an acknowledgement', () => {
-    it('should keep the level for the uptime it was acknowledged for', async () => {
-      const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 200 });
-      const answer = channel.setLevel(3, 111, 'debug');
-      channel.handleAck({ process: { pm_id: 3 }, data: { level: 'debug' } });
-      await answer;
-
-      expect(channel.getState(3, 111).level).to.equal('debug');
-    });
-
-    it('should drop the level once the process has restarted', async () => {
-      const channel = createLogLevelChannel(async () => {}, { ackTimeoutMs: 200 });
-      const answer = channel.setLevel(3, 111, 'debug');
-      channel.handleAck({ process: { pm_id: 3 }, data: { level: 'debug' } });
-      await answer;
-
-      expect(channel.getState(3, 222)).to.equal(null);
-      expect(channel.getState(3, 111)).to.equal(null);
     });
   });
 });

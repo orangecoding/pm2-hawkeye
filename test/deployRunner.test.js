@@ -15,6 +15,7 @@ import {
   activateDeployment,
   validateAppName,
   validateRepoUrl,
+  validateBranch,
   resolveDeployPath,
   parseEnvFile,
 } from '../lib/service/deployRunner.js';
@@ -403,6 +404,50 @@ describe('deployRunner validators', () => {
       assert.equal(validateAppName(null), false);
       assert.equal(validateAppName(undefined), false);
       assert.equal(validateAppName(42), false);
+    });
+  });
+
+  describe('validateAppName (PM2-ambiguous names)', () => {
+    it('rejects all-digit names that collide with a pm_id', () => {
+      assert.equal(validateAppName('3'), false);
+      assert.equal(validateAppName('042'), false);
+      assert.equal(validateAppName('app3'), true);
+    });
+
+    it('rejects "all", which PM2 reads as every process', () => {
+      assert.equal(validateAppName('all'), false);
+      assert.equal(validateAppName('All'), false);
+      assert.equal(validateAppName('all-in'), true);
+    });
+  });
+
+  describe('validateBranch', () => {
+    it('accepts common branch names', () => {
+      for (const name of ['main', 'feature/login-2', 'release-1.2', 'user@fix', 'v2+build']) {
+        assert.equal(validateBranch(name), true, name);
+      }
+    });
+
+    it('rejects names git would read as an option or refuses as a ref', () => {
+      for (const name of [
+        '-x',
+        '--upload-pack=touch /tmp/x',
+        'a..b',
+        'a//b',
+        'a/',
+        'a.',
+        'x.lock',
+        'a b',
+        'v@{1}',
+        '',
+      ]) {
+        assert.equal(validateBranch(name), false, name);
+      }
+    });
+
+    it('rejects non-strings', () => {
+      assert.equal(validateBranch(null), false);
+      assert.equal(validateBranch(5), false);
     });
   });
 

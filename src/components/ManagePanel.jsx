@@ -7,13 +7,23 @@ import React from 'react';
 import Actions from './Actions.jsx';
 import ConfirmButton from './ConfirmButton.jsx';
 import { Check } from './Icon.jsx';
+import { formatDate, formatDuration } from '../services/format.js';
 
-/** What turning monitoring on actually gives you, stated where the switch is. */
-const MONITORING_BENEFITS = [
-  'CPU and memory history, sampled every 20 s and kept for 24 hours',
-  'Log lines stored and searchable for 14 days',
-  'Alerts when a matching log line appears',
-];
+/**
+ * What turning monitoring on actually gives you, stated where the switch is.
+ * The retention windows come from the server configuration.
+ *
+ * @param {number} metricsRetentionMs
+ * @param {number} logsRetentionMs
+ * @returns {string[]}
+ */
+function monitoringBenefits(metricsRetentionMs, logsRetentionMs) {
+  return [
+    `CPU, memory and application metrics, sampled every 20 s and kept for ${formatDuration(metricsRetentionMs)}`,
+    `Log lines stored and searchable for ${formatDuration(logsRetentionMs)}`,
+    'Alerts when a matching log line appears',
+  ];
+}
 
 /**
  * Levels the picker offers, most verbose first.
@@ -36,6 +46,8 @@ const LOG_LEVEL_CHOICES = ['trace', 'debug', 'info', 'warn', 'error', 'fatal', '
  * @param {{
  *   selectedProcess: object,
  *   isMonitored: boolean,
+ *   metricsRetentionMs?: number,
+ *   logsRetentionMs?: number,
  *   onToggleMonitoring: (pm2Name: string, currentlyMonitored: boolean) => void,
  *   onToggleAlerts: (pm2Name: string, alertsEnabled: boolean) => void,
  *   actions: object[],
@@ -53,6 +65,8 @@ const LOG_LEVEL_CHOICES = ['trace', 'debug', 'info', 'warn', 'error', 'fatal', '
 export default function ManagePanel({
   selectedProcess,
   isMonitored,
+  metricsRetentionMs = 24 * 60 * 60 * 1000,
+  logsRetentionMs = 14 * 24 * 60 * 60 * 1000,
   onToggleMonitoring,
   onToggleAlerts,
   actions,
@@ -90,7 +104,7 @@ export default function ManagePanel({
             </p>
             {!isMonitored && (
               <ul className="manage-benefits">
-                {MONITORING_BENEFITS.map((benefit) => (
+                {monitoringBenefits(metricsRetentionMs, logsRetentionMs).map((benefit) => (
                   <li key={benefit}>
                     <Check size={11} weight="bold" />
                     <span>{benefit}</span>
@@ -211,7 +225,7 @@ export default function ManagePanel({
               <p className="hint">
                 Branch {selectedDeployment.branch}
                 {selectedDeployment.last_deployed_at
-                  ? `, last deployed ${new Date(selectedDeployment.last_deployed_at).toLocaleString('en-GB')}`
+                  ? `, last deployed ${formatDate(selectedDeployment.last_deployed_at)}`
                   : ', never deployed successfully'}
               </p>
               {selectedDeployment.watch_enabled === 1 && (

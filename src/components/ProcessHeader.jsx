@@ -48,7 +48,7 @@ function shortRepo(url) {
  * live in exactly one tab.
  *
  * @param {{
- *   selectedProcess: object | null,
+ *   selectedProcess: object,
  *   details: object | null,
  *   selectedDeployment: object | null,
  *   onRestart: () => Promise<void>,
@@ -70,14 +70,6 @@ export default function ProcessHeader({
   onShowMetrics = null,
   children,
 }) {
-  if (!selectedProcess) {
-    return (
-      <header className="process-header">
-        <div className="process-header--empty">Select a process from the sidebar.</div>
-      </header>
-    );
-  }
-
   const status = String(selectedProcess.status ?? '');
   const statusLower = status.toLowerCase();
   const isOnline = statusLower === 'online';
@@ -92,11 +84,15 @@ export default function ProcessHeader({
         { label: 'cpu', value: `${details.process.cpu}%`, chartId: 'metric-cpu' },
         { label: 'mem', value: formatBytes(details.process.memory), chartId: 'metric-mem' },
         { label: 'restarts', value: String(details.process.restarts) },
-        {
-          label: 'uptime',
-          value: formatRelativeTime(details.process.uptime),
-          title: `Started ${formatDate(details.process.uptime)}`,
-        },
+        // pm_uptime is the last start time; it keeps ticking after a stop, so
+        // like `pm2 ls` the uptime is only shown while the process runs.
+        isOnline
+          ? {
+              label: 'uptime',
+              value: formatRelativeTime(details.process.uptime),
+              title: `Started ${formatDate(details.process.uptime)}`,
+            }
+          : { label: 'uptime', value: '---' },
         ...(pid != null ? [{ label: 'pid', value: String(pid) }] : []),
       ]
     : null;

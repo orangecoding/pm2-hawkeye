@@ -18,7 +18,13 @@ import {
   getByPm2Name,
   reconcileOrphans,
 } from '../lib/storage/monitoringStorage.js';
-import { insertMetric, getMetrics, purgeOldMetrics } from '../lib/storage/metricsStorage.js';
+import {
+  insertMetric,
+  getMetrics,
+  purgeOldMetrics,
+  insertCustomMetrics,
+  getCustomMetrics,
+} from '../lib/storage/metricsStorage.js';
 import { insertLogEntry, getLogEntries, purgeOldLogs } from '../lib/storage/logStorage.js';
 import { getDb } from '../lib/storage/db.js';
 
@@ -27,6 +33,7 @@ function cleanDb() {
   const db = getDb();
   db.prepare('DELETE FROM log_entries').run();
   db.prepare('DELETE FROM metrics_history').run();
+  db.prepare('DELETE FROM custom_metrics_history').run();
   db.prepare('DELETE FROM monitored_processes').run();
 }
 
@@ -122,6 +129,84 @@ describe('metricsStorage', () => {
     const remaining = getMetrics(id);
     assert.equal(remaining.length, 1);
     assert.equal(remaining[0].cpu, 10);
+  });
+});
+
+describe('metricsStorage custom metrics', () => {
+  beforeEach(cleanDb);
+
+  it('insertCustomMetrics and getCustomMetrics round-trip, grouped by name', () => {
+    const { id } = addMonitored('custom-app');
+    insertCustomMetrics(id, [
+      { name: 'queue size', value: 3, unit: null },
+      { name: 'Heap Usage', value: 40, unit: '%' },
+    ]);
+    insertCustomMetrics(id, [
+      { name: 'queue size', value: 5, unit: null },
+      { name: 'Heap Usage', value: 41.5, unit: '%' },
+    ]);
+
+    const series = getCustomMetrics(id);
+    assert.deepEqual(
+      series.map((s) => [s.name, s.unit, s.samples.map((x) => x.value)]),
+      [
+        ['Heap Usage', '%', [40, 41.5]],
+        ['queue size', null, [3, 5]],
+      ],
+    );
+  });
+
+  it('skips a metric whose value and unit did not change', () => {
+    const { id } = addMonitored('custom-app');
+    insertCustomMetrics(id, [{ name: 'jobs', value: 1, unit: null }]);
+    insertCustomMetrics(id, [{ name: 'jobs', value: 1, unit: null }]);
+    insertCustomMetrics(id, [{ name: 'jobs', value: 1, unit: 'req' }]);
+
+    const [jobs] = getCustomMetrics(id);
+    assert.equal(jobs.samples.length, 2);
+    assert.equal(jobs.unit, 'req');
+  });
+
+  it('getCustomMetrics limits the samples per metric and keeps the newest', () => {
+    const { id } = addMonitored('custom-app');
+    for (let i = 0; i < 10; i++) {
+      insertCustomMetrics(id, [
+        { name: 'a', value: i, unit: null },
+        { name: 'b', value: i * 2, unit: null },
+      ]);
+    }
+    const series = getCustomMetrics(id, 3);
+    assert.deepEqual(
+      series.map((s) => s.samples.map((x) => x.value)),
+      [
+        [7, 8, 9],
+        [14, 16, 18],
+      ],
+    );
+  });
+
+  it('purgeOldMetrics removes old custom samples too', () => {
+    const { id } = addMonitored('custom-app');
+    getDb()
+      .prepare(
+        'INSERT INTO custom_metrics_history (monitored_process_id, metric_name, unit, sampled_at, value) VALUES (?, ?, ?, ?, ?)',
+      )
+      .run(id, 'old', null, Date.now() - 90_000_000, 1);
+    insertCustomMetrics(id, [{ name: 'fresh', value: 2, unit: null }]);
+
+    purgeOldMetrics(86_400_000);
+    assert.deepEqual(
+      getCustomMetrics(id).map((s) => s.name),
+      ['fresh'],
+    );
+  });
+
+  it('drops custom samples when the process stops being monitored', () => {
+    const { id } = addMonitored('custom-app');
+    insertCustomMetrics(id, [{ name: 'jobs', value: 1, unit: null }]);
+    removeMonitored('custom-app');
+    const count = getDb().prepare('SELECT COUNT(*) AS n FROM custom_metrics_history').get().n;
+    assert.equal(count, 0);
   });
 });
 

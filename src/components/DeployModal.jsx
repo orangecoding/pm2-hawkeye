@@ -3,11 +3,12 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { cloneElement, isValidElement, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { fetchWithCsrf } from '../services/api.js';
 import { normalizePm2Number } from '../services/deployment.js';
 import { useDialogFocus } from '../services/dialog.js';
-import { CheckCircle, Plus, WarningCircle, X } from './Icon.jsx';
+import KeyValueList from './KeyValueList.jsx';
+import { CheckCircle, WarningCircle, X } from './Icon.jsx';
 
 // All PM2 ecosystem stages that may appear in progress messages.
 const ALL_STAGES = ['pre_setup', 'clone', 'install', 'build', 'post_setup', 'start'];
@@ -77,15 +78,41 @@ function Fieldset({ title, summary, defaultOpen = false, children }) {
   );
 }
 
+/** Install commands the form offers in its select, see the Install command field. */
+const INSTALL_BASES = ['npm install', 'npm ci', 'yarn install', 'yarn', 'pnpm install', 'skip'];
+
+/**
+ * Split a stored install command into one of the {@link INSTALL_BASES} and the
+ * extra flags saved after it, e.g. `npm install --prod`. A command that starts
+ * with none of them is kept whole as the base.
+ *
+ * @param {string|null} [stored] - Saved command; empty means `npm install`.
+ * @returns {{ base: string, args: string }}
+ */
+function splitInstallCmd(stored) {
+  stored ??= 'npm install';
+  const base = INSTALL_BASES.find((b) => stored === b || stored.startsWith(b + ' '));
+  if (!base) return { base: stored, args: '' };
+  return { base, args: stored.length > base.length ? stored.slice(base.length + 1) : '' };
+}
+
 /**
  * Labelled form field with an optional hint below the input.
  *
- * @param {{ label: string, hint?: string, required?: boolean, children: React.ReactNode }} props
+ * The label is tied to the control through a generated id, so clicking it
+ * focuses the control and screen readers announce the label and the hint.
+ *
+ * @param {{ label: string, hint?: string, required?: boolean, children: React.ReactElement }} props
  */
 function Field({ label, hint, required, children }) {
+  const id = useId();
+  const hintId = `${id}-hint`;
+  const control = isValidElement(children)
+    ? cloneElement(children, { id, 'aria-describedby': hint ? hintId : undefined })
+    : children;
   return (
     <div className="field">
-      <label>
+      <label htmlFor={id}>
         {label}
         {required && (
           <span className="field-req" aria-label="required">
@@ -93,8 +120,12 @@ function Field({ label, hint, required, children }) {
           </span>
         )}
       </label>
-      {children}
-      {hint && <p className="hint">{hint}</p>}
+      {control}
+      {hint && (
+        <p className="hint" id={hintId}>
+          {hint}
+        </p>
+      )}
     </div>
   );
 }
@@ -198,19 +229,8 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
   const [repoUrl, setRepoUrl] = useState(() => editingDeployment?.repo_url ?? '');
   const [branch, setBranch] = useState(() => editingDeployment?.branch ?? 'main');
   const [startScript, setStartScript] = useState(() => editingDeployment?.start_script ?? 'index.js');
-  const [installCmd, setInstallCmd] = useState(() => {
-    const stored = editingDeployment?.install_cmd ?? 'npm install';
-    // Split off any extra flags that were previously saved (e.g. "npm install --prod").
-    const knownBases = ['npm install', 'npm ci', 'yarn install', 'yarn', 'pnpm install', 'skip'];
-    const base = knownBases.find((b) => stored === b || stored.startsWith(b + ' '));
-    return base ?? stored;
-  });
-  const [installArgs, setInstallArgs] = useState(() => {
-    const stored = editingDeployment?.install_cmd ?? 'npm install';
-    const knownBases = ['npm install', 'npm ci', 'yarn install', 'yarn', 'pnpm install', 'skip'];
-    const base = knownBases.find((b) => stored === b || stored.startsWith(b + ' '));
-    return base && stored.length > base.length ? stored.slice(base.length + 1) : '';
-  });
+  const [installCmd, setInstallCmd] = useState(() => splitInstallCmd(editingDeployment?.install_cmd).base);
+  const [installArgs, setInstallArgs] = useState(() => splitInstallCmd(editingDeployment?.install_cmd).args);
   const [buildCmd, setBuildCmd] = useState(() => editingDeployment?.build_cmd ?? '');
   const [preSetupScript, setPreSetupScript] = useState(() => editingDeployment?.pre_setup_script ?? '');
   const [postSetupScript, setPostSetupScript] = useState(() => editingDeployment?.post_setup_script ?? '');
@@ -223,6 +243,9 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
   const [watchEnabled, setWatchEnabled] = useState(() => Boolean(editingDeployment?.watch_enabled));
   const [watchIntervalMinutes, setWatchIntervalMinutes] = useState(
     () => editingDeployment?.watch_interval_minutes ?? DEFAULT_WATCH_INTERVAL_MINUTES,
+  );
+  const [discardLocalChanges, setDiscardLocalChanges] = useState(() =>
+    Boolean(editingDeployment?.discard_local_changes),
   );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -267,6 +290,7 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
       pm2Options,
       watchEnabled,
       watchIntervalMinutes: Number(watchIntervalMinutes) || DEFAULT_WATCH_INTERVAL_MINUTES,
+      discardLocalChanges,
     };
   }, [
     envVars,
@@ -281,6 +305,7 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
     postSetupScript,
     watchEnabled,
     watchIntervalMinutes,
+    discardLocalChanges,
   ]);
 
   const onSubmit = useCallback(
@@ -343,8 +368,8 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
         {/* ── Required ─────────────────────────────────────────────────── */}
         <section className="deploy-required">
           <p className="hint">
-            Hawkeye clones the repository into the deploy base directory and starts it under PM2. On a redeploy it runs
-            git pull instead of cloning again.
+            Hawkeye clones the repository into the deploy base directory and starts it under PM2. On a redeploy it
+            fetches the branch and checks it out instead of cloning again.
           </p>
 
           <div className="deploy-two-col">
@@ -459,6 +484,15 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
           </Field>
         </Fieldset>
 
+        <Fieldset title="Redeploy" summary={discardLocalChanges ? 'Discards local changes' : 'Asks first'}>
+          <Toggle
+            label="Discard local changes without asking"
+            hint="When a redeploy finds modified tracked files in the deploy directory, it runs git reset --hard before updating instead of pausing to ask. Untracked files are kept."
+            checked={discardLocalChanges}
+            onChange={setDiscardLocalChanges}
+          />
+        </Fieldset>
+
         <Fieldset
           title="Auto-deploy"
           summary={watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || 'main'}` : 'Off'}
@@ -503,42 +537,18 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
               onChange={(e) => setOpt('env_file', e.target.value)}
             />
           </Field>
-          <div className="field">
-            <label>Variables</label>
-            <p className="hint">Set here, these override anything loaded from the env file above.</p>
-            {envVars.map((row, i) => (
-              <div className="kv-row" key={i}>
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="KEY"
-                  aria-label={`Variable name ${i + 1}`}
-                  value={row.key}
-                  onChange={(e) => updateEnvVar(i, 'key', e.target.value)}
-                />
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="value"
-                  aria-label={`Variable value ${i + 1}`}
-                  value={row.value}
-                  onChange={(e) => updateEnvVar(i, 'value', e.target.value)}
-                />
-                <button
-                  type="button"
-                  className="btn btn--icon"
-                  onClick={() => removeEnvVar(i)}
-                  aria-label={`Remove variable ${i + 1}`}
-                >
-                  <X size={13} />
-                </button>
-              </div>
-            ))}
-            <button type="button" className="btn btn--sm" onClick={addEnvVar}>
-              <Plus size={12} weight="bold" />
-              Add variable
-            </button>
-          </div>
+          <KeyValueList
+            label="Variables"
+            hint="Set here, these override anything loaded from the env file above."
+            rows={envVars}
+            keyPlaceholder="KEY"
+            valuePlaceholder="value"
+            itemLabel="Variable"
+            addLabel="Add variable"
+            onAdd={addEnvVar}
+            onUpdate={updateEnvVar}
+            onRemove={removeEnvVar}
+          />
         </Fieldset>
 
         <Fieldset
@@ -820,10 +830,14 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose, c
         {isConfirming && confirmChanges && (
           <div className="deploy-confirm" ref={confirmRef}>
             <p>
-              The deploy directory has local changes, so <code>git pull</code> cannot run. Discard them to continue, or
+              The deploy directory has local changes that the update would overwrite. Discard them to continue, or
               cancel the deployment.
             </p>
             <pre className="code-preview">{confirmChanges}</pre>
+            <p className="hint">
+              To skip this question on future redeploys, turn on Discard local changes without asking under Redeploy in
+              the deployment settings.
+            </p>
             <div className="deploy-confirm-actions">
               <button type="button" className="btn btn--danger" onClick={() => onConfirmDeploy(true)}>
                 Discard and continue
@@ -884,8 +898,12 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose, c
  * No progress view is shown after a successful edit -- the modal closes immediately
  * via `onEditSaved`.
  *
+ * While a deployment runs the modal can still be closed with its close button
+ * or Escape: the deployment keeps running on the server and its outcome shows
+ * in the process list. Only a backdrop click is ignored then, so a stray click
+ * does not hide the progress.
+ *
  * @param {{
- *   csrfToken: string,
  *   onClose: () => void,
  *   onDeployStarted: (deploymentId: string) => void,
  *   deployProgressLines: { stage: string, line: string, status: string }[],
@@ -901,7 +919,6 @@ function DeployProgress({ lines, currentStage, status, visibleStages, onClose, c
  * }} props
  */
 export default function DeployModal({
-  csrfToken,
   onCsrfRefresh,
   onClose,
   onDeployStarted,
@@ -918,9 +935,9 @@ export default function DeployModal({
   const isEdit = Boolean(editingDeployment);
   const showProgress = !isEdit && activeDeploymentId !== null;
   const isDoneOrError = deployProgressStatus === 'success' || deployProgressStatus === 'error';
-  const canClose = !showProgress || isDoneOrError;
+  const isRunning = showProgress && !isDoneOrError;
   const modalRef = useRef(null);
-  useDialogFocus(modalRef, canClose ? onClose : null);
+  useDialogFocus(modalRef, onClose);
 
   // Visible stages: always show clone/install/start; show pre/post/build only
   // if they actually appear in the received progress lines.
@@ -935,7 +952,7 @@ export default function DeployModal({
   return (
     <div
       className="overlay"
-      onClick={(e) => e.target === e.currentTarget && canClose && onClose()}
+      onClick={(e) => e.target === e.currentTarget && !isRunning && onClose()}
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -943,11 +960,15 @@ export default function DeployModal({
       <div ref={modalRef} className="modal modal--deploy" tabIndex={-1}>
         <div className="modal-header">
           <span className="modal-title">{title}</span>
-          {(!showProgress || isDoneOrError) && (
-            <button type="button" className="btn btn--icon" aria-label="Close" onClick={onClose}>
-              <X size={15} />
-            </button>
-          )}
+          <button
+            type="button"
+            className="btn btn--icon"
+            aria-label={isRunning ? 'Close, the deployment keeps running' : 'Close'}
+            title={isRunning ? 'Close. The deployment keeps running on the server.' : undefined}
+            onClick={onClose}
+          >
+            <X size={15} />
+          </button>
         </div>
 
         {showProgress ? (
@@ -962,7 +983,6 @@ export default function DeployModal({
           />
         ) : (
           <DeployForm
-            csrfToken={csrfToken}
             onCsrfRefresh={onCsrfRefresh}
             onDeployStarted={onDeployStarted}
             editingDeployment={editingDeployment}

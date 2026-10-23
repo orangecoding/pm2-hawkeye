@@ -29,6 +29,54 @@ import {
   TextAlignLeft,
 } from './Icon.jsx';
 
+/** How many deployments, and how many events each, the progress buffer keeps. */
+const DEPLOY_BUFFER_IDS = 5;
+const DEPLOY_BUFFER_EVENTS = 500;
+
+/**
+ * Key that identifies a process row: its pm_id, or its name for an orphan,
+ * which has no pm_id.
+ *
+ * @param {{ id: number|null, name: string }} item
+ * @returns {number|string}
+ */
+function processKey(item) {
+  return item.id ?? item.name;
+}
+
+/**
+ * Keep the current selection when it is still in the list, otherwise fall back
+ * to the first process (or nothing for an empty list).
+ *
+ * @param {object[]} items - Process list rows.
+ * @param {number|string|null} prev - Current selection.
+ * @returns {number|string|null}
+ */
+function keepSelection(items, prev) {
+  if (items.some((item) => String(processKey(item)) === String(prev))) return prev;
+  return items[0] ? processKey(items[0]) : null;
+}
+
+/**
+ * Remember a progress event of a deployment the modal is not showing.
+ *
+ * A new deployment only learns its id from the POST response, while the server
+ * starts broadcasting within milliseconds. Buffering lets the modal replay
+ * those first events once the id is known. Old deployments are evicted so the
+ * buffer stays small even with background auto-deploys.
+ *
+ * @param {Map<string, object[]>} buffer
+ * @param {{ deploymentId: string }} event
+ * @returns {void}
+ */
+function bufferDeployProgress(buffer, event) {
+  const events = buffer.get(event.deploymentId) ?? [];
+  // Re-insert so the Map's insertion order tracks the most recent activity.
+  buffer.delete(event.deploymentId);
+  buffer.set(event.deploymentId, appendBounded(events, [event], DEPLOY_BUFFER_EVENTS));
+  while (buffer.size > DEPLOY_BUFFER_IDS) buffer.delete(buffer.keys().next().value);
+}
+
 /** The three process-scoped views. Every per-process function lives in one. */
 const TABS = [
   { id: 'logs', label: 'Logs' },
@@ -47,6 +95,7 @@ export default function App() {
   const [liveLines, setLiveLines] = useState([]);
   const [actions, setActions] = useState([]);
   const [metricsHistory, setMetricsHistory] = useState([]);
+  const [customMetricsHistory, setCustomMetricsHistory] = useState([]);
   const [hostMetrics, setHostMetrics] = useState([]);
   const [hostCurrent, setHostCurrent] = useState(null);
   const [storedLogs, setStoredLogs] = useState([]);
@@ -86,7 +135,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('logs');
   const logRef = useRef(null);
   const autoStickRef = useRef(true);
-  const prevLiveLinesLengthRef = useRef(0);
   const wsRef = useRef(null);
   const selectedProcessIdRef = useRef(null);
   const liveQueueRef = useRef([]);
@@ -100,14 +148,14 @@ export default function App() {
   const pausedBufferRef = useRef([]);
   /** Mirrors activeDeploymentId for the WebSocket handler, which closes over its first render. */
   const activeDeploymentIdRef = useRef(null);
+  /** Progress of deployments the modal is not showing, see bufferDeployProgress. */
+  const deployProgressBufferRef = useRef(new Map());
 
   const loadProcesses = useCallback(async () => {
     try {
       const payload = await fetchJson('/api/processes');
       setProcesses(payload.items);
-      setSelectedProcessId((prev) =>
-        payload.items.some((item) => String(item.id) === String(prev)) ? prev : (payload.items[0]?.id ?? null),
-      );
+      setSelectedProcessId((prev) => keepSelection(payload.items, prev));
     } catch (loadError) {
       setProcesses([]);
       setSelectedProcessId(null);
@@ -162,6 +210,25 @@ export default function App() {
     return () => clearInterval(interval);
   }, [loadDeployments]);
 
+  /**
+   * Feed one progress event of the deployment shown in the modal into its
+   * state.
+   *
+   * @param {{ stage: string, line: string, status: string }} data
+   */
+  const applyDeployProgress = useCallback(
+    (data) => {
+      // A paused deployment waits for the user to approve discarding local
+      // changes; any other progress clears a stale prompt.
+      setDeployConfirmChanges(data.status === 'confirm' ? data.line : null);
+      setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
+      setDeployProgressStage(data.stage);
+      setDeployProgressStatus(data.status);
+      if (data.stage === 'done' || data.stage === 'error') loadDeployments();
+    },
+    [loadDeployments],
+  );
+
   // Single unified WebSocket connection for all real-time data.
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -175,8 +242,18 @@ export default function App() {
         setPausedCount(pausedBufferRef.current.length);
       } else {
         setLiveLines((prev) => [...prev, ...queued].slice(-800));
+        // Counted here rather than from liveLines.length, which stops growing
+        // once the 800-line cap is reached.
+        if (!autoStickRef.current) setUnreadLogCount((prev) => prev + queued.length);
       }
     };
+    /**
+     * True when a process-scoped message belongs to the current selection.
+     * Messages still in flight for the previously selected process are dropped.
+     *
+     * @param {{ processId?: string }} data
+     */
+    const isForSelection = (data) => String(data?.processId) === String(selectedProcessIdRef.current);
     const queueLiveLine = (line) => {
       liveQueueRef.current = appendBounded(liveQueueRef.current, [line], 800);
       if (liveFrameRef.current === null) {
@@ -195,17 +272,16 @@ export default function App() {
           const { type, data } = JSON.parse(event.data);
           if (type === 'processes') {
             setProcesses(data.items);
-            setSelectedProcessId((prev) =>
-              data.items.some((item) => String(item.id ?? item.name) === String(prev))
-                ? prev
-                : (data.items[0]?.id ?? data.items[0]?.name ?? null),
-            );
+            setSelectedProcessId((prev) => keepSelection(data.items, prev));
             if (data.hostCurrent !== undefined) setHostCurrent(data.hostCurrent);
           } else if (type === 'details') {
-            setDetails(data);
+            if (isForSelection(data)) setDetails(data);
           } else if (type === 'snapshot') {
-            setLiveLines(data.lines.map((l, index) => ({ key: `snapshot-${index}`, text: l.text })));
+            if (isForSelection(data)) {
+              setLiveLines(data.lines.map((l, index) => ({ key: `snapshot-${index}`, text: l.text })));
+            }
           } else if (type === 'log') {
+            if (!isForSelection(data)) return;
             liveSequenceRef.current += 1;
             queueLiveLine({ key: `live-${liveSequenceRef.current}`, text: data.text });
           } else if (type === 'error') {
@@ -213,25 +289,14 @@ export default function App() {
           } else if (type === 'deploy_progress') {
             // Deploys started by the branch watcher run in the background and are
             // broadcast to every client. Only the deployment the user is watching
-            // right now may feed the modal; the rest just refresh the list.
+            // right now may feed the modal; the rest are buffered in case the
+            // modal is about to learn their id, and refresh the list when done.
             if (activeDeploymentIdRef.current !== data.deploymentId) {
+              bufferDeployProgress(deployProgressBufferRef.current, data);
               if (data.stage === 'done' || data.stage === 'error') loadDeployments();
               return;
             }
-            if (data.status === 'confirm') {
-              // Deployment is paused waiting for the user to approve discarding local changes.
-              setDeployConfirmChanges(data.line);
-            } else {
-              // Any other progress clears a stale confirmation prompt.
-              setDeployConfirmChanges(null);
-            }
-            setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
-            setDeployProgressStage(data.stage);
-            setDeployProgressStatus(data.status);
-            // Refresh deployments list when a deploy finishes or fails.
-            if (data.stage === 'done' || data.stage === 'error') {
-              loadDeployments();
-            }
+            applyDeployProgress(data);
           }
           // heartbeat and connected are intentionally ignored
         } catch {
@@ -246,11 +311,11 @@ export default function App() {
       liveFrameRef.current = null;
       liveQueueRef.current = [];
     };
-  }, []);
+  }, [applyDeployProgress, loadDeployments]);
 
   // Derived: the full process object for the current selection (handles orphans with id=null).
   const selectedProcess = useMemo(
-    () => processes.find((item) => String(item.id ?? item.name) === String(selectedProcessId)) || null,
+    () => processes.find((item) => String(processKey(item)) === String(selectedProcessId)) || null,
     [processes, selectedProcessId],
   );
 
@@ -289,6 +354,24 @@ export default function App() {
       }));
   }, [deployments, processes]);
 
+  /**
+   * Load the stored CPU/memory and application metric history of a process.
+   *
+   * @param {string|number} processId
+   * @param {AbortSignal} signal
+   * @param {string} failureLabel - Start of the error banner text.
+   */
+  const loadMetrics = useCallback((processId, signal, failureLabel) => {
+    fetchJson(`/api/processes/${encodeURIComponent(processId)}/metrics`, { signal })
+      .then((payload) => {
+        setMetricsHistory(payload.samples || []);
+        setCustomMetricsHistory(payload.custom || []);
+      })
+      .catch((loadError) => {
+        if (loadError.name !== 'AbortError') setError(`${failureLabel}: ${loadError.message}`);
+      });
+  }, []);
+
   // Fetch stored logs whenever the selected process changes, regardless of monitoring
   // state.  storedLogsReady gates the switch in allLines so combinedLines remain
   // visible until the fetch settles - preventing a blank flash on load.
@@ -326,6 +409,7 @@ export default function App() {
     setLiveLines([]);
     setActions([]);
     setMetricsHistory([]);
+    setCustomMetricsHistory([]);
     setUnreadLogCount(0);
     // Held lines belong to the process we are leaving, so they are dropped
     // rather than flushed into the next one's stream.
@@ -335,7 +419,6 @@ export default function App() {
     if (liveFrameRef.current !== null) cancelAnimationFrame(liveFrameRef.current);
     liveFrameRef.current = null;
     setPausedCount(0);
-    prevLiveLinesLengthRef.current = 0;
     autoStickRef.current = true;
     setLogSearch('');
     setDrawerOpen(false);
@@ -345,30 +428,39 @@ export default function App() {
       return () => controller.abort();
     }
 
-    const requestOptions = { signal: controller.signal };
-    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`, requestOptions)
-      .then((payload) => setMetricsHistory(payload.samples || []))
-      .catch((loadError) => {
-        if (loadError.name !== 'AbortError') setError(`Failed to load metrics: ${loadError.message}`);
-      });
+    loadMetrics(selectedProcessId, controller.signal, 'Failed to load metrics');
 
-    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`, requestOptions)
+    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions`, { signal: controller.signal })
       .then((payload) => setActions(payload.actions || []))
       .catch((loadError) => {
         if (loadError.name !== 'AbortError') setError(`Failed to load actions: ${loadError.message}`);
       });
+    return () => controller.abort();
+  }, [selectedProcessId, loadMetrics]);
 
+  const selectedIsOnline = String(selectedProcess?.status ?? '').toLowerCase() === 'online';
+  const selectedUptime = details?.process?.uptime ?? null;
+
+  // Ask the selected process for its log level. Only a running process can
+  // answer, so a stopped one is not asked at all, and keying on its start time
+  // asks again after a restart, which puts the process back on its boot level.
+  useEffect(() => {
     setLogLevel({ supported: null, level: null, busy: false });
-    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`, requestOptions)
+    if (selectedProcessId == null || !selectedIsOnline || selectedUptime == null) return undefined;
+    const controller = new AbortController();
+    fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/log-level`, { signal: controller.signal })
       .then((payload) => setLogLevel({ supported: payload.supported, level: payload.level, busy: false }))
       .catch((loadError) => {
-        if (loadError.name !== 'AbortError') {
-          setLogLevel({ supported: false, level: null, busy: false });
+        if (loadError.name === 'AbortError') return;
+        setLogLevel({ supported: false, level: null, busy: false });
+        // 404 and 409 mean the process vanished or stopped in the meantime; the
+        // next list update hides the section, so there is nothing to report.
+        if (loadError.status !== 404 && loadError.status !== 409) {
           setError(`Failed to load the log level: ${loadError.message}`);
         }
       });
     return () => controller.abort();
-  }, [selectedProcessId]);
+  }, [selectedProcessId, selectedIsOnline, selectedUptime]);
 
   // Select again after reconnecting so the server resumes the current stream.
   useEffect(() => {
@@ -389,17 +481,13 @@ export default function App() {
     const interval = setInterval(() => {
       controller?.abort();
       controller = new AbortController();
-      fetchJson(`/api/processes/${encodeURIComponent(selectedProcessId)}/metrics`, { signal: controller.signal })
-        .then((payload) => setMetricsHistory(payload.samples || []))
-        .catch((loadError) => {
-          if (loadError.name !== 'AbortError') setError(`Failed to refresh metrics: ${loadError.message}`);
-        });
+      loadMetrics(selectedProcessId, controller.signal, 'Failed to refresh metrics');
     }, 20_000);
     return () => {
       clearInterval(interval);
       controller?.abort();
     };
-  }, [selectedProcessId, isSelectedMonitored]);
+  }, [selectedProcessId, isSelectedMonitored, loadMetrics]);
 
   // Track whether the user is parked at the bottom of the log viewer. The
   // listener is re-attached when the Logs tab mounts, since the scroll
@@ -414,25 +502,23 @@ export default function App() {
     return () => container.removeEventListener('scroll', onScroll);
   }, [activeTab, selectedProcessId]);
 
-  // Auto-scroll only when storedLogs changes (process switch / initial load).
-  // details updates every 3 s and must not be in deps, otherwise the viewer
-  // jumps to the bottom continuously while a process is selected.
+  // Coming back to the Logs tab mounts a fresh viewer at its top, so start
+  // following the stream again instead of showing the oldest line.
+  useEffect(() => {
+    autoStickRef.current = true;
+    setUnreadLogCount(0);
+  }, [activeTab]);
+
+  // Follow new lines while the user is parked at the bottom. Appending lines
+  // fires no scroll event, so the stick flag only changes when the user
+  // scrolls. details updates every 3 s and must not be in deps, otherwise the
+  // viewer would jump to the bottom while the user reads older lines.
   useEffect(() => {
     const container = logRef.current;
     if (container && autoStickRef.current) {
       container.scrollTop = container.scrollHeight;
     }
-  }, [storedLogs]);
-
-  // Track new live lines arriving while the user has scrolled up.
-  // Accumulate a count so the indicator can show how many are pending.
-  useEffect(() => {
-    const added = liveLines.length - prevLiveLinesLengthRef.current;
-    prevLiveLinesLengthRef.current = liveLines.length;
-    if (added > 0 && !autoStickRef.current) {
-      setUnreadLogCount((prev) => prev + added);
-    }
-  }, [liveLines]);
+  }, [storedLogs, liveLines, activeTab]);
 
   /**
    * Pause or resume the live log stream.
@@ -449,6 +535,7 @@ export default function App() {
         pausedBufferRef.current = [];
         setPausedCount(0);
         setLiveLines((prev) => [...prev, ...buffered].slice(-800));
+        if (!autoStickRef.current) setUnreadLogCount((prev) => prev + buffered.length);
       }
       return next;
     });
@@ -539,17 +626,49 @@ export default function App() {
   }, []);
 
   /**
-   * Called by DeployModal when the server has accepted a deployment request.
-   * Switches the modal to the progress view for the given deployment ID.
+   * Point the deploy progress view at a deployment and clear what it showed.
+   *
+   * The ref is set right away instead of waiting for the effect that mirrors
+   * the state, so progress arriving before the next render already counts.
    *
    * @param {string} deploymentId
    */
-  const onDeployStarted = useCallback((deploymentId) => {
+  const showDeployProgress = useCallback((deploymentId) => {
     setDeployProgressLines([]);
     setDeployProgressStage('clone');
     setDeployProgressStatus('running');
+    setDeployConfirmChanges(null);
+    activeDeploymentIdRef.current = deploymentId;
     setActiveDeploymentId(deploymentId);
   }, []);
+
+  /**
+   * Append a client-side failure to the deploy progress view.
+   *
+   * @param {string} message
+   */
+  const failDeployProgress = useCallback((message) => {
+    setDeployProgressLines((prev) => [...prev, { stage: 'error', line: message, status: 'error' }]);
+    setDeployProgressStage('error');
+    setDeployProgressStatus('error');
+  }, []);
+
+  /**
+   * Called by DeployModal when the server has accepted a new deployment.
+   * Switches the modal to the progress view and replays the events that were
+   * broadcast before the deployment id was known.
+   *
+   * @param {string} deploymentId
+   */
+  const onDeployStarted = useCallback(
+    (deploymentId) => {
+      showDeployProgress(deploymentId);
+      const buffered = deployProgressBufferRef.current.get(deploymentId) ?? [];
+      deployProgressBufferRef.current.delete(deploymentId);
+      buffered.forEach(applyDeployProgress);
+    },
+    [showDeployProgress, applyDeployProgress],
+  );
 
   /**
    * Called by DeployModal when the user clicks "Redeploy" while in edit mode.
@@ -562,22 +681,19 @@ export default function App() {
   const onSaveAndRedeploy = useCallback(
     async (deploymentId) => {
       setEditingDeployment(null);
-      setDeployProgressLines([]);
-      setDeployProgressStage('clone');
-      setDeployProgressStatus('running');
-      setActiveDeploymentId(deploymentId);
+      // Buffered events belong to an earlier run of this deployment.
+      deployProgressBufferRef.current.delete(deploymentId);
+      showDeployProgress(deploymentId);
       try {
         await fetchWithCsrf(`/api/deployments/${deploymentId}/redeploy`, {
           onCsrfRefresh: refreshCsrf,
           method: 'POST',
         });
       } catch (err) {
-        setDeployProgressLines((prev) => [...prev, { stage: 'error', line: err.message, status: 'error' }]);
-        setDeployProgressStage('error');
-        setDeployProgressStatus('error');
+        failDeployProgress(err.message);
       }
     },
-    [refreshCsrf],
+    [refreshCsrf, showDeployProgress, failDeployProgress],
   );
 
   /**
@@ -598,12 +714,10 @@ export default function App() {
           body: JSON.stringify({ confirmed }),
         });
       } catch (err) {
-        setDeployProgressLines((prev) => [...prev, { stage: 'error', line: err.message, status: 'error' }]);
-        setDeployProgressStage('error');
-        setDeployProgressStatus('error');
+        failDeployProgress(err.message);
       }
     },
-    [activeDeploymentId, refreshCsrf],
+    [activeDeploymentId, refreshCsrf, failDeployProgress],
   );
 
   /**
@@ -653,53 +767,23 @@ export default function App() {
     setEditingDeployment(null);
   }, [loadDeployments]);
 
-  const onRestart = async () => {
-    if (selectedProcessId === null || selectedProcessId === undefined || !csrfToken) {
-      return;
-    }
-    try {
-      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/restart`, {
-        onCsrfRefresh: refreshCsrf,
-        method: 'POST',
-      });
-    } catch (restartError) {
-      setError(restartError.message);
-    }
-  };
-
   /**
-   * Stop the selected PM2 process without removing it from PM2.
-   * The process stays in the list with a `stopped` status so it can be
-   * started again via {@link onStart}.
+   * Run a PM2 lifecycle command on the selected process. Stop keeps the process
+   * in PM2 with a `stopped` status, so it can be started again.
+   *
+   * @param {'restart'|'stop'|'start'} command
    */
-  const onStop = async () => {
+  const runProcessCommand = async (command) => {
     if (selectedProcessId === null || selectedProcessId === undefined || !csrfToken) {
       return;
     }
     try {
-      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/stop`, {
+      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/${command}`, {
         onCsrfRefresh: refreshCsrf,
         method: 'POST',
       });
-    } catch (stopError) {
-      setError(stopError.message);
-    }
-  };
-
-  /**
-   * Start the selected (stopped) PM2 process.
-   */
-  const onStart = async () => {
-    if (selectedProcessId === null || selectedProcessId === undefined || !csrfToken) {
-      return;
-    }
-    try {
-      await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/start`, {
-        onCsrfRefresh: refreshCsrf,
-        method: 'POST',
-      });
-    } catch (startError) {
-      setError(startError.message);
+    } catch (commandError) {
+      setError(commandError.message);
     }
   };
 
@@ -843,14 +927,9 @@ export default function App() {
           body: JSON.stringify({ level }),
         });
         if (String(selectedProcessIdRef.current) !== String(processId)) return;
+        // Debug and trace lines need no filter change: the level filter only
+        // ever hides info, warn and error lines.
         setLogLevel({ supported: payload.supported, level: payload.level, busy: false });
-
-        // A narrowed log filter would hide the very lines the user just asked
-        // for, which reads as the feature being broken. The filter row has no
-        // debug button, so widen it here rather than leaving a dead end.
-        if (payload.supported && (level === 'debug' || level === 'trace')) {
-          setLogFilters((prev) => (prev.size < 3 ? new Set([...prev, 'debug']) : prev));
-        }
       } catch (err) {
         if (String(selectedProcessIdRef.current) !== String(processId)) return;
         setLogLevel((prev) => ({ ...prev, busy: false }));
@@ -963,9 +1042,9 @@ export default function App() {
                 selectedProcess={selectedProcess}
                 details={details}
                 selectedDeployment={selectedDeployment}
-                onRestart={onRestart}
-                onStop={onStop}
-                onStart={onStart}
+                onRestart={() => runProcessCommand('restart')}
+                onStop={() => runProcessCommand('stop')}
+                onStart={() => runProcessCommand('start')}
                 onEditDeployment={onEditDeployment}
                 onShowMetrics={showMetric}
               >
@@ -1029,9 +1108,11 @@ export default function App() {
                   <MetricsPanel
                     details={details}
                     metricsHistory={metricsHistory}
+                    customMetricsHistory={customMetricsHistory}
                     hostSamples={hostMetrics}
                     hostCurrent={hostCurrent}
                     isMonitored={isSelectedMonitored}
+                    metricsRetentionMs={appConfig?.metricsRetentionMs}
                     onEnableMonitoring={() => onToggleMonitoring(selectedProcess.name, false)}
                   />
                 )}
@@ -1040,6 +1121,8 @@ export default function App() {
                   <ManagePanel
                     selectedProcess={selectedProcess}
                     isMonitored={isSelectedMonitored}
+                    metricsRetentionMs={appConfig?.metricsRetentionMs}
+                    logsRetentionMs={appConfig?.logsRetentionMs}
                     onToggleMonitoring={onToggleMonitoring}
                     onToggleAlerts={onToggleAlerts}
                     actions={actions}
@@ -1081,7 +1164,7 @@ export default function App() {
                       </span>
                       <span>
                         <strong>Metrics</strong>
-                        CPU and memory over time, next to host CPU, RAM and disk.
+                        CPU, memory and the app's own tx2 metrics over time, next to host CPU, RAM and disk.
                       </span>
                     </li>
                     <li>
@@ -1103,19 +1186,16 @@ export default function App() {
         <Footer version={appVersion} />
 
         {settingsOpen && (
-          <Settings
-            onClose={() => setSettingsOpen(false)}
-            csrfToken={csrfToken}
-            onCsrfRefresh={refreshCsrf}
-            appConfig={appConfig}
-          />
+          <Settings onClose={() => setSettingsOpen(false)} csrfToken={csrfToken} onCsrfRefresh={refreshCsrf} />
         )}
 
         {deployOpen && (
           <DeployModal
-            csrfToken={csrfToken}
             onCsrfRefresh={refreshCsrf}
             onClose={() => {
+              // Closing while a deploy waits for a decision cancels it instead
+              // of leaving the server to time out.
+              if (deployConfirmChanges) onConfirmDeploy(false);
               setDeployOpen(false);
               setActiveDeploymentId(null);
               setEditingDeployment(null);

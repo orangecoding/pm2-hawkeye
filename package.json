@@ -1,6 +1,6 @@
 {
   "name": "pm2-hawkeye",
-  "version": "5.5.1",
+  "version": "6.0.0",
   "description": "Modern web dashboard for PM2 processes, metrics, and log files",
   "type": "module",
   "main": "lib/transport/server.js",
@@ -28,36 +28,36 @@
     "url": "https://github.com/orangecoding/pm2-hawkeye/issues"
   },
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=24.0.0",
     "npm": ">=7.0.0"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",
+    "cookie": "^2.0.1",
     "cookie-parser": "^1.4.7",
     "croner": "^10.0.1",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "pm2": "^6.0.14",
-    "ws": "^8.21.3"
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "pm2": "^7.1.0",
+    "ws": "^8.22.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@phosphor-icons/react": "^2.1.10",
-    "chai": "^6.2.2",
-    "chalk": "^6.0.0",
+    "chai": "^6.3.0",
+    "chalk": "^6.0.1",
     "esbuild": "^0.28.2",
-    "eslint": "^10.9.0",
+    "eslint": "^10.13.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^17.11.0",
-    "less": "^4.9.0",
-    "mocha": "^11.8.0",
+    "globals": "^17.13.0",
+    "less": "^4.9.1",
+    "mocha": "^12.0.3",
     "node-fetch": "^3.3.2",
-    "nodemon": "^3.1.14",
-    "prettier": "^3.9.6",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "prettier": "^3.9.10",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "react-markdown": "^10.1.0",
-    "supertest": "^7.2.2"
+    "supertest": "^7.3.1"
   }
 }
