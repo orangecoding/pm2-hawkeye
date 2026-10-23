@@ -31,7 +31,7 @@
 /* ── Deployment identity ────────────────────────────────────────────────────
    States that Hawkeye deployed this process, and from where. Nothing in the
    app said so before: a deployed process looked exactly like one started by
-   hand on the command line. Clicking it opens the deployment configuration.
+   hand on the command line. Clicking it opens the Deploy tab.
    ───────────────────────────────────────────────────────────────────────── */
 
 .deploy-chip {
@@ -51,12 +51,24 @@
   transition: border-color 120ms ease, color 120ms ease;
 
   &:hover {
+    background: var(--bg-3);
     border-color: var(--border-strong);
     color: var(--text-dim);
   }
 
   svg {
     flex-shrink: 0;
+  }
+
+  // An offline deployment has no Deploy tab to switch to; the chip is a label.
+  &--static {
+    cursor: default;
+
+    &:hover {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--muted);
+    }
   }
 }
 
@@ -73,6 +85,7 @@
   border-radius: var(--r-1);
   background: var(--bg-3);
   font-family: var(--font-mono);
+  color: var(--text-dim);
 }
 
 .process-header-actions {
@@ -93,13 +106,11 @@
 // across a row that is only ever glanced at.
 .stat-strip {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--s-5);
+  gap: var(--s-1) var(--s-5);
   padding: var(--s-2) 0 var(--s-3);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
   font-size: 0.75rem;
-  overflow-x: auto;
 }
 
 .stat-strip-item {
@@ -121,8 +132,8 @@
   cursor: pointer;
 
   .stat-strip-value {
-    text-decoration: underline dotted var(--border-strong);
-    text-underline-offset: 0.25em;
+    text-decoration: underline dotted var(--accent-line);
+    text-underline-offset: 0.1875rem;
   }
 
   &:hover .stat-strip-value,
@@ -137,12 +148,17 @@
 }
 
 .stat-strip-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   color: var(--text-dim);
 }
 
+// Stands in for the stat strip while there are no numbers to show: before the
+// first sample, and for a deployment that has no PM2 process.
 .stat-strip-empty {
-  padding: var(--s-3) 0;
-  font-size: 0.8125rem;
+  margin: 0;
+  padding: var(--s-2) 0 var(--s-3);
+  font-size: 0.75rem;
   color: var(--muted);
 }
 

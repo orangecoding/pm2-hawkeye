@@ -27,10 +27,12 @@ const PAGES = [
  *   onClose: () => void,
  *   csrfToken: string | null,
  *   onCsrfRefresh: () => Promise<void>,
- * }} props
+ *   initialPage?: 'General' | 'Alerting',
+ * }} props - `initialPage` is the page shown on open, e.g. Alerting when
+ *   the Manage tab links to the alert rules.
  */
-export default function Settings({ onClose, csrfToken, onCsrfRefresh }) {
-  const [activePage, setActivePage] = useState('General');
+export default function Settings({ onClose, csrfToken, onCsrfRefresh, initialPage = 'General' }) {
+  const [activePage, setActivePage] = useState(initialPage);
   const [alertingSettings, setAlertingSettings] = useState({});
   const [alertingSettingsLoaded, setAlertingSettingsLoaded] = useState(false);
   const [isDirty, setIsDirty] = useState(false);

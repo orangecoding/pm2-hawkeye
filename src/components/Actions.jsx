@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { fetchWithCsrf } from '../services/api.js';
+import ConfirmButton from './ConfirmButton.jsx';
 import { CheckCircle, WarningCircle } from './Icon.jsx';
 
 /**
@@ -18,12 +19,13 @@ function actionName(action) {
 }
 
 /**
- * PM2 custom actions (axm_actions) for the selected process.
+ * PM2 custom actions (axm_actions) for the selected process, as rows of the
+ * Custom actions card.
  *
- * Each action is its own row with its own trigger. The previous design hid
- * them all inside a single <select>: picking an option immediately armed a
- * confirmation, which made a dropdown behave like a button and gave no way to
- * see what an action was without selecting it.
+ * Each action is its own row: its name, a parameter input when the action
+ * takes parameters, and a Run button that asks once before it triggers, like
+ * every other action that changes a process. The outcome of the last run
+ * shows below the rows.
  *
  * @param {{
  *   actions: (string|object)[],
@@ -33,113 +35,74 @@ function actionName(action) {
  * }} props
  */
 export default function Actions({ actions, selectedProcessId, csrfToken, onCsrfRefresh }) {
-  /** @type {[string|null, React.Dispatch<string|null>]} name of the action being armed */
-  const [arming, setArming] = useState(null);
-  const [params, setParams] = useState('');
-  const [busy, setBusy] = useState(false);
-  /** @type {[{ok: boolean, text: string}|null, React.Dispatch<object|null>]} */
+  /** @type {[Record<string, string>, React.Dispatch<Record<string, string>>]} parameter text per action name */
+  const [params, setParams] = useState({});
+  /** @type {[{ok: boolean, name: string, text: string}|null, React.Dispatch<object|null>]} */
   const [result, setResult] = useState(null);
 
   if (actions.length === 0) return null;
 
   /**
-   * Trigger the armed action on the backend.
+   * Trigger an action on the backend.
    *
    * @param {string} name
    * @param {boolean} requiresParams
    */
   async function trigger(name, requiresParams) {
     if (selectedProcessId == null || !csrfToken) return;
-    setBusy(true);
     setResult(null);
     try {
       const body = { actionName: name };
-      if (requiresParams && params.trim()) body.params = params.trim();
+      const value = (params[name] ?? '').trim();
+      if (requiresParams && value) body.params = value;
       await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions/trigger`, {
         onCsrfRefresh,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      setResult({ ok: true, text: `${name} triggered.` });
+      setResult({ ok: true, name, text: 'triggered.' });
+      setParams((prev) => ({ ...prev, [name]: '' }));
     } catch (err) {
-      setResult({ ok: false, text: err.message ?? `${name} failed.` });
-    } finally {
-      setBusy(false);
-      setArming(null);
-      setParams('');
+      setResult({ ok: false, name, text: err.message ? `failed: ${err.message}` : 'failed.' });
     }
   }
 
   return (
     <>
-      <div className="action-list">
-        {actions.map((action) => {
-          const name = actionName(action);
-          const requiresParams = typeof action === 'object' && Array.isArray(action.params) && action.params.length > 0;
-          const isArmed = arming === name;
-
-          return (
-            <div className="action-row" key={name}>
-              {isArmed ? (
-                <div className="action-row-form">
-                  <span className="action-row-name">{name}</span>
-                  {requiresParams && (
-                    <input
-                      className="input"
-                      type="text"
-                      value={params}
-                      placeholder="Parameters"
-                      aria-label={`Parameters for ${name}`}
-                      disabled={busy}
-                      onChange={(e) => setParams(e.target.value)}
-                    />
-                  )}
-                  <button
-                    type="button"
-                    className="btn btn--sm btn--primary"
-                    disabled={busy}
-                    onClick={() => trigger(name, requiresParams)}
-                  >
-                    {busy ? 'Running' : 'Run'}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn--sm btn--quiet"
-                    disabled={busy}
-                    onClick={() => {
-                      setArming(null);
-                      setParams('');
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <span className="action-row-name">{name}</span>
-                  <button
-                    type="button"
-                    className="btn btn--sm"
-                    onClick={() => {
-                      setArming(name);
-                      setParams('');
-                      setResult(null);
-                    }}
-                  >
-                    Run
-                  </button>
-                </>
-              )}
-            </div>
-          );
-        })}
-      </div>
+      {actions.map((action) => {
+        const name = actionName(action);
+        const requiresParams = typeof action === 'object' && Array.isArray(action.params) && action.params.length > 0;
+        return (
+          <div className="action-row" key={name}>
+            <span className="action-row-name">{name}</span>
+            {requiresParams && (
+              <input
+                className="input action-row-input"
+                type="text"
+                value={params[name] ?? ''}
+                placeholder="parameter"
+                aria-label={`Parameter for ${name}`}
+                onChange={(e) => setParams((prev) => ({ ...prev, [name]: e.target.value }))}
+              />
+            )}
+            <ConfirmButton
+              label="Run"
+              question={`Run ${name}?`}
+              size="sm"
+              className="btn--sunken"
+              choices={[{ label: 'Run', onConfirm: () => trigger(name, requiresParams) }]}
+            />
+          </div>
+        );
+      })}
 
       {result && (
-        <div className="action-result" data-ok={result.ok}>
+        <div className="action-result action-result--card" data-ok={result.ok}>
           {result.ok ? <CheckCircle size={13} weight="fill" /> : <WarningCircle size={13} weight="fill" />}
-          <span>{result.text}</span>
+          <span>
+            <span className="num">{result.name}</span> {result.text}
+          </span>
         </div>
       )}
     </>

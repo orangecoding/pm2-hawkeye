@@ -29,7 +29,9 @@
   /* ── Text ────────────────────────────────────────────────────────────── */
   --text: #ededf0;
   --text-dim: #a7a7ae;
-  --muted: #77777f;
+  /* 5.5:1 on --bg-1 and 5.2:1 on --bg-2. The old #77777f had 4.2:1 on
+     --bg-1, below the 4.5:1 minimum for body text. */
+  --muted: #8a8a92;
   /* ── Accent (coral) - the only accent on the page ────────────────────── */
   --accent: #fd8c66;
   /* Hover brightens the coral. It used to darken into #f8494d, a red that made
@@ -47,11 +49,29 @@
   --critical: #f87171;
   --critical-soft: rgba(248, 113, 113, 0.13);
   --info: #60a5fa;
+  --info-soft: rgba(96, 165, 250, 0.13);
+  /* Callouts: a faint fill with a stronger line, for boxes that ask the user
+     to decide (local changes) or report a failure that blocks the page. */
+  --warning-callout: rgba(251, 191, 36, 0.06);
+  --warning-callout-line: rgba(251, 191, 36, 0.34);
+  --critical-callout: rgba(248, 113, 113, 0.06);
+  --critical-callout-line: rgba(248, 113, 113, 0.34);
   /* ── Log level colours ───────────────────────────────────────────────── */
   --log-error: #f87171;
   --log-warn: #fbbf24;
   --log-info: #60a5fa;
   --log-default: #c4c4cc;
+  --log-error-tint: rgba(248, 113, 113, 0.06);
+  /* background of an error row */
+  /* ── Charts ──────────────────────────────────────────────────────────── */
+  --chart-hairline: rgba(255, 255, 255, 0.05);
+  /* gridlines above zero */
+  --chart-baseline: rgba(255, 255, 255, 0.1);
+  /* the zero line */
+  --chart-crosshair: rgba(255, 255, 255, 0.28);
+  /* hover / focus marker */
+  --chart-threshold: rgba(248, 113, 113, 0.7);
+  /* a limit such as max_memory_restart */
   /* ── Shape lock: two radii only ──────────────────────────────────────── */
   --r-1: 0.25rem;
   /* controls: buttons, inputs, pills, chips */
@@ -69,11 +89,13 @@
   /* ── Elevation - tinted to the ground, never pure black ──────────────── */
   --shadow-1: 0 0.0625rem 0.125rem rgba(6, 6, 8, 0.6);
   --shadow-2: 0 1rem 2.5rem rgba(6, 6, 8, 0.55);
+  /* Chart tooltips float over dense marks, so they lift further than rows. */
+  --shadow-tooltip: 0 0.375rem 1rem rgba(6, 6, 8, 0.6);
   /* Backdrop behind modals and the mobile drawer. */
   --scrim: rgba(6, 6, 8, 0.72);
   /* ── Type ────────────────────────────────────────────────────────────── */
-  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", "Consolas", monospace;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
   /* ── Fixed chrome heights ────────────────────────────────────────────── */
   --topbar-h: 3rem;
   --sidebar-w: 15rem;
@@ -117,6 +139,12 @@ select,
 textarea {
   font: inherit;
   color: inherit;
+}
+a {
+  color: var(--accent);
+}
+a:hover {
+  color: var(--accent-hover);
 }
 h1,
 h2,
@@ -232,7 +260,7 @@ h4 {
   height: 2rem;
   padding: 0 var(--s-3);
   border-radius: var(--r-1);
-  border: 0.0625rem solid var(--border-strong);
+  border: 0.0625rem solid var(--border);
   background: var(--bg-2);
   color: var(--text);
   font-size: 0.8125rem;
@@ -273,6 +301,9 @@ h4 {
   background: var(--critical-soft);
   border-color: var(--critical);
 }
+.btn--sunken {
+  background: var(--bg-1);
+}
 .btn--quiet {
   background: transparent;
   border-color: transparent;
@@ -288,7 +319,7 @@ h4 {
   font-size: 0.75rem;
 }
 .btn--icon {
-  width: 1.75rem;
+  width: 2rem;
   padding: 0;
   background: transparent;
   border-color: transparent;
@@ -350,9 +381,9 @@ h4 {
 .textarea::placeholder {
   color: var(--muted);
 }
-.input:hover:not(:disabled):not(:read-only),
-.select:hover:not(:disabled):not(:read-only),
-.textarea:hover:not(:disabled):not(:read-only) {
+.input:hover:not(:disabled):not([readonly]),
+.select:hover:not(:disabled):not([readonly]),
+.textarea:hover:not(:disabled):not([readonly]) {
   border-color: var(--border-strong);
 }
 .input:focus,
@@ -364,9 +395,9 @@ h4 {
 .input:disabled,
 .select:disabled,
 .textarea:disabled,
-.input:read-only,
-.select:read-only,
-.textarea:read-only {
+.input[readonly],
+.select[readonly],
+.textarea[readonly] {
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -483,10 +514,12 @@ h4 {
 .status-dot[data-status='error'] {
   background: var(--critical);
 }
+.status-dot[data-status='deploying'] {
+  background: var(--accent);
+}
 .status-text {
   font-size: 0.75rem;
   color: var(--muted);
-  text-transform: capitalize;
 }
 .status-text[data-status='online'] {
   color: var(--success);
@@ -497,8 +530,12 @@ h4 {
   color: var(--warning);
 }
 .status-text[data-status='errored'],
-.status-text[data-status='error'] {
+.status-text[data-status='error'],
+.status-text[data-status='broken'] {
   color: var(--critical);
+}
+.status-text[data-status='deploying'] {
+  color: var(--accent);
 }
 /* ── Tags ───────────────────────────────────────────────────────────────────
    Small non-interactive labels. Semantic colour only, never decoration.
@@ -521,9 +558,452 @@ h4 {
   background: var(--accent-soft);
   color: var(--accent);
 }
+.tag--warning {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
 .tag--critical {
   background: var(--critical-soft);
   color: var(--critical);
+}
+.tag--mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+/* ── Cards ──────────────────────────────────────────────────────────────────
+   The raised surface of the Overview, Manage and Deploy screens: a title with
+   an optional hint, then rows separated by hairlines. One shape everywhere,
+   so a card reads the same whatever it holds.
+   ───────────────────────────────────────────────────────────────────────── */
+.card {
+  min-width: 0;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-2);
+}
+.card-head {
+  padding: var(--s-4) var(--s-4) var(--s-3);
+}
+.card-head--actions {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  padding: var(--s-4);
+}
+.card-head-text {
+  flex: 1 1 15rem;
+  min-width: 0;
+}
+.card-head-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.card-head--side {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-4) var(--s-2);
+}
+.card-head--side .card-link {
+  margin-left: auto;
+}
+.card-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.card-hint {
+  margin: var(--s-1) 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.card-hint--tight {
+  margin-top: 0.125rem;
+}
+.card--danger .card-title {
+  color: var(--critical);
+}
+.card-link {
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+/* ── Rows: text on the left, the control on the right ───────────────────── */
+.card-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+.card-row-text {
+  flex: 1 1 20rem;
+  min-width: 0;
+}
+.card-row-text--narrow {
+  flex-basis: 12.5rem;
+}
+.card-row-label {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.card-row-hint {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+/* ── Definition lists ───────────────────────────────────────────────────── */
+.card-dl {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 10rem) minmax(0, 1fr);
+  margin: 0;
+  font-size: 0.8125rem;
+}
+.card-dl dt {
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.card-dl dd {
+  min-width: 0;
+  margin: 0;
+  padding: var(--s-3) var(--s-4) var(--s-3) 0;
+  border-top: 0.0625rem solid var(--border);
+  color: var(--text);
+}
+.card-dl--side {
+  grid-template-columns: auto minmax(0, 1fr);
+  font-size: 0.75rem;
+}
+.card-dl--side dt {
+  padding: var(--s-2) var(--s-4);
+}
+.card-dl--side dd {
+  padding: var(--s-2) var(--s-4) var(--s-2) 0;
+  font-family: var(--font-mono);
+  text-align: right;
+}
+.card-dl-break {
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+.card-dl-dim {
+  color: var(--text-dim);
+}
+.card-dl-muted {
+  color: var(--muted);
+}
+.card-dl-bad {
+  color: var(--critical);
+}
+.card-dl-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.card-dl-ok svg {
+  color: var(--success);
+}
+.card-side-text {
+  margin: 0;
+  padding: 0 var(--s-4) var(--s-3);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.card-side-text--muted {
+  color: var(--muted);
+}
+.card-side-text--last {
+  padding-bottom: var(--s-4);
+}
+.card-warning {
+  display: flex;
+  gap: var(--s-2);
+  margin: 0 var(--s-4) var(--s-4);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-1);
+  background: var(--warning-soft);
+  color: var(--warning);
+  font-size: 0.75rem;
+}
+.card-warning svg {
+  flex-shrink: 0;
+  margin-top: 0.0625rem;
+}
+/* ── Code ───────────────────────────────────────────────────────────────── */
+.code-chip {
+  padding: 0.0625rem var(--s-2);
+  border-radius: var(--r-1);
+  background: var(--bg-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text);
+}
+.code-chip--dim {
+  color: var(--text-dim);
+}
+.code-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--s-1);
+}
+.code-block {
+  margin: 0;
+  padding: var(--s-2) var(--s-3);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-1);
+  background: var(--bg-0);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  color: var(--log-default);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+/* ── Section heads outside cards ────────────────────────────────────────── */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+/* ── Callouts ───────────────────────────────────────────────────────────────
+   A box that needs a decision or reports a state that blocks the page. The
+   warning and critical variants use a faint fill with a stronger line.
+   ───────────────────────────────────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border: 0.0625rem solid var(--border-strong);
+  border-radius: var(--r-2);
+}
+.callout--row {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.callout--stack {
+  flex-direction: column;
+}
+.callout--warning {
+  border-color: var(--warning-callout-line);
+  background: var(--warning-callout);
+}
+.callout--critical {
+  border-color: var(--critical-callout-line);
+  background: var(--critical-callout);
+}
+.callout--critical .callout-icon {
+  color: var(--critical);
+}
+.callout-icon {
+  flex-shrink: 0;
+  margin-top: 0.0625rem;
+  color: var(--muted);
+}
+.callout-body {
+  flex: 1 1 22.5rem;
+  min-width: 0;
+}
+.callout-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.callout-text {
+  margin: var(--s-1) 0 0;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.callout--stack .callout-text {
+  margin: 0;
+}
+.callout-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+/* ── Time-series chart ──────────────────────────────────────────────────────
+   One chart idiom for the Overview and the Metrics tab: hairline grid, step
+   lines, a dot on the newest sample, and one tooltip that reads every series
+   at the hovered time. Gridlines are never dashed; dashes mean a comparison
+   series or a limit.
+   ───────────────────────────────────────────────────────────────────────── */
+.ts-chart {
+  display: grid;
+  column-gap: var(--s-2);
+  row-gap: var(--s-2);
+}
+.ts-plot-wrap {
+  position: relative;
+  min-width: 0;
+}
+.ts-chart--compact .ts-plot-wrap {
+  margin-right: var(--s-1);
+}
+.ts-plot {
+  position: absolute;
+  inset: 0;
+  cursor: crosshair;
+}
+.ts-plot svg {
+  display: block;
+  overflow: visible;
+}
+.ts-plot:focus-visible {
+  outline: 0.125rem solid var(--accent-line);
+  outline-offset: var(--s-1);
+  border-radius: 0;
+}
+.ts-grid {
+  stroke: var(--chart-hairline);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.ts-grid--base {
+  stroke: var(--chart-baseline);
+}
+.ts-area {
+  fill-opacity: 0.1;
+}
+.ts-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.ts-dot {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: -0.25rem 0 0 -0.25rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.125rem var(--bg-2);
+  pointer-events: none;
+}
+.ts-crosshair {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.0625rem;
+  background: var(--chart-crosshair);
+  pointer-events: none;
+}
+.ts-threshold {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 0.0625rem dashed var(--chart-threshold);
+  pointer-events: none;
+}
+.ts-threshold-label {
+  position: absolute;
+  right: 0;
+  bottom: var(--s-1);
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+/* ── Tooltip ────────────────────────────────────────────────────────────── */
+.ts-tooltip {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  padding: var(--s-2) var(--s-3);
+  border: 0.0625rem solid var(--border-strong);
+  border-radius: var(--r-1);
+  background: var(--bg-0);
+  box-shadow: var(--shadow-tooltip);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.ts-tooltip--above {
+  top: auto;
+  bottom: calc(100% + var(--s-2));
+}
+.ts-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  line-height: 1.125rem;
+}
+.ts-key {
+  width: 0.625rem;
+  height: 0;
+  border-top-width: 0.125rem;
+}
+.ts-tooltip-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+  color: var(--text);
+}
+.ts-tooltip-name {
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+.ts-tooltip-time {
+  margin-top: 0.125rem;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+/* ── Axes ───────────────────────────────────────────────────────────────── */
+.ts-y,
+.ts-x {
+  position: relative;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.625rem;
+  line-height: 1;
+  color: var(--muted);
+}
+.ts-y span,
+.ts-x span {
+  position: absolute;
+  white-space: nowrap;
+}
+.ts-y span {
+  left: 0;
+  transform: translateY(-50%);
+}
+.ts-x {
+  height: 0.875rem;
+}
+.ts-x span {
+  top: 0;
+  transform: translateX(-50%);
+}
+.ts-x span[data-align='end'] {
+  transform: translateX(-100%);
+}
+/* Placeholder with the chart's height, so a card does not reflow when its
+   history arrives. */
+.ts-nodata {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 0.0625rem dashed var(--border);
+  border-radius: var(--r-1);
 }
 /* Shell */
 /* ── Layout shell ───────────────────────────────────────────────────────────
@@ -685,59 +1165,6 @@ h4 {
 .app-footer-credit a:hover {
   color: var(--accent);
 }
-/* ── Welcome state ──────────────────────────────────────────────────────── */
-.welcome-state {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--s-8) var(--s-6);
-  min-height: 0;
-  overflow-y: auto;
-}
-.welcome-card {
-  max-width: 30rem;
-}
-.welcome-card h2 {
-  margin: 0 0 var(--s-2);
-  font-size: 1.125rem;
-}
-.welcome-hints {
-  margin-top: var(--s-6);
-  padding-top: var(--s-4);
-  border-top: 0.0625rem solid var(--border);
-}
-.welcome-hints-title {
-  margin: 0 0 var(--s-3);
-  font-size: 0.8125rem;
-  color: var(--text-dim);
-}
-.welcome-hints-list {
-  display: grid;
-  gap: var(--s-3);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.welcome-hints-list li {
-  display: grid;
-  grid-template-columns: 1.25rem 1fr;
-  gap: var(--s-2);
-  font-size: 0.8125rem;
-  color: var(--muted);
-}
-.welcome-hints-list li strong {
-  display: block;
-  color: var(--text-dim);
-  font-weight: 600;
-}
-.welcome-hint-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1.25rem;
-  color: var(--accent);
-}
 /* ── Responsive: mobile (<= 45rem / 720 px) ─────────────────────────────── */
 @media (max-width: 45rem) {
   .app-shell {
@@ -790,16 +1217,24 @@ h4 {
   }
 }
 /* ── Host health readout ────────────────────────────────────────────────────
-   Was three buttons in the topbar, each opening its own popover with a chart.
-   Now it states the numbers and nothing else: the charts live in the Metrics
-   tab, which is where a user goes to look at trends.
+   States the numbers and nothing else. The whole readout is one link to the
+   host charts on the Overview, from every screen.
    ───────────────────────────────────────────────────────────────────────── */
 .host-readout {
   display: flex;
   align-items: center;
-  gap: var(--s-4);
-  padding-left: var(--s-2);
+  gap: var(--s-3);
+  height: 1.75rem;
   min-width: 0;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-1);
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 120ms ease;
+}
+.host-readout:hover {
+  background: var(--bg-2);
 }
 .host-readout-label {
   font-size: 0.6875rem;
@@ -811,27 +1246,7 @@ h4 {
 .host-stat {
   display: flex;
   align-items: baseline;
-  gap: var(--s-2);
-  white-space: nowrap;
-}
-/* Same shortcut idiom as the process stat strip: a button that reads as text. */
-.host-stat--link {
-  appearance: none;
-  background: none;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-}
-.host-stat--link .host-stat-value {
-  text-decoration: underline dotted var(--border-strong);
-  text-underline-offset: 0.25em;
-}
-.host-stat--link:hover .host-stat-value,
-.host-stat--link:focus-visible .host-stat-value {
-  color: var(--text);
-  text-decoration-color: var(--accent-line);
+  gap: var(--s-1);
 }
 .host-stat-label {
   font-size: 0.6875rem;
@@ -877,21 +1292,86 @@ h4 {
   border-right: 0.0625rem solid var(--border);
   background: var(--bg-1);
 }
+/* ── Navigation ─────────────────────────────────────────────────────────────
+   The Overview is the home: nothing selected. Its row carries the number of
+   attention items so a problem is visible from any screen.
+   ───────────────────────────────────────────────────────────────────────── */
+.sidebar-nav {
+  flex-shrink: 0;
+  padding: var(--s-2) var(--s-1);
+  border-bottom: 0.0625rem solid var(--border);
+}
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  width: 100%;
+  height: 2rem;
+  padding: 0 var(--s-2);
+  border: 0;
+  border-radius: var(--r-1);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 100ms ease, color 100ms ease;
+}
+.sidebar-nav-item:hover {
+  background: var(--bg-3);
+  color: var(--text);
+}
+.sidebar-nav-item.active {
+  background: var(--bg-3);
+  color: var(--text);
+}
+.sidebar-nav-item.active svg {
+  color: var(--accent);
+}
+.sidebar-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.125rem;
+  min-width: 1.125rem;
+  margin-left: auto;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-1);
+  background: var(--critical-soft);
+  color: var(--critical);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+/* ── Processes header and filter ────────────────────────────────────────── */
+.sidebar-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  flex-shrink: 0;
+  padding: var(--s-3) var(--s-3) var(--s-1);
+}
+.sidebar-head-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
 .sidebar-search {
   position: relative;
-  padding: var(--s-3);
-  border-bottom: 0.0625rem solid var(--border);
-  flex-shrink: 0;
+  display: block;
 }
 .sidebar-search .input {
   height: 1.875rem;
-  padding-left: 1.875rem;
+  padding: 0 var(--s-2) 0 1.875rem;
+  border-color: var(--border);
   font-size: 0.75rem;
   background: var(--bg-2);
 }
 .sidebar-search-icon {
   position: absolute;
-  left: 1.375rem;
+  left: var(--s-3);
   top: 50%;
   transform: translateY(-50%);
   color: var(--muted);
@@ -903,15 +1383,15 @@ h4 {
   overflow-y: auto;
   padding-bottom: var(--s-3);
 }
-.process-group {
-  padding-top: var(--s-3);
-}
 .process-group-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--s-2);
-  padding: 0 var(--s-3) var(--s-2);
+  padding: var(--s-3) var(--s-3) var(--s-2);
+}
+.process-group + .process-group .process-group-head {
+  padding-top: var(--s-4);
 }
 .process-group-count {
   font-family: var(--font-mono);
@@ -924,36 +1404,38 @@ h4 {
   grid-template-columns: 0.4375rem minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--s-2);
-  width: calc(100% - var(--s-3));
-  margin: 0 0 0.0625rem var(--s-1);
-  padding: var(--s-2) var(--s-2);
+  width: calc(100% - var(--s-2));
+  height: 2rem;
+  margin: 0 var(--s-1) 0.0625rem;
+  padding: 0 var(--s-2);
   border: 0;
   border-radius: var(--r-1);
   background: transparent;
+  color: var(--text-dim);
   text-align: left;
   cursor: pointer;
   transition: background-color 100ms ease;
 }
-.process-item:hover {
-  background: var(--bg-2);
+.process-item[data-running='true'] {
+  color: var(--text);
 }
+.process-item:hover,
 .process-item.active {
   background: var(--bg-3);
-}
-.process-item.active .process-item-name {
-  color: var(--text);
-  font-weight: 600;
 }
 .process-item-name {
   display: flex;
   align-items: center;
   gap: var(--s-2);
   min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+.process-item-label {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.8125rem;
-  color: var(--text-dim);
 }
 .process-item-deployed {
   display: flex;
@@ -983,43 +1465,6 @@ h4 {
   font-size: 0.8125rem;
   color: var(--muted);
 }
-/* ── Offline deployments ────────────────────────────────────────────────────
-   Deployments with no running PM2 process. Same row shape as a process so the
-   list reads as one thing, with an explicit state tag instead of a dot.
-   ───────────────────────────────────────────────────────────────────────── */
-.offline-item {
-  padding: var(--s-2) var(--s-3);
-  margin: 0 var(--s-1);
-  border-radius: var(--r-1);
-}
-.offline-item:hover {
-  background: var(--bg-2);
-}
-.offline-item-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-2);
-  margin-bottom: var(--s-2);
-}
-.offline-item-top .process-item-name {
-  flex: 1;
-}
-.offline-item-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-1);
-}
-.offline-item-actions > .btn {
-  flex: 1;
-}
-.offline-item-actions .confirm {
-  flex-basis: 100%;
-  flex-wrap: wrap;
-  height: auto;
-  padding: var(--s-2);
-  gap: var(--s-2);
-}
 /* ── Mobile drawer ──────────────────────────────────────────────────────── */
 @media (max-width: 45rem) {
   .app-sidebar {
@@ -1040,6 +1485,90 @@ h4 {
     transform: translateX(0);
     visibility: visible;
     transition: transform 160ms ease;
+  }
+}
+/* Home */
+/* ── Overview ───────────────────────────────────────────────────────────────
+   The home screen while nothing is selected: what needs attention, then the
+   host. No process table; the sidebar is the only process list.
+   ───────────────────────────────────────────────────────────────────────── */
+.overview {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding: var(--s-5);
+}
+.overview-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.5rem;
+}
+.overview-sub {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+/* ── Needs attention ────────────────────────────────────────────────────── */
+.attention-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+}
+.attention-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.attention-row {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+.attention-icon[data-level='critical'] {
+  color: var(--critical);
+}
+.attention-icon[data-level='warning'] {
+  color: var(--warning);
+}
+.attention-icon[data-level='ok'] {
+  color: var(--success);
+}
+.attention-text {
+  min-width: 0;
+}
+.attention-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.attention-detail {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+/* ── Host ───────────────────────────────────────────────────────────────── */
+.overview-host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  scroll-margin-top: var(--s-5);
+}
+.host-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17.5rem, 100%), 1fr));
+  gap: var(--s-3);
+}
+@media (max-width: 45rem) {
+  .overview {
+    padding: var(--s-4);
   }
 }
 /* Process workspace */
@@ -1072,7 +1601,7 @@ h4 {
 /* ── Deployment identity ────────────────────────────────────────────────────
    States that Hawkeye deployed this process, and from where. Nothing in the
    app said so before: a deployed process looked exactly like one started by
-   hand on the command line. Clicking it opens the deployment configuration.
+   hand on the command line. Clicking it opens the Deploy tab.
    ───────────────────────────────────────────────────────────────────────── */
 .deploy-chip {
   display: inline-flex;
@@ -1091,11 +1620,20 @@ h4 {
   transition: border-color 120ms ease, color 120ms ease;
 }
 .deploy-chip:hover {
+  background: var(--bg-3);
   border-color: var(--border-strong);
   color: var(--text-dim);
 }
 .deploy-chip svg {
   flex-shrink: 0;
+}
+.deploy-chip--static {
+  cursor: default;
+}
+.deploy-chip--static:hover {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
 }
 .deploy-chip-repo {
   font-family: var(--font-mono);
@@ -1109,6 +1647,7 @@ h4 {
   border-radius: var(--r-1);
   background: var(--bg-3);
   font-family: var(--font-mono);
+  color: var(--text-dim);
 }
 .process-header-actions {
   display: flex;
@@ -1123,13 +1662,11 @@ h4 {
    ───────────────────────────────────────────────────────────────────────── */
 .stat-strip {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--s-5);
+  gap: var(--s-1) var(--s-5);
   padding: var(--s-2) 0 var(--s-3);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
   font-size: 0.75rem;
-  overflow-x: auto;
 }
 .stat-strip-item {
   display: flex;
@@ -1149,8 +1686,8 @@ h4 {
   cursor: pointer;
 }
 .stat-strip-item--link .stat-strip-value {
-  text-decoration: underline dotted var(--border-strong);
-  text-underline-offset: 0.25em;
+  text-decoration: underline dotted var(--accent-line);
+  text-underline-offset: 0.1875rem;
 }
 .stat-strip-item--link:hover .stat-strip-value,
 .stat-strip-item--link:focus-visible .stat-strip-value {
@@ -1161,11 +1698,14 @@ h4 {
   color: var(--muted);
 }
 .stat-strip-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   color: var(--text-dim);
 }
 .stat-strip-empty {
-  padding: var(--s-3) 0;
-  font-size: 0.8125rem;
+  margin: 0;
+  padding: var(--s-2) 0 var(--s-3);
+  font-size: 0.75rem;
   color: var(--muted);
 }
 /* ── Header empty state ─────────────────────────────────────────────────── */
@@ -1208,10 +1748,11 @@ h4 {
   }
 }
 /* ── Tabs ───────────────────────────────────────────────────────────────────
-   The spine of the redesign. Every process-scoped function now sits behind
-   exactly one of these three, so there is a single place to look for each:
+   The spine of the process screen. Every process-scoped function sits behind
+   exactly one of these, so there is a single place to look for each:
      Logs    - what is it saying
      Metrics - how is it behaving
+     Deploy  - how Hawkeye deploys it (only for processes it deployed)
      Manage  - change it
    ───────────────────────────────────────────────────────────────────────── */
 .tabs {
@@ -1256,6 +1797,22 @@ h4 {
   height: 0.3125rem;
   border-radius: 50%;
   background: var(--accent);
+}
+/* State of the deployment on the Deploy tab: running, waiting for the user
+   or a failed auto-deploy check, or a failed run. */
+.tab-dot {
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 50%;
+}
+.tab-dot[data-tone='accent'] {
+  background: var(--accent);
+}
+.tab-dot[data-tone='warning'] {
+  background: var(--warning);
+}
+.tab-dot[data-tone='critical'] {
+  background: var(--critical);
 }
 /* ── Tab panel ──────────────────────────────────────────────────────────── */
 .tab-panel {
@@ -1404,7 +1961,7 @@ h4 {
 }
 .log-line {
   display: grid;
-  grid-template-columns: 4.25rem 2.25rem minmax(0, 1fr);
+  grid-template-columns: 4rem 2.25rem minmax(0, 1fr);
   gap: var(--s-2);
   padding: 0 var(--s-5) 0 var(--s-4);
   border-left: 0.125rem solid transparent;
@@ -1416,6 +1973,7 @@ h4 {
 }
 .log-line.level-error {
   border-left-color: var(--log-error);
+  background: var(--log-error-tint);
 }
 .log-line.level-error .log-text {
   color: var(--log-error);
@@ -1517,182 +2075,138 @@ h4 {
     max-height: 60vh;
   }
 }
-/* ── Metrics panel ──────────────────────────────────────────────────────────
-   Charts are always drawn. The old design hid every sparkline behind a click
-   and allowed only one open at a time, which made trends invisible by default
-   and comparison impossible.
+/* ── Chart cards ────────────────────────────────────────────────────────────
+   One card shape for every chart, on the Overview and in the Metrics tab:
+   label, the current value in large tabular figures, the peak of the stored
+   window, then the chart. Charts are always drawn, never behind a click.
    ───────────────────────────────────────────────────────────────────────── */
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-2);
+}
+.chart-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  min-height: 1.125rem;
+}
+.chart-card-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+.chart-card-reading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: 0.125rem;
+}
+.chart-card-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 2rem;
+  color: var(--text);
+}
+.chart-card-value--small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.chart-card-peak {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.chart-card-peak .num {
+  color: var(--text-dim);
+}
+.chart-card-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin-top: var(--s-1);
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+.chart-card-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.chart-card-legend-key {
+  width: 0.75rem;
+  height: 0;
+  border-top-width: 0.125rem;
+}
+.chart-card-plot {
+  margin-top: var(--s-4);
+}
+.chart-card--small {
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+}
+/* ── Metrics panel ──────────────────────────────────────────────────────── */
 .metrics-panel {
   display: flex;
   flex-direction: column;
   gap: var(--s-6);
 }
-.metrics-group-head {
+.metrics-section {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
   gap: var(--s-3);
-  margin-bottom: var(--s-3);
-  padding-bottom: var(--s-2);
-  border-bottom: 0.0625rem solid var(--border);
 }
-/* One chart per row. Side by side, three to a row, each curve was a few
-   hundred pixels wide and a 24-hour window collapsed into an unreadable smear;
-   full width buys the horizontal resolution the time axis needs. */
 .metrics-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(23.75rem, 100%), 1fr));
+  gap: var(--s-3);
+}
+.metrics-grid--small {
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
 }
 .metrics-notice {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-4);
-  margin-bottom: var(--s-3);
   padding: var(--s-2) var(--s-3);
   border: 0.0625rem solid var(--accent-line);
   border-radius: var(--r-2);
   background: var(--accent-soft);
 }
-.metric-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-2);
-  padding: var(--s-3) var(--s-4);
-  border: 0.0625rem solid var(--border);
-  border-radius: var(--r-2);
-  background: var(--bg-2);
-}
-.metric-card-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s-2);
-}
-.metric-card-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-dim);
-}
-.metric-card-value {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text);
-}
-.metric-card-chart {
-  /* Taller than the old three-up cards: a full-width chart needs the vertical
-     room to stay in proportion. */
-  height: 8rem;
-  margin: 0 calc(var(--s-1) * -1);
-}
-/* Placeholder with the chart's height so the grid does not reflow when
-   history arrives. */
-.metric-card-nodata {
+.metrics-host-note {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 8rem;
-  font-size: 0.75rem;
-  color: var(--muted);
-  border: 0.0625rem dashed var(--border);
-  border-radius: var(--r-1);
-}
-/* ── Sparkline internals ────────────────────────────────────────────────── */
-.sparkline-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.sparkline-tooltip {
-  position: absolute;
-  top: 0;
-  display: flex;
-  align-items: baseline;
+  flex-wrap: wrap;
   gap: var(--s-2);
-  padding: 0.125rem var(--s-2);
-  border-radius: var(--r-1);
-  background: var(--bg-0);
-  border: 0.0625rem solid var(--border-strong);
-  box-shadow: var(--shadow-1);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.6875rem;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 2;
-}
-.sparkline-tooltip-value {
-  color: var(--text);
-  font-weight: 600;
-}
-.sparkline-tooltip-time {
+  margin: 0;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 /* ── Manage panel ───────────────────────────────────────────────────────────
-   The single home for every function that changes a process: monitoring,
-   alerting, PM2 custom actions, deployment config, and destructive actions.
-   These used to be spread across a strip, a dropdown, the header row and the
-   sidebar.
-
-   Sections are separated by hairlines and headings rather than nested cards,
-   so the panel reads as one document instead of a pile of boxes.
+   The single home for every function that changes a process: history,
+   alerting, log level, PM2 custom actions and removal, one card each.
+   Deployment has its own tab.
    ───────────────────────────────────────────────────────────────────────── */
 .manage-panel {
   display: flex;
   flex-direction: column;
-  max-width: 46rem;
-}
-.manage-section {
-  padding: var(--s-5) 0;
-  border-bottom: 0.0625rem solid var(--border);
-}
-.manage-section:first-child {
-  padding-top: 0;
-}
-.manage-section:last-child {
-  border-bottom: 0;
-}
-.manage-section-head {
-  margin-bottom: var(--s-3);
-}
-.manage-section-title {
-  margin: 0 0 var(--s-1);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text);
-}
-/* ── Row: label + description on the left, control on the right ─────────── */
-.manage-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--s-5);
-  padding: var(--s-3) 0;
-}
-.manage-row + .manage-row {
-  border-top: 0.0625rem solid var(--border);
-}
-.manage-row-text {
-  min-width: 0;
-  flex: 1;
-}
-.manage-row-label {
-  display: flex;
-  align-items: center;
-  gap: var(--s-2);
-  margin: 0 0 var(--s-1);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text);
-}
-.manage-row-control {
-  display: flex;
-  align-items: center;
-  gap: var(--s-2);
-  flex-shrink: 0;
-  min-height: 2rem;
+  gap: var(--s-4);
+  max-width: 52.5rem;
 }
 /* ── What monitoring buys you ───────────────────────────────────────────────
    Stated once, in the place where the switch lives, instead of a permanent
@@ -1705,7 +2219,7 @@ h4 {
   padding: var(--s-3) var(--s-4);
   list-style: none;
   border-radius: var(--r-2);
-  background: var(--bg-2);
+  background: var(--bg-1);
 }
 .manage-benefits li {
   display: grid;
@@ -1724,36 +2238,30 @@ h4 {
    <select>, the only dropdown in the app, which read as a filter rather than
    as a set of triggers.
    ───────────────────────────────────────────────────────────────────────── */
-.action-list {
-  display: grid;
-  gap: var(--s-1);
-}
 .action-row {
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-2) var(--s-3);
-  border-radius: var(--r-1);
-  background: var(--bg-2);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
 }
 .action-row-name {
   flex: 1;
   min-width: 0;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-dim);
+  color: var(--text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.action-row-form {
-  display: flex;
-  align-items: center;
-  gap: var(--s-2);
-  flex: 1;
-}
-.action-row-form .input {
+.input.action-row-input {
+  width: 12.5rem;
   height: 1.625rem;
+  padding: 0 var(--s-2);
+  border-color: var(--border);
+  background: var(--bg-1);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
 }
 .action-result {
@@ -1771,28 +2279,47 @@ h4 {
   background: var(--critical-soft);
   color: var(--critical);
 }
-/* ── Danger zone ────────────────────────────────────────────────────────── */
-.manage-section--danger .manage-section-title {
-  color: var(--critical);
+.action-result--card {
+  margin: 0 var(--s-4) var(--s-3);
 }
-/* ── Log level picker ───────────────────────────────────────────────────────
-   One button per level rather than a dropdown, matching the custom-action
-   rows: every level is visible without opening anything, and the active one
-   reads at a glance. `silent` is dimmed because it stops output entirely.
+/* ── Segmented control ──────────────────────────────────────────────────────
+   The log level picker: every level visible without opening anything, the
+   active one in accent. `silent` is dimmed because it stops output entirely.
    ───────────────────────────────────────────────────────────────────────── */
-.level-picker {
+.segmented {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-1);
-  justify-content: flex-end;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-1);
+  background: var(--bg-1);
 }
-.level-picker .btn[data-active='true'] {
-  border-color: var(--accent);
+.segmented-item {
+  height: 1.625rem;
+  padding: 0 var(--s-3);
+  border: 0;
+  border-radius: var(--r-1);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 100ms ease, color 100ms ease;
+}
+.segmented-item[data-quiet='true'] {
+  color: var(--muted);
+}
+.segmented-item:hover:not(:disabled) {
+  color: var(--text);
+}
+.segmented-item[aria-pressed='true'] {
+  background: var(--accent-soft);
   color: var(--accent);
 }
-.level-picker .btn[data-quiet='true'] {
-  margin-left: var(--s-2);
-  color: var(--muted);
+.segmented-item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 /* Overlays */
 /* ── Overlays ───────────────────────────────────────────────────────────────
@@ -2129,203 +2656,519 @@ h4 {
   }
 }
 /* ── Deploy modal ───────────────────────────────────────────────────────────
-   One scrolling form instead of an eight-step wizard. The three genuinely
-   required fields sit at the top; everything else folds away behind a summary
-   line that states its current value, so the form can be read at a glance
-   without opening anything.
+   A form only: where the code comes from, how to build and start it, then the
+   optional groups folded behind a summary of their current value. Next to it
+   a live preview of what the deployment will run. The run itself shows in the
+   Deploy tab, not here.
    ───────────────────────────────────────────────────────────────────────── */
+.overlay--top {
+  align-items: flex-start;
+  padding: var(--s-10) var(--s-4);
+}
 .modal--deploy {
   flex-direction: column;
-  max-width: 44rem;
+  max-width: 65rem;
+  max-height: 100%;
 }
-.deploy-body {
+.modal--deploy .field {
+  gap: var(--s-2);
+}
+.modal--deploy .field > label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+.modal--deploy .field .hint {
+  margin-top: 0;
+}
+.modal--deploy .input,
+.modal--deploy .select,
+.modal--deploy .textarea {
+  height: 2rem;
+  padding: 0 var(--s-3);
+  border-color: var(--border);
+  background-color: var(--bg-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.modal--deploy .input:focus,
+.modal--deploy .select:focus,
+.modal--deploy .textarea:focus {
+  border-color: var(--accent-line);
+  box-shadow: 0 0 0 0.1875rem var(--accent-soft);
+}
+.modal--deploy .select {
+  padding-right: var(--s-8);
+}
+.modal--deploy .textarea {
+  height: auto;
+  padding: var(--s-2) var(--s-3);
+}
+.modal--deploy .input[readonly] {
+  opacity: 1;
+  cursor: default;
+  background-color: var(--bg-1);
+  color: var(--muted);
+}
+.modal-header--stacked {
+  height: auto;
+  padding: var(--s-4) var(--s-5);
+}
+.modal-heading {
+  flex: 1;
+  min-width: 0;
+}
+.modal-heading .hint {
+  margin-top: 0.125rem;
+}
+.deploy-modal-body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.deploy-form {
+  flex: 999 1 32.5rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
   padding: var(--s-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
 }
-.deploy-required {
+.deploy-section {
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
-  padding-bottom: var(--s-5);
-  border-bottom: 0.0625rem solid var(--border);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
-.deploy-two-col {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s-4);
-}
-/* ── Collapsible groups ─────────────────────────────────────────────────── */
-.deploy-fieldset {
-  border: 0.0625rem solid var(--border);
-  border-radius: var(--r-2);
-  background: var(--bg-2);
-}
-.deploy-fieldset > summary {
+.deploy-section > legend {
   display: flex;
-  align-items: baseline;
-  gap: var(--s-3);
-  padding: var(--s-3) var(--s-4);
-  cursor: pointer;
-  list-style: none;
-  border-radius: var(--r-2);
-}
-.deploy-fieldset > summary::-webkit-details-marker {
-  display: none;
-}
-.deploy-fieldset > summary:hover .deploy-fieldset-title {
-  color: var(--text);
-}
-.deploy-fieldset[open] > summary {
-  border-bottom: 0.0625rem solid var(--border);
-  border-radius: var(--r-2) var(--r-2) 0 0;
-}
-.deploy-fieldset-title {
-  position: relative;
-  padding-left: var(--s-4);
+  align-items: center;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+  padding: 0;
   font-size: 0.8125rem;
   font-weight: 600;
+  color: var(--text);
+}
+.deploy-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+}
+.deploy-section-number[data-quiet='true'] {
+  background: var(--bg-3);
   color: var(--text-dim);
 }
-.deploy-fieldset-title::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.3125rem;
-  width: 0.3125rem;
-  height: 0.3125rem;
-  border-right: 0.09375rem solid var(--muted);
-  border-bottom: 0.09375rem solid var(--muted);
-  transform: rotate(-45deg);
+.deploy-section-note {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.deploy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: var(--s-4);
+}
+/* ── Options list ───────────────────────────────────────────────────────── */
+.deploy-options {
+  overflow: hidden;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+}
+.deploy-option {
+  border-bottom: 0.0625rem solid var(--border);
+}
+.deploy-option:last-child {
+  border-bottom: 0;
+}
+.deploy-option > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  height: 2.75rem;
+  padding: 0 var(--s-3);
+  list-style: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background-color 100ms ease;
+}
+.deploy-option > summary::-webkit-details-marker {
+  display: none;
+}
+.deploy-option > summary:hover {
+  background: var(--bg-3);
+}
+.deploy-option[open] .deploy-option-caret {
+  transform: rotate(90deg);
+}
+.deploy-option-caret {
+  flex-shrink: 0;
+  color: var(--muted);
   transition: transform 120ms ease;
 }
-.deploy-fieldset[open] .deploy-fieldset-title::before {
-  transform: rotate(45deg);
+.deploy-option-title {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text);
 }
-.deploy-fieldset-summary {
+.deploy-option-summary {
   margin-left: auto;
   font-size: 0.75rem;
   color: var(--muted);
   text-align: right;
 }
-.deploy-fieldset-body {
+.deploy-option-body {
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
-  padding: var(--s-4);
+  gap: var(--s-3);
+  padding: var(--s-1) var(--s-3) var(--s-4) var(--s-8);
 }
 .deploy-toggle-row {
   display: flex;
   flex-direction: column;
   gap: var(--s-1);
 }
+/* ── Preview column ─────────────────────────────────────────────────────── */
+.deploy-preview {
+  flex: 1 1 20rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  border-left: 0.0625rem solid var(--border);
+  background: var(--bg-0);
+}
+.deploy-preview-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.deploy-preview-after {
+  margin: 0;
+  padding-top: var(--s-3);
+  border-top: 0.0625rem solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
 /* ── Modal footer: the action bar is always visible ─────────────────────── */
 .modal-footer {
   display: flex;
   align-items: center;
-  gap: var(--s-3);
+  flex-wrap: wrap;
+  gap: var(--s-2);
   flex-shrink: 0;
   padding: var(--s-3) var(--s-5);
   border-top: 0.0625rem solid var(--border);
   background: var(--bg-1);
 }
-.modal-footer-spacer {
-  flex: 1;
+.modal-footer-text {
+  flex: 1 1 15rem;
+  margin: 0;
 }
-/* ── Progress view ──────────────────────────────────────────────────────── */
-.deploy-stages {
+/* ── Deploy tab ─────────────────────────────────────────────────────────────
+   Every deployment action in one place: the configuration, what a redeploy
+   runs, auto-deploy and the environment, and the run panel above them while
+   a deployment runs.
+   ───────────────────────────────────────────────────────────────────────── */
+.deploy-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.deploy-columns {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-1);
+  align-items: flex-start;
+  gap: var(--s-4);
+}
+.deploy-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.deploy-column--main {
+  flex: 999 1 32.5rem;
+}
+.deploy-column--side {
+  flex: 1 1 18.75rem;
+}
+/* ── Step list: what a deploy runs ──────────────────────────────────────── */
+.step-list {
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: stage;
 }
-.deploy-stage {
-  display: inline-flex;
+.step-list-item {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+.step-list-number {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+.step-list-item[data-skipped='true'] .step-list-number {
+  background: var(--bg-3);
+  color: var(--muted);
+}
+.step-list-item[data-skipped='true'] .step-list-title {
+  color: var(--muted);
+}
+.step-list-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   gap: var(--s-2);
-  height: 1.625rem;
-  padding: 0 var(--s-3);
-  border-radius: var(--r-1);
-  background: var(--bg-2);
+}
+.step-list-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+}
+.step-list-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.step-list-note {
   font-size: 0.75rem;
   color: var(--muted);
 }
-.deploy-stage.is-active {
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-.deploy-stage.is-done {
-  background: var(--success-soft);
-  color: var(--success);
-}
-.deploy-stage.is-error {
-  background: var(--critical-soft);
-  color: var(--critical);
-}
-.deploy-log {
-  display: flex;
-  flex-direction: column;
-  min-height: 14rem;
-  max-height: 26rem;
-  overflow-y: auto;
-  padding: var(--s-3);
+.step-list-code {
+  display: block;
+  padding: var(--s-2) var(--s-3);
   border: 0.0625rem solid var(--border);
-  border-radius: var(--r-2);
+  border-radius: var(--r-1);
   background: var(--bg-0);
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1.7;
-  color: var(--text-dim);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  color: var(--log-default);
   white-space: pre-wrap;
-  word-break: break-word;
+  word-break: break-all;
 }
-.deploy-log-line--error {
+.step-list--compact .step-list-item {
+  grid-template-columns: 1.25rem minmax(0, 1fr);
+  padding: 0 0 var(--s-4);
+  border-top: 0;
+}
+.step-list--compact .step-list-number {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.step-list--compact .step-list-code {
+  background: var(--bg-1);
+}
+/* ── Run panel ──────────────────────────────────────────────────────────── */
+.deploy-run-head {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border-bottom: 0.0625rem solid var(--border);
+}
+.deploy-run-icon {
+  display: flex;
+  margin-top: 0.125rem;
+}
+.deploy-run[data-outcome='running'] .deploy-run-icon {
+  color: var(--accent);
+}
+.deploy-run[data-outcome='confirm'] .deploy-run-icon {
+  color: var(--warning);
+}
+.deploy-run[data-outcome='failed'] .deploy-run-icon {
   color: var(--critical);
 }
-.deploy-log-waiting {
+.deploy-run[data-outcome='success'] .deploy-run-icon {
+  color: var(--success);
+}
+.deploy-run-heading {
+  flex: 1 1 18.75rem;
+  min-width: 0;
+}
+.deploy-run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.deploy-run-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+.run-steps {
+  flex: 1 1 13.75rem;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--s-3) var(--s-2);
+  list-style: none;
+  border-right: 0.0625rem solid var(--border);
+}
+.run-step {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-3);
+  padding: var(--s-2);
+  border-radius: var(--r-1);
+}
+.run-step[data-state='active'],
+.run-step[data-state='wait'],
+.run-step[data-state='fail'] {
+  background: var(--bg-3);
+}
+.run-step-icon {
+  display: flex;
+  margin-top: 0.0625rem;
   color: var(--muted);
 }
-.deploy-confirm {
+.run-step[data-state='done'] .run-step-icon {
+  color: var(--success);
+}
+.run-step[data-state='active'] .run-step-icon {
+  color: var(--accent);
+}
+.run-step[data-state='wait'] .run-step-icon {
+  color: var(--warning);
+}
+.run-step[data-state='fail'] .run-step-icon {
+  color: var(--critical);
+}
+.run-step-ring {
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: 0.1875rem;
+  border: 0.09375rem solid currentColor;
+  border-radius: 50%;
+}
+.run-step-text {
+  min-width: 0;
+}
+.run-step-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.run-step[data-state='pending'] .run-step-title,
+.run-step[data-state='skip'] .run-step-title {
+  color: var(--muted);
+}
+.run-step-note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  word-break: break-word;
+}
+.deploy-run-main {
+  flex: 999 1 26.25rem;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--s-3);
   padding: var(--s-4);
-  border: 0.0625rem solid var(--warning-soft);
+}
+.output-box {
+  border: 0.0625rem solid var(--border);
   border-radius: var(--r-2);
-  background: var(--warning-soft);
+  background: var(--bg-0);
 }
-.deploy-confirm p {
-  margin: 0;
-  font-size: 0.8125rem;
-  color: var(--text);
+.output-box-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 0.0625rem solid var(--border);
+  font-size: 0.6875rem;
+  color: var(--muted);
 }
-.deploy-confirm code {
+.output-box-title {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.output-box-body {
+  min-height: 12.5rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  padding: var(--s-3);
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  line-height: 1.25rem;
 }
-.deploy-confirm-actions {
-  display: flex;
-  gap: var(--s-2);
-  flex-wrap: wrap;
+.output-line {
+  color: var(--log-default);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.output-line[data-tone='detail'] {
+  color: var(--muted);
+}
+.output-line[data-tone='confirm'] {
+  color: var(--warning);
+}
+.output-line[data-tone='error'] {
+  color: var(--critical);
+}
+.output-line[data-tone='success'] {
+  color: var(--success);
+}
+.spin {
+  animation: spin 900ms linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 45rem) {
-  .deploy-body {
+  .overlay--top {
+    padding: 0;
+  }
+  .deploy-form,
+  .deploy-preview {
     padding: var(--s-4);
   }
-  .deploy-two-col {
-    grid-template-columns: minmax(0, 1fr);
+  .deploy-preview {
+    border-left: 0;
+    border-top: 0.0625rem solid var(--border);
   }
   .modal-footer {
     padding: var(--s-3) var(--s-4);
-    flex-wrap: wrap;
+  }
+  .run-steps {
+    border-right: 0;
+    border-bottom: 0.0625rem solid var(--border);
   }
 }
 /* ── Update banner ──────────────────────────────────────────────────────────

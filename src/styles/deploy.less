@@ -1,108 +1,217 @@
 /* ── Deploy modal ───────────────────────────────────────────────────────────
-   One scrolling form instead of an eight-step wizard. The three genuinely
-   required fields sit at the top; everything else folds away behind a summary
-   line that states its current value, so the form can be read at a glance
-   without opening anything.
+   A form only: where the code comes from, how to build and start it, then the
+   optional groups folded behind a summary of their current value. Next to it
+   a live preview of what the deployment will run. The run itself shows in the
+   Deploy tab, not here.
    ───────────────────────────────────────────────────────────────────────── */
+
+.overlay--top {
+  align-items: flex-start;
+  padding: var(--s-10) var(--s-4);
+}
 
 .modal--deploy {
   flex-direction: column;
-  max-width: 44rem;
+  max-width: 65rem;
+  max-height: 100%;
+
+  // Every field here is technical (URLs, commands, paths), so all of them
+  // use the mono face.
+  .field {
+    gap: var(--s-2);
+
+    > label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+
+    .hint {
+      margin-top: 0;
+    }
+  }
+
+  .input,
+  .select,
+  .textarea {
+    height: 2rem;
+    padding: 0 var(--s-3);
+    border-color: var(--border);
+    background-color: var(--bg-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+
+    &:focus {
+      border-color: var(--accent-line);
+      box-shadow: 0 0 0 0.1875rem var(--accent-soft);
+    }
+  }
+
+  .select {
+    padding-right: var(--s-8);
+  }
+
+  .textarea {
+    height: auto;
+    padding: var(--s-2) var(--s-3);
+  }
+
+  // The app name of an existing deployment is fixed: it reads as a value,
+  // not as a disabled control.
+  .input[readonly] {
+    opacity: 1;
+    cursor: default;
+    background-color: var(--bg-1);
+    color: var(--muted);
+  }
 }
 
-.deploy-body {
+.modal-header--stacked {
+  height: auto;
+  padding: var(--s-4) var(--s-5);
+}
+
+.modal-heading {
+  flex: 1;
+  min-width: 0;
+
+  .hint {
+    margin-top: 0.125rem;
+  }
+}
+
+.deploy-modal-body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.deploy-form {
+  flex: 999 1 32.5rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
   padding: var(--s-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
 }
 
-.deploy-required {
+.deploy-section {
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
-  padding-bottom: var(--s-5);
-  border-bottom: 0.0625rem solid var(--border);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  > legend {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-bottom: var(--s-4);
+    padding: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
 }
 
-.deploy-two-col {
+.deploy-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+
+  &[data-quiet='true'] {
+    background: var(--bg-3);
+    color: var(--text-dim);
+  }
+}
+
+.deploy-section-note {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.deploy-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
   gap: var(--s-4);
 }
 
-/* ── Collapsible groups ─────────────────────────────────────────────────── */
+/* ── Options list ───────────────────────────────────────────────────────── */
 
-.deploy-fieldset {
+.deploy-options {
+  overflow: hidden;
   border: 0.0625rem solid var(--border);
   border-radius: var(--r-2);
-  background: var(--bg-2);
+}
+
+.deploy-option {
+  border-bottom: 0.0625rem solid var(--border);
+
+  &:last-child {
+    border-bottom: 0;
+  }
 
   > summary {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: var(--s-3);
-    padding: var(--s-3) var(--s-4);
-    cursor: pointer;
+    height: 2.75rem;
+    padding: 0 var(--s-3);
     list-style: none;
-    border-radius: var(--r-2);
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 100ms ease;
 
     &::-webkit-details-marker {
       display: none;
     }
 
-    &:hover .deploy-fieldset-title {
-      color: var(--text);
+    &:hover {
+      background: var(--bg-3);
     }
   }
 
-  &[open] > summary {
-    border-bottom: 0.0625rem solid var(--border);
-    border-radius: var(--r-2) var(--r-2) 0 0;
+  &[open] .deploy-option-caret {
+    transform: rotate(90deg);
   }
 }
 
-.deploy-fieldset-title {
-  position: relative;
-  padding-left: var(--s-4);
+.deploy-option-caret {
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: transform 120ms ease;
+}
+
+.deploy-option-title {
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text-dim);
-
-  // Disclosure caret drawn from borders, so no icon is needed inside <summary>.
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.3125rem;
-    width: 0.3125rem;
-    height: 0.3125rem;
-    border-right: 0.09375rem solid var(--muted);
-    border-bottom: 0.09375rem solid var(--muted);
-    transform: rotate(-45deg);
-    transition: transform 120ms ease;
-  }
-
-  .deploy-fieldset[open] &::before {
-    transform: rotate(45deg);
-  }
+  font-weight: 500;
+  color: var(--text);
 }
 
-.deploy-fieldset-summary {
+.deploy-option-summary {
   margin-left: auto;
   font-size: 0.75rem;
   color: var(--muted);
   text-align: right;
 }
 
-.deploy-fieldset-body {
+.deploy-option-body {
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
-  padding: var(--s-4);
+  gap: var(--s-3);
+  padding: var(--s-1) var(--s-3) var(--s-4) var(--s-8);
 }
 
 .deploy-toggle-row {
@@ -111,127 +220,399 @@
   gap: var(--s-1);
 }
 
+/* ── Preview column ─────────────────────────────────────────────────────── */
+
+.deploy-preview {
+  flex: 1 1 20rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  border-left: 0.0625rem solid var(--border);
+  background: var(--bg-0);
+}
+
+.deploy-preview-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.deploy-preview-after {
+  margin: 0;
+  padding-top: var(--s-3);
+  border-top: 0.0625rem solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
 /* ── Modal footer: the action bar is always visible ─────────────────────── */
 
 .modal-footer {
   display: flex;
   align-items: center;
-  gap: var(--s-3);
+  flex-wrap: wrap;
+  gap: var(--s-2);
   flex-shrink: 0;
   padding: var(--s-3) var(--s-5);
   border-top: 0.0625rem solid var(--border);
   background: var(--bg-1);
 }
 
-.modal-footer-spacer {
-  flex: 1;
+.modal-footer-text {
+  flex: 1 1 15rem;
+  margin: 0;
 }
 
-/* ── Progress view ──────────────────────────────────────────────────────── */
+/* ── Deploy tab ─────────────────────────────────────────────────────────────
+   Every deployment action in one place: the configuration, what a redeploy
+   runs, auto-deploy and the environment, and the run panel above them while
+   a deployment runs.
+   ───────────────────────────────────────────────────────────────────────── */
 
-.deploy-stages {
+.deploy-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.deploy-columns {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-1);
+  align-items: flex-start;
+  gap: var(--s-4);
+}
+
+.deploy-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+
+  &--main {
+    flex: 999 1 32.5rem;
+  }
+
+  &--side {
+    flex: 1 1 18.75rem;
+  }
+}
+
+/* ── Step list: what a deploy runs ──────────────────────────────────────── */
+
+.step-list {
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: stage;
 }
 
-.deploy-stage {
-  display: inline-flex;
+.step-list-item {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+
+.step-list-number {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.step-list-item[data-skipped='true'] {
+  .step-list-number {
+    background: var(--bg-3);
+    color: var(--muted);
+  }
+
+  .step-list-title {
+    color: var(--muted);
+  }
+}
+
+.step-list-body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   gap: var(--s-2);
-  height: 1.625rem;
-  padding: 0 var(--s-3);
-  border-radius: var(--r-1);
-  background: var(--bg-2);
+}
+
+.step-list-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: 0;
+}
+
+.step-list-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.step-list-note {
   font-size: 0.75rem;
   color: var(--muted);
+}
 
-  &.is-active {
-    background: var(--accent-soft);
+.step-list-code {
+  display: block;
+  padding: var(--s-2) var(--s-3);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-1);
+  background: var(--bg-0);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  color: var(--log-default);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+// The form preview: smaller circles, no hairlines, on the darker column.
+.step-list--compact {
+  .step-list-item {
+    grid-template-columns: 1.25rem minmax(0, 1fr);
+    padding: 0 0 var(--s-4);
+    border-top: 0;
+  }
+
+  .step-list-number {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .step-list-code {
+    background: var(--bg-1);
+  }
+}
+
+/* ── Run panel ──────────────────────────────────────────────────────────── */
+
+.deploy-run-head {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border-bottom: 0.0625rem solid var(--border);
+}
+
+.deploy-run-icon {
+  display: flex;
+  margin-top: 0.125rem;
+
+  .deploy-run[data-outcome='running'] & {
     color: var(--accent);
   }
-
-  &.is-done {
-    background: var(--success-soft);
+  .deploy-run[data-outcome='confirm'] & {
+    color: var(--warning);
+  }
+  .deploy-run[data-outcome='failed'] & {
+    color: var(--critical);
+  }
+  .deploy-run[data-outcome='success'] & {
     color: var(--success);
   }
+}
 
-  &.is-error {
-    background: var(--critical-soft);
+.deploy-run-heading {
+  flex: 1 1 18.75rem;
+  min-width: 0;
+}
+
+.deploy-run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.deploy-run-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.run-steps {
+  flex: 1 1 13.75rem;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--s-3) var(--s-2);
+  list-style: none;
+  border-right: 0.0625rem solid var(--border);
+}
+
+.run-step {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-3);
+  padding: var(--s-2);
+  border-radius: var(--r-1);
+
+  &[data-state='active'],
+  &[data-state='wait'],
+  &[data-state='fail'] {
+    background: var(--bg-3);
+  }
+}
+
+.run-step-icon {
+  display: flex;
+  margin-top: 0.0625rem;
+  color: var(--muted);
+
+  .run-step[data-state='done'] & {
+    color: var(--success);
+  }
+  .run-step[data-state='active'] & {
+    color: var(--accent);
+  }
+  .run-step[data-state='wait'] & {
+    color: var(--warning);
+  }
+  .run-step[data-state='fail'] & {
     color: var(--critical);
   }
 }
 
-.deploy-log {
-  display: flex;
-  flex-direction: column;
-  min-height: 14rem;
-  max-height: 26rem;
-  overflow-y: auto;
-  padding: var(--s-3);
-  border: 0.0625rem solid var(--border);
-  border-radius: var(--r-2);
-  background: var(--bg-0);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1.7;
-  color: var(--text-dim);
-  white-space: pre-wrap;
+.run-step-ring {
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: 0.1875rem;
+  border: 0.09375rem solid currentColor;
+  border-radius: 50%;
+}
+
+.run-step-text {
+  min-width: 0;
+}
+
+.run-step-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+
+  .run-step[data-state='pending'] &,
+  .run-step[data-state='skip'] & {
+    color: var(--muted);
+  }
+}
+
+.run-step-note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
   word-break: break-word;
 }
 
-.deploy-log-line--error {
-  color: var(--critical);
-}
-
-.deploy-log-waiting {
-  color: var(--muted);
-}
-
-.deploy-confirm {
+.deploy-run-main {
+  flex: 999 1 26.25rem;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--s-3);
   padding: var(--s-4);
-  border: 0.0625rem solid var(--warning-soft);
+}
+
+.output-box {
+  border: 0.0625rem solid var(--border);
   border-radius: var(--r-2);
-  background: var(--warning-soft);
+  background: var(--bg-0);
+}
 
-  p {
-    margin: 0;
-    font-size: 0.8125rem;
-    color: var(--text);
+.output-box-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 0.0625rem solid var(--border);
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+.output-box-title {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.output-box-body {
+  min-height: 12.5rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  padding: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+// Hawkeye's own step announcements stand out; git and npm detail is muted.
+.output-line {
+  color: var(--log-default);
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  &[data-tone='detail'] {
+    color: var(--muted);
   }
-
-  code {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+  &[data-tone='confirm'] {
+    color: var(--warning);
+  }
+  &[data-tone='error'] {
+    color: var(--critical);
+  }
+  &[data-tone='success'] {
+    color: var(--success);
   }
 }
 
-.deploy-confirm-actions {
-  display: flex;
-  gap: var(--s-2);
-  flex-wrap: wrap;
+.spin {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 45rem) {
-  .deploy-body {
+  .overlay--top {
+    padding: 0;
+  }
+
+  .deploy-form,
+  .deploy-preview {
     padding: var(--s-4);
   }
 
-  .deploy-two-col {
-    grid-template-columns: minmax(0, 1fr);
+  // The columns are stacked here, so the preview is separated from above.
+  .deploy-preview {
+    border-left: 0;
+    border-top: 0.0625rem solid var(--border);
   }
 
   .modal-footer {
     padding: var(--s-3) var(--s-4);
-    flex-wrap: wrap;
+  }
+
+  .run-steps {
+    border-right: 0;
+    border-bottom: 0.0625rem solid var(--border);
   }
 }

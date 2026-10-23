@@ -178,69 +178,6 @@
   }
 }
 
-/* ── Welcome state ──────────────────────────────────────────────────────── */
-
-.welcome-state {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--s-8) var(--s-6);
-  min-height: 0;
-  overflow-y: auto;
-}
-
-.welcome-card {
-  max-width: 30rem;
-
-  h2 {
-    margin: 0 0 var(--s-2);
-    font-size: 1.125rem;
-  }
-}
-
-.welcome-hints {
-  margin-top: var(--s-6);
-  padding-top: var(--s-4);
-  border-top: 0.0625rem solid var(--border);
-}
-
-.welcome-hints-title {
-  margin: 0 0 var(--s-3);
-  font-size: 0.8125rem;
-  color: var(--text-dim);
-}
-
-.welcome-hints-list {
-  display: grid;
-  gap: var(--s-3);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    display: grid;
-    grid-template-columns: 1.25rem 1fr;
-    gap: var(--s-2);
-    font-size: 0.8125rem;
-    color: var(--muted);
-
-    strong {
-      display: block;
-      color: var(--text-dim);
-      font-weight: 600;
-    }
-  }
-}
-
-.welcome-hint-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1.25rem;
-  color: var(--accent);
-}
-
 /* ── Responsive: mobile (<= 45rem / 720 px) ─────────────────────────────── */
 
 @media (max-width: 45rem) {

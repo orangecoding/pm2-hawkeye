@@ -16,22 +16,19 @@ import UpdateBanner from './UpdateBanner.jsx';
 import Footer from './Footer.jsx';
 import Settings from './Settings.jsx';
 import DeployModal from './DeployModal.jsx';
+import DeployPanel from './DeployPanel.jsx';
 import HostMetrics from './HostMetrics.jsx';
+import Overview from './Overview.jsx';
+import { buildAttentionItems } from '../services/attention.js';
 import {
-  IconContext,
-  ICON_DEFAULTS,
-  ChartLine,
-  Eye,
-  GearSix,
-  List,
-  RocketLaunch,
-  SignOut,
-  TextAlignLeft,
-} from './Icon.jsx';
-
-/** How many deployments, and how many events each, the progress buffer keeps. */
-const DEPLOY_BUFFER_IDS = 5;
-const DEPLOY_BUFFER_EVENTS = 500;
+  deployTabDot,
+  deploymentIdFromKey,
+  deploymentKey,
+  isRunActive,
+  recordDeployEvent,
+  startRun,
+} from '../services/deployment.js';
+import { IconContext, ICON_DEFAULTS, Eye, GearSix, List, Plus, SignOut } from './Icon.jsx';
 
 /**
  * Key that identifies a process row: its pm_id, or its name for an orphan,
@@ -45,49 +42,65 @@ function processKey(item) {
 }
 
 /**
- * Keep the current selection when it is still in the list, otherwise fall back
- * to the first process (or nothing for an empty list).
+ * Keep the current process selection while the process is still in the list,
+ * otherwise fall back to the Overview (null).
+ *
+ * Deployment keys are left alone here: they are checked against the
+ * deployment list instead, see the effect that follows `selection`.
  *
  * @param {object[]} items - Process list rows.
  * @param {number|string|null} prev - Current selection.
  * @returns {number|string|null}
  */
 function keepSelection(items, prev) {
-  if (items.some((item) => String(processKey(item)) === String(prev))) return prev;
-  return items[0] ? processKey(items[0]) : null;
+  if (prev == null || deploymentIdFromKey(prev)) return prev;
+  return items.some((item) => String(processKey(item)) === String(prev)) ? prev : null;
 }
 
 /**
- * Remember a progress event of a deployment the modal is not showing.
+ * Bring an element into view once the screen that holds it has rendered.
+ * Two frames: one for the render, one for the layout.
  *
- * A new deployment only learns its id from the POST response, while the server
- * starts broadcasting within milliseconds. Buffering lets the modal replay
- * those first events once the id is known. Old deployments are evicted so the
- * buffer stays small even with background auto-deploys.
- *
- * @param {Map<string, object[]>} buffer
- * @param {{ deploymentId: string }} event
- * @returns {void}
+ * @param {string} elementId
  */
-function bufferDeployProgress(buffer, event) {
-  const events = buffer.get(event.deploymentId) ?? [];
-  // Re-insert so the Map's insertion order tracks the most recent activity.
-  buffer.delete(event.deploymentId);
-  buffer.set(event.deploymentId, appendBounded(events, [event], DEPLOY_BUFFER_EVENTS));
-  while (buffer.size > DEPLOY_BUFFER_IDS) buffer.delete(buffer.keys().next().value);
+function scrollToWhenRendered(elementId) {
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      const target = document.getElementById(elementId);
+      if (!target) return;
+      const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    }),
+  );
 }
 
-/** The three process-scoped views. Every per-process function lives in one. */
+/**
+ * The process-scoped views. Every per-process function lives in exactly one.
+ * Deploy only exists for processes Hawkeye deployed.
+ */
 const TABS = [
   { id: 'logs', label: 'Logs' },
   { id: 'metrics', label: 'Metrics' },
+  { id: 'deploy', label: 'Deploy' },
   { id: 'manage', label: 'Manage' },
 ];
 
+/**
+ * Application shell: owns all state and API calls, and routes between the
+ * Overview (nothing selected), a process with its tabs, and a deployment that
+ * has no PM2 process.
+ */
 export default function App() {
   const [csrfToken, setCsrfToken] = useState(null);
   const [processes, setProcesses] = useState([]);
-  const [selectedProcessId, setSelectedProcessId] = useState(null);
+  /**
+   * What the content area shows: null for the Overview, a pm_id (or the name
+   * of an orphan) for a process, or `deployment:<id>` for a deployment without
+   * a PM2 process.
+   *
+   * @type {[number|string|null, React.Dispatch<number|string|null>]}
+   */
+  const [selection, setSelection] = useState(null);
   const [details, setDetails] = useState(null);
   const [error, setError] = useState('');
   const [wsConnected, setWsConnected] = useState(false);
@@ -103,18 +116,22 @@ export default function App() {
   const [storedLogsCursor, setStoredLogsCursor] = useState(null);
   const [loadingOlderLogs, setLoadingOlderLogs] = useState(false);
   const [unreadLogCount, setUnreadLogCount] = useState(0);
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  /** @type {[null|'General'|'Alerting', React.Dispatch<null|'General'|'Alerting'>]} open Settings page, or null */
+  const [settingsPage, setSettingsPage] = useState(null);
   const [appConfig, setAppConfig] = useState(null);
   const [deployOpen, setDeployOpen] = useState(false);
   const [deployments, setDeployments] = useState([]);
-  const [activeDeploymentId, setActiveDeploymentId] = useState(null);
-  const [deployProgressLines, setDeployProgressLines] = useState([]);
-  const [deployProgressStage, setDeployProgressStage] = useState(null);
-  const [deployProgressStatus, setDeployProgressStatus] = useState(null);
+  const [deploymentsLoaded, setDeploymentsLoaded] = useState(false);
+  /**
+   * Deployment runs seen in this browser session, keyed by deployment id:
+   * `{ lines, stage, status, confirmChanges, firstDeploy, startedAt,
+   * finishedAt, dismissed }`. Bounded, see RUN_LIMITS in services/deployment.js.
+   *
+   * @type {[Record<string, object>, React.Dispatch<Record<string, object>>]}
+   */
+  const [deployRuns, setDeployRuns] = useState({});
   /** @type {[object|null, React.Dispatch<object|null>]} deployment record being edited, or null */
   const [editingDeployment, setEditingDeployment] = useState(null);
-  /** @type {[string|null, React.Dispatch<string|null>]} git status --porcelain output when a deploy is waiting for confirmation */
-  const [deployConfirmChanges, setDeployConfirmChanges] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   /** @type {[Set<string>, React.Dispatch<Set<string>>]} active log level filters */
   const [logFilters, setLogFilters] = useState(new Set(['info', 'warn', 'error']));
@@ -131,7 +148,7 @@ export default function App() {
    * @type {[{supported: boolean|null, level: string|null, busy: boolean}, React.Dispatch<object>]}
    */
   const [logLevel, setLogLevel] = useState({ supported: null, level: null, busy: false });
-  /** @type {['logs'|'metrics'|'manage', React.Dispatch<string>]} the active process tab */
+  /** @type {['logs'|'metrics'|'deploy'|'manage', React.Dispatch<string>]} the active process tab */
   const [activeTab, setActiveTab] = useState('logs');
   const logRef = useRef(null);
   const autoStickRef = useRef(true);
@@ -146,28 +163,54 @@ export default function App() {
   const logPausedRef = useRef(false);
   /** Lines that arrived while the stream was paused, flushed on resume. */
   const pausedBufferRef = useRef([]);
-  /** Mirrors activeDeploymentId for the WebSocket handler, which closes over its first render. */
-  const activeDeploymentIdRef = useRef(null);
-  /** Progress of deployments the modal is not showing, see bufferDeployProgress. */
-  const deployProgressBufferRef = useRef(new Map());
+  /** Mirrors `selection` for handlers that must not wait for a re-render. */
+  const selectionRef = useRef(null);
+
+  // Process-scoped requests and WebSocket subscriptions only ever see a
+  // process key; a deployment key means no process is selected.
+  const selectedProcessId = deploymentIdFromKey(selection) ? null : selection;
+  const selectedDeploymentId = deploymentIdFromKey(selection);
+
+  /**
+   * Change what the content area shows.
+   *
+   * A different selection opens `tab` (Logs unless given); selecting what is
+   * already shown keeps the current tab unless one is given.
+   *
+   * @param {number|string|null} key - See `selection`.
+   * @param {'logs'|'metrics'|'deploy'|'manage'} [tab]
+   */
+  const select = useCallback((key, tab) => {
+    if (tab) setActiveTab(tab);
+    else if (String(selectionRef.current) !== String(key)) setActiveTab('logs');
+    selectionRef.current = key;
+    setSelection(key);
+    setDrawerOpen(false);
+  }, []);
 
   const loadProcesses = useCallback(async () => {
     try {
       const payload = await fetchJson('/api/processes');
       setProcesses(payload.items);
-      setSelectedProcessId((prev) => keepSelection(payload.items, prev));
+      setSelection((prev) => keepSelection(payload.items, prev));
     } catch (loadError) {
       setProcesses([]);
-      setSelectedProcessId(null);
+      setSelection(null);
       setError(loadError.message);
     }
   }, []);
 
-  const loadDeployments = useCallback(() => {
-    fetchJson('/api/deployments')
-      .then((payload) => setDeployments(payload.deployments || []))
-      .catch((loadError) => setError(`Failed to load deployments: ${loadError.message}`));
-  }, []);
+  /** Reload the deployment records. Resolves once the list is in state. */
+  const loadDeployments = useCallback(
+    () =>
+      fetchJson('/api/deployments')
+        .then((payload) => {
+          setDeployments(payload.deployments || []);
+          setDeploymentsLoaded(true);
+        })
+        .catch((loadError) => setError(`Failed to load deployments: ${loadError.message}`)),
+    [],
+  );
 
   const loadHostMetrics = useCallback(() => {
     fetchJson('/api/host-metrics')
@@ -189,19 +232,19 @@ export default function App() {
       .catch((sessionError) => setError(sessionError.message));
   }, [loadProcesses, loadDeployments, loadHostMetrics]);
 
-  // Poll host metrics every 20 s to keep sparklines current without a page refresh.
+  // Poll host metrics every 20 s to keep the host charts current without a page refresh.
   useEffect(() => {
     const interval = setInterval(loadHostMetrics, 20_000);
     return () => clearInterval(interval);
   }, [loadHostMetrics]);
 
   useEffect(() => {
-    activeDeploymentIdRef.current = activeDeploymentId;
-  }, [activeDeploymentId]);
-
-  useEffect(() => {
     selectedProcessIdRef.current = selectedProcessId;
   }, [selectedProcessId]);
+
+  useEffect(() => {
+    selectionRef.current = selection;
+  }, [selection]);
 
   // Poll deployments every 60 s so branch-watch state (last check, last error)
   // stays current even when no deployment is running.
@@ -209,25 +252,6 @@ export default function App() {
     const interval = setInterval(loadDeployments, 60_000);
     return () => clearInterval(interval);
   }, [loadDeployments]);
-
-  /**
-   * Feed one progress event of the deployment shown in the modal into its
-   * state.
-   *
-   * @param {{ stage: string, line: string, status: string }} data
-   */
-  const applyDeployProgress = useCallback(
-    (data) => {
-      // A paused deployment waits for the user to approve discarding local
-      // changes; any other progress clears a stale prompt.
-      setDeployConfirmChanges(data.status === 'confirm' ? data.line : null);
-      setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
-      setDeployProgressStage(data.stage);
-      setDeployProgressStatus(data.status);
-      if (data.stage === 'done' || data.stage === 'error') loadDeployments();
-    },
-    [loadDeployments],
-  );
 
   // Single unified WebSocket connection for all real-time data.
   useEffect(() => {
@@ -272,7 +296,7 @@ export default function App() {
           const { type, data } = JSON.parse(event.data);
           if (type === 'processes') {
             setProcesses(data.items);
-            setSelectedProcessId((prev) => keepSelection(data.items, prev));
+            setSelection((prev) => keepSelection(data.items, prev));
             if (data.hostCurrent !== undefined) setHostCurrent(data.hostCurrent);
           } else if (type === 'details') {
             if (isForSelection(data)) setDetails(data);
@@ -287,16 +311,11 @@ export default function App() {
           } else if (type === 'error') {
             setError(data.error);
           } else if (type === 'deploy_progress') {
-            // Deploys started by the branch watcher run in the background and are
-            // broadcast to every client. Only the deployment the user is watching
-            // right now may feed the modal; the rest are buffered in case the
-            // modal is about to learn their id, and refresh the list when done.
-            if (activeDeploymentIdRef.current !== data.deploymentId) {
-              bufferDeployProgress(deployProgressBufferRef.current, data);
-              if (data.stage === 'done' || data.stage === 'error') loadDeployments();
-              return;
-            }
-            applyDeployProgress(data);
+            // Every deployment's progress is kept, including deploys the branch
+            // watcher starts in the background and a new deployment whose id
+            // the POST response has not delivered yet.
+            setDeployRuns((runs) => recordDeployEvent(runs, data));
+            if (data.stage === 'done' || data.stage === 'error') loadDeployments();
           }
           // heartbeat and connected are intentionally ignored
         } catch {
@@ -311,7 +330,7 @@ export default function App() {
       liveFrameRef.current = null;
       liveQueueRef.current = [];
     };
-  }, [applyDeployProgress, loadDeployments]);
+  }, [loadDeployments]);
 
   // Derived: the full process object for the current selection (handles orphans with id=null).
   const selectedProcess = useMemo(
@@ -336,23 +355,48 @@ export default function App() {
   const deployedNames = useMemo(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
 
   /**
-   * Deployments that exist in the DB but have no corresponding running PM2 process.
-   * Each entry is annotated with a `displayStatus` field:
-   *   - 'deploying' : a deploy is currently in progress
-   *   - 'broken'    : first deploy failed, process never ran (last_deployed_at is null)
-   *   - 'offline'   : was successfully deployed before, but is no longer in PM2
+   * Deployments that exist in the DB but have no PM2 process. They are listed
+   * in the sidebar and open their own page; see offlineStatus in
+   * services/deployment.js for how their state is told apart.
    *
-   * @type {{ id: string, pm2_name: string, displayStatus: string }[]}
+   * The stored `deploying` flag is only reloaded when a run ends, so a run
+   * this client sees in progress marks its deployment as deploying too.
+   *
+   * @type {object[]}
    */
   const offlineDeployments = useMemo(() => {
-    const runningNames = new Set(processes.map((p) => p.name));
+    const pm2Names = new Set(processes.map((p) => p.name));
     return deployments
-      .filter((d) => !runningNames.has(d.pm2_name))
-      .map((d) => ({
-        ...d,
-        displayStatus: d.deploying ? 'deploying' : d.last_deployed_at == null ? 'broken' : 'offline',
-      }));
-  }, [deployments, processes]);
+      .filter((d) => !pm2Names.has(d.pm2_name))
+      .map((d) => (!d.deploying && isRunActive(d, deployRuns[d.id]) ? { ...d, deploying: 1 } : d));
+  }, [deployments, processes, deployRuns]);
+
+  /** The offline deployment whose page is open, or null. */
+  const selectedOfflineDeployment = useMemo(
+    () => (selectedDeploymentId ? (offlineDeployments.find((d) => d.id === selectedDeploymentId) ?? null) : null),
+    [offlineDeployments, selectedDeploymentId],
+  );
+
+  // A deployment key stays valid while its deployment has no PM2 process. Once
+  // PM2 has the process (a first deploy reached its start step) the selection
+  // moves to that process with its Deploy tab open, so the run stays in view;
+  // a deleted deployment falls back to the Overview.
+  useEffect(() => {
+    if (!selectedDeploymentId || !deploymentsLoaded) return;
+    const deployment = deployments.find((d) => d.id === selectedDeploymentId);
+    if (!deployment) {
+      select(null);
+      return;
+    }
+    const proc = processes.find((p) => p.name === deployment.pm2_name);
+    if (proc) select(processKey(proc), 'deploy');
+  }, [selectedDeploymentId, deployments, deploymentsLoaded, processes, select]);
+
+  /** Everything the Overview lists under Needs attention, also counted in the sidebar. */
+  const attentionItems = useMemo(
+    () => buildAttentionItems({ processes, offlineDeployments, deployments, deployRuns, hostCurrent }),
+    [processes, offlineDeployments, deployments, deployRuns, hostCurrent],
+  );
 
   /**
    * Load the stored CPU/memory and application metric history of a process.
@@ -421,8 +465,6 @@ export default function App() {
     setPausedCount(0);
     autoStickRef.current = true;
     setLogSearch('');
-    setDrawerOpen(false);
-    setActiveTab('logs');
 
     if (selectedProcessId === null || selectedProcessId === undefined) {
       return () => controller.abort();
@@ -473,7 +515,7 @@ export default function App() {
     ws.send(JSON.stringify(message));
   }, [selectedProcessId, wsConnected]);
 
-  // Poll metrics every 20 s (matching the scheduler interval) so sparklines
+  // Poll metrics every 20 s (matching the scheduler interval) so the charts
   // update in real time without requiring a page refresh.
   useEffect(() => {
     if (selectedProcessId === null || selectedProcessId === undefined || !isSelectedMonitored) return;
@@ -604,140 +646,160 @@ export default function App() {
   /**
    * Open the Metrics tab and bring one chart into view.
    *
-   * The readouts in the top bar and the process header are shortcuts into this
-   * tab, not chart surfaces of their own: every chart is drawn once, in
-   * MetricsPanel.
+   * The readouts in the process header are shortcuts into this tab, not chart
+   * surfaces of their own: every process chart is drawn once, in MetricsPanel.
    *
-   * @param {string} [chartId] - id of the target MetricCard, e.g. 'metric-cpu'.
+   * @param {string} [chartId] - id of the target chart card, e.g. 'metric-cpu'.
    */
   const showMetric = useCallback((chartId) => {
     setActiveTab('metrics');
-    if (!chartId) return;
-    // The panel only mounts once the tab switches, so wait for it to be painted
-    // before scrolling. Two frames: one for the render, one for the layout.
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        const target = document.getElementById(chartId);
-        if (!target) return;
-        const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
-      }),
-    );
+    // The panel only mounts once the tab switches, so wait for it to be painted.
+    if (chartId) scrollToWhenRendered(chartId);
   }, []);
 
+  /** Open the Overview and scroll to its host charts. */
+  const showHost = useCallback(() => {
+    select(null);
+    scrollToWhenRendered('host');
+  }, [select]);
+
   /**
-   * Point the deploy progress view at a deployment and clear what it showed.
-   *
-   * The ref is set right away instead of waiting for the effect that mirrors
-   * the state, so progress arriving before the next render already counts.
+   * Open a deployment: the Deploy tab of its process, or its own page when it
+   * has no PM2 process.
    *
    * @param {string} deploymentId
    */
-  const showDeployProgress = useCallback((deploymentId) => {
-    setDeployProgressLines([]);
-    setDeployProgressStage('clone');
-    setDeployProgressStatus('running');
-    setDeployConfirmChanges(null);
-    activeDeploymentIdRef.current = deploymentId;
-    setActiveDeploymentId(deploymentId);
-  }, []);
+  const openDeployment = useCallback(
+    (deploymentId) => {
+      const deployment = deployments.find((d) => d.id === deploymentId);
+      const proc = deployment && processes.find((p) => p.name === deployment.pm2_name);
+      select(proc ? processKey(proc) : deploymentKey(deploymentId), 'deploy');
+    },
+    [deployments, processes, select],
+  );
 
   /**
-   * Append a client-side failure to the deploy progress view.
+   * Record a failure that happened in the browser (the request never reached
+   * the deploy runner) as the end of the deployment's run.
    *
+   * @param {string} deploymentId
    * @param {string} message
    */
-  const failDeployProgress = useCallback((message) => {
-    setDeployProgressLines((prev) => [...prev, { stage: 'error', line: message, status: 'error' }]);
-    setDeployProgressStage('error');
-    setDeployProgressStatus('error');
+  const failRun = useCallback((deploymentId, message) => {
+    setDeployRuns((runs) => recordDeployEvent(runs, { deploymentId, stage: 'error', line: message, status: 'error' }));
   }, []);
 
   /**
-   * Called by DeployModal when the server has accepted a new deployment.
-   * Switches the modal to the progress view and replays the events that were
-   * broadcast before the deployment id was known.
+   * Redeploy a deployment with its saved configuration, without a form. The
+   * run shows in the Deploy tab as its progress arrives.
+   *
+   * @param {object} deployment - Deployment record.
+   */
+  const onRedeploy = useCallback(
+    async (deployment) => {
+      setDeployRuns((runs) =>
+        startRun(runs, deployment.id, {
+          firstDeploy: deployment.last_deployed_at == null,
+          startsProcess: !processes.some((p) => p.name === deployment.pm2_name),
+        }),
+      );
+      try {
+        await fetchWithCsrf(`/api/deployments/${deployment.id}/redeploy`, {
+          onCsrfRefresh: refreshCsrf,
+          method: 'POST',
+        });
+      } catch (err) {
+        failRun(deployment.id, err.message);
+      }
+    },
+    [refreshCsrf, failRun, processes],
+  );
+
+  /**
+   * Called by DeployModal once the server has accepted a new deployment.
+   * Closes the modal and opens the deployment's page, which shows the run.
+   * Progress that arrived before the id was known is already in deployRuns.
    *
    * @param {string} deploymentId
    */
   const onDeployStarted = useCallback(
-    (deploymentId) => {
-      showDeployProgress(deploymentId);
-      const buffered = deployProgressBufferRef.current.get(deploymentId) ?? [];
-      deployProgressBufferRef.current.delete(deploymentId);
-      buffered.forEach(applyDeployProgress);
+    async (deploymentId) => {
+      setDeployOpen(false);
+      setEditingDeployment(null);
+      setDeployRuns((runs) => (runs[deploymentId] ? runs : startRun(runs, deploymentId, { firstDeploy: true })));
+      // The page needs the record, so wait for it before selecting.
+      await loadDeployments();
+      select(deploymentKey(deploymentId), 'deploy');
     },
-    [showDeployProgress, applyDeployProgress],
+    [loadDeployments, select],
   );
 
   /**
-   * Called by DeployModal when the user clicks "Redeploy" while in edit mode.
-   * The modal has already saved the updated config (PUT); this function refreshes
-   * the CSRF token, switches the modal to the progress view, and fires the
-   * redeploy POST request.
+   * Called by DeployModal after "Save and redeploy" has saved the
+   * configuration (PUT): closes the modal, opens the Deploy tab and starts
+   * the redeploy.
    *
    * @param {string} deploymentId - UUID of the deployment record.
    */
   const onSaveAndRedeploy = useCallback(
     async (deploymentId) => {
+      const deployment = deployments.find((d) => d.id === deploymentId);
+      setDeployOpen(false);
       setEditingDeployment(null);
-      // Buffered events belong to an earlier run of this deployment.
-      deployProgressBufferRef.current.delete(deploymentId);
-      showDeployProgress(deploymentId);
-      try {
-        await fetchWithCsrf(`/api/deployments/${deploymentId}/redeploy`, {
-          onCsrfRefresh: refreshCsrf,
-          method: 'POST',
-        });
-      } catch (err) {
-        failDeployProgress(err.message);
-      }
+      openDeployment(deploymentId);
+      loadDeployments();
+      if (deployment) await onRedeploy(deployment);
     },
-    [refreshCsrf, showDeployProgress, failDeployProgress],
+    [deployments, openDeployment, loadDeployments, onRedeploy],
   );
 
   /**
-   * Resolve a pending deployment confirmation from the deploy progress view.
-   * Sends the user's decision (discard changes or cancel) to the server.
+   * Answer a deployment that waits for confirmation: discard the local
+   * changes and continue, or cancel it.
    *
+   * @param {string} deploymentId
    * @param {boolean} confirmed - True to discard local changes and continue; false to cancel.
    */
   const onConfirmDeploy = useCallback(
-    async (confirmed) => {
-      if (!activeDeploymentId) return;
-      setDeployConfirmChanges(null);
+    async (deploymentId, confirmed) => {
       try {
-        await fetchWithCsrf(`/api/deployments/${activeDeploymentId}/confirm`, {
+        await fetchWithCsrf(`/api/deployments/${deploymentId}/confirm`, {
           onCsrfRefresh: refreshCsrf,
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ confirmed }),
         });
       } catch (err) {
-        failDeployProgress(err.message);
+        failRun(deploymentId, err.message);
       }
     },
-    [activeDeploymentId, refreshCsrf, failDeployProgress],
+    [refreshCsrf, failRun],
   );
 
   /**
-   * Open the deploy modal in edit mode for the given PM2 process name.
+   * Hide a finished run, so the Deploy tab shows the configuration alone.
    *
-   * @param {string} pm2Name
+   * @param {string} deploymentId
    */
-  const onEditDeployment = useCallback(
-    (pm2Name) => {
-      const dep = deployments.find((d) => d.pm2_name === pm2Name);
-      if (!dep) return;
-      setEditingDeployment(dep);
-      setDeployOpen(true);
-    },
-    [deployments],
-  );
+  const onDismissRun = useCallback((deploymentId) => {
+    setDeployRuns((runs) =>
+      runs[deploymentId] ? { ...runs, [deploymentId]: { ...runs[deploymentId], dismissed: true } } : runs,
+    );
+  }, []);
 
   /**
-   * Delete a deployment record from the DB without touching PM2.
-   * Used for offline deployments (broken or missing from PM2).
+   * Open the deploy modal in edit mode for a deployment.
+   *
+   * @param {object} deployment - Deployment record.
+   */
+  const onEditDeployment = useCallback((deployment) => {
+    setEditingDeployment(deployment);
+    setDeployOpen(true);
+  }, []);
+
+  /**
+   * Delete a deployment record without touching PM2 or the files on disk.
+   * Used for deployments that have no PM2 process.
    *
    * @param {string} deploymentId - UUID of the deployment record.
    */
@@ -749,7 +811,7 @@ export default function App() {
           onCsrfRefresh: refreshCsrf,
           method: 'DELETE',
         });
-        loadDeployments();
+        await loadDeployments();
       } catch (err) {
         setError(err.message);
       }
@@ -758,7 +820,7 @@ export default function App() {
   );
 
   /**
-   * Called after a deployment record has been successfully edited.
+   * Called after a deployment record has been saved without redeploying.
    * Reloads the deployments list and closes the modal.
    */
   const onEditSaved = useCallback(async () => {
@@ -806,7 +868,7 @@ export default function App() {
         method: 'DELETE',
       });
       if (withDeploy) loadDeployments();
-      setSelectedProcessId(null);
+      select(null);
     } catch (deleteError) {
       setError(deleteError.message);
     }
@@ -827,8 +889,8 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pm2Name, monitored: false }),
       });
-      // If the orphan was selected, clear the selection.
-      setSelectedProcessId((prev) => (String(prev) === pm2Name ? null : prev));
+      // If the orphan was selected, go back to the Overview.
+      if (String(selectionRef.current) === pm2Name) select(null);
     } catch (removeError) {
       setError(removeError.message);
     }
@@ -939,7 +1001,180 @@ export default function App() {
     [csrfToken, selectedProcessId, refreshCsrf],
   );
 
-  const hasSelection = selectedProcessId != null;
+  const isSelectedOrphan = selectedProcess?.isOrphan ?? false;
+  /** Deployment shown in the Deploy tab or on the offline deployment page. */
+  const shownDeployment = selectedOfflineDeployment ?? (isSelectedOrphan ? null : selectedDeployment);
+  const shownRun = shownDeployment ? deployRuns[shownDeployment.id] : undefined;
+  const deployDot = deployTabDot(shownDeployment, shownRun);
+  const tabs = TABS.filter((tab) => tab.id !== 'deploy' || shownDeployment);
+  // A tab that does not exist for this process (Deploy after a removal) falls back to Logs.
+  const visibleTab = tabs.some((tab) => tab.id === activeTab) ? activeTab : 'logs';
+
+  /**
+   * The tab strip under a header.
+   *
+   * @param {{ id: string, label: string }[]} list
+   * @param {string} current - id of the selected tab.
+   */
+  const renderTabs = (list, current) => (
+    <div className="tabs" role="tablist" aria-label="Process views">
+      {list.map((tab) => (
+        <button
+          key={tab.id}
+          type="button"
+          role="tab"
+          id={`tab-${tab.id}`}
+          aria-selected={current === tab.id}
+          aria-controls={`panel-${tab.id}`}
+          className="tab"
+          onClick={() => setActiveTab(tab.id)}
+        >
+          {tab.label}
+          {tab.id === 'logs' && allLines.length > 0 && (
+            <span className="tab-count">{allLines.length.toLocaleString('en-US')}</span>
+          )}
+          {tab.id === 'deploy' && deployDot && (
+            <span className="tab-dot" data-tone={deployDot.tone} title={deployDot.label} />
+          )}
+          {tab.id === 'manage' && !isSelectedMonitored && (
+            <span className="tab-flag" title="Monitoring is off for this process" />
+          )}
+        </button>
+      ))}
+    </div>
+  );
+
+  const deployPanel = shownDeployment && (
+    <DeployPanel
+      deployment={shownDeployment}
+      run={shownRun}
+      hasProcess={!selectedOfflineDeployment}
+      onRedeploy={onRedeploy}
+      onEdit={onEditDeployment}
+      onConfirm={onConfirmDeploy}
+      onDismiss={onDismissRun}
+      onOpenLogs={() => setActiveTab('logs')}
+      onDelete={onDeleteDeployment}
+    />
+  );
+
+  let content;
+  if (selectedOfflineDeployment) {
+    content = (
+      <>
+        <ProcessHeader offlineDeployment={selectedOfflineDeployment}>
+          {renderTabs([{ id: 'deploy', label: 'Deploy' }], 'deploy')}
+        </ProcessHeader>
+        <div className="tab-panel tab-panel--scroll" role="tabpanel" id="panel-deploy" aria-labelledby="tab-deploy">
+          {deployPanel}
+        </div>
+      </>
+    );
+  } else if (selectedProcess) {
+    content = (
+      <>
+        <ProcessHeader
+          selectedProcess={selectedProcess}
+          details={details}
+          selectedDeployment={selectedDeployment}
+          onRestart={() => runProcessCommand('restart')}
+          onStop={() => runProcessCommand('stop')}
+          onStart={() => runProcessCommand('start')}
+          onOpenDeploy={() => setActiveTab('deploy')}
+          onShowMetrics={showMetric}
+        >
+          {renderTabs(tabs, visibleTab)}
+        </ProcessHeader>
+
+        <div
+          className={visibleTab === 'logs' ? 'tab-panel' : 'tab-panel tab-panel--scroll'}
+          role="tabpanel"
+          id={`panel-${visibleTab}`}
+          aria-labelledby={`tab-${visibleTab}`}
+        >
+          {visibleTab === 'logs' && (
+            <LogStream
+              details={details}
+              allLines={allLines}
+              logRef={logRef}
+              isMonitored={isSelectedMonitored}
+              unreadCount={unreadLogCount}
+              onScrollToBottom={scrollToLogBottom}
+              logFilters={logFilters}
+              onToggleFilter={(level) =>
+                setLogFilters((prev) => {
+                  const next = new Set(prev);
+                  if (next.has(level)) next.delete(level);
+                  else next.add(level);
+                  return next;
+                })
+              }
+              logSearch={logSearch}
+              onSearchChange={setLogSearch}
+              logPaused={logPaused}
+              pausedCount={pausedCount}
+              onTogglePause={onTogglePause}
+              hasOlderLogs={Boolean(storedLogsCursor)}
+              loadingOlderLogs={loadingOlderLogs}
+              onLoadOlderLogs={loadOlderLogs}
+            />
+          )}
+
+          {visibleTab === 'metrics' && (
+            <MetricsPanel
+              processName={selectedProcess.name}
+              details={details}
+              metricsHistory={metricsHistory}
+              customMetricsHistory={customMetricsHistory}
+              hostSamples={hostMetrics}
+              isMonitored={isSelectedMonitored}
+              metricsRetentionMs={appConfig?.metricsRetentionMs}
+              memoryLimit={selectedDeployment?.pm2_options?.max_memory_restart}
+              onEnableMonitoring={() => onToggleMonitoring(selectedProcess.name, false)}
+              onShowHost={showHost}
+            />
+          )}
+
+          {visibleTab === 'deploy' && deployPanel}
+
+          {visibleTab === 'manage' && (
+            <ManagePanel
+              selectedProcess={selectedProcess}
+              isMonitored={isSelectedMonitored}
+              metricsRetentionMs={appConfig?.metricsRetentionMs}
+              logsRetentionMs={appConfig?.logsRetentionMs}
+              onToggleMonitoring={onToggleMonitoring}
+              onToggleAlerts={onToggleAlerts}
+              onOpenAlerting={() => setSettingsPage('Alerting')}
+              actions={actions}
+              logLevel={logLevel}
+              onSetLogLevel={onSetLogLevel}
+              selectedProcessId={selectedProcessId}
+              csrfToken={csrfToken}
+              onCsrfRefresh={refreshCsrf}
+              selectedDeployment={selectedDeployment}
+              onDelete={onDelete}
+              onRemoveOrphan={onRemoveOrphan}
+            />
+          )}
+        </div>
+      </>
+    );
+  } else {
+    content = (
+      <Overview
+        processes={processes}
+        offlineCount={offlineDeployments.length}
+        attentionItems={attentionItems}
+        hostSamples={hostMetrics}
+        hostCurrent={hostCurrent}
+        metricsRetentionMs={appConfig?.metricsRetentionMs}
+        onOpenLogs={(key) => select(key, 'logs')}
+        onOpenDeployment={openDeployment}
+        onShowHost={showHost}
+      />
+    );
+  }
 
   return (
     <IconContext.Provider value={ICON_DEFAULTS}>
@@ -957,7 +1192,15 @@ export default function App() {
             <List size={15} weight="bold" />
           </button>
 
-          <a className="topbar-brand" href="/" aria-label="pm2-hawkeye home">
+          <a
+            className="topbar-brand"
+            href="/"
+            aria-label="pm2-hawkeye home"
+            onClick={(e) => {
+              e.preventDefault();
+              select(null);
+            }}
+          >
             <span className="topbar-brand-logo">
               <Eye size={15} weight="bold" color="var(--accent)" />
             </span>
@@ -967,11 +1210,7 @@ export default function App() {
             </span>
           </a>
 
-          <HostMetrics
-            samples={hostMetrics}
-            current={hostCurrent}
-            onShowMetrics={hasSelection && selectedProcess ? showMetric : null}
-          />
+          <HostMetrics samples={hostMetrics} current={hostCurrent} onShowHost={showHost} />
           <span className="topbar-spacer" />
 
           <div className="conn-state" data-connected={wsConnected} title={wsConnected ? 'Live' : 'Reconnecting'}>
@@ -985,22 +1224,22 @@ export default function App() {
             <button
               className="btn btn--primary btn--sm"
               type="button"
-              aria-label="Deploy from Git"
+              aria-label="New deployment"
               onClick={() => {
-                setActiveDeploymentId(null);
+                setEditingDeployment(null);
                 setDeployOpen(true);
               }}
             >
-              <RocketLaunch size={13} weight="bold" />
+              <Plus size={13} weight="bold" />
               {/* The label is hidden on narrow viewports; the aria-label carries it. */}
-              <span>Deploy</span>
+              <span>New deployment</span>
             </button>
             <button
               className="btn btn--icon"
               type="button"
               title="Settings"
               aria-label="Settings"
-              onClick={() => setSettingsOpen(true)}
+              onClick={() => setSettingsPage('General')}
             >
               <GearSix size={15} />
             </button>
@@ -1014,15 +1253,11 @@ export default function App() {
 
         <ProcessList
           processes={processes}
-          selectedProcessId={selectedProcessId}
-          onSelect={(id) => {
-            setSelectedProcessId(id);
-            setDrawerOpen(false);
-          }}
-          onEditDeployment={onEditDeployment}
+          selection={selection}
+          onSelect={(key) => select(key)}
           deployedNames={deployedNames}
           offlineDeployments={offlineDeployments}
-          onDeleteDeployment={onDeleteDeployment}
+          attentionCount={attentionItems.length}
           drawerOpen={drawerOpen}
         />
 
@@ -1036,181 +1271,32 @@ export default function App() {
             </div>
           )}
 
-          {hasSelection && selectedProcess ? (
-            <>
-              <ProcessHeader
-                selectedProcess={selectedProcess}
-                details={details}
-                selectedDeployment={selectedDeployment}
-                onRestart={() => runProcessCommand('restart')}
-                onStop={() => runProcessCommand('stop')}
-                onStart={() => runProcessCommand('start')}
-                onEditDeployment={onEditDeployment}
-                onShowMetrics={showMetric}
-              >
-                <div className="tabs" role="tablist" aria-label="Process views">
-                  {TABS.map((tab) => (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      role="tab"
-                      id={`tab-${tab.id}`}
-                      aria-selected={activeTab === tab.id}
-                      aria-controls={`panel-${tab.id}`}
-                      className="tab"
-                      onClick={() => setActiveTab(tab.id)}
-                    >
-                      {tab.label}
-                      {tab.id === 'logs' && allLines.length > 0 && <span className="tab-count">{allLines.length}</span>}
-                      {tab.id === 'manage' && !isSelectedMonitored && (
-                        <span className="tab-flag" title="Monitoring is off for this process" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </ProcessHeader>
-
-              <div
-                className={activeTab === 'logs' ? 'tab-panel' : 'tab-panel tab-panel--scroll'}
-                role="tabpanel"
-                id={`panel-${activeTab}`}
-                aria-labelledby={`tab-${activeTab}`}
-              >
-                {activeTab === 'logs' && (
-                  <LogStream
-                    details={details}
-                    allLines={allLines}
-                    logRef={logRef}
-                    isMonitored={isSelectedMonitored}
-                    unreadCount={unreadLogCount}
-                    onScrollToBottom={scrollToLogBottom}
-                    logFilters={logFilters}
-                    onToggleFilter={(level) =>
-                      setLogFilters((prev) => {
-                        const next = new Set(prev);
-                        if (next.has(level)) next.delete(level);
-                        else next.add(level);
-                        return next;
-                      })
-                    }
-                    logSearch={logSearch}
-                    onSearchChange={setLogSearch}
-                    logPaused={logPaused}
-                    pausedCount={pausedCount}
-                    onTogglePause={onTogglePause}
-                    hasOlderLogs={Boolean(storedLogsCursor)}
-                    loadingOlderLogs={loadingOlderLogs}
-                    onLoadOlderLogs={loadOlderLogs}
-                  />
-                )}
-
-                {activeTab === 'metrics' && (
-                  <MetricsPanel
-                    details={details}
-                    metricsHistory={metricsHistory}
-                    customMetricsHistory={customMetricsHistory}
-                    hostSamples={hostMetrics}
-                    hostCurrent={hostCurrent}
-                    isMonitored={isSelectedMonitored}
-                    metricsRetentionMs={appConfig?.metricsRetentionMs}
-                    onEnableMonitoring={() => onToggleMonitoring(selectedProcess.name, false)}
-                  />
-                )}
-
-                {activeTab === 'manage' && (
-                  <ManagePanel
-                    selectedProcess={selectedProcess}
-                    isMonitored={isSelectedMonitored}
-                    metricsRetentionMs={appConfig?.metricsRetentionMs}
-                    logsRetentionMs={appConfig?.logsRetentionMs}
-                    onToggleMonitoring={onToggleMonitoring}
-                    onToggleAlerts={onToggleAlerts}
-                    actions={actions}
-                    logLevel={logLevel}
-                    onSetLogLevel={onSetLogLevel}
-                    selectedProcessId={selectedProcessId}
-                    csrfToken={csrfToken}
-                    onCsrfRefresh={refreshCsrf}
-                    selectedDeployment={selectedDeployment}
-                    onEditDeployment={onEditDeployment}
-                    onDelete={onDelete}
-                    onRemoveOrphan={onRemoveOrphan}
-                  />
-                )}
-              </div>
-            </>
-          ) : (
-            <div className="welcome-state">
-              <div className="welcome-card">
-                <h2>No process selected</h2>
-                <p className="subtle">
-                  Pick a PM2 process on the left to read its logs, chart its resource use, and manage it.
-                </p>
-                <div className="welcome-hints">
-                  <p className="welcome-hints-title">Each process gets three views.</p>
-                  <ul className="welcome-hints-list">
-                    <li>
-                      <span className="welcome-hint-icon">
-                        <TextAlignLeft size={13} />
-                      </span>
-                      <span>
-                        <strong>Logs</strong>
-                        stdout and stderr merged, filterable by level and searchable.
-                      </span>
-                    </li>
-                    <li>
-                      <span className="welcome-hint-icon">
-                        <ChartLine size={13} />
-                      </span>
-                      <span>
-                        <strong>Metrics</strong>
-                        CPU, memory and the app's own tx2 metrics over time, next to host CPU, RAM and disk.
-                      </span>
-                    </li>
-                    <li>
-                      <span className="welcome-hint-icon">
-                        <GearSix size={13} />
-                      </span>
-                      <span>
-                        <strong>Manage</strong>
-                        Monitoring, alerts, PM2 custom actions, deployment and removal.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )}
+          {content}
         </main>
 
         <Footer version={appVersion} />
 
-        {settingsOpen && (
-          <Settings onClose={() => setSettingsOpen(false)} csrfToken={csrfToken} onCsrfRefresh={refreshCsrf} />
+        {settingsPage && (
+          <Settings
+            initialPage={settingsPage}
+            onClose={() => setSettingsPage(null)}
+            csrfToken={csrfToken}
+            onCsrfRefresh={refreshCsrf}
+          />
         )}
 
         {deployOpen && (
           <DeployModal
             onCsrfRefresh={refreshCsrf}
+            deployBaseDir={appConfig?.deployBaseDir}
             onClose={() => {
-              // Closing while a deploy waits for a decision cancels it instead
-              // of leaving the server to time out.
-              if (deployConfirmChanges) onConfirmDeploy(false);
               setDeployOpen(false);
-              setActiveDeploymentId(null);
               setEditingDeployment(null);
-              setDeployConfirmChanges(null);
             }}
             onDeployStarted={onDeployStarted}
-            deployProgressLines={deployProgressLines}
-            deployProgressStage={deployProgressStage}
-            deployProgressStatus={deployProgressStatus}
-            activeDeploymentId={activeDeploymentId}
             editingDeployment={editingDeployment}
             onEditSaved={onEditSaved}
             onSaveAndRedeploy={onSaveAndRedeploy}
-            confirmChanges={deployConfirmChanges}
-            onConfirmDeploy={onConfirmDeploy}
           />
         )}
       </div>

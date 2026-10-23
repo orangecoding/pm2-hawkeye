@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Process Metrics</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0b0b0d}
+a{color:#fd8c66}a:hover{color:#ffa383}
+.hk-row:hover{background:#1e1e23 !important}
+.hk-btn:hover{background:#1e1e23 !important;border-color:rgba(255,255,255,0.14) !important}
+.hk-icon:hover{background:#1e1e23 !important;color:#ededf0 !important}
+.hk-host:hover{background:#17171b !important}
+.hk-tab:hover{color:#a7a7ae !important}
+.hk-stat:hover{color:#ededf0 !important}
+.hk-plot:focus-visible{outline:2px solid rgba(253,140,102,0.34);outline-offset:4px}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #0b0b0d; color: #ededf0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.45">
+
+<header style="height: 48px; flex: 0 0 48px; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: #111114; border-bottom: 1px solid rgba(255,255,255,0.07); box-sizing: border-box; min-width: 0">
+<a href="Main.dc.html" aria-label="pm2-hawkeye home" style="display: flex; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; color: #ededf0">
+<span style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(253,140,102,0.12); color: #fd8c66"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z"></path></svg></span>
+<span style="font-size: 14px; font-weight: 650; line-height: 1; white-space: nowrap"><span style="color: #fd8c66">pm2</span>-hawkeye</span>
+</a>
+<a href="Main.dc.html#host" class="hk-host" title="Host CPU, RAM and disk on the Overview" style="display: flex; align-items: center; gap: 12px; height: 28px; padding: 0 8px; border-radius: 4px; text-decoration: none; color: #ededf0; white-space: nowrap">
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Host</span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">CPU</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae">23%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">RAM</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae">61%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">Disk</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #f87171">91%</span></span>
+</a>
+<span style="flex: 1; min-width: 0"></span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8a8a92; white-space: nowrap"><span style="width: 6px; height: 6px; border-radius: 50%; background: #34d399"></span>Live</span>
+<span style="width: 1px; height: 20px; background: rgba(255,255,255,0.07); flex-shrink: 0"></span>
+<a href="NewDeployment.dc.html" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 4px; background: #fd8c66; color: #1a0d07; font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>New deployment</a>
+<button type="button" class="hk-icon" aria-label="Settings" title="Settings" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.55,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z"></path></svg></button>
+<button type="button" class="hk-icon" aria-label="Sign out" title="Sign out" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z"></path></svg></button>
+</header>
+
+<div style="flex: 1; display: flex; flex-wrap: wrap; min-height: 0">
+
+<aside style="flex: 1 1 240px; display: flex; flex-direction: column; min-width: 0; background: #111114; border-right: 1px solid rgba(255,255,255,0.07); box-sizing: border-box">
+<nav aria-label="Main" style="padding: 8px 4px; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<a href="Main.dc.html" class="hk-row" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 4px; background: transparent; color: #a7a7ae; font-size: 13px; font-weight: 500; text-decoration: none"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z"></path></svg>Overview<span style="margin-left: auto; height: 18px; min-width: 18px; padding: 0 6px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(248,113,113,0.13); color: #f87171; font-size: 11px; font-weight: 600" title="4 items need attention">4</span></a>
+</nav>
+<div style="padding: 12px 12px 4px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Processes</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">8</span></div>
+<label style="position: relative; display: block"><span style="position: absolute; left: 10px; top: 8px; color: #8a8a92; display: flex"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"></path></svg></span><input type="text" placeholder="Filter processes" aria-label="Filter processes" style="width: 100%; height: 30px; box-sizing: border-box; padding: 0 8px 0 30px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 12px"></label>
+</div>
+<div role="list" aria-label="PM2 processes" style="flex: 1; padding-bottom: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">5</span></div>
+<sc-for list="{{running}}" as="p" hint-placeholder-count="5">
+<a href="{{p.href}}" role="listitem" aria-current="{{p.current}}" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: {{p.bg}}; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #34d399"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}<sc-if value="{{p.deployed}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="10" height="10" fill="#8a8a92" aria-label="Deployed by Hawkeye" role="img"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg></sc-if></span>
+<span style="display: flex; align-items: center; gap: 8px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92"><span>{{p.cpu}}</span><span>{{p.mem}}</span><sc-if value="{{p.monitored}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="9" height="9" fill="#fd8c66" aria-label="Monitored" role="img"><path d="M232,128A104,104,0,1,1,128,24,104.13,104.13,0,0,1,232,128Z"></path></svg></sc-if></span>
+</a>
+</sc-for>
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 16px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Not running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">3</span></div>
+<sc-for list="{{notRunning}}" as="p" hint-placeholder-count="3">
+<a href="{{p.href}}" role="listitem" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: transparent; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: {{p.dot}}"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; color: #a7a7ae; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}</span>
+<span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; border-radius: 4px; background: {{p.tagBg}}; color: {{p.tagFg}}; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap">{{p.tag}}</span>
+</a>
+</sc-for>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; background: #111114">
+
+<header style="padding: 16px 20px 0; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-height: 32px">
+<h1 style="margin: 0; font-size: 16px; font-weight: 650">shop-api</h1>
+<span style="font-size: 12px; color: #34d399">online</span>
+<a href="ProcessDeploy.dc.html" class="hk-btn" title="Deployed by Hawkeye from acme/shop-api. Open the Deploy tab." style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; color: #8a8a92; font-size: 11px; text-decoration: none"><svg viewBox="0 0 256 256" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg>acme/shop-api<span style="padding: 0 4px; border-radius: 4px; background: #1e1e23; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">main</span></a>
+<span style="flex: 1"></span>
+<div style="display: flex; align-items: center; gap: 8px">
+<button type="button" class="hk-btn" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Restart</button>
+<button type="button" class="hk-btn" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Stop</button>
+</div>
+</div>
+<dl style="display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; padding: 8px 0 12px; font-size: 12px">
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">cpu</dt><dd style="margin: 0"><a href="#metric-cpu" class="hk-stat" title="Show cpu history" style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae; text-decoration: underline dotted rgba(253,140,102,0.34); text-underline-offset: 3px">2%</a></dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">mem</dt><dd style="margin: 0"><a href="#metric-mem" class="hk-stat" title="Show mem history" style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae; text-decoration: underline dotted rgba(253,140,102,0.34); text-underline-offset: 3px">142 MB</a></dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">restarts</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">0</dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">uptime</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">3d 4h</dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">pid</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">48211</dd></div>
+</dl>
+<nav role="tablist" aria-label="Process views" style="display: flex; gap: 4px; margin-bottom: -1px">
+<a href="ProcessLogs.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Logs<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">1,284</span></a>
+<a href="ProcessMetrics.dc.html" role="tab" aria-selected="true" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid #fd8c66; color: #ededf0; font-size: 13px; font-weight: 500; text-decoration: none">Metrics</a>
+<a href="ProcessDeploy.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Deploy<span title="Auto-deploy check failed" style="width: 5px; height: 5px; border-radius: 50%; background: #fbbf24"></span></a>
+<a href="ProcessManage.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Manage</a>
+</nav>
+</header>
+
+<div style="flex: 1; display: flex; flex-direction: column; gap: 24px; padding: 20px">
+
+<section aria-labelledby="m-proc" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+<h2 id="m-proc" style="margin: 0; font-size: 14px; font-weight: 600">This process</h2>
+<span style="font-size: 12px; color: #8a8a92">Sampled every 20 s, kept for 24 h. Hover a chart for exact values.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 12px">
+<sc-for list="{{big}}" as="c" hint-placeholder-count="2">
+<div id="{{c.id}}" style="display: flex; flex-direction: column; padding: 14px 16px 12px; background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-size: 12px; font-weight: 600; color: #a7a7ae">{{c.label}}</span>
+<span style="font-size: 12px; color: #8a8a92">24 h peak <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">{{c.peak}}</span> at {{c.peakAt}}</span>
+</div>
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 24px; font-weight: 600; line-height: 32px; color: #ededf0">{{c.value}}</span>
+<sc-if value="{{c.hasLegend}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; gap: 16px; margin-top: 4px; font-size: 11px; color: #8a8a92">
+<sc-for list="{{c.series}}" as="s" hint-placeholder-count="2"><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 0; border-top: 2px {{s.lineStyle}} {{s.color}}"></span>{{s.name}}</span></sc-for>
+</div>
+</sc-if>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 44px; column-gap: 8px; row-gap: 6px; margin-top: 14px">
+<div class="hk-plot" tabindex="0" role="img" aria-label="{{c.aria}}" onMouseMove="{{c.onMove}}" onMouseLeave="{{c.onLeave}}" onFocus="{{c.onFocus}}" onBlur="{{c.onLeave}}" onKeyDown="{{c.onKey}}" style="position: relative; height: {{c.hpx}}; cursor: crosshair">
+<svg viewBox="{{c.viewBox}}" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible">
+<sc-for list="{{c.grid}}" as="g" hint-placeholder-count="3"><line x1="0" x2="300" y1="{{g.y}}" y2="{{g.y}}" stroke="{{g.stroke}}" stroke-width="1" vector-effect="non-scaling-stroke"></line></sc-for>
+<sc-for list="{{c.series}}" as="s" hint-placeholder-count="2">
+<polygon points="{{s.area}}" fill="{{s.color}}" fill-opacity="{{s.areaOpacity}}"></polygon>
+<polyline points="{{s.line}}" fill="none" stroke="{{s.color}}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="{{s.dash}}" vector-effect="non-scaling-stroke"></polyline>
+</sc-for>
+</svg>
+<sc-if value="{{c.hasThreshold}}" hint-placeholder-val="{{false}}">
+<span style="position: absolute; left: 0; right: 0; top: {{c.thTop}}; border-top: 1px dashed rgba(248,113,113,0.7); pointer-events: none"></span>
+<span style="position: absolute; right: 0; top: {{c.thTop}}; transform: translateY(calc(-100% - 3px)); font-size: 11px; color: #a7a7ae; pointer-events: none">{{c.thLabel}}</span>
+</sc-if>
+<sc-if value="{{c.idle}}" hint-placeholder-val="{{true}}">
+<sc-for list="{{c.series}}" as="s" hint-placeholder-count="2"><span style="position: absolute; left: 100%; top: {{s.endTop}}; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: {{s.color}}; box-shadow: 0 0 0 2px #17171b"></span></sc-for>
+</sc-if>
+<sc-if value="{{c.hover}}" hint-placeholder-val="{{false}}">
+<span style="position: absolute; top: 0; bottom: 0; left: {{c.hx}}; width: 1px; background: rgba(255,255,255,0.28); pointer-events: none"></span>
+<sc-for list="{{c.dots}}" as="d" hint-placeholder-count="2"><span style="position: absolute; left: {{c.hx}}; top: {{d.top}}; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: {{d.color}}; box-shadow: 0 0 0 2px #17171b; pointer-events: none"></span></sc-for>
+<div role="status" style="position: absolute; top: 0; left: {{c.hx}}; transform: {{c.tipTf}}; z-index: 2; padding: 6px 10px; background: #0b0b0d; border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; box-shadow: 0 6px 16px rgba(6,6,8,0.6); white-space: nowrap; pointer-events: none">
+<sc-for list="{{c.tipRows}}" as="r" hint-placeholder-count="2"><div style="display: flex; align-items: center; gap: 8px; line-height: 18px"><span style="width: 10px; height: 0; border-top: 2px {{r.lineStyle}} {{r.color}}"></span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #ededf0">{{r.value}}</span><span style="font-size: 11px; color: #8a8a92">{{r.name}}</span></div></sc-for>
+<div style="margin-top: 2px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">{{c.tipTime}}</div>
+</div>
+</sc-if>
+</div>
+<div aria-hidden="true" style="position: relative; height: {{c.hpx}}; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: #8a8a92; font-variant-numeric: tabular-nums">
+<sc-for list="{{c.yTicks}}" as="t" hint-placeholder-count="3"><span style="position: absolute; left: 0; top: {{t.top}}; transform: translateY(-50%); white-space: nowrap">{{t.label}}</span></sc-for>
+</div>
+<div aria-hidden="true" style="position: relative; height: 14px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: #8a8a92; font-variant-numeric: tabular-nums">
+<sc-for list="{{c.xTicks}}" as="t" hint-placeholder-count="5"><span style="position: absolute; top: 0; left: {{t.left}}; transform: {{t.tf}}; white-space: nowrap">{{t.label}}</span></sc-for>
+</div>
+<span></span>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section aria-labelledby="m-app" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+<h2 id="m-app" style="margin: 0; font-size: 14px; font-weight: 600">Application metrics</h2>
+<span style="font-size: 12px; color: #8a8a92">Reported by the process through tx2 or @pm2/io</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px">
+<sc-for list="{{small}}" as="c" hint-placeholder-count="6">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 12px 16px; background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-size: 12px; font-weight: 600; color: #a7a7ae; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.label}}</span>
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 14px; font-weight: 600; color: #ededf0; white-space: nowrap">{{c.value}}</span>
+</div>
+<div class="hk-plot" tabindex="0" role="img" aria-label="{{c.aria}}" onMouseMove="{{c.onMove}}" onMouseLeave="{{c.onLeave}}" onFocus="{{c.onFocus}}" onBlur="{{c.onLeave}}" onKeyDown="{{c.onKey}}" style="position: relative; height: {{c.hpx}}; margin-right: 4px; cursor: crosshair">
+<svg viewBox="{{c.viewBox}}" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible">
+<line x1="0" x2="300" y1="55.5" y2="55.5" stroke="rgba(255,255,255,0.1)" stroke-width="1" vector-effect="non-scaling-stroke"></line>
+<sc-for list="{{c.series}}" as="s" hint-placeholder-count="1">
+<polygon points="{{s.area}}" fill="{{s.color}}" fill-opacity="{{s.areaOpacity}}"></polygon>
+<polyline points="{{s.line}}" fill="none" stroke="{{s.color}}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline>
+</sc-for>
+</svg>
+<sc-if value="{{c.idle}}" hint-placeholder-val="{{true}}">
+<sc-for list="{{c.series}}" as="s" hint-placeholder-count="1"><span style="position: absolute; left: 100%; top: {{s.endTop}}; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: {{s.color}}; box-shadow: 0 0 0 2px #17171b"></span></sc-for>
+</sc-if>
+<sc-if value="{{c.hover}}" hint-placeholder-val="{{false}}">
+<span style="position: absolute; top: 0; bottom: 0; left: {{c.hx}}; width: 1px; background: rgba(255,255,255,0.28); pointer-events: none"></span>
+<sc-for list="{{c.dots}}" as="d" hint-placeholder-count="1"><span style="position: absolute; left: {{c.hx}}; top: {{d.top}}; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: {{d.color}}; box-shadow: 0 0 0 2px #17171b; pointer-events: none"></span></sc-for>
+<div role="status" style="position: absolute; bottom: calc(100% + 6px); left: {{c.hx}}; transform: {{c.tipTfSmall}}; z-index: 2; padding: 6px 10px; background: #0b0b0d; border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; box-shadow: 0 6px 16px rgba(6,6,8,0.6); white-space: nowrap; pointer-events: none">
+<sc-for list="{{c.tipRows}}" as="r" hint-placeholder-count="1"><div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; line-height: 18px; color: #ededf0">{{r.value}}</div></sc-for>
+<div style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">{{c.tipTime}}</div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+</section>
+
+<p style="display: flex; align-items: center; gap: 8px; margin: 0; font-size: 12px; color: #8a8a92"><svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M108,84a16,16,0,1,1,16,16A16,16,0,0,1,108,84Zm128,44A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Zm-72,36.68V132a20,20,0,0,0-20-20,12,12,0,0,0-4,23.32V168a20,20,0,0,0,20,20,12,12,0,0,0,4-23.32Z"></path></svg>Host RAM and disk live on the Overview.<a href="Main.dc.html#host">Open host metrics</a></p>
+
+</div>
+</main>
+</div>
+
+<footer style="height: 32px; flex: 0 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 16px; background: #111114; border-top: 1px solid rgba(255,255,255,0.07); color: #8a8a92; font-size: 11px; box-sizing: border-box">
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace">pm2-hawkeye <strong>v6.0.0</strong></span>
+<span>Made with <svg viewBox="0 0 256 256" width="10" height="10" fill="#f87171" role="img" aria-label="love" style="vertical-align: -1px"><path d="M240,102c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,228.66,16,172,16,102A62.07,62.07,0,0,1,78,40c20.65,0,38.73,8.88,50,23.89C139.27,48.88,157.35,40,178,40A62.07,62.07,0,0,1,240,102Z"></path></svg> by <a href="https://github.com/orangecoding" style="color: #a7a7ae; text-decoration: none">Christian Kellner</a></span>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { hover: null };
+  }
+  /**
+   * Build everything one time-series chart needs: polylines, axes, the end
+   * dot, and the hover layer (crosshair, dots, tooltip) for the hovered index.
+   */
+  chart(cfg) {
+    var self = this;
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var NOW = new Date(2026, 9, 23, 14, 20).getTime();
+    var STEP = 30 * 60 * 1000;
+    var W = 300, H = cfg.h, PAD = 4;
+    var n = cfg.series[0].vals.length;
+    var t0 = NOW - (n - 1) * STEP;
+    function pad(x) { return (x < 10 ? '0' : '') + x; }
+    function clock(t) { var d = new Date(t); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+    function stamp(t) { var d = new Date(t); return d.getDate() + ' ' + MONTHS[d.getMonth()] + ', ' + clock(t); }
+    function y(v) { return H - PAD - (v / cfg.max) * (H - 2 * PAD); }
+    var series = cfg.series.map(function (s) {
+      var pts = s.vals.map(function (v, i) { return ((i / (n - 1)) * W).toFixed(1) + ',' + y(v).toFixed(1); }).join(' ');
+      return {
+        name: s.name, color: s.color, line: pts,
+        area: '0,' + H + ' ' + pts + ' ' + W + ',' + H,
+        areaOpacity: s.area === false ? '0' : '0.1',
+        dash: s.dash ? '4 4' : 'none',
+        lineStyle: s.dash ? 'dashed' : 'solid',
+        endTop: y(s.vals[n - 1]).toFixed(1) + 'px'
+      };
+    });
+    var ticks = cfg.ticks || [];
+    var grid = ticks.map(function (v, i) {
+      return { y: y(v).toFixed(1), stroke: i === 0 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)' };
+    });
+    var yTicks = ticks.map(function (v) { return { label: cfg.tickFmt(v), top: y(v).toFixed(1) + 'px' }; });
+    var xTicks = [];
+    var first = new Date(t0);
+    first.setMinutes(0, 0, 0);
+    for (var t = first.getTime() + 3600000; t < NOW - 90 * 60000; t += 3600000) {
+      if (new Date(t).getHours() % 6 !== 0) continue;
+      xTicks.push({ label: clock(t), left: (((t - t0) / (NOW - t0)) * 100).toFixed(2) + '%', tf: 'translateX(-50%)' });
+    }
+    xTicks.push({ label: 'now', left: '100%', tf: 'translateX(-100%)' });
+    var peakIdx = 0;
+    cfg.series[0].vals.forEach(function (v, i) { if (v > cfg.series[0].vals[peakIdx]) peakIdx = i; });
+    var st = this.state.hover;
+    var hovered = st && st.key === cfg.key;
+    var idx = hovered ? st.idx : n - 1;
+    var pct = idx / (n - 1);
+    function setIdx(i) { self.setState({ hover: { key: cfg.key, idx: Math.max(0, Math.min(n - 1, i)) } }); }
+    return {
+      key: cfg.key, hpx: H + 'px', viewBox: '0 0 ' + W + ' ' + H,
+      series: series, grid: grid, yTicks: yTicks, xTicks: xTicks,
+      hasLegend: cfg.series.length > 1,
+      peak: cfg.fmt(cfg.series[0].vals[peakIdx]), peakAt: clock(t0 + peakIdx * STEP),
+      hover: Boolean(hovered), idle: !hovered,
+      hx: (pct * 100).toFixed(2) + '%',
+      tipTf: pct > 0.62 ? 'translateX(calc(-100% - 12px))' : 'translateX(12px)',
+      tipTfSmall: pct > 0.7 ? 'translateX(-100%)' : pct < 0.3 ? 'translateX(0)' : 'translateX(-50%)',
+      tipTime: stamp(t0 + idx * STEP),
+      dots: cfg.series.map(function (s) { return { top: y(s.vals[idx]).toFixed(1) + 'px', color: s.color }; }),
+      tipRows: cfg.series.map(function (s) { return { value: cfg.fmt(s.vals[idx]), name: s.name, color: s.color, lineStyle: s.dash ? 'dashed' : 'solid' }; }),
+      onMove: function (e) {
+        var r = e.currentTarget.getBoundingClientRect();
+        setIdx(Math.round(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * (n - 1)));
+      },
+      onLeave: function () { self.setState({ hover: null }); },
+      onFocus: function () { setIdx(n - 1); },
+      onKey: function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        setIdx(idx + (e.key === 'ArrowLeft' ? -1 : 1));
+      },
+      y: y
+    };
+  }
+  wave(base, amp, n, seed) {
+    var out = [];
+    for (var i = 0; i < n; i++) {
+      out.push(Math.max(0, base + amp * Math.sin(i / 3 + seed) + amp * 0.5 * Math.sin(i / 1.3 + seed * 2)));
+    }
+    return out;
+  }
+  renderVals() {
+    var self = this;
+    var on = '#1e1e23', off = 'transparent';
+    var crit = { tagBg: 'rgba(248,113,113,0.13)', tagFg: '#f87171', dot: '#f87171' };
+    var hostCpu = [18,22,19,25,31,28,24,21,19,17,16,18,22,27,35,41,38,33,29,26,24,22,21,25,28,26,23,20,18,19,21,24,30,36,33,28,25,22,20,19,21,23,26,24,22,21,23,23];
+    var procCpu = this.wave(3, 1.4, 48, 2).map(function (v) { return Math.round(v * 10) / 10; });
+    procCpu[15] = 14.2; procCpu[16] = 11.8; procCpu[34] = 8.6; procCpu[47] = 2;
+    var mem = [];
+    for (var i = 0; i < 48; i++) mem.push(Math.round(126 + i * 0.3 + 4 * Math.sin(i / 2)));
+    mem[47] = 142;
+    var pct1 = function (v) { return (Math.round(v * 10) / 10) + '%'; };
+    var mb = function (v) { return Math.round(v) + ' MB'; };
+
+    var cpu = this.chart({
+      key: 'cpu', h: 160, max: 50, ticks: [0, 25, 50], tickFmt: function (v) { return v + '%'; }, fmt: pct1,
+      series: [
+        { name: 'shop-api', color: '#fd8c66', vals: procCpu },
+        { name: 'Host CPU', color: '#8a8a92', vals: hostCpu, dash: true, area: false }
+      ]
+    });
+    cpu.id = 'metric-cpu'; cpu.label = 'CPU'; cpu.value = '2%';
+    cpu.aria = 'CPU of shop-api and of the host over the last 24 hours. Use the arrow keys to read values.';
+    cpu.hasThreshold = false;
+
+    var memory = this.chart({
+      key: 'mem', h: 160, max: 400, ticks: [0, 200, 400], tickFmt: mb, fmt: mb,
+      series: [{ name: 'shop-api', color: '#34d399', vals: mem }]
+    });
+    memory.id = 'metric-mem'; memory.label = 'Memory'; memory.value = '142 MB';
+    memory.aria = 'Memory of shop-api over the last 24 hours. PM2 restarts it above 300 MB. Use the arrow keys to read values.';
+    memory.hasThreshold = true;
+    memory.thTop = memory.y(300).toFixed(1) + 'px';
+    memory.thLabel = 'PM2 restarts it above 300 MB';
+
+    var apps = [
+      ['Event Loop Latency p95', 3, 1.2, function (v) { return v.toFixed(1) + ' ms'; }],
+      ['Heap Usage', 60, 4, function (v) { return v.toFixed(1) + ' %'; }],
+      ['HTTP', 170, 40, function (v) { return Math.round(v) + ' req/min'; }],
+      ['Used Heap Size', 46, 3, function (v) { return v.toFixed(1) + ' MiB'; }],
+      ['Active handles', 12, 2, function (v) { return String(Math.round(v)); }],
+      ['Active requests', 1, 1, function (v) { return String(Math.round(v)); }]
+    ];
+    var small = apps.map(function (a, k) {
+      var vals = self.wave(a[1], a[2], 48, k + 1);
+      var c = self.chart({ key: 'app' + k, h: 56, max: a[1] + a[2] * 3, fmt: a[3], series: [{ name: a[0], color: '#60a5fa', vals: vals }] });
+      c.label = a[0];
+      c.value = a[3](vals[vals.length - 1]);
+      c.aria = a[0] + ' over the last 24 hours, now ' + c.value + '. Use the arrow keys to read values.';
+      return c;
+    });
+
+    return {
+      running: [
+        { name: 'fredy', cpu: '1%', mem: '96 MB', deployed: true, monitored: true, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'mail-relay', cpu: '0%', mem: '54 MB', deployed: false, monitored: false, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'pm2-hawkeye', cpu: '0%', mem: '88 MB', deployed: false, monitored: false, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'shop-api', cpu: '2%', mem: '142 MB', deployed: true, monitored: true, bg: on, current: 'page', href: 'ProcessMetrics.dc.html' },
+        { name: 'shop-worker', cpu: '11%', mem: '208 MB', deployed: true, monitored: true, bg: off, current: 'false', href: 'ProcessLogs.dc.html' }
+      ],
+      notRunning: [
+        { name: 'image-resizer', tag: 'Errored', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, href: 'ProcessLogs.dc.html' },
+        { name: 'landing-page', tag: 'Deploy failed', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, href: 'DeployFailed.dc.html' },
+        { name: 'nightly-backup', tag: 'Stopped', tagBg: '#1e1e23', tagFg: '#a7a7ae', dot: '#8a8a92', href: 'ProcessLogs.dc.html' }
+      ],
+      big: [cpu, memory],
+      small: small
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Process Manage</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0b0b0d}
+a{color:#fd8c66}a:hover{color:#ffa383}
+.hk-row:hover{background:#1e1e23 !important}
+.hk-btn:hover{background:#1e1e23 !important;border-color:rgba(255,255,255,0.14) !important}
+.hk-icon:hover{background:#1e1e23 !important;color:#ededf0 !important}
+.hk-host:hover{background:#17171b !important}
+.hk-tab:hover{color:#a7a7ae !important}
+.hk-stat:hover{color:#ededf0 !important}
+.hk-danger:hover{background:rgba(248,113,113,0.13) !important;border-color:#f87171 !important}
+.hk-seg:hover{color:#ededf0 !important}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #0b0b0d; color: #ededf0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.45">
+
+<header style="height: 48px; flex: 0 0 48px; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: #111114; border-bottom: 1px solid rgba(255,255,255,0.07); box-sizing: border-box; min-width: 0">
+<a href="Main.dc.html" aria-label="pm2-hawkeye home" style="display: flex; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; color: #ededf0">
+<span style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(253,140,102,0.12); color: #fd8c66"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z"></path></svg></span>
+<span style="font-size: 14px; font-weight: 650; line-height: 1; white-space: nowrap"><span style="color: #fd8c66">pm2</span>-hawkeye</span>
+</a>
+<a href="Main.dc.html#host" class="hk-host" title="Host CPU, RAM and disk on the Overview" style="display: flex; align-items: center; gap: 12px; height: 28px; padding: 0 8px; border-radius: 4px; text-decoration: none; color: #ededf0; white-space: nowrap">
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Host</span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">CPU</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae">23%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">RAM</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae">61%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">Disk</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #f87171">91%</span></span>
+</a>
+<span style="flex: 1; min-width: 0"></span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8a8a92; white-space: nowrap"><span style="width: 6px; height: 6px; border-radius: 50%; background: #34d399"></span>Live</span>
+<span style="width: 1px; height: 20px; background: rgba(255,255,255,0.07); flex-shrink: 0"></span>
+<a href="NewDeployment.dc.html" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 4px; background: #fd8c66; color: #1a0d07; font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>New deployment</a>
+<button type="button" class="hk-icon" aria-label="Settings" title="Settings" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.55,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z"></path></svg></button>
+<button type="button" class="hk-icon" aria-label="Sign out" title="Sign out" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z"></path></svg></button>
+</header>
+
+<div style="flex: 1; display: flex; flex-wrap: wrap; min-height: 0">
+
+<aside style="flex: 1 1 240px; display: flex; flex-direction: column; min-width: 0; background: #111114; border-right: 1px solid rgba(255,255,255,0.07); box-sizing: border-box">
+<nav aria-label="Main" style="padding: 8px 4px; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<a href="Main.dc.html" class="hk-row" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 4px; background: transparent; color: #a7a7ae; font-size: 13px; font-weight: 500; text-decoration: none"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z"></path></svg>Overview<span style="margin-left: auto; height: 18px; min-width: 18px; padding: 0 6px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(248,113,113,0.13); color: #f87171; font-size: 11px; font-weight: 600" title="4 items need attention">4</span></a>
+</nav>
+<div style="padding: 12px 12px 4px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Processes</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">8</span></div>
+<label style="position: relative; display: block"><span style="position: absolute; left: 10px; top: 8px; color: #8a8a92; display: flex"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"></path></svg></span><input type="text" placeholder="Filter processes" aria-label="Filter processes" style="width: 100%; height: 30px; box-sizing: border-box; padding: 0 8px 0 30px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 12px"></label>
+</div>
+<div role="list" aria-label="PM2 processes" style="flex: 1; padding-bottom: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">5</span></div>
+<sc-for list="{{running}}" as="p" hint-placeholder-count="5">
+<a href="{{p.href}}" role="listitem" aria-current="{{p.current}}" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: {{p.bg}}; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #34d399"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}<sc-if value="{{p.deployed}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="10" height="10" fill="#8a8a92" aria-label="Deployed by Hawkeye" role="img"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg></sc-if></span>
+<span style="display: flex; align-items: center; gap: 8px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92"><span>{{p.cpu}}</span><span>{{p.mem}}</span><sc-if value="{{p.monitored}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="9" height="9" fill="#fd8c66" aria-label="Monitored" role="img"><path d="M232,128A104,104,0,1,1,128,24,104.13,104.13,0,0,1,232,128Z"></path></svg></sc-if></span>
+</a>
+</sc-for>
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 16px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Not running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">3</span></div>
+<sc-for list="{{notRunning}}" as="p" hint-placeholder-count="3">
+<a href="{{p.href}}" role="listitem" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: transparent; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: {{p.dot}}"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; color: #a7a7ae; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}</span>
+<span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; border-radius: 4px; background: {{p.tagBg}}; color: {{p.tagFg}}; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap">{{p.tag}}</span>
+</a>
+</sc-for>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; background: #111114">
+
+<header style="padding: 16px 20px 0; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-height: 32px">
+<h1 style="margin: 0; font-size: 16px; font-weight: 650">shop-api</h1>
+<span style="font-size: 12px; color: #34d399">online</span>
+<a href="ProcessDeploy.dc.html" class="hk-btn" title="Deployed by Hawkeye from acme/shop-api. Open the Deploy tab." style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; color: #8a8a92; font-size: 11px; text-decoration: none"><svg viewBox="0 0 256 256" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg>acme/shop-api<span style="padding: 0 4px; border-radius: 4px; background: #1e1e23; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">main</span></a>
+<span style="flex: 1"></span>
+<div style="display: flex; align-items: center; gap: 8px">
+<button type="button" class="hk-btn" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Restart</button>
+<button type="button" class="hk-btn" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Stop</button>
+</div>
+</div>
+<dl style="display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; padding: 8px 0 12px; font-size: 12px">
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">cpu</dt><dd style="margin: 0"><a href="ProcessMetrics.dc.html" class="hk-stat" style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae; text-decoration: underline dotted rgba(253,140,102,0.34); text-underline-offset: 3px">2%</a></dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">mem</dt><dd style="margin: 0"><a href="ProcessMetrics.dc.html" class="hk-stat" style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae; text-decoration: underline dotted rgba(253,140,102,0.34); text-underline-offset: 3px">142 MB</a></dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">restarts</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">0</dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">uptime</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">3d 4h</dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">pid</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">48211</dd></div>
+</dl>
+<nav role="tablist" aria-label="Process views" style="display: flex; gap: 4px; margin-bottom: -1px">
+<a href="ProcessLogs.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Logs<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">1,284</span></a>
+<a href="ProcessMetrics.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Metrics</a>
+<a href="ProcessDeploy.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Deploy<span title="Auto-deploy check failed" style="width: 5px; height: 5px; border-radius: 50%; background: #fbbf24"></span></a>
+<a href="ProcessManage.dc.html" role="tab" aria-selected="true" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid #fd8c66; color: #ededf0; font-size: 13px; font-weight: 500; text-decoration: none">Manage</a>
+</nav>
+</header>
+
+<div style="flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 20px; max-width: 880px; box-sizing: border-box; width: 100%">
+
+<section aria-labelledby="g-hist" style="background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+<div style="padding: 16px 16px 12px">
+<h2 id="g-hist" style="margin: 0; font-size: 14px; font-weight: 600">History and alerts</h2>
+<p style="margin: 4px 0 0; font-size: 12px; color: #8a8a92">Without stored history you see live data only, and nothing survives a page reload.</p>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<div style="flex: 1 1 320px; min-width: 0">
+<p style="display: flex; align-items: center; gap: 8px; margin: 0; font-size: 13px; font-weight: 600">Store logs and metrics<span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; border-radius: 4px; background: rgba(253,140,102,0.12); color: #fd8c66; font-size: 11px; font-weight: 600">On</span></p>
+<p style="margin: 2px 0 0; font-size: 12px; color: #8a8a92">Logs are kept for 14 days, metrics for 24 h.</p>
+</div>
+<button type="button" class="hk-danger" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; background: #17171b; color: #f87171; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Turn off</button>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<div style="flex: 1 1 320px; min-width: 0">
+<p style="margin: 0; font-size: 13px; font-weight: 600">Alerts</p>
+<p style="margin: 2px 0 0; font-size: 12px; color: #8a8a92">Notify when a log line of shop-api matches the alert rules. Rules and reporters are set in <a href="#">Settings, Alerting</a>.</p>
+</div>
+<label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer">
+<input type="checkbox" checked aria-label="Alerts for shop-api" style="position: absolute; opacity: 0; width: 1px; height: 1px">
+<span aria-hidden="true" style="position: relative; width: 28px; height: 16px; border-radius: 8px; background: #fd8c66"><span style="position: absolute; top: 2px; left: 14px; width: 12px; height: 12px; border-radius: 50%; background: #1a0d07"></span></span>
+<span style="font-size: 12px; color: #a7a7ae">Enabled</span>
+</label>
+</div>
+</section>
+
+<section aria-labelledby="g-level" style="background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+<div style="padding: 16px 16px 12px">
+<h2 id="g-level" style="margin: 0; font-size: 14px; font-weight: 600">Log level</h2>
+<p style="margin: 4px 0 0; font-size: 12px; color: #8a8a92">Changes how much the running process logs, without a restart. It is gone after the next restart.</p>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<div style="flex: 1 1 200px; min-width: 0">
+<p style="display: flex; align-items: center; gap: 8px; margin: 0; font-size: 13px; font-weight: 600">Current level<span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; border-radius: 4px; background: rgba(253,140,102,0.12); color: #fd8c66; font-size: 11px; font-weight: 600">info</span></p>
+</div>
+<div role="group" aria-label="Log level" style="display: flex; gap: 2px; padding: 2px; border-radius: 4px; background: #111114; border: 1px solid rgba(255,255,255,0.07)">
+<sc-for list="{{levels}}" as="lv" hint-placeholder-count="7">
+<button type="button" class="hk-seg" aria-pressed="{{lv.pressed}}" onClick="{{lv.pick}}" style="height: 26px; padding: 0 10px; border: 0; border-radius: 4px; background: {{lv.bg}}; color: {{lv.fg}}; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer">{{lv.name}}</button>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="g-actions" style="background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+<div style="padding: 16px 16px 12px">
+<h2 id="g-actions" style="margin: 0; font-size: 14px; font-weight: 600">Custom actions</h2>
+<p style="margin: 4px 0 0; font-size: 12px; color: #8a8a92">Registered by shop-api with PM2 through axm_actions.</p>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<span style="flex: 1; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; color: #ededf0">clear-cache</span>
+<button type="button" class="hk-btn" style="height: 26px; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #111114; color: #ededf0; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer">Run</button>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<span style="flex: 1; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; color: #ededf0">reload-config</span>
+<button type="button" class="hk-btn" style="height: 26px; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #111114; color: #ededf0; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer">Run</button>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<span style="flex: 1; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; color: #ededf0">set-feature-flag</span>
+<label style="display: flex"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden">Parameter for set-feature-flag</span><input type="text" placeholder="parameter" style="width: 200px; height: 26px; box-sizing: border-box; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #111114; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px"></label>
+<button type="button" class="hk-btn" style="height: 26px; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #111114; color: #ededf0; font: inherit; font-size: 12px; font-weight: 500; cursor: pointer">Run</button>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; margin: 0 16px 12px; padding: 8px 12px; border-radius: 4px; background: rgba(52,211,153,0.13); color: #34d399; font-size: 12px">
+<svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.690l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg><span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace">clear-cache</span> answered: {"cleared":1184}</span>
+</div>
+</section>
+
+<section aria-labelledby="g-remove" style="background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+<div style="padding: 16px 16px 12px">
+<h2 id="g-remove" style="margin: 0; font-size: 14px; font-weight: 600; color: #f87171">Remove</h2>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<div style="flex: 1 1 320px; min-width: 0">
+<p style="margin: 0; font-size: 13px; font-weight: 600">Delete from PM2</p>
+<p style="margin: 2px 0 0; font-size: 12px; color: #8a8a92">Stop shop-api first. You can then keep the cloned files on disk or remove them too.</p>
+</div>
+<button type="button" disabled title="Stop the process first" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #8a8a92; font: inherit; font-size: 13px; font-weight: 500; opacity: 0.6; cursor: not-allowed">Delete</button>
+</div>
+</section>
+
+</div>
+</main>
+</div>
+
+<footer style="height: 32px; flex: 0 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 16px; background: #111114; border-top: 1px solid rgba(255,255,255,0.07); color: #8a8a92; font-size: 11px; box-sizing: border-box">
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace">pm2-hawkeye <strong>v6.0.0</strong></span>
+<span>Made with <svg viewBox="0 0 256 256" width="10" height="10" fill="#f87171" role="img" aria-label="love" style="vertical-align: -1px"><path d="M240,102c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,228.66,16,172,16,102A62.07,62.07,0,0,1,78,40c20.65,0,38.73,8.88,50,23.89C139.27,48.88,157.35,40,178,40A62.07,62.07,0,0,1,240,102Z"></path></svg> by <a href="https://github.com/orangecoding" style="color: #a7a7ae; text-decoration: none">Christian Kellner</a></span>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1060}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var on = '#1e1e23', off = 'transparent';
+    var crit = { tagBg: 'rgba(248,113,113,0.13)', tagFg: '#f87171', dot: '#f87171' };
+    var current = (this.state && this.state.level) || 'info';
+    var self = this;
+    return {
+      running: [
+        { name: 'fredy', cpu: '1%', mem: '96 MB', deployed: true, monitored: true, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'mail-relay', cpu: '0%', mem: '54 MB', deployed: false, monitored: false, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'pm2-hawkeye', cpu: '0%', mem: '88 MB', deployed: false, monitored: false, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'shop-api', cpu: '2%', mem: '142 MB', deployed: true, monitored: true, bg: on, current: 'page', href: 'ProcessManage.dc.html' },
+        { name: 'shop-worker', cpu: '11%', mem: '208 MB', deployed: true, monitored: true, bg: off, current: 'false', href: 'ProcessLogs.dc.html' }
+      ],
+      notRunning: [
+        { name: 'image-resizer', tag: 'Errored', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, href: 'ProcessLogs.dc.html' },
+        { name: 'landing-page', tag: 'Deploy failed', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, href: 'DeployFailed.dc.html' },
+        { name: 'nightly-backup', tag: 'Stopped', tagBg: '#1e1e23', tagFg: '#a7a7ae', dot: '#8a8a92', href: 'ProcessLogs.dc.html' }
+      ],
+      levels: ['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'silent'].map(function (name) {
+        var active = name === current;
+        return {
+          name: name,
+          pressed: active ? 'true' : 'false',
+          bg: active ? 'rgba(253,140,102,0.12)' : 'transparent',
+          fg: active ? '#fd8c66' : (name === 'silent' ? '#8a8a92' : '#a7a7ae'),
+          pick: function () { self.setState({ level: name }); }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -6,70 +6,105 @@
 import React from 'react';
 import ConfirmButton from './ConfirmButton.jsx';
 import { GitBranch } from './Icon.jsx';
-import { formatBytes, formatRelativeTime, formatDate } from '../services/format.js';
+import { formatBytes, formatRelativeTime, formatDate, formatDateTime } from '../services/format.js';
+import { offlineStatus, shortRepo } from '../services/deployment.js';
+
+/** Status word shown for a deployment without a PM2 process. */
+const OFFLINE_STATUS_TEXT = {
+  broken: 'deploy failed',
+  deploying: 'deploying',
+  offline: 'not in PM2',
+};
 
 /**
- * Shorten a git remote URL to `owner/repo` for display.
+ * Repository and branch of a Hawkeye deployment, as a chip.
  *
- * Handles both HTTPS (https://github.com/owner/repo.git) and SSH
- * (git@github.com:owner/repo.git) forms, and falls back to the raw string.
- *
- * @param {string} url
- * @returns {string}
+ * @param {{ deployment: object, onClick?: () => void }} props - Without
+ *   `onClick` the chip is plain text.
  */
-function shortRepo(url) {
-  if (!url) return '';
-  const cleaned = url
-    .replace(/\.git$/, '')
-    .replace(/^git@[^:]+:/, '')
-    .replace(/^https?:\/\/[^/]+\//, '');
-  const parts = cleaned.split('/').filter(Boolean);
-  return parts.length >= 2 ? parts.slice(-2).join('/') : cleaned;
+function DeployChip({ deployment, onClick }) {
+  const body = (
+    <>
+      <GitBranch size={12} weight="bold" />
+      <span className="deploy-chip-repo">{shortRepo(deployment.repo_url)}</span>
+      <span className="deploy-chip-branch">{deployment.branch}</span>
+    </>
+  );
+  if (!onClick) return <span className="deploy-chip deploy-chip--static">{body}</span>;
+  return (
+    <button
+      type="button"
+      className="deploy-chip"
+      title={`Deployed by Hawkeye from ${shortRepo(deployment.repo_url)}. Open the Deploy tab.`}
+      onClick={onClick}
+    >
+      {body}
+    </button>
+  );
 }
 
 /**
- * Header for the selected process.
+ * Header for the selected process, or for a deployment that has no PM2
+ * process.
  *
- * Two lines only: who it is and what you can do to it, then the live numbers.
+ * For a process: name, status, the deployment chip when Hawkeye deployed it,
+ * Restart and Stop/Start, then the live numbers. The chip opens the Deploy
+ * tab, where every deployment action lives.
  *
- * Deliberately not here any more: the status dot (the status word beside it
- * already carried the same information in the same colour), the absolute
- * uptime date (it restated the relative uptime next to it, and now lives in a
- * tooltip), the script filename, and the Monitored chip. That chip was the
- * loudest element on the page while being the least actionable, and the Manage
- * tab already flags the state worth acting on, which is monitoring being off.
- *
- * In its place the header states something that could not be seen anywhere
- * before: whether Hawkeye deployed this process, from which repository and
- * branch, with Redeploy sitting directly next to Restart and Stop.
+ * For an offline deployment there is nothing to restart or measure, so the
+ * header states that in place of the buttons and the stat strip.
  *
  * The cpu and mem readouts are shortcuts: clicking one opens the Metrics tab
  * scrolled to that chart. They do not expand in place, so the charts still
  * live in exactly one tab.
  *
  * @param {{
- *   selectedProcess: object,
- *   details: object | null,
- *   selectedDeployment: object | null,
- *   onRestart: () => Promise<void>,
- *   onStop: () => Promise<void>,
- *   onStart: () => Promise<void>,
- *   onEditDeployment: (pm2Name: string) => void,
+ *   selectedProcess?: object | null,
+ *   offlineDeployment?: object | null,
+ *   details?: object | null,
+ *   selectedDeployment?: object | null,
+ *   onRestart?: () => Promise<void>,
+ *   onStop?: () => Promise<void>,
+ *   onStart?: () => Promise<void>,
+ *   onOpenDeploy?: () => void,
  *   onShowMetrics?: ((chartId: string) => void) | null,
  *   children?: React.ReactNode,
- * }} props
+ * }} props - Pass either `selectedProcess` or `offlineDeployment`.
  */
 export default function ProcessHeader({
-  selectedProcess,
-  details,
-  selectedDeployment,
+  selectedProcess = null,
+  offlineDeployment = null,
+  details = null,
+  selectedDeployment = null,
   onRestart,
   onStop,
   onStart,
-  onEditDeployment,
+  onOpenDeploy,
   onShowMetrics = null,
   children,
 }) {
+  if (offlineDeployment) {
+    const state = offlineStatus(offlineDeployment);
+    const name = offlineDeployment.pm2_name;
+    return (
+      <header className="process-header">
+        <div className="process-header-row">
+          <h1 className="process-name">{name}</h1>
+          <span className="status-text" data-status={state === 'broken' ? 'broken' : state}>
+            {OFFLINE_STATUS_TEXT[state]}
+          </span>
+          <DeployChip deployment={offlineDeployment} />
+        </div>
+        <p className="stat-strip-empty">
+          {offlineDeployment.last_deployed_at
+            ? `No PM2 process. It was last deployed ${formatDateTime(offlineDeployment.last_deployed_at)}.`
+            : `No PM2 process. Hawkeye has a deployment for ${name}, but it never started.`}
+        </p>
+        {children}
+      </header>
+    );
+  }
+
   const status = String(selectedProcess.status ?? '');
   const statusLower = status.toLowerCase();
   const isOnline = statusLower === 'online';
@@ -103,28 +138,12 @@ export default function ProcessHeader({
         <h1 className="process-name">{selectedProcess.name}</h1>
 
         <span className="status-text" data-status={statusLower}>
-          {status}
+          {statusLower}
         </span>
 
-        {isDeployed && (
-          <button
-            type="button"
-            className="deploy-chip"
-            title={`Deployed by Hawkeye from ${selectedDeployment.repo_url}. Open the deployment configuration.`}
-            onClick={() => onEditDeployment(selectedProcess.name)}
-          >
-            <GitBranch size={12} weight="bold" />
-            <span className="deploy-chip-repo">{shortRepo(selectedDeployment.repo_url)}</span>
-            <span className="deploy-chip-branch">{selectedDeployment.branch}</span>
-          </button>
-        )}
+        {isDeployed && <DeployChip deployment={selectedDeployment} onClick={onOpenDeploy} />}
 
         <div className="process-header-actions">
-          {isDeployed && (
-            <button type="button" className="btn" onClick={() => onEditDeployment(selectedProcess.name)}>
-              Redeploy
-            </button>
-          )}
           {!isOrphan && (
             <ConfirmButton
               label="Restart"

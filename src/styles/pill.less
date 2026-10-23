@@ -18,19 +18,28 @@
   &[data-status='one-launch-status'] { background: var(--warning); }
   &[data-status='errored'],
   &[data-status='error'] { background: var(--critical); }
+  // A deployment with no PM2 process yet, while its first deploy runs.
+  &[data-status='deploying'] {
+    background: var(--accent);
+  }
 }
 
 .status-text {
   font-size: 0.75rem;
   color: var(--muted);
-  text-transform: capitalize;
 
   &[data-status='online'] { color: var(--success); }
   &[data-status='stopping'],
   &[data-status='launching'],
   &[data-status='one-launch-status'] { color: var(--warning); }
   &[data-status='errored'],
-  &[data-status='error'] { color: var(--critical); }
+  &[data-status='error'],
+  &[data-status='broken'] {
+    color: var(--critical);
+  }
+  &[data-status='deploying'] {
+    color: var(--accent);
+  }
 }
 
 /* ── Tags ───────────────────────────────────────────────────────────────────
@@ -51,6 +60,21 @@
   background: var(--bg-3);
   color: var(--text-dim);
 
-  &--accent { background: var(--accent-soft); color: var(--accent); }
-  &--critical { background: var(--critical-soft); color: var(--critical); }
+  &--accent {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  &--warning {
+    background: var(--warning-soft);
+    color: var(--warning);
+  }
+  &--critical {
+    background: var(--critical-soft);
+    color: var(--critical);
+  }
+  &--mono {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0;
+  }
 }

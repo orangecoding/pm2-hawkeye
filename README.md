@@ -39,20 +39,28 @@
 
 ### How the dashboard is laid out
 
-Pick a process in the sidebar, then work on it in one of three tabs. Every
+With nothing selected you see the **Overview**: a "Needs attention" list
+(errored processes, failed or waiting deployments, a host running out of CPU,
+RAM, or disk) followed by the host CPU, RAM, and disk charts. The Overview entry
+at the top of the sidebar, the logo, and the host readout in the top bar all
+lead back to it.
+
+Pick a process in the sidebar, then work on it in one of its tabs. Every
 per-process function lives in exactly one of them.
 
 | Tab | What it holds |
 |---|---|
 | **Logs** | Merged stdout and stderr, level filters, search, pause, copy, download |
-| **Metrics** | CPU and memory history for the process, its own tx2 / @pm2/io metrics, next to host CPU, RAM, and disk |
-| **Manage** | Monitoring, per-process alerts, log level, custom actions, deployment config, delete |
+| **Metrics** | CPU and memory history for the process (with host CPU for comparison) and its own tx2 / @pm2/io metrics |
+| **Deploy** | Only for processes PM2-Hawkeye deployed: the saved configuration, Redeploy now, Edit configuration, and the live progress of a running deploy |
+| **Manage** | Monitoring, per-process alerts, log level, custom actions, delete |
 
 Restart and Stop/Start sit in the process header, alongside a live strip of CPU,
 memory, restart count, and uptime that stays visible on every tab. The cpu and
-mem readouts there, and the host CPU/RAM/disk readouts in the top bar, are
-shortcuts: clicking one opens the Metrics tab scrolled to that chart. They never
-draw a chart of their own, so every chart still lives in exactly one place.
+mem readouts there are shortcuts: clicking one opens the Metrics tab scrolled to
+that chart. They never draw a chart of their own, so every chart still lives in
+exactly one place. Hover a chart, or focus it and use the arrow keys, to read
+the exact values at any point in time.
 
 Process charts show the last 180 stored samples, and a sample is only stored
 when its value changed, so a steady process reaches further back. The host
@@ -79,12 +87,12 @@ When you open a process without enabling monitoring, you see real-time CPU, memo
 
 **Monitored**
 
-Click **Turn on** under **Monitoring** in the Manage tab (or **Turn on monitoring** in the Metrics tab) to enable persistent tracking. PM2-Hawkeye will:
+Click **Turn on** next to **Store logs and metrics** in the Manage tab (or **Turn on monitoring** in the Metrics tab) to enable persistent tracking. PM2-Hawkeye will:
 
 - Sample CPU and memory every 20 seconds and store the history (default: 24 hours)
 - Sample every [application metric](#-custom-metrics-with-tx2) the process reports, on the same schedule and retention
 - Persist incoming log lines to the database (default: 14 days)
-- Show a sparkline chart of CPU and memory over time
+- Chart CPU and memory over time in the Metrics tab
 - Backfill the last log entries from the PM2 log files on first enable
 
 Monitoring state survives server restarts. You can turn monitoring off at any time - this removes all stored history for that process.
@@ -459,7 +467,7 @@ Sends a push notification to an [ntfy](https://ntfy.sh) topic. Configure the ser
 
 ### Per-process mute
 
-Open a monitored process and go to its **Manage** tab. The **Alerts** switch under Monitoring mutes and unmutes notifications for that process alone. The preference is stored in the database and survives restarts.
+Open a monitored process and go to its **Manage** tab. The **Alerts** switch under **History and alerts** mutes and unmutes notifications for that process alone. The preference is stored in the database and survives restarts.
 
 
 ---
@@ -470,7 +478,7 @@ PM2-Hawkeye can clone, install, build, and register new Node.js applications dir
 
 ### How it works
 
-Click **Deploy** in the top bar to open the deploy form. Four fields are required (app name, branch, repository URL, start script); everything else is folded into collapsible groups that show their current value on the summary line. Hit **Deploy** and PM2-Hawkeye will:
+Click **New deployment** in the top bar to open the deploy form. Four fields are required (repository URL, branch, app name, start script), and the app name fills itself in from the repository URL until you edit it. Everything else is folded into collapsible option groups that show their current value on the summary line. Next to the form, a preview lists the exact steps and commands the deployment will run, updated as you type. Hit **Deploy** and PM2-Hawkeye will:
 
 1. Run an optional pre-setup shell script (e.g. install system dependencies)
 2. `git clone` the repository into `DEPLOY_BASE_DIR/<app-name>` (default: `./apps/<app-name>`)
@@ -479,65 +487,56 @@ Click **Deploy** in the top bar to open the deploy form. Four fields are require
 5. Run an optional post-setup shell script (e.g. run database migrations)
 6. Register and start the process with PM2
 
-A real-time progress log streams each step in the browser.
+The form closes once the deployment has started, and the new app's page shows each step live in its **Deploy** tab, together with the output of every command. You can switch to another process meanwhile; the deployment keeps running on the server even if you close the page.
 
 ### Deploy form fields
 
-**Repository** (required)
+**Where the code comes from** (required)
 
 | Field | Description |
 |---|---|
-| App name | Unique PM2 process name. Alphanumeric, dashes, and underscores only. |
-| Repo URL | HTTPS URL of a public GitHub or GitLab repository. |
+| Repository URL | HTTPS URL of a GitHub or GitLab repository, or an SSH URL such as `git@github.com:user/repo.git`. A private repository needs a deploy key on the server. |
 | Branch | Git branch to clone and deploy from. Defaults to `main`. |
+| App name | Unique PM2 process name. Alphanumeric, dashes, and underscores only. It also names the deploy folder, so it cannot change after the first deploy. |
 
-**Runtime** (required)
-
-| Field | Description |
-|---|---|
-| Start script | Entry point relative to the repo root, e.g. `src/server.js`. |
-| Interpreter | Node.js interpreter path. Leave as `node` for the system default. |
-| Exec mode | `fork` (single process) or `cluster` (multiple workers). |
-| Instances | Number of cluster workers. Set `-1` to use all CPU cores. |
-
-**Setup** (optional)
+**How to build and start it**
 
 | Field | Description |
 |---|---|
-| Install command | Package manager command. Select `skip` to skip dependency installation entirely. |
-| Build command | Optional build step, e.g. `npm run build`. |
-| Pre-setup script | Shell script that runs in `DEPLOY_BASE_DIR` before cloning. Use it to check requirements or install OS packages. |
-| Post-setup script | Shell script that runs in the cloned repo directory after the build. Use it for migrations, file permission fixes, etc. |
+| Install command | Package manager command. Select `Skip installing` to skip dependency installation entirely. |
+| Extra install flags | Appended to the install command, e.g. `--omit=dev`. |
+| Build command | Optional build step, e.g. `npm run build`. Leave empty to skip it. |
+| Start script | Entry point relative to the repo root, e.g. `src/server.js`. Required. |
 
-**Redeploy** (optional)
+**Options** (optional, collapsed by default)
 
-| Field | Description |
-|---|---|
-| Discard local changes without asking | When a redeploy finds modified tracked files in the deploy directory, run `git reset --hard` straight away instead of pausing to ask. Untracked files are kept. Off by default. |
+| Group | Field | Description |
+|---|---|---|
+| Environment | Env file | Path to a `.env` file inside the repo to load at start time, e.g. `.env.production`. |
+| Environment | Variables | Key/value pairs passed directly to the process. These override values from the env file. |
+| Auto-deploy | Deploy automatically | Poll the branch and redeploy whenever it gets new commits. Off by default. |
+| Auto-deploy | Check every | Minutes between polls, 1 to 1440. Defaults to 5. |
+| Local changes on redeploy | Discard local changes without asking | When a redeploy finds modified tracked files in the deploy directory, run `git reset --hard` straight away instead of pausing to ask. Untracked files are kept. Off by default. |
+| Setup scripts | Pre-setup script | Shell script that runs in `DEPLOY_BASE_DIR` before cloning. Use it to check requirements or install OS packages. |
+| Setup scripts | Post-setup script | Shell script that runs in the cloned repo directory after the build. Use it for migrations, file permission fixes, etc. |
+| How PM2 runs it | Interpreter | Node.js interpreter path. Leave as `node` for the system default. |
+| How PM2 runs it | Exec mode | `fork` (single process) or `cluster` (multiple workers). |
+| How PM2 runs it | Instances | Number of cluster workers. Set `-1` to use all CPU cores. |
 
-**Auto-deploy** (optional)
-
-| Field | Description |
-|---|---|
-| Deploy automatically | Poll the branch and redeploy whenever it gets new commits. Off by default. |
-| Check every | Minutes between polls, 1 to 1440. Defaults to 5. |
-
-**Environment** (optional)
-
-| Field | Description |
-|---|---|
-| Env file | Path to a `.env` file inside the repo to load at start time, e.g. `.env.production`. |
-| Environment variables | Key/value pairs passed directly to the process. These override values from the env file. |
-
-Further collapsible groups cover how PM2 runs the app (interpreter, exec mode, instances), crash recovery (auto-restart, memory limits, scheduled restarts, ready signals), and logging and file watching.
+Two further groups cover crash recovery (auto-restart, memory limits, scheduled restarts, ready signals) and logging and file watching.
 
 ### Redeploying and editing
 
-A process that PM2-Hawkeye deployed is marked as such in two places: a git icon next to its name in the sidebar, and a chip in its header showing the repository and branch it came from. Both a **Redeploy** button in the header and the chip itself open the saved configuration, pre-filled.
+A process that PM2-Hawkeye deployed is marked as such in two places: a git icon next to its name in the sidebar, and a chip in its header showing the repository and branch it came from. Such a process gets a **Deploy** tab, and the chip opens it.
 
-In that form, **Save and redeploy** saves and immediately fetches the configured branch from the configured repository (`git fetch` plus `git checkout -B`), then reinstalls, rebuilds, and restarts the PM2 process. Changing the repository URL or the branch therefore takes effect on the next redeploy. Commits made inside the deploy directory are dropped; untracked files such as a `.env` are kept. If the deploy directory has uncommitted changes to tracked files, the redeploy pauses and asks whether to discard them; turn on **Discard local changes without asking** under **Redeploy** to skip that question for this deployment. **Save only** persists the configuration without touching the running process. The same Redeploy button also sits in the **Manage** tab, next to the repository URL and the time of the last successful deploy.
+The Deploy tab shows the saved configuration (repository, branch, folder on the server, last successful deploy), the steps a redeploy runs, the auto-deploy state, and the names of the configured environment variables (never their values). From there:
 
-Deployments whose PM2 process is gone appear under **Not deployed** in the sidebar with their own Redeploy and Delete buttons.
+- **Redeploy now** runs the saved configuration straight away, after a one-click confirmation and without opening a form. It fetches the configured branch from the configured repository (`git fetch` plus `git checkout -B`), then reinstalls, rebuilds, and restarts the PM2 process. Commits made inside the deploy directory are dropped; untracked files such as a `.env` are kept.
+- **Edit configuration** opens the deploy form pre-filled. **Save** only stores the configuration without touching the running process; **Save and redeploy** stores it and redeploys at once. Changing the repository URL or the branch therefore takes effect on the next redeploy.
+
+While a deploy runs, the Deploy tab shows its progress: each step with its state, and the live output of every command. The run stays on screen once it has finished, successful or not, until you dismiss it; a failed run offers **Try again** and a shortcut to the configuration. If the deploy directory has uncommitted changes to tracked files, the redeploy pauses there and asks whether to discard them or cancel; turn on **Discard local changes without asking** under **Local changes on redeploy** to skip that question for this deployment. Progress is kept in the browser only, so after a page reload a running deploy shows its new output but not what came before.
+
+Deployments without a PM2 process are listed under **Not running** in the sidebar, tagged **Deploy failed** (the first deploy never finished), **Deploying**, or **Not in PM2** (it ran before, but the process was deleted from PM2). Selecting one opens its own page with **Deploy again**, **Edit configuration**, and **Delete deployment**.
 
 ### Auto-deploy on new commits
 

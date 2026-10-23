@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hawkeye Overview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0b0b0d}
+a{color:#fd8c66}a:hover{color:#ffa383}
+.hk-row:hover{background:#1e1e23 !important}
+.hk-btn:hover{background:#1e1e23 !important;border-color:rgba(255,255,255,0.14) !important}
+.hk-icon:hover{background:#1e1e23 !important;color:#ededf0 !important}
+.hk-host:hover{background:#17171b !important}
+.hk-plot:focus-visible{outline:2px solid rgba(253,140,102,0.34);outline-offset:4px}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #0b0b0d; color: #ededf0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.45">
+
+<header style="height: 48px; flex: 0 0 48px; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: #111114; border-bottom: 1px solid rgba(255,255,255,0.07); box-sizing: border-box; min-width: 0">
+<a href="Main.dc.html" aria-label="pm2-hawkeye home" style="display: flex; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; color: #ededf0">
+<span style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(253,140,102,0.12); color: #fd8c66"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z"></path></svg></span>
+<span style="font-size: 14px; font-weight: 650; line-height: 1; white-space: nowrap"><span style="color: #fd8c66">pm2</span>-hawkeye</span>
+</a>
+<a href="#host" class="hk-host" title="Host CPU, RAM and disk on the Overview" style="display: flex; align-items: center; gap: 12px; height: 28px; padding: 0 8px; border-radius: 4px; text-decoration: none; color: #ededf0; white-space: nowrap">
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Host</span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">CPU</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae; font-variant-numeric: tabular-nums">23%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">RAM</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae; font-variant-numeric: tabular-nums">61%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">Disk</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #f87171; font-variant-numeric: tabular-nums">91%</span></span>
+</a>
+<span style="flex: 1; min-width: 0"></span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8a8a92; white-space: nowrap"><span style="width: 6px; height: 6px; border-radius: 50%; background: #34d399"></span>Live</span>
+<span style="width: 1px; height: 20px; background: rgba(255,255,255,0.07); flex-shrink: 0"></span>
+<a href="NewDeployment.dc.html" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 4px; background: #fd8c66; color: #1a0d07; font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>New deployment</a>
+<button type="button" class="hk-icon" aria-label="Settings" title="Settings" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.55,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z"></path></svg></button>
+<button type="button" class="hk-icon" aria-label="Sign out" title="Sign out" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z"></path></svg></button>
+</header>
+
+<div style="flex: 1; display: flex; flex-wrap: wrap; min-height: 0">
+
+<aside style="flex: 1 1 240px; display: flex; flex-direction: column; min-width: 0; background: #111114; border-right: 1px solid rgba(255,255,255,0.07); box-sizing: border-box">
+<nav aria-label="Main" style="padding: 8px 4px; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<a href="Main.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 4px; background: #1e1e23; color: #ededf0; font-size: 13px; font-weight: 500; text-decoration: none"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true" style="color: #fd8c66"><path d="M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z"></path></svg>Overview<span style="margin-left: auto; height: 18px; min-width: 18px; padding: 0 6px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(248,113,113,0.13); color: #f87171; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums" title="4 items need attention">4</span></a>
+</nav>
+<div style="padding: 12px 12px 4px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Processes</span>
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">8</span>
+</div>
+<label style="position: relative; display: block">
+<span style="position: absolute; left: 10px; top: 8px; color: #8a8a92; display: flex"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"></path></svg></span>
+<input type="text" placeholder="Filter processes" aria-label="Filter processes" style="width: 100%; height: 30px; box-sizing: border-box; padding: 0 8px 0 30px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 12px">
+</label>
+</div>
+<div role="list" aria-label="PM2 processes" style="flex: 1; padding-bottom: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">5</span></div>
+<sc-for list="{{running}}" as="p" hint-placeholder-count="5">
+<a href="{{p.href}}" role="listitem" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: transparent; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #34d399"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}<sc-if value="{{p.deployed}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="10" height="10" fill="#8a8a92" aria-label="Deployed by Hawkeye" role="img"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg></sc-if></span>
+<span style="display: flex; align-items: center; gap: 8px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92; font-variant-numeric: tabular-nums"><span>{{p.cpu}}</span><span>{{p.mem}}</span><sc-if value="{{p.monitored}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="9" height="9" fill="#fd8c66" aria-label="Monitored" role="img"><path d="M232,128A104,104,0,1,1,128,24,104.13,104.13,0,0,1,232,128Z"></path></svg></sc-if></span>
+</a>
+</sc-for>
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 16px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Not running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">3</span></div>
+<sc-for list="{{notRunning}}" as="p" hint-placeholder-count="3">
+<a href="{{p.href}}" role="listitem" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: transparent; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: {{p.dot}}"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; color: #a7a7ae; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}<sc-if value="{{p.deployed}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="10" height="10" fill="#8a8a92" aria-label="Deployed by Hawkeye" role="img"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg></sc-if></span>
+<span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; border-radius: 4px; background: {{p.tagBg}}; color: {{p.tagFg}}; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap">{{p.tag}}</span>
+</a>
+</sc-for>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px; padding: 20px; box-sizing: border-box; background: #111114">
+
+<div>
+<h1 style="margin: 0; font-size: 16px; font-weight: 650; line-height: 24px">Overview</h1>
+<p style="margin: 2px 0 0; font-size: 12px; color: #8a8a92">8 processes. 5 running, 3 not running.</p>
+</div>
+
+<section aria-labelledby="att-h" style="background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px">
+<h2 id="att-h" style="margin: 0; font-size: 14px; font-weight: 600">Needs attention</h2>
+<span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; border-radius: 4px; background: rgba(248,113,113,0.13); color: #f87171; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums">4</span>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0">
+<sc-for list="{{attention}}" as="i" hint-placeholder-count="4">
+<li style="display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 10px 16px; border-top: 1px solid rgba(255,255,255,0.07)">
+<sc-if value="{{i.critical}}" hint-placeholder-val="{{true}}"><svg viewBox="0 0 256 256" width="16" height="16" fill="#f87171" role="img" aria-label="Critical"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z"></path></svg></sc-if>
+<sc-if value="{{i.warning}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="16" height="16" fill="#fbbf24" role="img" aria-label="Warning"><path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z"></path></svg></sc-if>
+<div style="min-width: 0">
+<p style="margin: 0; font-size: 13px; font-weight: 600">{{i.title}}</p>
+<p style="margin: 2px 0 0; font-size: 12px; color: #8a8a92">{{i.detail}}</p>
+</div>
+<a href="{{i.href}}" class="hk-btn" style="display: inline-flex; align-items: center; height: 26px; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #111114; color: #ededf0; font-size: 12px; font-weight: 500; text-decoration: none; white-space: nowrap">{{i.action}}</a>
+</li>
+</sc-for>
+</ul>
+</section>
+
+<section id="host" aria-labelledby="host-h" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+<h2 id="host-h" style="margin: 0; font-size: 14px; font-weight: 600">Host</h2>
+<span style="font-size: 12px; color: #8a8a92">This machine. Sampled every 20 s, kept for 24 h. Hover a chart for exact values.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px">
+<sc-for list="{{host}}" as="c" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; padding: 14px 16px 12px; background: #17171b; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px">
+
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 18px">
+<span style="font-size: 12px; font-weight: 600; color: #a7a7ae">{{c.label}}</span>
+<sc-if value="{{c.hasTag}}" hint-placeholder-val="{{false}}"><span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; gap: 4px; border-radius: 4px; background: {{c.tagBg}}; color: {{c.tagFg}}; font-size: 11px; font-weight: 600"><svg viewBox="0 0 256 256" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z"></path></svg>{{c.tag}}</span></sc-if>
+</div>
+<div style="display: flex; align-items: baseline; gap: 10px; margin-top: 2px; flex-wrap: wrap">
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 24px; font-weight: 600; line-height: 32px; color: #ededf0">{{c.value}}</span>
+<span style="font-size: 12px; color: #8a8a92">{{c.sub}}</span>
+</div>
+<p style="margin: 0; font-size: 12px; color: #8a8a92">24 h peak <span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">{{c.peak}}</span> at {{c.peakAt}}</p>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 32px; column-gap: 8px; row-gap: 6px; margin-top: 14px">
+<div class="hk-plot" tabindex="0" role="img" aria-label="{{c.aria}}" onMouseMove="{{c.onMove}}" onMouseLeave="{{c.onLeave}}" onFocus="{{c.onFocus}}" onBlur="{{c.onLeave}}" onKeyDown="{{c.onKey}}" style="position: relative; height: {{c.hpx}}; cursor: crosshair">
+<svg viewBox="{{c.viewBox}}" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible">
+<sc-for list="{{c.grid}}" as="g" hint-placeholder-count="3"><line x1="0" x2="300" y1="{{g.y}}" y2="{{g.y}}" stroke="{{g.stroke}}" stroke-width="1" vector-effect="non-scaling-stroke"></line></sc-for>
+<sc-for list="{{c.series}}" as="s" hint-placeholder-count="1">
+<polygon points="{{s.area}}" fill="{{s.color}}" fill-opacity="{{s.areaOpacity}}"></polygon>
+<polyline points="{{s.line}}" fill="none" stroke="{{s.color}}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="{{s.dash}}" vector-effect="non-scaling-stroke"></polyline>
+</sc-for>
+</svg>
+<sc-if value="{{c.idle}}" hint-placeholder-val="{{true}}">
+<sc-for list="{{c.series}}" as="s" hint-placeholder-count="1"><span style="position: absolute; left: 100%; top: {{s.endTop}}; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: {{s.color}}; box-shadow: 0 0 0 2px #17171b"></span></sc-for>
+</sc-if>
+<sc-if value="{{c.hover}}" hint-placeholder-val="{{false}}">
+<span style="position: absolute; top: 0; bottom: 0; left: {{c.hx}}; width: 1px; background: rgba(255,255,255,0.28); pointer-events: none"></span>
+<sc-for list="{{c.dots}}" as="d" hint-placeholder-count="1"><span style="position: absolute; left: {{c.hx}}; top: {{d.top}}; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: {{d.color}}; box-shadow: 0 0 0 2px #17171b; pointer-events: none"></span></sc-for>
+<div role="status" style="position: absolute; top: 0; left: {{c.hx}}; transform: {{c.tipTf}}; z-index: 2; padding: 6px 10px; background: #0b0b0d; border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; box-shadow: 0 6px 16px rgba(6,6,8,0.6); white-space: nowrap; pointer-events: none">
+<sc-for list="{{c.tipRows}}" as="r" hint-placeholder-count="1"><div style="display: flex; align-items: center; gap: 8px; line-height: 18px"><span style="width: 10px; height: 0; border-top: 2px {{r.lineStyle}} {{r.color}}"></span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #ededf0">{{r.value}}</span><span style="font-size: 11px; color: #8a8a92">{{r.name}}</span></div></sc-for>
+<div style="margin-top: 2px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">{{c.tipTime}}</div>
+</div>
+</sc-if>
+</div>
+<div aria-hidden="true" style="position: relative; height: {{c.hpx}}; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: #8a8a92; font-variant-numeric: tabular-nums">
+<sc-for list="{{c.yTicks}}" as="t" hint-placeholder-count="3"><span style="position: absolute; left: 0; top: {{t.top}}; transform: translateY(-50%); white-space: nowrap">{{t.label}}</span></sc-for>
+</div>
+<div aria-hidden="true" style="position: relative; height: 14px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 10px; color: #8a8a92; font-variant-numeric: tabular-nums">
+<sc-for list="{{c.xTicks}}" as="t" hint-placeholder-count="5"><span style="position: absolute; top: 0; left: {{t.left}}; transform: {{t.tf}}; white-space: nowrap">{{t.label}}</span></sc-for>
+</div>
+<span></span>
+</div>
+
+</div>
+</sc-for>
+</div>
+</section>
+
+</main>
+</div>
+
+<footer style="height: 32px; flex: 0 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 16px; background: #111114; border-top: 1px solid rgba(255,255,255,0.07); color: #8a8a92; font-size: 11px; box-sizing: border-box">
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace">pm2-hawkeye <strong>v6.0.0</strong></span>
+<span>Made with <svg viewBox="0 0 256 256" width="10" height="10" fill="#f87171" role="img" aria-label="love" style="vertical-align: -1px"><path d="M240,102c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,228.66,16,172,16,102A62.07,62.07,0,0,1,78,40c20.65,0,38.73,8.88,50,23.89C139.27,48.88,157.35,40,178,40A62.07,62.07,0,0,1,240,102Z"></path></svg> by <a href="https://github.com/orangecoding" style="color: #a7a7ae; text-decoration: none">Christian Kellner</a></span>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":860}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { hover: null };
+  }
+  /**
+   * Build everything one time-series chart needs: polylines, axes, the end
+   * dot, and the hover layer (crosshair, dots, tooltip) for the hovered index.
+   */
+  chart(cfg) {
+    var self = this;
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var NOW = new Date(2026, 9, 23, 14, 20).getTime();
+    var STEP = 30 * 60 * 1000;
+    var W = 300, H = cfg.h, PAD = 4;
+    var n = cfg.series[0].vals.length;
+    var t0 = NOW - (n - 1) * STEP;
+    function pad(x) { return (x < 10 ? '0' : '') + x; }
+    function clock(t) { var d = new Date(t); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+    function stamp(t) { var d = new Date(t); return d.getDate() + ' ' + MONTHS[d.getMonth()] + ', ' + clock(t); }
+    function y(v) { return H - PAD - (v / cfg.max) * (H - 2 * PAD); }
+    var series = cfg.series.map(function (s) {
+      var pts = s.vals.map(function (v, i) { return ((i / (n - 1)) * W).toFixed(1) + ',' + y(v).toFixed(1); }).join(' ');
+      return {
+        name: s.name, color: s.color, line: pts,
+        area: '0,' + H + ' ' + pts + ' ' + W + ',' + H,
+        areaOpacity: s.area === false ? '0' : '0.1',
+        dash: s.dash ? '4 4' : 'none',
+        endTop: y(s.vals[n - 1]).toFixed(1) + 'px'
+      };
+    });
+    var grid = cfg.ticks.map(function (v, i) {
+      return { y: y(v).toFixed(1), stroke: i === 0 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)' };
+    });
+    var yTicks = cfg.ticks.map(function (v) { return { label: cfg.tickFmt(v), top: y(v).toFixed(1) + 'px' }; });
+    var xTicks = [];
+    var first = new Date(t0);
+    first.setMinutes(0, 0, 0);
+    for (var t = first.getTime() + 3600000; t < NOW - 90 * 60000; t += 3600000) {
+      if (new Date(t).getHours() % 6 !== 0) continue;
+      xTicks.push({ label: clock(t), left: (((t - t0) / (NOW - t0)) * 100).toFixed(2) + '%', tf: 'translateX(-50%)' });
+    }
+    xTicks.push({ label: 'now', left: '100%', tf: 'translateX(-100%)' });
+    var peakIdx = 0;
+    cfg.series[0].vals.forEach(function (v, i) { if (v > cfg.series[0].vals[peakIdx]) peakIdx = i; });
+    var st = this.state.hover;
+    var hovered = st && st.key === cfg.key;
+    var idx = hovered ? st.idx : n - 1;
+    var pct = idx / (n - 1);
+    function setIdx(i) { self.setState({ hover: { key: cfg.key, idx: Math.max(0, Math.min(n - 1, i)) } }); }
+    return {
+      key: cfg.key, hpx: H + 'px', viewBox: '0 0 ' + W + ' ' + H,
+      series: series, grid: grid, yTicks: yTicks, xTicks: xTicks,
+      peak: cfg.fmt(cfg.series[0].vals[peakIdx]), peakAt: clock(t0 + peakIdx * STEP),
+      hover: Boolean(hovered), idle: !hovered,
+      hx: (pct * 100).toFixed(2) + '%',
+      tipTf: pct > 0.62 ? 'translateX(calc(-100% - 12px))' : 'translateX(12px)',
+      tipTime: stamp(t0 + idx * STEP),
+      dots: cfg.series.map(function (s) { return { top: y(s.vals[idx]).toFixed(1) + 'px', color: s.color }; }),
+      tipRows: cfg.series.map(function (s) { return { value: cfg.fmt(s.vals[idx]), name: s.name, color: s.color, lineStyle: s.dash ? 'dashed' : 'solid' }; }),
+      onMove: function (e) {
+        var r = e.currentTarget.getBoundingClientRect();
+        setIdx(Math.round(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * (n - 1)));
+      },
+      onLeave: function () { self.setState({ hover: null }); },
+      onFocus: function () { setIdx(n - 1); },
+      onKey: function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        setIdx(idx + (e.key === 'ArrowLeft' ? -1 : 1));
+      }
+    };
+  }
+  renderVals() {
+    var cpu = [18,22,19,25,31,28,24,21,19,17,16,18,22,27,35,41,38,33,29,26,24,22,21,25,28,26,23,20,18,19,21,24,30,36,33,28,25,22,20,19,21,23,26,24,22,21,23,23];
+    var ram = [56,56,57,57,58,58,57,58,59,59,60,60,59,60,61,61,60,60,59,59,60,60,61,61,62,62,61,61,60,60,61,61,62,62,61,61,60,61,61,61,62,61,61,60,61,61,61,61];
+    var disk = [88,88,88,88,88.2,88.3,88.4,88.4,88.5,88.6,88.7,88.8,88.9,89,89,89.1,89.2,89.3,89.4,89.5,89.6,89.6,89.7,89.8,89.9,90,90,90.1,90.2,90.3,90.4,90.4,90.5,90.6,90.7,90.7,90.8,90.8,90.9,90.9,91,91,91,91,91,91,91,91];
+    var pct = function (v) { return Math.round(v) + '%'; };
+    var self = this;
+    function hostCard(key, label, vals, color, sub) {
+      var cur = vals[vals.length - 1];
+      var level = cur >= 90 ? 'critical' : cur >= 75 ? 'high' : '';
+      var c = self.chart({ key: key, h: 120, max: 100, ticks: [0, 50, 100], tickFmt: pct, fmt: pct, series: [{ name: 'Host ' + label, color: color, vals: vals }] });
+      c.label = label;
+      c.value = pct(cur);
+      c.sub = sub;
+      c.aria = 'Host ' + label + ' over the last 24 hours, now ' + pct(cur) + '. Use the arrow keys to read values.';
+      c.hasTag = Boolean(level);
+      c.tag = level === 'critical' ? 'Critical' : 'High';
+      c.tagBg = level === 'critical' ? 'rgba(248,113,113,0.13)' : 'rgba(251,191,36,0.13)';
+      c.tagFg = level === 'critical' ? '#f87171' : '#fbbf24';
+      return c;
+    }
+    var grey = '#8a8a92';
+    var crit = { tagBg: 'rgba(248,113,113,0.13)', tagFg: '#f87171', dot: '#f87171' };
+    return {
+      running: [
+        { name: 'fredy', cpu: '1%', mem: '96 MB', deployed: true, monitored: true, href: 'ProcessLogs.dc.html' },
+        { name: 'mail-relay', cpu: '0%', mem: '54 MB', deployed: false, monitored: false, href: 'ProcessLogs.dc.html' },
+        { name: 'pm2-hawkeye', cpu: '0%', mem: '88 MB', deployed: false, monitored: false, href: 'ProcessLogs.dc.html' },
+        { name: 'shop-api', cpu: '2%', mem: '142 MB', deployed: true, monitored: true, href: 'ProcessLogs.dc.html' },
+        { name: 'shop-worker', cpu: '11%', mem: '208 MB', deployed: true, monitored: true, href: 'ProcessLogs.dc.html' }
+      ],
+      notRunning: [
+        { name: 'image-resizer', tag: 'Errored', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, deployed: false, href: 'ProcessLogs.dc.html' },
+        { name: 'landing-page', tag: 'Deploy failed', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, deployed: true, href: 'DeployFailed.dc.html' },
+        { name: 'nightly-backup', tag: 'Stopped', tagBg: '#1e1e23', tagFg: '#a7a7ae', dot: grey, deployed: false, href: 'ProcessLogs.dc.html' }
+      ],
+      attention: [
+        { critical: true, warning: false, title: 'image-resizer is errored', detail: '15 restarts. PM2 has stopped restarting it.', action: 'Open logs', href: 'ProcessLogs.dc.html' },
+        { critical: true, warning: false, title: 'landing-page was never deployed successfully', detail: 'Its first deployment failed, so nothing runs in PM2.', action: 'Open deployment', href: 'DeployFailed.dc.html' },
+        { critical: true, warning: false, title: 'Disk is 91% full', detail: '421 of 460 GB used on this machine.', action: 'Show host', href: '#host' },
+        { critical: false, warning: true, title: 'shop-api auto-deploy check failed', detail: 'Last check at 14:02: Permission denied (publickey).', action: 'Open deployment', href: 'ProcessDeploy.dc.html' }
+      ],
+      host: [
+        hostCard('cpu', 'CPU', cpu, '#fd8c66', 'average across all cores'),
+        hostCard('ram', 'RAM', ram, '#34d399', '9.8 of 16.0 GB used'),
+        hostCard('disk', 'Disk', disk, '#60a5fa', '421 of 460 GB used')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

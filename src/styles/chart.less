@@ -1,0 +1,200 @@
+/* ── Time-series chart ──────────────────────────────────────────────────────
+   One chart idiom for the Overview and the Metrics tab: hairline grid, step
+   lines, a dot on the newest sample, and one tooltip that reads every series
+   at the hovered time. Gridlines are never dashed; dashes mean a comparison
+   series or a limit.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.ts-chart {
+  display: grid;
+  column-gap: var(--s-2);
+  row-gap: var(--s-2);
+}
+
+.ts-plot-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+.ts-chart--compact .ts-plot-wrap {
+  // Room for the end dot, which is centred on the last sample.
+  margin-right: var(--s-1);
+}
+
+.ts-plot {
+  position: absolute;
+  inset: 0;
+  cursor: crosshair;
+
+  svg {
+    display: block;
+    overflow: visible;
+  }
+
+  &:focus-visible {
+    outline: 0.125rem solid var(--accent-line);
+    outline-offset: var(--s-1);
+    border-radius: 0;
+  }
+}
+
+.ts-grid {
+  stroke: var(--chart-hairline);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+
+  &--base {
+    stroke: var(--chart-baseline);
+  }
+}
+
+.ts-area {
+  fill-opacity: 0.1;
+}
+
+.ts-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.ts-dot {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: -0.25rem 0 0 -0.25rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.125rem var(--bg-2);
+  pointer-events: none;
+}
+
+.ts-crosshair {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.0625rem;
+  background: var(--chart-crosshair);
+  pointer-events: none;
+}
+
+.ts-threshold {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 0.0625rem dashed var(--chart-threshold);
+  pointer-events: none;
+}
+
+.ts-threshold-label {
+  position: absolute;
+  right: 0;
+  bottom: var(--s-1);
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ── Tooltip ────────────────────────────────────────────────────────────── */
+
+.ts-tooltip {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  padding: var(--s-2) var(--s-3);
+  border: 0.0625rem solid var(--border-strong);
+  border-radius: var(--r-1);
+  background: var(--bg-0);
+  box-shadow: var(--shadow-tooltip);
+  white-space: nowrap;
+  pointer-events: none;
+
+  &--above {
+    top: auto;
+    bottom: calc(100% + var(--s-2));
+  }
+}
+
+.ts-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  line-height: 1.125rem;
+}
+
+.ts-key {
+  width: 0.625rem;
+  height: 0;
+  border-top-width: 0.125rem;
+}
+
+.ts-tooltip-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.125rem;
+  color: var(--text);
+}
+
+.ts-tooltip-name {
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+.ts-tooltip-time {
+  margin-top: 0.125rem;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+/* ── Axes ───────────────────────────────────────────────────────────────── */
+
+.ts-y,
+.ts-x {
+  position: relative;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.625rem;
+  line-height: 1;
+  color: var(--muted);
+
+  span {
+    position: absolute;
+    white-space: nowrap;
+  }
+}
+
+.ts-y span {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.ts-x {
+  height: 0.875rem;
+
+  span {
+    top: 0;
+    transform: translateX(-50%);
+
+    &[data-align='end'] {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+/* Placeholder with the chart's height, so a card does not reflow when its
+   history arrives. */
+.ts-nodata {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 0.0625rem dashed var(--border);
+  border-radius: var(--r-1);
+}

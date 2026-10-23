@@ -3,24 +3,13 @@
  * Licensed under Apache-2.0 with Commons Clause and Attribution/Naming Clause
  */
 
-import React, { cloneElement, isValidElement, useCallback, useEffect, useId, useRef, useState } from 'react';
+import React, { cloneElement, isValidElement, useCallback, useId, useRef, useState } from 'react';
 import { fetchWithCsrf } from '../services/api.js';
-import { normalizePm2Number } from '../services/deployment.js';
+import { deriveAppName, normalizePm2Number, planDeploy, pm2Summary } from '../services/deployment.js';
 import { useDialogFocus } from '../services/dialog.js';
 import KeyValueList from './KeyValueList.jsx';
-import { CheckCircle, WarningCircle, X } from './Icon.jsx';
-
-// All PM2 ecosystem stages that may appear in progress messages.
-const ALL_STAGES = ['pre_setup', 'clone', 'install', 'build', 'post_setup', 'start'];
-
-const STAGE_LABELS = {
-  pre_setup: 'Pre-setup',
-  clone: 'Clone',
-  install: 'Install',
-  build: 'Build',
-  post_setup: 'Post-setup',
-  start: 'Start',
-};
+import { StepList } from './DeployPanel.jsx';
+import { ArrowClockwise, CaretRight, RocketLaunch, WarningCircle, X } from './Icon.jsx';
 
 /** Default branch-watch poll interval in minutes, mirroring the backend default. */
 const DEFAULT_WATCH_INTERVAL_MINUTES = 5;
@@ -57,24 +46,42 @@ const DEFAULT_PM2_OPTIONS = {
 // Shared sub-components ──────────────────────────────────────────────────────
 
 /**
- * A collapsible group of optional fields.
- *
- * The form used to be an eight-step wizard with prev/next pagination and a
- * "1 of 8" counter, even though six of those steps were entirely optional and
- * most deployments only need three fields. Everything is now on one page, with
- * the optional groups folded away until they are wanted.
+ * One row of the Options list: a disclosure whose summary states the current
+ * value, so the form can be read at a glance without opening anything.
  *
  * @param {{ title: string, summary: string, defaultOpen?: boolean, children: React.ReactNode }} props
  */
-function Fieldset({ title, summary, defaultOpen = false, children }) {
+function Option({ title, summary, defaultOpen = false, children }) {
   return (
-    <details className="deploy-fieldset" open={defaultOpen}>
+    <details className="deploy-option" open={defaultOpen}>
       <summary>
-        <span className="deploy-fieldset-title">{title}</span>
-        <span className="deploy-fieldset-summary">{summary}</span>
+        <CaretRight size={12} className="deploy-option-caret" />
+        <span className="deploy-option-title">{title}</span>
+        <span className="deploy-option-summary">{summary}</span>
       </summary>
-      <div className="deploy-fieldset-body">{children}</div>
+      <div className="deploy-option-body">{children}</div>
     </details>
+  );
+}
+
+/**
+ * A numbered section of the form.
+ *
+ * @param {{ number: number, title: string, note?: string, quiet?: boolean, children: React.ReactNode }} props -
+ *   `quiet` draws the number in neutral colours, for the optional section.
+ */
+function Section({ number, title, note, quiet = false, children }) {
+  return (
+    <fieldset className="deploy-section">
+      <legend>
+        <span className="deploy-section-number" data-quiet={quiet}>
+          {number}
+        </span>
+        {title}
+        {note && <span className="deploy-section-note">{note}</span>}
+      </legend>
+      {children}
+    </fieldset>
   );
 }
 
@@ -148,36 +155,7 @@ function Toggle({ label, hint, checked, onChange }) {
   );
 }
 
-// Stage pill bar ─────────────────────────────────────────────────────────────
-
-/**
- * Renders the stage progress pills, hiding stages that were skipped.
- *
- * @param {{ visibleStages: string[], currentStage: string, status: string }} props
- */
-function StagePillBar({ visibleStages, currentStage, status }) {
-  const pillState = (stage) => {
-    const idx = visibleStages.indexOf(stage);
-    const curIdx = visibleStages.indexOf(currentStage);
-    if (currentStage === 'error') return idx <= curIdx ? ' is-error' : '';
-    if (currentStage === 'done') return ' is-done';
-    if (idx < curIdx) return ' is-done';
-    if (idx === curIdx) return status === 'error' ? ' is-error' : ' is-active';
-    return '';
-  };
-
-  return (
-    <ol className="deploy-stages">
-      {visibleStages.map((stage) => (
-        <li key={stage} className={`deploy-stage${pillState(stage)}`}>
-          {STAGE_LABELS[stage]}
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-// View A: Deploy form ────────────────────────────────────────────────────────
+// Deploy form ─────────────────────────────────────────────────────────────────
 
 /**
  * Convert a stored env_vars object to an array of {key, value} rows for the form.
@@ -209,23 +187,69 @@ function pm2OptsFromStored(opts) {
 }
 
 /**
- * The deployment configuration form.
+ * The steps the preview column lists, built from the live form state.
+ *
+ * @param {object} draft - The form state in the shape of a deployment record.
+ * @param {{ firstDeploy: boolean, name: string }} opts - `firstDeploy` is true
+ *   for a new deployment and for one that never deployed successfully, since
+ *   the runner clones whenever the deploy folder holds no repository yet.
+ * @returns {{ stage: string, title: string, skipped: boolean, code: string, note: string }[]}
+ */
+function previewSteps(draft, { firstDeploy, name }) {
+  return planDeploy(draft, { firstDeploy })
+    .filter((step) => ['clone', 'install', 'build', 'start'].includes(step.stage))
+    .map((step) => {
+      let note = '';
+      if (step.stage === 'clone' && !firstDeploy) note = 'Untracked files such as .env stay';
+      if (step.stage === 'install' && step.skipped) note = 'Skipped';
+      if (step.stage === 'build' && step.skipped) note = 'Skipped, no build command';
+      if (step.stage === 'start') note = `as ${name}, ${pm2Summary(draft.pm2_options)}`;
+      return { ...step, note };
+    });
+}
+
+/**
+ * Deploy modal: the configuration form for a new deployment or for editing
+ * one, with a preview of what the deployment will run next to it. The
+ * deployment's progress is not shown here; it runs in the Deploy tab.
  *
  * When `editingDeployment` is provided the form pre-fills with existing values,
  * the app name becomes read-only, and saving issues a PUT instead of a POST.
  *
+ * For a new deployment the app name follows the repository URL until the user
+ * types in it. The preview re-renders on every keystroke from the form state,
+ * not from the saved record.
+ *
  * @param {{
+ *   onClose: () => void,
  *   onCsrfRefresh: () => Promise<string>,
- *   onDeployStarted: (id: string) => void,
+ *   onDeployStarted: (deploymentId: string) => void,
  *   editingDeployment?: object | null,
  *   onEditSaved?: () => Promise<void>,
  *   onSaveAndRedeploy?: (deploymentId: string) => Promise<void>,
- * }} props
+ *   deployBaseDir?: string,
+ * }} props - `deployBaseDir` is the absolute folder new deployments are
+ *   cloned into, from the session config.
  */
-function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditSaved, onSaveAndRedeploy }) {
+export default function DeployModal({
+  onClose,
+  onCsrfRefresh,
+  onDeployStarted,
+  editingDeployment,
+  onEditSaved,
+  onSaveAndRedeploy,
+  deployBaseDir,
+}) {
   const isEdit = Boolean(editingDeployment);
+  /** Whether the next run clones: a new deployment, or one that never deployed successfully. */
+  const firstDeploy = !isEdit || editingDeployment.last_deployed_at == null;
+  const modalRef = useRef(null);
+  const titleId = useId();
+  useDialogFocus(modalRef, onClose);
 
   const [appName, setAppName] = useState(() => editingDeployment?.pm2_name ?? '');
+  /** False while the app name still follows the repository URL. */
+  const [appNameTouched, setAppNameTouched] = useState(isEdit);
   const [repoUrl, setRepoUrl] = useState(() => editingDeployment?.repo_url ?? '');
   const [branch, setBranch] = useState(() => editingDeployment?.branch ?? 'main');
   const [startScript, setStartScript] = useState(() => editingDeployment?.start_script ?? 'index.js');
@@ -257,6 +281,11 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
   const updateEnvVar = (i, field, val) =>
     setEnvVars((prev) => prev.map((row, idx) => (idx === i ? { ...row, [field]: val } : row)));
 
+  const name = appNameTouched ? appName : deriveAppName(repoUrl);
+  const shownName = name.trim() || 'my-app';
+  const envCount = envVars.filter((v) => v.key.trim()).length;
+  const fullInstallCmd = installArgs.trim() ? `${installCmd} ${installArgs.trim()}` : installCmd;
+
   /** Build the shared payload object from current form state. */
   const buildPayload = useCallback(() => {
     const envVarsObj = {};
@@ -282,7 +311,7 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
       repoUrl: repoUrl.trim(),
       branch: branch.trim() || 'main',
       startScript: startScript.trim() || 'index.js',
-      installCmd: installArgs.trim() ? `${installCmd} ${installArgs.trim()}` : installCmd,
+      installCmd: fullInstallCmd,
       buildCmd: buildCmd.trim(),
       preSetupScript: preSetupScript.trim(),
       postSetupScript: postSetupScript.trim(),
@@ -298,8 +327,7 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
     repoUrl,
     branch,
     startScript,
-    installCmd,
-    installArgs,
+    fullInstallCmd,
     buildCmd,
     preSetupScript,
     postSetupScript,
@@ -324,28 +352,28 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
           });
           if (onEditSaved) await onEditSaved();
         } else {
-          const payload = buildPayload();
           const result = await fetchWithCsrf('/api/deployments', {
             onCsrfRefresh,
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ appName: appName.trim(), ...payload }),
+            body: JSON.stringify({ appName: name.trim(), ...buildPayload() }),
           });
-          onDeployStarted(result.deploymentId);
+          await onDeployStarted(result.deploymentId);
         }
       } catch (err) {
         setError(err.message);
         setSubmitting(false);
       }
     },
-    [isEdit, editingDeployment, appName, buildPayload, onCsrfRefresh, onDeployStarted, onEditSaved],
+    [isEdit, editingDeployment, name, buildPayload, onCsrfRefresh, onDeployStarted, onEditSaved],
   );
 
   /**
-   * Save current config (PUT) then hand off to parent to trigger a redeploy.
-   * Only available in edit mode.
+   * Save current config (PUT) then hand off to the parent to trigger a
+   * redeploy. Only available in edit mode.
    */
   const onRedeployClick = useCallback(async () => {
+    if (!modalRef.current?.querySelector('form')?.reportValidity()) return;
     setError('');
     setSubmitting(true);
     try {
@@ -362,634 +390,509 @@ function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditS
     }
   }, [editingDeployment, onCsrfRefresh, buildPayload, onSaveAndRedeploy]);
 
-  return (
-    <>
-      <form id="deploy-form" className="deploy-body" onSubmit={onSubmit}>
-        {/* ── Required ─────────────────────────────────────────────────── */}
-        <section className="deploy-required">
-          <p className="hint">
-            Hawkeye clones the repository into the deploy base directory and starts it under PM2. On a redeploy it
-            fetches the branch and checks it out instead of cloning again.
-          </p>
+  const draft = {
+    repo_url: repoUrl.trim(),
+    branch: branch.trim() || 'main',
+    deploy_path: isEdit ? editingDeployment.deploy_path : `${deployBaseDir ?? '<deploy base folder>'}/${shownName}`,
+    install_cmd: fullInstallCmd,
+    build_cmd: buildCmd,
+    start_script: startScript.trim() || 'index.js',
+    pm2_options: pm2Opts,
+  };
 
-          <div className="deploy-two-col">
-            <Field
-              label="App name"
-              required={!isEdit}
-              hint={
-                isEdit
-                  ? 'Tied to the deploy path, so it cannot change after the first deployment.'
-                  : 'PM2 process name, and the directory name under the deploy base path.'
-              }
-            >
-              <input
-                className="input"
-                type="text"
-                required={!isEdit}
-                placeholder="my-api"
-                value={appName}
-                readOnly={isEdit}
-                onChange={isEdit ? undefined : (e) => setAppName(e.target.value)}
-              />
-            </Field>
-            <Field label="Branch" hint="Cloned and pulled from on each deploy.">
-              <input
-                className="input"
-                type="text"
-                placeholder="main"
-                value={branch}
-                onChange={(e) => setBranch(e.target.value)}
-              />
-            </Field>
-          </div>
-
-          <Field label="Repository URL" required hint="HTTPS or SSH. Private repos need a key on the server.">
-            <input
-              className="input"
-              type="text"
-              required
-              placeholder="https://github.com/owner/repo"
-              value={repoUrl}
-              onChange={(e) => setRepoUrl(e.target.value)}
-            />
-          </Field>
-
-          <Field label="Start script" required hint="Entry point relative to the repo root.">
-            <input
-              className="input"
-              type="text"
-              required
-              placeholder="index.js"
-              value={startScript}
-              onChange={(e) => setStartScript(e.target.value)}
-            />
-          </Field>
-        </section>
-
-        {/* ── Optional ─────────────────────────────────────────────────── */}
-        <Fieldset title="Install and build" summary={`${installCmd}${buildCmd ? `, ${buildCmd}` : ''}`}>
-          <Field label="Install command" hint="Run after cloning to install dependencies.">
-            <select className="select" value={installCmd} onChange={(e) => setInstallCmd(e.target.value)}>
-              <option value="npm install">npm install</option>
-              <option value="npm ci">npm ci</option>
-              <option value="yarn">yarn</option>
-              <option value="yarn install">yarn install</option>
-              <option value="pnpm install">pnpm install</option>
-              <option value="skip">Skip installing</option>
-            </select>
-          </Field>
-          {installCmd !== 'skip' && (
-            <Field label="Extra install flags" hint="Appended to the install command.">
-              <input
-                className="input"
-                type="text"
-                placeholder="--prod"
-                value={installArgs}
-                onChange={(e) => setInstallArgs(e.target.value)}
-              />
-            </Field>
-          )}
-          <Field label="Build command" hint="Optional step after installing. Leave blank to skip.">
-            <input
-              className="input"
-              type="text"
-              placeholder="npm run build"
-              value={buildCmd}
-              onChange={(e) => setBuildCmd(e.target.value)}
-            />
-          </Field>
-          <Field
-            label="Pre-setup script"
-            hint="Shell script run in the deploy base directory before cloning. Use it to check that required tools exist."
-          >
-            <textarea
-              className="textarea"
-              rows={3}
-              placeholder={'#!/bin/sh\nwhich ffmpeg || exit 1'}
-              value={preSetupScript}
-              onChange={(e) => setPreSetupScript(e.target.value)}
-            />
-          </Field>
-          <Field
-            label="Post-setup script"
-            hint="Shell script run inside the repo after building and before PM2 starts. Use it for migrations."
-          >
-            <textarea
-              className="textarea"
-              rows={3}
-              placeholder={'#!/bin/sh\nnode scripts/migrate.js'}
-              value={postSetupScript}
-              onChange={(e) => setPostSetupScript(e.target.value)}
-            />
-          </Field>
-        </Fieldset>
-
-        <Fieldset title="Redeploy" summary={discardLocalChanges ? 'Discards local changes' : 'Asks first'}>
-          <Toggle
-            label="Discard local changes without asking"
-            hint="When a redeploy finds modified tracked files in the deploy directory, it runs git reset --hard before updating instead of pausing to ask. Untracked files are kept."
-            checked={discardLocalChanges}
-            onChange={setDiscardLocalChanges}
-          />
-        </Fieldset>
-
-        <Fieldset
-          title="Auto-deploy"
-          summary={watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || 'main'}` : 'Off'}
-        >
-          <Toggle
-            label="Deploy automatically when the branch gets new commits"
-            hint="Hawkeye polls the remote branch and runs the same redeploy it runs when you click Redeploy. Local changes in the deploy directory are discarded without asking, since nobody is there to confirm."
-            checked={watchEnabled}
-            onChange={setWatchEnabled}
-          />
-          {watchEnabled && (
-            <Field label="Check every" hint="Minutes between polls, 1 to 1440.">
-              <input
-                className="input"
-                type="number"
-                min={1}
-                max={1440}
-                value={watchIntervalMinutes}
-                onChange={(e) => setWatchIntervalMinutes(e.target.value)}
-              />
-            </Field>
-          )}
-        </Fieldset>
-
-        <Fieldset
-          title="Environment"
-          summary={
-            envVars.filter((v) => v.key.trim()).length
-              ? `${envVars.filter((v) => v.key.trim()).length} variable(s)`
-              : 'None set'
-          }
-        >
-          <Field
-            label="Env file"
-            hint="Path to a .env file, relative to the repo root or absolute on the server. Read on every deploy."
-          >
-            <input
-              className="input"
-              type="text"
-              placeholder=".env.production"
-              value={pm2Opts.env_file}
-              onChange={(e) => setOpt('env_file', e.target.value)}
-            />
-          </Field>
-          <KeyValueList
-            label="Variables"
-            hint="Set here, these override anything loaded from the env file above."
-            rows={envVars}
-            keyPlaceholder="KEY"
-            valuePlaceholder="value"
-            itemLabel="Variable"
-            addLabel="Add variable"
-            onAdd={addEnvVar}
-            onUpdate={updateEnvVar}
-            onRemove={removeEnvVar}
-          />
-        </Fieldset>
-
-        <Fieldset
-          title="How PM2 runs it"
-          summary={`${pm2Opts.exec_mode}, ${pm2Opts.instances} instance${Number(pm2Opts.instances) === 1 ? '' : 's'}`}
-        >
-          <div className="deploy-two-col">
-            <Field label="Interpreter" hint="Leave as node for standard Node.js.">
-              <input
-                className="input"
-                type="text"
-                placeholder="node"
-                value={pm2Opts.interpreter}
-                onChange={(e) => setOpt('interpreter', e.target.value)}
-              />
-            </Field>
-            <Field label="Interpreter args" hint="Flags passed to Node before the script.">
-              <input
-                className="input"
-                type="text"
-                placeholder="--max-old-space-size=4096"
-                value={pm2Opts.interpreter_args}
-                onChange={(e) => setOpt('interpreter_args', e.target.value)}
-              />
-            </Field>
-          </div>
-          <Field label="Script args" hint="Arguments forwarded to your application.">
-            <input
-              className="input"
-              type="text"
-              placeholder="--port 8080"
-              value={pm2Opts.args}
-              onChange={(e) => setOpt('args', e.target.value)}
-            />
-          </Field>
-          <div className="deploy-two-col">
-            <Field label="Exec mode" hint="Cluster spawns several workers sharing one port.">
-              <select
-                className="select"
-                value={pm2Opts.exec_mode}
-                onChange={(e) => setOpt('exec_mode', e.target.value)}
-              >
-                <option value="fork">fork</option>
-                <option value="cluster">cluster</option>
-              </select>
-            </Field>
-            <Field label="Instances" hint="Use -1 for one per CPU core. Above 1 needs cluster mode.">
-              <input
-                className="input"
-                type="number"
-                min="-1"
-                value={pm2Opts.instances}
-                onChange={(e) => setOpt('instances', e.target.value)}
-              />
-            </Field>
-          </div>
-          <Toggle
-            label="Source map support"
-            hint="Stack traces from transpiled code point at the original source lines."
-            checked={pm2Opts.source_map_support}
-            onChange={(v) => setOpt('source_map_support', v)}
-          />
-        </Fieldset>
-
-        <Fieldset
-          title="Crash recovery"
-          summary={pm2Opts.autorestart ? `Auto-restart, max ${pm2Opts.max_restarts}` : 'Auto-restart off'}
-        >
-          <Toggle
-            label="Restart on crash"
-            hint="Restart whenever the process exits, whatever the exit code."
-            checked={pm2Opts.autorestart}
-            onChange={(v) => setOpt('autorestart', v)}
-          />
-          <div className="deploy-two-col">
-            <Field label="Restart above memory" hint="For example 200M or 1G. Blank disables this.">
-              <input
-                className="input"
-                type="text"
-                placeholder="200M"
-                value={pm2Opts.max_memory_restart}
-                onChange={(e) => setOpt('max_memory_restart', e.target.value)}
-              />
-            </Field>
-            <Field label="Max consecutive restarts" hint="After this many, PM2 marks the app errored.">
-              <input
-                className="input"
-                type="number"
-                min="0"
-                value={pm2Opts.max_restarts}
-                onChange={(e) => setOpt('max_restarts', e.target.value)}
-              />
-            </Field>
-          </div>
-          <div className="deploy-two-col">
-            <Field label="Delay between restarts (ms)" hint="Avoids hammering a downstream dependency.">
-              <input
-                className="input"
-                type="number"
-                min="0"
-                value={pm2Opts.restart_delay}
-                onChange={(e) => setOpt('restart_delay', e.target.value)}
-              />
-            </Field>
-            <Field label="Minimum uptime (ms)" hint="Below this, a start counts as a failure.">
-              <input
-                className="input"
-                type="number"
-                min="0"
-                placeholder="1000"
-                value={pm2Opts.min_uptime}
-                onChange={(e) => setOpt('min_uptime', e.target.value)}
-              />
-            </Field>
-          </div>
-          <div className="deploy-two-col">
-            <Field label="Shutdown grace period (ms)" hint="Time after SIGINT before PM2 sends SIGKILL.">
-              <input
-                className="input"
-                type="number"
-                min="0"
-                value={pm2Opts.kill_timeout}
-                onChange={(e) => setOpt('kill_timeout', e.target.value)}
-              />
-            </Field>
-            <Field label="Scheduled restart" hint="Cron expression. 0 2 * * * restarts nightly at 2 AM.">
-              <input
-                className="input"
-                type="text"
-                placeholder="0 2 * * *"
-                value={pm2Opts.cron_restart}
-                onChange={(e) => setOpt('cron_restart', e.target.value)}
-              />
-            </Field>
-          </div>
-          <Toggle
-            label="Wait for a ready signal"
-            hint="Startup finishes only once the app calls process.send('ready')."
-            checked={pm2Opts.wait_ready}
-            onChange={(v) => setOpt('wait_ready', v)}
-          />
-          {pm2Opts.wait_ready && (
-            <Field label="Ready signal timeout (ms)" hint="Past this, the start counts as failed.">
-              <input
-                className="input"
-                type="number"
-                min="0"
-                value={pm2Opts.listen_timeout}
-                onChange={(e) => setOpt('listen_timeout', e.target.value)}
-              />
-            </Field>
-          )}
-          <Toggle
-            label="Shut down with an IPC message"
-            hint="Sends process.send('shutdown') instead of SIGINT when stopping."
-            checked={pm2Opts.shutdown_with_message}
-            onChange={(v) => setOpt('shutdown_with_message', v)}
-          />
-        </Fieldset>
-
-        <Fieldset
-          title="Logging and file watching"
-          summary={`${pm2Opts.time ? 'Timestamps on' : 'Timestamps off'}, ${pm2Opts.watch ? 'watching' : 'not watching'}`}
-        >
-          <Toggle
-            label="Timestamp every log line"
-            hint="Required for Hawkeye to sort stdout and stderr chronologically. Keep this on."
-            checked={pm2Opts.time}
-            onChange={(v) => setOpt('time', v)}
-          />
-          <Toggle
-            label="Combine stdout and stderr"
-            hint="Writes both streams to one file."
-            checked={pm2Opts.combine_logs}
-            onChange={(v) => setOpt('combine_logs', v)}
-          />
-          <div className="deploy-two-col">
-            <Field label="Stdout file" hint="Blank uses the PM2 default.">
-              <input
-                className="input"
-                type="text"
-                placeholder="/var/log/my-app/out.log"
-                value={pm2Opts.out_file}
-                onChange={(e) => setOpt('out_file', e.target.value)}
-              />
-            </Field>
-            <Field label="Stderr file" hint="Blank uses the PM2 default.">
-              <input
-                className="input"
-                type="text"
-                placeholder="/var/log/my-app/error.log"
-                value={pm2Opts.error_file}
-                onChange={(e) => setOpt('error_file', e.target.value)}
-              />
-            </Field>
-          </div>
-          <Toggle
-            label="Restart on file changes"
-            hint="Useful in development, generally wrong in production."
-            checked={pm2Opts.watch}
-            onChange={(v) => setOpt('watch', v)}
-          />
-          {pm2Opts.watch && (
-            <Field label="Ignore these paths" hint="One pattern per line.">
-              <textarea
-                className="textarea"
-                rows={3}
-                value={pm2Opts.ignore_watch}
-                onChange={(e) => setOpt('ignore_watch', e.target.value)}
-              />
-            </Field>
-          )}
-        </Fieldset>
-      </form>
-
-      <div className="modal-footer">
-        {error && (
-          <span className="action-result" data-ok="false">
-            <WarningCircle size={13} weight="fill" />
-            <span>{error}</span>
-          </span>
-        )}
-        <span className="modal-footer-spacer" />
-        {/* In edit mode the user got here by asking to redeploy, so redeploying
-            is the primary action and saving without restarting is the aside. */}
-        <button type="submit" form="deploy-form" className={isEdit ? 'btn' : 'btn btn--primary'} disabled={submitting}>
-          {submitting ? (isEdit ? 'Saving' : 'Starting') : isEdit ? 'Save only' : 'Deploy'}
-        </button>
-        {isEdit && (
-          <button type="button" className="btn btn--primary" disabled={submitting} onClick={onRedeployClick}>
-            {submitting ? 'Saving' : 'Save and redeploy'}
-          </button>
-        )}
-      </div>
-    </>
-  );
-}
-
-// View B: Progress log ───────────────────────────────────────────────────────
-
-/**
- * Real-time deployment progress view.
- *
- * @param {{
- *   lines: { stage: string, line: string, status: string }[],
- *   currentStage: string | null,
- *   status: string | null,
- *   visibleStages: string[],
- *   onClose: () => void,
- *   confirmChanges: string | null,
- *   onConfirmDeploy: (confirmed: boolean) => void,
- * }} props
- */
-function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
-  const logRef = useRef(null);
-  const confirmRef = useRef(null);
-  const isDone = currentStage === 'done' && status === 'success';
-  const isError = status === 'error';
-  const isConfirming = status === 'confirm';
-
-  // Auto-scroll log as new lines arrive.
-  useEffect(() => {
-    const el = logRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [lines]);
-
-  // Scroll the confirm box into view whenever it appears.
-  useEffect(() => {
-    if (isConfirming && confirmRef.current) {
-      confirmRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  }, [isConfirming]);
-
-  return (
-    <>
-      <div className="deploy-body">
-        <StagePillBar visibleStages={visibleStages} currentStage={currentStage} status={status} />
-
-        {isConfirming && confirmChanges && (
-          <div className="deploy-confirm" ref={confirmRef}>
-            <p>
-              The deploy directory has local changes that the update would overwrite. Discard them to continue, or
-              cancel the deployment.
-            </p>
-            <pre className="code-preview">{confirmChanges}</pre>
-            <p className="hint">
-              To skip this question on future redeploys, turn on Discard local changes without asking under Redeploy in
-              the deployment settings.
-            </p>
-            <div className="deploy-confirm-actions">
-              <button type="button" className="btn btn--danger" onClick={() => onConfirmDeploy(true)}>
-                Discard and continue
-              </button>
-              <button type="button" className="btn" onClick={() => onConfirmDeploy(false)}>
-                Cancel deployment
-              </button>
-            </div>
-          </div>
-        )}
-
-        <div className="deploy-log" ref={logRef}>
-          {lines.map((entry, i) => (
-            <span key={i} className={entry.status === 'error' ? 'deploy-log-line--error' : undefined}>
-              {entry.line}
-            </span>
-          ))}
-          {!isDone && !isError && !isConfirming && <span className="deploy-log-waiting">Working</span>}
-        </div>
-
-        {isDone && (
-          <div className="action-result" data-ok="true">
-            <CheckCircle size={13} weight="fill" />
-            <span>Deployed. The process is running in PM2 and appears in the sidebar.</span>
-          </div>
-        )}
-        {isError && (
-          <div className="action-result" data-ok="false">
-            <WarningCircle size={13} weight="fill" />
-            <span>Deployment failed. Fix the cause above, then use Redeploy to retry.</span>
-          </div>
-        )}
-      </div>
-
-      {(isDone || isError) && (
-        <div className="modal-footer">
-          <span className="modal-footer-spacer" />
-          <button type="button" className="btn btn--primary" onClick={onClose}>
-            Close
-          </button>
-        </div>
-      )}
-    </>
-  );
-}
-
-// Main modal ─────────────────────────────────────────────────────────────────
-
-/**
- * Deploy modal.
- *
- * Shows a form for configuring a new deployment.  Once submitted, switches to
- * a real-time progress view that receives output via WebSocket messages
- * forwarded from the parent component.
- *
- * When `editingDeployment` is provided the modal opens in edit mode: the form
- * is pre-filled, the app name is read-only, and saving issues a PUT request.
- * No progress view is shown after a successful edit -- the modal closes immediately
- * via `onEditSaved`.
- *
- * While a deployment runs the modal can still be closed with its close button
- * or Escape: the deployment keeps running on the server and its outcome shows
- * in the process list. Only a backdrop click is ignored then, so a stray click
- * does not hide the progress.
- *
- * @param {{
- *   onClose: () => void,
- *   onDeployStarted: (deploymentId: string) => void,
- *   deployProgressLines: { stage: string, line: string, status: string }[],
- *   deployProgressStage: string | null,
- *   deployProgressStatus: string | null,
- *   activeDeploymentId: string | null,
- *   editingDeployment?: object | null,
- *   onEditSaved?: () => Promise<void>,
- *   onSaveAndRedeploy?: (deploymentId: string) => Promise<void>,
- *   onCsrfRefresh: () => Promise<string>,
- *   confirmChanges?: string | null,
- *   onConfirmDeploy?: (confirmed: boolean) => void,
- * }} props
- */
-export default function DeployModal({
-  onCsrfRefresh,
-  onClose,
-  onDeployStarted,
-  deployProgressLines,
-  deployProgressStage,
-  deployProgressStatus,
-  activeDeploymentId,
-  editingDeployment,
-  onEditSaved,
-  onSaveAndRedeploy,
-  confirmChanges,
-  onConfirmDeploy,
-}) {
-  const isEdit = Boolean(editingDeployment);
-  const showProgress = !isEdit && activeDeploymentId !== null;
-  const isDoneOrError = deployProgressStatus === 'success' || deployProgressStatus === 'error';
-  const isRunning = showProgress && !isDoneOrError;
-  const modalRef = useRef(null);
-  useDialogFocus(modalRef, onClose);
-
-  // Visible stages: always show clone/install/start; show pre/post/build only
-  // if they actually appear in the received progress lines.
-  const visibleStages = ALL_STAGES.filter(
-    (s) => s === 'clone' || s === 'install' || s === 'start' || (deployProgressLines || []).some((l) => l.stage === s),
-  );
-
-  let title = 'Deploy from Git';
-  if (isEdit) title = `Edit ${editingDeployment.pm2_name}`;
-  else if (showProgress) title = 'Deploying';
+  let setupSummary = 'None';
+  if (preSetupScript.trim() && postSetupScript.trim()) setupSummary = 'Pre-setup and post-setup';
+  else if (preSetupScript.trim()) setupSummary = 'Pre-setup';
+  else if (postSetupScript.trim()) setupSummary = 'Post-setup';
 
   return (
     <div
-      className="overlay"
-      onClick={(e) => e.target === e.currentTarget && !isRunning && onClose()}
+      className="overlay overlay--top"
+      onClick={(e) => e.target === e.currentTarget && !submitting && onClose()}
       role="dialog"
       aria-modal="true"
-      aria-label={title}
+      aria-labelledby={titleId}
     >
       <div ref={modalRef} className="modal modal--deploy" tabIndex={-1}>
-        <div className="modal-header">
-          <span className="modal-title">{title}</span>
-          <button
-            type="button"
-            className="btn btn--icon"
-            aria-label={isRunning ? 'Close, the deployment keeps running' : 'Close'}
-            title={isRunning ? 'Close. The deployment keeps running on the server.' : undefined}
-            onClick={onClose}
-          >
+        <div className="modal-header modal-header--stacked">
+          <div className="modal-heading">
+            <h2 id={titleId} className="modal-title">
+              {isEdit ? `Edit ${editingDeployment.pm2_name}` : 'New deployment'}
+            </h2>
+            <p className="hint">
+              {isEdit
+                ? 'Changes apply on the next deploy.'
+                : 'Hawkeye clones a Git repository onto this server and runs it under PM2.'}
+            </p>
+          </div>
+          <button type="button" className="btn btn--icon" aria-label="Close" onClick={onClose}>
             <X size={15} />
           </button>
         </div>
 
-        {showProgress ? (
-          <DeployProgress
-            lines={deployProgressLines}
-            currentStage={deployProgressStage}
-            status={deployProgressStatus}
-            visibleStages={visibleStages}
-            onClose={onClose}
-            confirmChanges={confirmChanges}
-            onConfirmDeploy={onConfirmDeploy}
-          />
-        ) : (
-          <DeployForm
-            onCsrfRefresh={onCsrfRefresh}
-            onDeployStarted={onDeployStarted}
-            editingDeployment={editingDeployment}
-            onEditSaved={onEditSaved}
-            onSaveAndRedeploy={onSaveAndRedeploy}
-          />
-        )}
+        <div className="deploy-modal-body">
+          <form id="deploy-form" className="deploy-form" onSubmit={onSubmit}>
+            <Section number={1} title="Where the code comes from">
+              <Field
+                label="Repository URL"
+                required
+                hint="HTTPS or SSH. A private repository needs a deploy key on this server."
+              >
+                <input
+                  className="input"
+                  type="text"
+                  required
+                  placeholder="https://github.com/owner/repo"
+                  value={repoUrl}
+                  onChange={(e) => setRepoUrl(e.target.value)}
+                />
+              </Field>
+              <div className="deploy-grid">
+                <Field label="Branch" hint="Fetched again on every redeploy.">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="main"
+                    value={branch}
+                    onChange={(e) => setBranch(e.target.value)}
+                  />
+                </Field>
+                <Field
+                  label="App name"
+                  required={!isEdit}
+                  hint={
+                    isEdit
+                      ? 'Tied to the deploy path, so it cannot change after the first deployment.'
+                      : 'Taken from the repository name. It becomes the PM2 process name and the folder name, and cannot change later.'
+                  }
+                >
+                  <input
+                    className="input"
+                    type="text"
+                    required={!isEdit}
+                    placeholder="my-api"
+                    value={name}
+                    readOnly={isEdit}
+                    onChange={
+                      isEdit
+                        ? undefined
+                        : (e) => {
+                            setAppNameTouched(true);
+                            setAppName(e.target.value);
+                          }
+                    }
+                  />
+                </Field>
+              </div>
+            </Section>
+
+            <Section number={2} title="How to build and start it">
+              <div className="deploy-grid">
+                <Field label="Install command">
+                  <select className="select" value={installCmd} onChange={(e) => setInstallCmd(e.target.value)}>
+                    <option value="npm install">npm install</option>
+                    <option value="npm ci">npm ci</option>
+                    <option value="yarn install">yarn install</option>
+                    <option value="yarn">yarn</option>
+                    <option value="pnpm install">pnpm install</option>
+                    <option value="skip">Skip installing</option>
+                  </select>
+                </Field>
+                {installCmd !== 'skip' && (
+                  <Field label="Extra install flags">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="--omit=dev"
+                      value={installArgs}
+                      onChange={(e) => setInstallArgs(e.target.value)}
+                    />
+                  </Field>
+                )}
+              </div>
+              <div className="deploy-grid">
+                <Field label="Build command" hint="Leave empty to skip the build step.">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="npm run build"
+                    value={buildCmd}
+                    onChange={(e) => setBuildCmd(e.target.value)}
+                  />
+                </Field>
+                <Field label="Start script" required hint="Entry point, relative to the repository root.">
+                  <input
+                    className="input"
+                    type="text"
+                    required
+                    placeholder="index.js"
+                    value={startScript}
+                    onChange={(e) => setStartScript(e.target.value)}
+                  />
+                </Field>
+              </div>
+            </Section>
+
+            <Section number={3} title="Options" note="The defaults work for most apps." quiet>
+              <div className="deploy-options">
+                <Option
+                  title="Environment"
+                  summary={envCount ? `${envCount} variable(s)` : 'None set'}
+                  defaultOpen={envCount > 0 || Boolean(pm2Opts.env_file)}
+                >
+                  <Field
+                    label="Env file"
+                    hint="Relative to the repository root, or an absolute path on this server. Read on every deploy."
+                  >
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder=".env.production"
+                      value={pm2Opts.env_file}
+                      onChange={(e) => setOpt('env_file', e.target.value)}
+                    />
+                  </Field>
+                  <KeyValueList
+                    label="Variables"
+                    hint="Variables set here override the same names from the env file."
+                    rows={envVars}
+                    keyPlaceholder="KEY"
+                    valuePlaceholder="value"
+                    itemLabel="Variable"
+                    addLabel="Add variable"
+                    onAdd={addEnvVar}
+                    onUpdate={updateEnvVar}
+                    onRemove={removeEnvVar}
+                  />
+                </Option>
+
+                <Option
+                  title="Auto-deploy"
+                  summary={watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || 'main'}` : 'Off'}
+                >
+                  <Toggle
+                    label="Deploy automatically when the branch gets new commits"
+                    hint="Hawkeye polls the remote branch and runs the same redeploy it runs when you click Redeploy now. Local changes in the deploy folder are discarded without asking, since nobody is there to confirm."
+                    checked={watchEnabled}
+                    onChange={setWatchEnabled}
+                  />
+                  {watchEnabled && (
+                    <Field label="Check every" hint="Minutes between polls, 1 to 1440.">
+                      <input
+                        className="input"
+                        type="number"
+                        min={1}
+                        max={1440}
+                        value={watchIntervalMinutes}
+                        onChange={(e) => setWatchIntervalMinutes(e.target.value)}
+                      />
+                    </Field>
+                  )}
+                </Option>
+
+                <Option
+                  title="Local changes on redeploy"
+                  summary={discardLocalChanges ? 'Discards local changes' : 'Asks first'}
+                >
+                  <Toggle
+                    label="Discard local changes without asking"
+                    hint="When a redeploy finds modified tracked files in the deploy folder, it runs git reset --hard before updating instead of pausing to ask. Untracked files are kept."
+                    checked={discardLocalChanges}
+                    onChange={setDiscardLocalChanges}
+                  />
+                </Option>
+
+                <Option title="Setup scripts" summary={setupSummary}>
+                  <Field
+                    label="Pre-setup script"
+                    hint="Shell script run in the deploy base folder before cloning. Use it to check that required tools exist."
+                  >
+                    <textarea
+                      className="textarea"
+                      rows={3}
+                      placeholder={'#!/bin/sh\nwhich ffmpeg || exit 1'}
+                      value={preSetupScript}
+                      onChange={(e) => setPreSetupScript(e.target.value)}
+                    />
+                  </Field>
+                  <Field
+                    label="Post-setup script"
+                    hint="Shell script run inside the repository after building and before PM2 starts. Use it for migrations."
+                  >
+                    <textarea
+                      className="textarea"
+                      rows={3}
+                      placeholder={'#!/bin/sh\nnode scripts/migrate.js'}
+                      value={postSetupScript}
+                      onChange={(e) => setPostSetupScript(e.target.value)}
+                    />
+                  </Field>
+                </Option>
+
+                <Option
+                  title="How PM2 runs it"
+                  summary={`${pm2Opts.exec_mode}, ${pm2Opts.instances} instance${Number(pm2Opts.instances) === 1 ? '' : 's'}`}
+                >
+                  <div className="deploy-grid">
+                    <Field label="Interpreter" hint="Leave as node for standard Node.js.">
+                      <input
+                        className="input"
+                        type="text"
+                        placeholder="node"
+                        value={pm2Opts.interpreter}
+                        onChange={(e) => setOpt('interpreter', e.target.value)}
+                      />
+                    </Field>
+                    <Field label="Interpreter args" hint="Flags passed to Node before the script.">
+                      <input
+                        className="input"
+                        type="text"
+                        placeholder="--max-old-space-size=4096"
+                        value={pm2Opts.interpreter_args}
+                        onChange={(e) => setOpt('interpreter_args', e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                  <Field label="Script args" hint="Arguments forwarded to your application.">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="--port 8080"
+                      value={pm2Opts.args}
+                      onChange={(e) => setOpt('args', e.target.value)}
+                    />
+                  </Field>
+                  <div className="deploy-grid">
+                    <Field label="Exec mode" hint="Cluster spawns several workers sharing one port.">
+                      <select
+                        className="select"
+                        value={pm2Opts.exec_mode}
+                        onChange={(e) => setOpt('exec_mode', e.target.value)}
+                      >
+                        <option value="fork">fork</option>
+                        <option value="cluster">cluster</option>
+                      </select>
+                    </Field>
+                    <Field label="Instances" hint="Use -1 for one per CPU core. Above 1 needs cluster mode.">
+                      <input
+                        className="input"
+                        type="number"
+                        min="-1"
+                        value={pm2Opts.instances}
+                        onChange={(e) => setOpt('instances', e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                  <Toggle
+                    label="Source map support"
+                    hint="Stack traces from transpiled code point at the original source lines."
+                    checked={pm2Opts.source_map_support}
+                    onChange={(v) => setOpt('source_map_support', v)}
+                  />
+                </Option>
+
+                <Option
+                  title="Crash recovery"
+                  summary={pm2Opts.autorestart ? `Auto-restart, max ${pm2Opts.max_restarts}` : 'Auto-restart off'}
+                >
+                  <Toggle
+                    label="Restart on crash"
+                    hint="Restart whenever the process exits, whatever the exit code."
+                    checked={pm2Opts.autorestart}
+                    onChange={(v) => setOpt('autorestart', v)}
+                  />
+                  <div className="deploy-grid">
+                    <Field label="Restart above memory" hint="For example 200M or 1G. Blank disables this.">
+                      <input
+                        className="input"
+                        type="text"
+                        placeholder="200M"
+                        value={pm2Opts.max_memory_restart}
+                        onChange={(e) => setOpt('max_memory_restart', e.target.value)}
+                      />
+                    </Field>
+                    <Field label="Max consecutive restarts" hint="After this many, PM2 marks the app errored.">
+                      <input
+                        className="input"
+                        type="number"
+                        min="0"
+                        value={pm2Opts.max_restarts}
+                        onChange={(e) => setOpt('max_restarts', e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                  <div className="deploy-grid">
+                    <Field label="Delay between restarts (ms)" hint="Avoids hammering a downstream dependency.">
+                      <input
+                        className="input"
+                        type="number"
+                        min="0"
+                        value={pm2Opts.restart_delay}
+                        onChange={(e) => setOpt('restart_delay', e.target.value)}
+                      />
+                    </Field>
+                    <Field label="Minimum uptime (ms)" hint="Below this, a start counts as a failure.">
+                      <input
+                        className="input"
+                        type="number"
+                        min="0"
+                        placeholder="1000"
+                        value={pm2Opts.min_uptime}
+                        onChange={(e) => setOpt('min_uptime', e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                  <div className="deploy-grid">
+                    <Field label="Shutdown grace period (ms)" hint="Time after SIGINT before PM2 sends SIGKILL.">
+                      <input
+                        className="input"
+                        type="number"
+                        min="0"
+                        value={pm2Opts.kill_timeout}
+                        onChange={(e) => setOpt('kill_timeout', e.target.value)}
+                      />
+                    </Field>
+                    <Field label="Scheduled restart" hint="Cron expression. 0 2 * * * restarts nightly at 2 AM.">
+                      <input
+                        className="input"
+                        type="text"
+                        placeholder="0 2 * * *"
+                        value={pm2Opts.cron_restart}
+                        onChange={(e) => setOpt('cron_restart', e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                  <Toggle
+                    label="Wait for a ready signal"
+                    hint="Startup finishes only once the app calls process.send('ready')."
+                    checked={pm2Opts.wait_ready}
+                    onChange={(v) => setOpt('wait_ready', v)}
+                  />
+                  {pm2Opts.wait_ready && (
+                    <Field label="Ready signal timeout (ms)" hint="Past this, the start counts as failed.">
+                      <input
+                        className="input"
+                        type="number"
+                        min="0"
+                        value={pm2Opts.listen_timeout}
+                        onChange={(e) => setOpt('listen_timeout', e.target.value)}
+                      />
+                    </Field>
+                  )}
+                  <Toggle
+                    label="Shut down with an IPC message"
+                    hint="Sends process.send('shutdown') instead of SIGINT when stopping."
+                    checked={pm2Opts.shutdown_with_message}
+                    onChange={(v) => setOpt('shutdown_with_message', v)}
+                  />
+                </Option>
+
+                <Option
+                  title="Logging and file watching"
+                  summary={`${pm2Opts.time ? 'Timestamps on' : 'Timestamps off'}, ${pm2Opts.watch ? 'watching' : 'not watching'}`}
+                >
+                  <Toggle
+                    label="Timestamp every log line"
+                    hint="Required for Hawkeye to sort stdout and stderr chronologically. Keep this on."
+                    checked={pm2Opts.time}
+                    onChange={(v) => setOpt('time', v)}
+                  />
+                  <Toggle
+                    label="Combine stdout and stderr"
+                    hint="Writes both streams to one file."
+                    checked={pm2Opts.combine_logs}
+                    onChange={(v) => setOpt('combine_logs', v)}
+                  />
+                  <div className="deploy-grid">
+                    <Field label="Stdout file" hint="Blank uses the PM2 default.">
+                      <input
+                        className="input"
+                        type="text"
+                        placeholder="/var/log/my-app/out.log"
+                        value={pm2Opts.out_file}
+                        onChange={(e) => setOpt('out_file', e.target.value)}
+                      />
+                    </Field>
+                    <Field label="Stderr file" hint="Blank uses the PM2 default.">
+                      <input
+                        className="input"
+                        type="text"
+                        placeholder="/var/log/my-app/error.log"
+                        value={pm2Opts.error_file}
+                        onChange={(e) => setOpt('error_file', e.target.value)}
+                      />
+                    </Field>
+                  </div>
+                  <Toggle
+                    label="Restart on file changes"
+                    hint="Useful in development, generally wrong in production."
+                    checked={pm2Opts.watch}
+                    onChange={(v) => setOpt('watch', v)}
+                  />
+                  {pm2Opts.watch && (
+                    <Field label="Ignore these paths" hint="One pattern per line.">
+                      <textarea
+                        className="textarea"
+                        rows={3}
+                        value={pm2Opts.ignore_watch}
+                        onChange={(e) => setOpt('ignore_watch', e.target.value)}
+                      />
+                    </Field>
+                  )}
+                </Option>
+              </div>
+            </Section>
+          </form>
+
+          <aside className="deploy-preview" aria-labelledby={`${titleId}-preview`}>
+            <div>
+              <h3 id={`${titleId}-preview`} className="deploy-preview-title">
+                {isEdit ? 'What a redeploy will do' : 'What Hawkeye will do'}
+              </h3>
+              <p className="hint">Updates as you fill in the form.</p>
+            </div>
+            <StepList steps={previewSteps(draft, { firstDeploy, name: shownName })} compact />
+            <p className="deploy-preview-after">
+              {isEdit
+                ? `${firstDeploy ? 'Save only stores the configuration.' : `Save keeps ${shownName} running as it is.`} Save and redeploy runs these steps now.`
+                : `After that, ${shownName} appears in the sidebar and its Deploy tab shows the progress.`}
+            </p>
+          </aside>
+        </div>
+
+        <div className="modal-footer">
+          {error ? (
+            <span className="action-result modal-footer-text" data-ok="false">
+              <WarningCircle size={13} weight="fill" />
+              <span>{error}</span>
+            </span>
+          ) : (
+            <p className="hint modal-footer-text">
+              {isEdit
+                ? 'Save does not touch the running process.'
+                : 'The deployment runs on the server. You can close this window once it has started.'}
+            </p>
+          )}
+          <button type="button" className="btn btn--quiet" onClick={onClose}>
+            Cancel
+          </button>
+          {isEdit && (
+            <button type="submit" form="deploy-form" className="btn" disabled={submitting}>
+              {submitting ? 'Saving' : 'Save'}
+            </button>
+          )}
+          {isEdit ? (
+            <button type="button" className="btn btn--primary" disabled={submitting} onClick={onRedeployClick}>
+              <ArrowClockwise size={13} />
+              {submitting ? 'Saving' : 'Save and redeploy'}
+            </button>
+          ) : (
+            <button type="submit" form="deploy-form" className="btn btn--primary" disabled={submitting}>
+              <RocketLaunch size={13} />
+              {submitting ? 'Starting' : 'Deploy'}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

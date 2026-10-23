@@ -184,21 +184,34 @@ When adding new backend functionality, add corresponding tests. The CI pipeline 
 The UI follows one path: **pick an object, then act on it.**
 
 ```
-App.jsx                 shell, all state and API calls, tab routing
-├── HostMetrics.jsx     host CPU/RAM/disk readout in the top bar
-├── ProcessList.jsx     sidebar, grouped running / not running / not deployed
+App.jsx                 shell, all state and API calls, selection and tab routing
+├── HostMetrics.jsx     host CPU/RAM/disk readout in the top bar, links to the Overview
+├── ProcessList.jsx     sidebar: Overview entry, running / not running groups
+├── Overview.jsx        home screen (nothing selected): attention list, host charts
 ├── ProcessHeader.jsx   name, status, live stat strip, Restart + Stop/Start
 │   └── (tabs)
 ├── LogStream.jsx       Logs tab
-├── MetricsPanel.jsx    Metrics tab - process, application (tx2) and host charts
-├── ManagePanel.jsx     Manage tab - monitoring, alerts, log level, actions, deploy, delete
+├── MetricsPanel.jsx    Metrics tab - process and application (tx2) charts
+├── DeployPanel.jsx     Deploy tab, run panel, and the page of a deployment without a process
+├── ManagePanel.jsx     Manage tab - monitoring, alerts, log level, actions, delete
 │   └── Actions.jsx     PM2 axm_actions, one row per action
+├── TimeSeriesChart.jsx the only chart: step lines, axes, crosshair, tooltip, keyboard
 ├── Settings.jsx        overlay, General + Alerting pages
-├── DeployModal.jsx     single-scroll deploy form and live progress view
+├── DeployModal.jsx     deploy form only (new and edit), with a live step preview
 ├── ConfirmButton.jsx   the app's only confirmation idiom
 ├── KeyValueList.jsx    key/value row editor (env vars, webhook headers and body)
 └── Icon.jsx            re-exports Phosphor icons plus shared defaults
 ```
+
+The selection is `null` (Overview), a PM2 process id or orphan name, or
+`deployment:<id>` for a deployment that has no PM2 process. A process has the
+tabs Logs, Metrics, Deploy (only when Hawkeye deployed it) and Manage; a
+deployment without a process only has Deploy. Deploy progress from the
+WebSocket is kept per deployment id in `deployRuns` (helpers in
+`src/services/deployment.js`, bounded to the five most recent deployments), so
+a run keeps going in the background while another process is open. The
+attention list of the Overview comes from `src/services/attention.js`, the
+chart math from `src/services/chart.js`.
 
 Conventions worth keeping:
 
@@ -207,8 +220,8 @@ Conventions worth keeping:
 - **Confirmations go through `ConfirmButton`.** No `window.confirm`, no
   bespoke inline yes/no markup. The only exceptions are prompts a button
   cannot open: questions the app raises on its own (unsaved Settings changes
-  on close, the server's local-changes question during a deploy) and the
-  custom-action form in `Actions.jsx`, which also collects parameters.
+  on close, and the server's local-changes question during a deploy, shown in
+  the run panel of the Deploy tab).
 - **Icons come from `Icon.jsx` only.** One family, one weight, set through
   `IconContext` in `App.jsx`. Never hand-roll SVG paths.
 - **Styling uses the tokens in `src/styles/variables.less`.** Two radii

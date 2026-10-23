@@ -8,8 +8,8 @@
   var __commonJS = (cb, mod) => function __require() {
     try {
       return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-    } catch (e34) {
-      throw mod = 0, e34;
+    } catch (e40) {
+      throw mod = 0, e40;
     }
   };
   var __export = (target, all2) => {
@@ -87,7 +87,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e34) {
+          } catch (e40) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -319,8 +319,8 @@
             invokeCallback = children;
             callback = callback(invokeCallback);
             var childKey = "" === nameSoFar ? "." + getElementKey(invokeCallback, 0) : nameSoFar;
-            isArrayImpl(callback) ? (escapedPrefix = "", null != childKey && (escapedPrefix = childKey.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c7) {
-              return c7;
+            isArrayImpl(callback) ? (escapedPrefix = "", null != childKey && (escapedPrefix = childKey.replace(userProvidedKeyEscapeRegex, "$&/") + "/"), mapIntoArray(callback, array, escapedPrefix, "", function(c9) {
+              return c9;
             })) : null != callback && (isValidElement2(callback) && (null != callback.key && (invokeCallback && invokeCallback.key === callback.key || checkKeyStringCoercion(callback.key)), escapedPrefix = cloneAndReplaceKey(
               callback,
               escapedPrefix + (null == callback.key || invokeCallback && invokeCallback.key === callback.key ? "" : ("" + callback.key).replace(
@@ -649,11 +649,11 @@
             );
           },
           count: function(children) {
-            var n8 = 0;
+            var n9 = 0;
             mapChildren(children, function() {
-              n8++;
+              n9++;
             });
-            return n8;
+            return n9;
           },
           toArray: function(children) {
             return mapChildren(children, function(child) {
@@ -1132,9 +1132,9 @@
           }
           return first;
         }
-        function compare(a23, b) {
-          var diff = a23.sortIndex - b.sortIndex;
-          return 0 !== diff ? diff : a23.id - b.id;
+        function compare(a28, b) {
+          var diff = a28.sortIndex - b.sortIndex;
+          return 0 !== diff ? diff : a28.id - b.id;
         }
         function advanceTimers(currentTime) {
           for (var timer = peek(timerQueue); null !== timer; ) {
@@ -1331,7 +1331,7 @@
             try {
               testStringCoercion(key);
               var JSCompiler_inline_result = false;
-            } catch (e34) {
+            } catch (e40) {
               JSCompiler_inline_result = true;
             }
             JSCompiler_inline_result && (console.error(
@@ -1367,7 +1367,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React19 = require_react(), Internals = {
+        var React21 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1385,7 +1385,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), REACT_OPTIMISTIC_KEY = /* @__PURE__ */ Symbol.for("react.optimistic_key"), ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), REACT_OPTIMISTIC_KEY = /* @__PURE__ */ Symbol.for("react.optimistic_key"), ReactSharedInternals = React21.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -1553,8 +1553,8 @@
         exports.requestFormReset = function(form) {
           Internals.d.r(form);
         };
-        exports.unstable_batchedUpdates = function(fn, a23) {
-          return fn(a23);
+        exports.unstable_batchedUpdates = function(fn, a28) {
+          return fn(a28);
         };
         exports.useFormState = function(action, initialState, permalink) {
           return resolveDispatcher().useFormState(action, initialState, permalink);
@@ -1714,55 +1714,55 @@
               throw Error("Unable to find node on an unmounted component.");
             return alternate !== fiber ? null : fiber;
           }
-          for (var a23 = fiber, b = alternate; ; ) {
-            var parentA = a23.return;
+          for (var a28 = fiber, b = alternate; ; ) {
+            var parentA = a28.return;
             if (null === parentA) break;
             var parentB = parentA.alternate;
             if (null === parentB) {
               b = parentA.return;
               if (null !== b) {
-                a23 = b;
+                a28 = b;
                 continue;
               }
               break;
             }
             if (parentA.child === parentB.child) {
               for (parentB = parentA.child; parentB; ) {
-                if (parentB === a23) return assertIsMounted(parentA), fiber;
+                if (parentB === a28) return assertIsMounted(parentA), fiber;
                 if (parentB === b) return assertIsMounted(parentA), alternate;
                 parentB = parentB.sibling;
               }
               throw Error("Unable to find node on an unmounted component.");
             }
-            if (a23.return !== b.return) a23 = parentA, b = parentB;
+            if (a28.return !== b.return) a28 = parentA, b = parentB;
             else {
               for (var didFindChild = false, _child = parentA.child; _child; ) {
-                if (_child === a23) {
+                if (_child === a28) {
                   didFindChild = true;
-                  a23 = parentA;
+                  a28 = parentA;
                   b = parentB;
                   break;
                 }
                 if (_child === b) {
                   didFindChild = true;
                   b = parentA;
-                  a23 = parentB;
+                  a28 = parentB;
                   break;
                 }
                 _child = _child.sibling;
               }
               if (!didFindChild) {
                 for (_child = parentB.child; _child; ) {
-                  if (_child === a23) {
+                  if (_child === a28) {
                     didFindChild = true;
-                    a23 = parentB;
+                    a28 = parentB;
                     b = parentA;
                     break;
                   }
                   if (_child === b) {
                     didFindChild = true;
                     b = parentB;
-                    a23 = parentA;
+                    a28 = parentA;
                     break;
                   }
                   _child = _child.sibling;
@@ -1773,14 +1773,14 @@
                   );
               }
             }
-            if (a23.alternate !== b)
+            if (a28.alternate !== b)
               throw Error(
                 "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue."
               );
           }
-          if (3 !== a23.tag)
+          if (3 !== a28.tag)
             throw Error("Unable to find node on an unmounted component.");
-          return a23.stateNode.current === a23 ? fiber : alternate;
+          return a28.stateNode.current === a28 ? fiber : alternate;
         }
         function findCurrentHostFiberImpl(node2) {
           var tag = node2.tag;
@@ -1792,25 +1792,25 @@
           }
           return null;
         }
-        function traverseFragmentInstancesAndTextInstances(fragmentFiber, fn, a23, b, c7) {
+        function traverseFragmentInstancesAndTextInstances(fragmentFiber, fn, a28, b, c9) {
           traverseVisibleInstancesAndTextInstances(
             fragmentFiber.child,
             false,
             fn,
-            a23,
+            a28,
             b,
-            c7
+            c9
           );
         }
-        function traverseVisibleInstancesAndTextInstances(child, searchWithinHosts, fn, a23, b, c7) {
+        function traverseVisibleInstancesAndTextInstances(child, searchWithinHosts, fn, a28, b, c9) {
           for (; null !== child; ) {
-            if ((5 === child.tag || 27 === child.tag || 6 === child.tag) && fn(child, a23, b, c7) || (22 !== child.tag || null === child.memoizedState) && (searchWithinHosts || 5 !== child.tag && 27 !== child.tag) && traverseVisibleInstancesAndTextInstances(
+            if ((5 === child.tag || 27 === child.tag || 6 === child.tag) && fn(child, a28, b, c9) || (22 !== child.tag || null === child.memoizedState) && (searchWithinHosts || 5 !== child.tag && 27 !== child.tag) && traverseVisibleInstancesAndTextInstances(
               child.child,
               searchWithinHosts,
               fn,
-              a23,
+              a28,
               b,
-              c7
+              c9
             ))
               return true;
             child = child.sibling;
@@ -2037,11 +2037,11 @@
           fiberStack[index$jscomp$0] = fiber;
           cursor.current = value;
         }
-        function requiredContext(c7) {
-          null === c7 && console.error(
+        function requiredContext(c9) {
+          null === c9 && console.error(
             "Expected host context to exist. This error is likely caused by a bug in React. Please file an issue."
           );
-          return c7;
+          return c9;
         }
         function pushHostContainer(fiber, nextRootInstance) {
           push2(rootInstanceStackCursor, nextRootInstance, fiber);
@@ -2453,7 +2453,7 @@
         function willCoercionThrow(value) {
           try {
             return testStringCoercion(value), false;
-          } catch (e34) {
+          } catch (e40) {
             return true;
           }
         }
@@ -3071,7 +3071,7 @@
           node2.defaultValue !== "" + value && (node2.defaultValue = "" + value);
         }
         function validateOptionProps(element3, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React19.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React21.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -4064,16 +4064,16 @@
             }
           }
         }
-        function batchedUpdates$1(fn, a23, b) {
-          if (isInsideEventHandler) return fn(a23, b);
+        function batchedUpdates$1(fn, a28, b) {
+          if (isInsideEventHandler) return fn(a28, b);
           isInsideEventHandler = true;
           try {
-            var JSCompiler_inline_result = fn(a23);
+            var JSCompiler_inline_result = fn(a28);
             return JSCompiler_inline_result;
           } finally {
             if (isInsideEventHandler = false, null !== restoreTarget || null !== restoreQueue) {
-              if (flushSyncWork$1(), restoreTarget && (a23 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a23), fn))
-                for (a23 = 0; a23 < fn.length; a23++) restoreStateOfTarget(fn[a23]);
+              if (flushSyncWork$1(), restoreTarget && (a28 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a28), fn))
+                for (a28 = 0; a28 < fn.length; a28++) restoreStateOfTarget(fn[a28]);
             }
           }
         }
@@ -6097,8 +6097,8 @@
               "Hooks are not supported inside an async component. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server."
             );
         }
-        function areSameKeyPath(a23, b) {
-          return a23 === b ? true : a23.tag !== b.tag || a23.type !== b.type || a23.key !== b.key || a23.index !== b.index || 3 === a23.tag && a23.stateNode !== b.stateNode || null === a23.return || null === b.return ? false : areSameKeyPath(a23.return, b.return);
+        function areSameKeyPath(a28, b) {
+          return a28 === b ? true : a28.tag !== b.tag || a28.type !== b.type || a28.key !== b.key || a28.index !== b.index || 3 === a28.tag && a28.stateNode !== b.stateNode || null === a28.return || null === b.return ? false : areSameKeyPath(a28.return, b.return);
         }
         function pushDebugInfo(debugInfo) {
           var previousDebugInfo = currentDebugInfo;
@@ -8561,14 +8561,14 @@
               1,
               badgeFormat + " " + error[0],
               badgeStyle,
-              pad + JSCompiler_inline_result + pad,
+              pad2 + JSCompiler_inline_result + pad2,
               resetStyle
             ) : error.splice(
               0,
               0,
               badgeFormat,
               badgeStyle,
-              pad + JSCompiler_inline_result + pad,
+              pad2 + JSCompiler_inline_result + pad2,
               resetStyle
             );
             error.unshift(console);
@@ -11083,11 +11083,11 @@
                   addendum = null === lastEffect ? " You returned null. If your effect does not require clean up, return undefined (or nothing)." : "function" === typeof lastEffect.then ? "\n\nIt looks like you wrote " + hookName + "(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:\n\n" + hookName + "(() => {\n  async function fetchData() {\n    // You can await here\n    const response = await MyAPI.getData(someId);\n    // ...\n  }\n  fetchData();\n}, [someId]); // Or [] if effect doesn't need props or state\n\nLearn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching" : " You returned: " + lastEffect;
                   runWithFiberInDEV(
                     finishedWork,
-                    function(n8, a23) {
+                    function(n9, a28) {
                       console.error(
                         "%s must not return anything besides a function, which is used for clean-up.%s",
-                        n8,
-                        a23
+                        n9,
+                        a28
                       );
                     },
                     hookName,
@@ -19692,8 +19692,8 @@
         function markRetryLaneImpl(fiber, retryLane) {
           fiber = fiber.memoizedState;
           if (null !== fiber && null !== fiber.dehydrated) {
-            var a23 = fiber.retryLane;
-            fiber.retryLane = 0 !== a23 && a23 < retryLane ? a23 : retryLane;
+            var a28 = fiber.retryLane;
+            fiber.retryLane = 0 !== a28 && a28 < retryLane ? a28 : retryLane;
           }
         }
         function markRetryLaneIfNotHydrated(fiber, retryLane) {
@@ -20219,11 +20219,11 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React19 = require_react(), ReactDOM = require_react_dom(), searchTarget = null, searchBoundary = null, assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React21 = require_react(), ReactDOM = require_react_dom(), searchTarget = null, searchBoundary = null, assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
-        var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React21.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21115,7 +21115,7 @@
             });
             window.addEventListener("test", options$jscomp$0, options$jscomp$0);
             window.removeEventListener("test", options$jscomp$0, options$jscomp$0);
-          } catch (e34) {
+          } catch (e40) {
             passiveBrowserEventsSupported = false;
           }
         var root3 = null, startText = null, fallbackText = null, EventInterface = {
@@ -23319,7 +23319,7 @@
           _currentValue: NotPendingTransition,
           _currentValue2: NotPendingTransition,
           _threadCount: 0
-        }, badgeFormat = "%c%s%c", badgeStyle = "background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px", resetStyle = "", pad = " ", bind = Function.prototype.bind;
+        }, badgeFormat = "%c%s%c", badgeStyle = "background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px", resetStyle = "", pad2 = " ", bind = Function.prototype.bind;
         var didWarnAboutNestedUpdates = false;
         var overrideHookState = null, overrideHookStateDeletePath = null, overrideHookStateRenamePath = null, overrideProps = null, overridePropsDeletePath = null, overridePropsRenamePath = null, scheduleUpdate = null, scheduleRetry = null, setErrorHandler = null, setSuspenseHandler = null;
         overrideHookState = function(fiber, id, path, value) {
@@ -23415,7 +23415,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React19.version;
+          var isomorphicReactPackageVersion = React21.version;
           if ("19.3.1" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.3.1\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -23627,11 +23627,11 @@
           match(WHITESPACE_REGEX);
         }
         function comments(rules) {
-          var c7;
+          var c9;
           rules = rules || [];
-          while (c7 = comment()) {
-            if (c7 !== false) {
-              rules.push(c7);
+          while (c9 = comment()) {
+            if (c9 !== false) {
+              rules.push(c9);
             }
           }
           return rules;
@@ -23853,7 +23853,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e34) {
+          } catch (e40) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -24009,18 +24009,18 @@
         function isValidElement2(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React19 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React21 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React21.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React19 = {
+        React21 = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React19.react_stack_bottom_frame.bind(
-          React19,
+        var unknownOwnerDebugStack = React21.react_stack_bottom_frame.bind(
+          React21,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -24168,11 +24168,11 @@
   });
 
   // src/main.jsx
-  var import_react23 = __toESM(require_react(), 1);
+  var import_react25 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // src/components/App.jsx
-  var import_react22 = __toESM(require_react(), 1);
+  var import_react24 = __toESM(require_react(), 1);
 
   // src/services/api.js
   async function fetchJson(url, options = {}) {
@@ -24317,7 +24317,7 @@
   }
 
   // src/components/ProcessList.jsx
-  var import_react5 = __toESM(require_react(), 1);
+  var import_react4 = __toESM(require_react(), 1);
 
   // src/services/format.js
   function formatBytes(bytes) {
@@ -24340,13 +24340,26 @@
     }
     return `${value.toFixed(digits)} ${units[i]}`;
   }
-  function formatDuration(ms) {
+  function formatBytesOf(used, total) {
+    const a28 = formatBytes(used);
+    const b = formatBytes(total);
+    const [aValue, aUnit] = a28.split(" ");
+    return aUnit === b.split(" ")[1] ? `${aValue} of ${b}` : `${a28} of ${b}`;
+  }
+  function parseMemorySize(value) {
+    if (value == null) return null;
+    const match = /^\s*(\d+(?:\.\d+)?)\s*([kmg])?b?\s*$/i.exec(String(value));
+    if (!match) return null;
+    const factor = { k: 1024, m: 1024 ** 2, g: 1024 ** 3 }[match[2]?.toLowerCase()] ?? 1;
+    const bytes = Math.round(Number(match[1]) * factor);
+    return bytes > 0 ? bytes : null;
+  }
+  function formatShortDuration(ms) {
     const days = ms / 864e5;
     if (Number.isInteger(days) && days >= 2) return `${days} days`;
     const hours = Math.round(ms / 36e5 * 10) / 10;
-    if (hours >= 1) return `${hours} ${hours === 1 ? "hour" : "hours"}`;
-    const minutes = Math.max(Math.round(ms / 6e4), 1);
-    return `${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
+    if (hours >= 1) return `${hours} h`;
+    return `${Math.max(Math.round(ms / 6e4), 1)} min`;
   }
   var metricNumberFormat = new Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 });
   function formatMetricValue(value, unit = null) {
@@ -24367,6 +24380,21 @@
   function formatDate(timestamp) {
     return timestamp ? new Date(timestamp).toLocaleString("en-GB") : "---";
   }
+  function formatDateTime(timestamp) {
+    const d = new Date(timestamp);
+    const date = d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+    const time = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    return `${date}, ${time}`;
+  }
+  function formatAgo(timestamp, now = Date.now()) {
+    const minutes = Math.floor(Math.max(now - timestamp, 0) / 6e4);
+    if (minutes < 1) return "just now";
+    if (minutes < 60) return `${minutes} min ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} h ago`;
+    const days = Math.floor(hours / 24);
+    return `${days} ${days === 1 ? "day" : "days"} ago`;
+  }
   function detectLogLevel(text5) {
     if (/"level"\s*:\s*"(?:error|fatal|critical)"/i.test(text5)) return "error";
     if (/"level"\s*:\s*"warn(?:ing)?"/i.test(text5)) return "warn";
@@ -24383,648 +24411,991 @@
     return "";
   }
 
-  // node_modules/@phosphor-icons/react/dist/defs/ArrowDown.es.js
+  // src/services/deployment.js
+  function normalizePm2Number(value, fallback) {
+    if (value === "" || value === null || value === void 0) return fallback;
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : fallback;
+  }
+  var DEPLOYMENT_KEY_PREFIX = "deployment:";
+  function deploymentKey(deploymentId) {
+    return `${DEPLOYMENT_KEY_PREFIX}${deploymentId}`;
+  }
+  function deploymentIdFromKey(key) {
+    return typeof key === "string" && key.startsWith(DEPLOYMENT_KEY_PREFIX) ? key.slice(DEPLOYMENT_KEY_PREFIX.length) : null;
+  }
+  function shortRepo(url) {
+    if (!url) return "";
+    const cleaned = url.replace(/\.git$/, "").replace(/^git@[^:]+:/, "").replace(/^https?:\/\/[^/]+\//, "");
+    const parts = cleaned.split("/").filter(Boolean);
+    return parts.length >= 2 ? parts.slice(-2).join("/") : cleaned;
+  }
+  function deriveAppName(repoUrl) {
+    const last = String(repoUrl || "").trim().replace(/\/+$/, "").split(/[/:]/).pop() ?? "";
+    const name2 = last.replace(/\.git$/i, "").toLowerCase().replace(/[^a-z0-9_-]/g, "-").replace(/^[^a-z0-9]+/, "").slice(0, 64);
+    if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(name2) || /^\d+$/.test(name2) || name2 === "all") return "";
+    return name2;
+  }
+  function offlineStatus(deployment) {
+    if (deployment.deploying) return "deploying";
+    return deployment.last_deployed_at == null ? "broken" : "offline";
+  }
+  function pm2Summary(pm2Options = {}) {
+    const mode = pm2Options.exec_mode || "fork";
+    const instances = normalizePm2Number(pm2Options.instances, 1);
+    const count = instances === -1 ? "one instance per core" : `${instances} instance${instances === 1 ? "" : "s"}`;
+    const limit = parseMemorySize(pm2Options.max_memory_restart);
+    return `${mode} mode, ${count}${limit ? `, restarts above ${formatBytes(limit)}` : ""}`;
+  }
+  function scriptHeadline(script) {
+    const lines = String(script || "").split("\n").map((l3) => l3.trim());
+    return lines.find((l3) => l3 && !l3.startsWith("#!")) ?? "";
+  }
+  var DEPLOY_STAGES = ["pre_setup", "clone", "install", "build", "post_setup", "start"];
+  function planDeploy(deployment, { firstDeploy, startsProcess = firstDeploy }) {
+    const branch = deployment.branch || "main";
+    const install = deployment.install_cmd ? deployment.install_cmd.trim() : "";
+    const build = deployment.build_cmd ? deployment.build_cmd.trim() : "";
+    const pre = deployment.pre_setup_script ? deployment.pre_setup_script.trim() : "";
+    const post2 = deployment.post_setup_script ? deployment.post_setup_script.trim() : "";
+    const start2 = deployment.start_script || "index.js";
+    return [
+      { stage: "pre_setup", title: "Pre-setup script", skipped: !pre, code: pre, command: scriptHeadline(pre) },
+      firstDeploy ? {
+        stage: "clone",
+        title: "Clone the repository",
+        skipped: false,
+        code: `git clone --branch ${branch} --depth 1 ${deployment.repo_url || "<repository>"} ${deployment.deploy_path || ""}`.trim(),
+        command: `git clone, branch ${branch}`
+      } : {
+        stage: "clone",
+        title: "Update the code",
+        skipped: false,
+        code: `git fetch --depth 1 origin ${branch}
+git checkout -B ${branch} FETCH_HEAD`,
+        command: `git fetch, checkout ${branch}`
+      },
+      {
+        stage: "install",
+        title: "Install dependencies",
+        skipped: !install || install === "skip",
+        code: install === "skip" ? "" : install,
+        command: install === "skip" ? "" : install
+      },
+      { stage: "build", title: "Build", skipped: !build, code: build, command: build },
+      { stage: "post_setup", title: "Post-setup script", skipped: !post2, code: post2, command: scriptHeadline(post2) },
+      {
+        stage: "start",
+        title: startsProcess ? "Start in PM2" : "Restart in PM2",
+        skipped: false,
+        code: start2,
+        command: start2
+      }
+    ];
+  }
+  var STEP_ANNOUNCEMENT = /^(Running |Fetching |Cloning |Restarting PM2 process |Starting PM2 process |Local changes |Discarding local changes)/;
+  function outputTone(entry) {
+    if (entry.stage === "error" || entry.status === "error") return "error";
+    if (entry.stage === "done") return "success";
+    if (/^Local changes detected/.test(entry.line)) return "confirm";
+    return STEP_ANNOUNCEMENT.test(entry.line) ? "default" : "detail";
+  }
+  function exitCodeOf(message) {
+    const match = /exited with code (\d+)/.exec(message || "");
+    return match ? Number(match[1]) : null;
+  }
+  function deriveRunState(steps, lines) {
+    const stageIndex = (stage) => steps.findIndex((s7) => s7.stage === stage);
+    const last = lines.at(-1);
+    const pending = steps.map(() => "pending");
+    if (!last) return { states: pending, outcome: "running", failedIndex: -1, error: "", exitCode: null };
+    if (last.stage === "done") {
+      return { states: steps.map(() => "done"), outcome: "success", failedIndex: -1, error: "", exitCode: null };
+    }
+    if (last.stage === "error") {
+      const lastReal = [...lines].reverse().find((l3) => stageIndex(l3.stage) !== -1);
+      const failedIndex = lastReal ? stageIndex(lastReal.stage) : 0;
+      const states2 = steps.map((_, i) => i < failedIndex ? "done" : i === failedIndex ? "fail" : "skip");
+      return { states: states2, outcome: "failed", failedIndex, error: last.line, exitCode: exitCodeOf(last.line) };
+    }
+    const current = stageIndex(last.stage);
+    const waiting = last.status === "confirm";
+    const states = steps.map((_, i) => {
+      if (i < current) return "done";
+      if (i === current) return waiting ? "wait" : "active";
+      return "pending";
+    });
+    return { states, outcome: waiting ? "confirm" : "running", failedIndex: -1, error: "", exitCode: null };
+  }
+  var RUN_LIMITS = { deployments: 5, events: 500 };
+  function emptyRun(now, firstDeploy, startsProcess) {
+    return {
+      lines: [],
+      stage: null,
+      status: "running",
+      confirmChanges: null,
+      firstDeploy,
+      startsProcess,
+      startedAt: now,
+      finishedAt: null,
+      dismissed: false
+    };
+  }
+  function putRun(runs, deploymentId, run) {
+    const next = { ...runs };
+    delete next[deploymentId];
+    next[deploymentId] = run;
+    const ids = Object.keys(next);
+    while (ids.length > RUN_LIMITS.deployments) delete next[ids.shift()];
+    return next;
+  }
+  function startRun(runs, deploymentId, { firstDeploy, startsProcess, now = Date.now() } = {}) {
+    return putRun(runs, deploymentId, emptyRun(now, firstDeploy, startsProcess));
+  }
+  function recordDeployEvent(runs, event, now = Date.now()) {
+    const existing = runs[event.deploymentId];
+    const run = existing && !existing.finishedAt ? existing : emptyRun(now, void 0);
+    const finished = event.stage === "done" || event.stage === "error";
+    return putRun(runs, event.deploymentId, {
+      ...run,
+      lines: appendBounded(
+        run.lines,
+        [{ stage: event.stage, line: event.line, status: event.status }],
+        RUN_LIMITS.events
+      ),
+      stage: event.stage,
+      status: event.status,
+      // A paused deployment waits for the user to approve discarding local
+      // changes; any later event clears the question.
+      confirmChanges: event.status === "confirm" ? event.line : null,
+      finishedAt: finished ? now : null,
+      dismissed: false
+    });
+  }
+  function isFirstDeploy(deployment, run) {
+    const cloneLine = run?.lines.find((l3) => l3.stage === "clone" && /^(Cloning |Fetching |Local changes )/.test(l3.line));
+    if (cloneLine) return cloneLine.line.startsWith("Cloning ");
+    return run?.firstDeploy ?? deployment.last_deployed_at == null;
+  }
+  function isRunActive(deployment, run) {
+    return Boolean(deployment?.deploying) || Boolean(run && !run.finishedAt);
+  }
+  function deployTabDot(deployment, run) {
+    if (!deployment) return null;
+    const waiting = run?.lines.at(-1)?.status === "confirm" && !run.finishedAt;
+    if (isRunActive(deployment, run) && !waiting) return { tone: "accent", label: "Deployment running" };
+    if (waiting) return { tone: "warning", label: "Deployment waiting for you" };
+    if (deployment.watch_last_error) return { tone: "warning", label: "Auto-deploy check failed" };
+    if (run?.lines.at(-1)?.stage === "error") return { tone: "critical", label: "Last deployment failed" };
+    if (deployment.last_deployed_at == null) return { tone: "critical", label: "Deployment failed" };
+    return null;
+  }
+
+  // node_modules/@phosphor-icons/react/dist/defs/ArrowClockwise.es.js
   var e = __toESM(require_react(), 1);
   var a = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M208.49,152.49l-72,72a12,12,0,0,1-17,0l-72-72a12,12,0,0,1,17-17L116,187V40a12,12,0,0,1,24,0V187l51.51-51.52a12,12,0,0,1,17,17Z" }))
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M244,56v48a12,12,0,0,1-12,12H184a12,12,0,1,1,0-24H201.1l-19-17.38c-.13-.12-.26-.24-.38-.37A76,76,0,1,0,127,204h1a75.53,75.53,0,0,0,52.15-20.72,12,12,0,0,1,16.49,17.45A99.45,99.45,0,0,1,128,228h-1.37A100,100,0,1,1,198.51,57.06L220,76.72V56a12,12,0,0,1,24,0Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M200,144l-72,72L56,144Z", opacity: "0.2" }), /* @__PURE__ */ e.createElement("path", { d: "M207.39,140.94A8,8,0,0,0,200,136H136V40a8,8,0,0,0-16,0v96H56a8,8,0,0,0-5.66,13.66l72,72a8,8,0,0,0,11.32,0l72-72A8,8,0,0,0,207.39,140.94ZM128,204.69,75.31,152H180.69Z" }))
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M216,128a88,88,0,1,1-88-88A88,88,0,0,1,216,128Z", opacity: "0.2" }), /* @__PURE__ */ e.createElement("path", { d: "M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16H211.4L184.81,71.64l-.25-.24a80,80,0,1,0-1.67,114.78,8,8,0,0,1,11,11.63A95.44,95.44,0,0,1,128,224h-1.32A96,96,0,1,1,195.75,60L224,85.8V56a8,8,0,1,1,16,0Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72A8,8,0,0,1,56,136h64V40a8,8,0,0,1,16,0v96h64a8,8,0,0,1,5.66,13.66Z" }))
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1-5.66-13.66l17-17-10.55-9.65-.25-.24a80,80,0,1,0-1.67,114.78,8,8,0,1,1,11,11.63A95.44,95.44,0,0,1,128,224h-1.32A96,96,0,1,1,195.75,60l10.93,10L226.34,50.3A8,8,0,0,1,240,56Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M204.24,148.24l-72,72a6,6,0,0,1-8.48,0l-72-72a6,6,0,0,1,8.48-8.48L122,201.51V40a6,6,0,0,1,12,0V201.51l61.76-61.75a6,6,0,0,1,8.48,8.48Z" }))
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M238,56v48a6,6,0,0,1-6,6H184a6,6,0,0,1,0-12h32.55l-30.38-27.8c-.06-.06-.12-.13-.19-.19a82,82,0,1,0-1.7,117.65,6,6,0,0,1,8.24,8.73A93.46,93.46,0,0,1,128,222h-1.28A94,94,0,1,1,194.37,61.4L226,90.35V56a6,6,0,1,1,12,0Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z" }))
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16H211.4L184.81,71.64l-.25-.24a80,80,0,1,0-1.67,114.78,8,8,0,0,1,11,11.63A95.44,95.44,0,0,1,128,224h-1.32A96,96,0,1,1,195.75,60L224,85.8V56a8,8,0,1,1,16,0Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M202.83,146.83l-72,72a4,4,0,0,1-5.66,0l-72-72a4,4,0,0,1,5.66-5.66L124,206.34V40a4,4,0,0,1,8,0V206.34l65.17-65.17a4,4,0,0,1,5.66,5.66Z" }))
+      /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("path", { d: "M236,56v48a4,4,0,0,1-4,4H184a4,4,0,0,1,0-8h37.7L187.53,68.69l-.13-.12a84,84,0,1,0-1.75,120.51,4,4,0,0,1,5.5,5.82A91.43,91.43,0,0,1,128,220h-1.26A92,92,0,1,1,193,62.84l35,32.05V56a4,4,0,1,1,8,0Z" }))
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/ChartLine.es.js
-  var a2 = __toESM(require_react(), 1);
-  var e2 = /* @__PURE__ */ new Map([
+  // node_modules/@phosphor-icons/react/dist/defs/ArrowDown.es.js
+  var e2 = __toESM(require_react(), 1);
+  var a2 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a2.createElement(a2.Fragment, null, /* @__PURE__ */ a2.createElement("path", { d: "M236,208a12,12,0,0,1-12,12H32a12,12,0,0,1-12-12V48a12,12,0,0,1,24,0v85.55L88.1,95a12,12,0,0,1,15.1-.57l56.22,42.16L216.1,87A12,12,0,1,1,231.9,105l-64,56a12,12,0,0,1-15.1.57L96.58,119.44,44,165.45V196H224A12,12,0,0,1,236,208Z" }))
+      /* @__PURE__ */ e2.createElement(e2.Fragment, null, /* @__PURE__ */ e2.createElement("path", { d: "M208.49,152.49l-72,72a12,12,0,0,1-17,0l-72-72a12,12,0,0,1,17-17L116,187V40a12,12,0,0,1,24,0V187l51.51-51.52a12,12,0,0,1,17,17Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a2.createElement(a2.Fragment, null, /* @__PURE__ */ a2.createElement("path", { d: "M224,64V208H32V48H208A16,16,0,0,1,224,64Z", opacity: "0.2" }), /* @__PURE__ */ a2.createElement("path", { d: "M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0v94.37L90.73,98a8,8,0,0,1,10.07-.38l58.81,44.11L218.73,90a8,8,0,1,1,10.54,12l-64,56a8,8,0,0,1-10.07.38L96.39,114.29,40,163.63V200H224A8,8,0,0,1,232,208Z" }))
+      /* @__PURE__ */ e2.createElement(e2.Fragment, null, /* @__PURE__ */ e2.createElement("path", { d: "M200,144l-72,72L56,144Z", opacity: "0.2" }), /* @__PURE__ */ e2.createElement("path", { d: "M207.39,140.94A8,8,0,0,0,200,136H136V40a8,8,0,0,0-16,0v96H56a8,8,0,0,0-5.66,13.66l72,72a8,8,0,0,0,11.32,0l72-72A8,8,0,0,0,207.39,140.94ZM128,204.69,75.31,152H180.69Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a2.createElement(a2.Fragment, null, /* @__PURE__ */ a2.createElement("path", { d: "M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM200,176a8,8,0,0,1,0,16H56a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v62.92l34.88-29.07a8,8,0,0,1,9.56-.51l43,28.69,43.41-36.18a8,8,0,0,1,10.24,12.3l-48,40a8,8,0,0,1-9.56.51l-43-28.69L64,155.75V176Z" }))
+      /* @__PURE__ */ e2.createElement(e2.Fragment, null, /* @__PURE__ */ e2.createElement("path", { d: "M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72A8,8,0,0,1,56,136h64V40a8,8,0,0,1,16,0v96h64a8,8,0,0,1,5.66,13.66Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a2.createElement(a2.Fragment, null, /* @__PURE__ */ a2.createElement("path", { d: "M230,208a6,6,0,0,1-6,6H32a6,6,0,0,1-6-6V48a6,6,0,0,1,12,0v98.78l54.05-47.3a6,6,0,0,1,7.55-.28l60.11,45.08,60.34-52.8a6,6,0,0,1,7.9,9l-64,56a6,6,0,0,1-7.55.28L96.29,111.72,38,162.72V202H224A6,6,0,0,1,230,208Z" }))
+      /* @__PURE__ */ e2.createElement(e2.Fragment, null, /* @__PURE__ */ e2.createElement("path", { d: "M204.24,148.24l-72,72a6,6,0,0,1-8.48,0l-72-72a6,6,0,0,1,8.48-8.48L122,201.51V40a6,6,0,0,1,12,0V201.51l61.76-61.75a6,6,0,0,1,8.48,8.48Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a2.createElement(a2.Fragment, null, /* @__PURE__ */ a2.createElement("path", { d: "M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0v94.37L90.73,98a8,8,0,0,1,10.07-.38l58.81,44.11L218.73,90a8,8,0,1,1,10.54,12l-64,56a8,8,0,0,1-10.07.38L96.39,114.29,40,163.63V200H224A8,8,0,0,1,232,208Z" }))
+      /* @__PURE__ */ e2.createElement(e2.Fragment, null, /* @__PURE__ */ e2.createElement("path", { d: "M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a2.createElement(a2.Fragment, null, /* @__PURE__ */ a2.createElement("path", { d: "M228,208a4,4,0,0,1-4,4H32a4,4,0,0,1-4-4V48a4,4,0,0,1,8,0V151.19L93.37,101a4,4,0,0,1,5-.19l61.41,46.05L221.37,93a4,4,0,0,1,5.26,6l-64,56a4,4,0,0,1-5,.19l-61.41-46L36,161.81V204H224A4,4,0,0,1,228,208Z" }))
+      /* @__PURE__ */ e2.createElement(e2.Fragment, null, /* @__PURE__ */ e2.createElement("path", { d: "M202.83,146.83l-72,72a4,4,0,0,1-5.66,0l-72-72a4,4,0,0,1,5.66-5.66L124,206.34V40a4,4,0,0,1,8,0V206.34l65.17-65.17a4,4,0,0,1,5.66,5.66Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/CaretRight.es.js
+  var e3 = __toESM(require_react(), 1);
+  var t = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M176,128,96,208V48Z", opacity: "0.2" }), /* @__PURE__ */ e3.createElement("path", { d: "M181.66,122.34l-80-80A8,8,0,0,0,88,48V208a8,8,0,0,0,13.66,5.66l80-80A8,8,0,0,0,181.66,122.34ZM104,188.69V67.31L164.69,128Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M181.66,133.66l-80,80A8,8,0,0,1,88,208V48a8,8,0,0,1,13.66-5.66l80,80A8,8,0,0,1,181.66,133.66Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M180.24,132.24l-80,80a6,6,0,0,1-8.48-8.48L167.51,128,91.76,52.24a6,6,0,0,1,8.48-8.48l80,80A6,6,0,0,1,180.24,132.24Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M178.83,130.83l-80,80a4,4,0,0,1-5.66-5.66L170.34,128,93.17,50.83a4,4,0,0,1,5.66-5.66l80,80A4,4,0,0,1,178.83,130.83Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Check.es.js
-  var e3 = __toESM(require_react(), 1);
+  var e4 = __toESM(require_react(), 1);
   var a3 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z" }))
+      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement(
+      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement(
         "path",
         {
           d: "M232,56V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e3.createElement("path", { d: "M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z" }))
+      ), /* @__PURE__ */ e4.createElement("path", { d: "M205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z" }))
+      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM205.66,85.66l-96,96a8,8,0,0,1-11.32,0l-40-40a8,8,0,0,1,11.32-11.32L104,164.69l90.34-90.35a8,8,0,0,1,11.32,11.32Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M228.24,76.24l-128,128a6,6,0,0,1-8.48,0l-56-56a6,6,0,0,1,8.48-8.48L96,191.51,219.76,67.76a6,6,0,0,1,8.48,8.48Z" }))
+      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M228.24,76.24l-128,128a6,6,0,0,1-8.48,0l-56-56a6,6,0,0,1,8.48-8.48L96,191.51,219.76,67.76a6,6,0,0,1,8.48,8.48Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z" }))
+      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e3.createElement(e3.Fragment, null, /* @__PURE__ */ e3.createElement("path", { d: "M226.83,74.83l-128,128a4,4,0,0,1-5.66,0l-56-56a4,4,0,0,1,5.66-5.66L96,194.34,221.17,69.17a4,4,0,1,1,5.66,5.66Z" }))
+      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M226.83,74.83l-128,128a4,4,0,0,1-5.66,0l-56-56a4,4,0,0,1,5.66-5.66L96,194.34,221.17,69.17a4,4,0,1,1,5.66,5.66Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/CheckCircle.es.js
-  var e4 = __toESM(require_react(), 1);
+  var e5 = __toESM(require_react(), 1);
   var a4 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M176.49,95.51a12,12,0,0,1,0,17l-56,56a12,12,0,0,1-17,0l-24-24a12,12,0,1,1,17-17L112,143l47.51-47.52A12,12,0,0,1,176.49,95.51ZM236,128A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Z" }))
+      /* @__PURE__ */ e5.createElement(e5.Fragment, null, /* @__PURE__ */ e5.createElement("path", { d: "M176.49,95.51a12,12,0,0,1,0,17l-56,56a12,12,0,0,1-17,0l-24-24a12,12,0,1,1,17-17L112,143l47.51-47.52A12,12,0,0,1,176.49,95.51ZM236,128A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e4.createElement("path", { d: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" }))
+      /* @__PURE__ */ e5.createElement(e5.Fragment, null, /* @__PURE__ */ e5.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e5.createElement("path", { d: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z" }))
+      /* @__PURE__ */ e5.createElement(e5.Fragment, null, /* @__PURE__ */ e5.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M172.24,99.76a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76ZM230,128A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z" }))
+      /* @__PURE__ */ e5.createElement(e5.Fragment, null, /* @__PURE__ */ e5.createElement("path", { d: "M172.24,99.76a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76ZM230,128A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" }))
+      /* @__PURE__ */ e5.createElement(e5.Fragment, null, /* @__PURE__ */ e5.createElement("path", { d: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e4.createElement(e4.Fragment, null, /* @__PURE__ */ e4.createElement("path", { d: "M170.83,101.17a4,4,0,0,1,0,5.66l-56,56a4,4,0,0,1-5.66,0l-24-24a4,4,0,0,1,5.66-5.66L112,154.34l53.17-53.17A4,4,0,0,1,170.83,101.17ZM228,128A100,100,0,1,1,128,28,100.11,100.11,0,0,1,228,128Zm-8,0a92,92,0,1,0-92,92A92.1,92.1,0,0,0,220,128Z" }))
+      /* @__PURE__ */ e5.createElement(e5.Fragment, null, /* @__PURE__ */ e5.createElement("path", { d: "M170.83,101.17a4,4,0,0,1,0,5.66l-56,56a4,4,0,0,1-5.66,0l-24-24a4,4,0,0,1,5.66-5.66L112,154.34l53.17-53.17A4,4,0,0,1,170.83,101.17ZM228,128A100,100,0,1,1,128,28,100.11,100.11,0,0,1,228,128Zm-8,0a92,92,0,1,0-92,92A92.1,92.1,0,0,0,220,128Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/CircleNotch.es.js
+  var e6 = __toESM(require_react(), 1);
+  var a5 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e6.createElement(e6.Fragment, null, /* @__PURE__ */ e6.createElement("path", { d: "M236,128a108,108,0,0,1-216,0c0-42.52,24.73-81.34,63-98.9A12,12,0,1,1,93,50.91C63.24,64.57,44,94.83,44,128a84,84,0,0,0,168,0c0-33.17-19.24-63.43-49-77.09A12,12,0,1,1,173,29.1C211.27,46.66,236,85.48,236,128Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e6.createElement(e6.Fragment, null, /* @__PURE__ */ e6.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e6.createElement("path", { d: "M232,128a104,104,0,0,1-208,0c0-41,23.81-78.36,60.66-95.27a8,8,0,0,1,6.68,14.54C60.15,61.59,40,93.27,40,128a88,88,0,0,0,176,0c0-34.73-20.15-66.41-51.34-80.73a8,8,0,0,1,6.68-14.54C208.19,49.64,232,87,232,128Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e6.createElement(e6.Fragment, null, /* @__PURE__ */ e6.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,176A72,72,0,0,1,92,65.64a8,8,0,0,1,8,13.85,56,56,0,1,0,56,0,8,8,0,0,1,8-13.85A72,72,0,0,1,128,200Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e6.createElement(e6.Fragment, null, /* @__PURE__ */ e6.createElement("path", { d: "M230,128a102,102,0,0,1-204,0c0-40.18,23.35-76.86,59.5-93.45a6,6,0,0,1,5,10.9C58.61,60.09,38,92.49,38,128a90,90,0,0,0,180,0c0-35.51-20.61-67.91-52.5-82.55a6,6,0,0,1,5-10.9C206.65,51.14,230,87.82,230,128Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e6.createElement(e6.Fragment, null, /* @__PURE__ */ e6.createElement("path", { d: "M232,128a104,104,0,0,1-208,0c0-41,23.81-78.36,60.66-95.27a8,8,0,0,1,6.68,14.54C60.15,61.59,40,93.27,40,128a88,88,0,0,0,176,0c0-34.73-20.15-66.41-51.34-80.73a8,8,0,0,1,6.68-14.54C208.19,49.64,232,87,232,128Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e6.createElement(e6.Fragment, null, /* @__PURE__ */ e6.createElement("path", { d: "M228,128a100,100,0,0,1-200,0c0-39.4,22.9-75.37,58.33-91.63a4,4,0,1,1,3.34,7.27C57.07,58.6,36,91.71,36,128a92,92,0,0,0,184,0c0-36.29-21.07-69.4-53.67-84.36a4,4,0,1,1,3.34-7.27C205.1,52.63,228,88.6,228,128Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Copy.es.js
-  var a5 = __toESM(require_react(), 1);
-  var e5 = /* @__PURE__ */ new Map([
+  var a6 = __toESM(require_react(), 1);
+  var e7 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a5.createElement(a5.Fragment, null, /* @__PURE__ */ a5.createElement("path", { d: "M216,28H88A12,12,0,0,0,76,40V76H40A12,12,0,0,0,28,88V216a12,12,0,0,0,12,12H168a12,12,0,0,0,12-12V180h36a12,12,0,0,0,12-12V40A12,12,0,0,0,216,28ZM156,204H52V100H156Zm48-48H180V88a12,12,0,0,0-12-12H100V52H204Z" }))
+      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M216,28H88A12,12,0,0,0,76,40V76H40A12,12,0,0,0,28,88V216a12,12,0,0,0,12,12H168a12,12,0,0,0,12-12V180h36a12,12,0,0,0,12-12V40A12,12,0,0,0,216,28ZM156,204H52V100H156Zm48-48H180V88a12,12,0,0,0-12-12H100V52H204Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a5.createElement(a5.Fragment, null, /* @__PURE__ */ a5.createElement("path", { d: "M216,40V168H168V88H88V40Z", opacity: "0.2" }), /* @__PURE__ */ a5.createElement("path", { d: "M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z" }))
+      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M216,40V168H168V88H88V40Z", opacity: "0.2" }), /* @__PURE__ */ a6.createElement("path", { d: "M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a5.createElement(a5.Fragment, null, /* @__PURE__ */ a5.createElement("path", { d: "M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32Zm-8,128H176V88a8,8,0,0,0-8-8H96V48H208Z" }))
+      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32Zm-8,128H176V88a8,8,0,0,0-8-8H96V48H208Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a5.createElement(a5.Fragment, null, /* @__PURE__ */ a5.createElement("path", { d: "M216,34H88a6,6,0,0,0-6,6V82H40a6,6,0,0,0-6,6V216a6,6,0,0,0,6,6H168a6,6,0,0,0,6-6V174h42a6,6,0,0,0,6-6V40A6,6,0,0,0,216,34ZM162,210H46V94H162Zm48-48H174V88a6,6,0,0,0-6-6H94V46H210Z" }))
+      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M216,34H88a6,6,0,0,0-6,6V82H40a6,6,0,0,0-6,6V216a6,6,0,0,0,6,6H168a6,6,0,0,0,6-6V174h42a6,6,0,0,0,6-6V40A6,6,0,0,0,216,34ZM162,210H46V94H162Zm48-48H174V88a6,6,0,0,0-6-6H94V46H210Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a5.createElement(a5.Fragment, null, /* @__PURE__ */ a5.createElement("path", { d: "M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z" }))
+      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a5.createElement(a5.Fragment, null, /* @__PURE__ */ a5.createElement("path", { d: "M216,36H88a4,4,0,0,0-4,4V84H40a4,4,0,0,0-4,4V216a4,4,0,0,0,4,4H168a4,4,0,0,0,4-4V172h44a4,4,0,0,0,4-4V40A4,4,0,0,0,216,36ZM164,212H44V92H164Zm48-48H172V88a4,4,0,0,0-4-4H92V44H212Z" }))
+      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M216,36H88a4,4,0,0,0-4,4V84H40a4,4,0,0,0-4,4V216a4,4,0,0,0,4,4H168a4,4,0,0,0,4-4V172h44a4,4,0,0,0,4-4V40A4,4,0,0,0,216,36ZM164,212H44V92H164Zm48-48H172V88a4,4,0,0,0-4-4H92V44H212Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/DownloadSimple.es.js
-  var a6 = __toESM(require_react(), 1);
-  var e6 = /* @__PURE__ */ new Map([
+  var a7 = __toESM(require_react(), 1);
+  var e8 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M228,144v64a12,12,0,0,1-12,12H40a12,12,0,0,1-12-12V144a12,12,0,0,1,24,0v52H204V144a12,12,0,0,1,24,0Zm-108.49,8.49a12,12,0,0,0,17,0l40-40a12,12,0,0,0-17-17L140,115V32a12,12,0,0,0-24,0v83L96.49,95.51a12,12,0,0,0-17,17Z" }))
+      /* @__PURE__ */ a7.createElement(a7.Fragment, null, /* @__PURE__ */ a7.createElement("path", { d: "M228,144v64a12,12,0,0,1-12,12H40a12,12,0,0,1-12-12V144a12,12,0,0,1,24,0v52H204V144a12,12,0,0,1,24,0Zm-108.49,8.49a12,12,0,0,0,17,0l40-40a12,12,0,0,0-17-17L140,115V32a12,12,0,0,0-24,0v83L96.49,95.51a12,12,0,0,0-17,17Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement(
+      /* @__PURE__ */ a7.createElement(a7.Fragment, null, /* @__PURE__ */ a7.createElement(
         "path",
         {
           d: "M216,48V208H40V48A16,16,0,0,1,56,32H200A16,16,0,0,1,216,48Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a6.createElement("path", { d: "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z" }))
+      ), /* @__PURE__ */ a7.createElement("path", { d: "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40A8,8,0,0,0,168,96H136V32a8,8,0,0,0-16,0V96H88a8,8,0,0,0-5.66,13.66Z" }))
+      /* @__PURE__ */ a7.createElement(a7.Fragment, null, /* @__PURE__ */ a7.createElement("path", { d: "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40A8,8,0,0,0,168,96H136V32a8,8,0,0,0-16,0V96H88a8,8,0,0,0-5.66,13.66Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M222,144v64a6,6,0,0,1-6,6H40a6,6,0,0,1-6-6V144a6,6,0,0,1,12,0v58H210V144a6,6,0,0,1,12,0Zm-98.24,4.24a6,6,0,0,0,8.48,0l40-40a6,6,0,0,0-8.48-8.48L134,129.51V32a6,6,0,0,0-12,0v97.51L92.24,99.76a6,6,0,0,0-8.48,8.48Z" }))
+      /* @__PURE__ */ a7.createElement(a7.Fragment, null, /* @__PURE__ */ a7.createElement("path", { d: "M222,144v64a6,6,0,0,1-6,6H40a6,6,0,0,1-6-6V144a6,6,0,0,1,12,0v58H210V144a6,6,0,0,1,12,0Zm-98.24,4.24a6,6,0,0,0,8.48,0l40-40a6,6,0,0,0-8.48-8.48L134,129.51V32a6,6,0,0,0-12,0v97.51L92.24,99.76a6,6,0,0,0-8.48,8.48Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z" }))
+      /* @__PURE__ */ a7.createElement(a7.Fragment, null, /* @__PURE__ */ a7.createElement("path", { d: "M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a6.createElement(a6.Fragment, null, /* @__PURE__ */ a6.createElement("path", { d: "M220,144v64a4,4,0,0,1-4,4H40a4,4,0,0,1-4-4V144a4,4,0,0,1,8,0v60H212V144a4,4,0,0,1,8,0Zm-94.83,2.83a4,4,0,0,0,5.66,0l40-40a4,4,0,1,0-5.66-5.66L132,134.34V32a4,4,0,0,0-8,0V134.34L90.83,101.17a4,4,0,0,0-5.66,5.66Z" }))
+      /* @__PURE__ */ a7.createElement(a7.Fragment, null, /* @__PURE__ */ a7.createElement("path", { d: "M220,144v64a4,4,0,0,1-4,4H40a4,4,0,0,1-4-4V144a4,4,0,0,1,8,0v60H212V144a4,4,0,0,1,8,0Zm-94.83,2.83a4,4,0,0,0,5.66,0l40-40a4,4,0,1,0-5.66-5.66L132,134.34V32a4,4,0,0,0-8,0V134.34L90.83,101.17a4,4,0,0,0-5.66,5.66Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Eye.es.js
-  var e7 = __toESM(require_react(), 1);
-  var a7 = /* @__PURE__ */ new Map([
+  var e9 = __toESM(require_react(), 1);
+  var a8 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e7.createElement(e7.Fragment, null, /* @__PURE__ */ e7.createElement("path", { d: "M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z" }))
+      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e7.createElement(e7.Fragment, null, /* @__PURE__ */ e7.createElement(
+      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement(
         "path",
         {
           d: "M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Zm0,112a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e7.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z" }))
+      ), /* @__PURE__ */ e9.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e7.createElement(e7.Fragment, null, /* @__PURE__ */ e7.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e7.createElement(e7.Fragment, null, /* @__PURE__ */ e7.createElement("path", { d: "M245.48,125.57c-.34-.78-8.66-19.23-27.24-37.81C201,70.54,171.38,50,128,50S55,70.54,37.76,87.76c-18.58,18.58-26.9,37-27.24,37.81a6,6,0,0,0,0,4.88c.34.77,8.66,19.22,27.24,37.8C55,185.47,84.62,206,128,206s73-20.53,90.24-37.75c18.58-18.58,26.9-37,27.24-37.8A6,6,0,0,0,245.48,125.57ZM128,194c-31.38,0-58.78-11.42-81.45-33.93A134.77,134.77,0,0,1,22.69,128,134.56,134.56,0,0,1,46.55,95.94C69.22,73.42,96.62,62,128,62s58.78,11.42,81.45,33.94A134.56,134.56,0,0,1,233.31,128C226.94,140.21,195,194,128,194Zm0-112a46,46,0,1,0,46,46A46.06,46.06,0,0,0,128,82Zm0,80a34,34,0,1,1,34-34A34,34,0,0,1,128,162Z" }))
+      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M245.48,125.57c-.34-.78-8.66-19.23-27.24-37.81C201,70.54,171.38,50,128,50S55,70.54,37.76,87.76c-18.58,18.58-26.9,37-27.24,37.81a6,6,0,0,0,0,4.88c.34.77,8.66,19.22,27.24,37.8C55,185.47,84.62,206,128,206s73-20.53,90.24-37.75c18.58-18.58,26.9-37,27.24-37.8A6,6,0,0,0,245.48,125.57ZM128,194c-31.38,0-58.78-11.42-81.45-33.93A134.77,134.77,0,0,1,22.69,128,134.56,134.56,0,0,1,46.55,95.94C69.22,73.42,96.62,62,128,62s58.78,11.42,81.45,33.94A134.56,134.56,0,0,1,233.31,128C226.94,140.21,195,194,128,194Zm0-112a46,46,0,1,0,46,46A46.06,46.06,0,0,0,128,82Zm0,80a34,34,0,1,1,34-34A34,34,0,0,1,128,162Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e7.createElement(e7.Fragment, null, /* @__PURE__ */ e7.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z" }))
+      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e7.createElement(e7.Fragment, null, /* @__PURE__ */ e7.createElement("path", { d: "M243.66,126.38c-.34-.76-8.52-18.89-26.83-37.2C199.87,72.22,170.7,52,128,52S56.13,72.22,39.17,89.18c-18.31,18.31-26.49,36.44-26.83,37.2a4.08,4.08,0,0,0,0,3.25c.34.77,8.52,18.89,26.83,37.2,17,17,46.14,37.17,88.83,37.17s71.87-20.21,88.83-37.17c18.31-18.31,26.49-36.43,26.83-37.2A4.08,4.08,0,0,0,243.66,126.38Zm-32.7,35c-23.07,23-51,34.62-83,34.62s-59.89-11.65-83-34.62A135.71,135.71,0,0,1,20.44,128,135.69,135.69,0,0,1,45,94.62C68.11,71.65,96,60,128,60s59.89,11.65,83,34.62A135.79,135.79,0,0,1,235.56,128,135.71,135.71,0,0,1,211,161.38ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164Z" }))
+      /* @__PURE__ */ e9.createElement(e9.Fragment, null, /* @__PURE__ */ e9.createElement("path", { d: "M243.66,126.38c-.34-.76-8.52-18.89-26.83-37.2C199.87,72.22,170.7,52,128,52S56.13,72.22,39.17,89.18c-18.31,18.31-26.49,36.44-26.83,37.2a4.08,4.08,0,0,0,0,3.25c.34.77,8.52,18.89,26.83,37.2,17,17,46.14,37.17,88.83,37.17s71.87-20.21,88.83-37.17c18.31-18.31,26.49-36.43,26.83-37.2A4.08,4.08,0,0,0,243.66,126.38Zm-32.7,35c-23.07,23-51,34.62-83,34.62s-59.89-11.65-83-34.62A135.71,135.71,0,0,1,20.44,128,135.69,135.69,0,0,1,45,94.62C68.11,71.65,96,60,128,60s59.89,11.65,83,34.62A135.79,135.79,0,0,1,235.56,128,135.71,135.71,0,0,1,211,161.38ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/GearSix.es.js
-  var a8 = __toESM(require_react(), 1);
+  var a9 = __toESM(require_react(), 1);
   var l = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a8.createElement(a8.Fragment, null, /* @__PURE__ */ a8.createElement("path", { d: "M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.55,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.55,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a8.createElement(a8.Fragment, null, /* @__PURE__ */ a8.createElement(
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement(
         "path",
         {
           d: "M230.1,108.76,198.25,90.62c-.64-1.16-1.31-2.29-2-3.41l-.12-36A104.61,104.61,0,0,0,162,32L130,49.89c-1.34,0-2.69,0-4,0L94,32A104.58,104.58,0,0,0,59.89,51.25l-.16,36c-.7,1.12-1.37,2.26-2,3.41l-31.84,18.1a99.15,99.15,0,0,0,0,38.46l31.85,18.14c.64,1.16,1.31,2.29,2,3.41l.12,36A104.61,104.61,0,0,0,94,224l32-17.87c1.34,0,2.69,0,4,0L162,224a104.58,104.58,0,0,0,34.08-19.25l.16-36c.7-1.12,1.37-2.26,2-3.41l31.84-18.1A99.15,99.15,0,0,0,230.1,108.76ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a8.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.1,8.1,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8,8,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
+      ), /* @__PURE__ */ a9.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.1,8.1,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8,8,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a8.createElement(a8.Fragment, null, /* @__PURE__ */ a8.createElement("path", { d: "M237.94,107.21a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M237.94,107.21a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a8.createElement(a8.Fragment, null, /* @__PURE__ */ a8.createElement("path", { d: "M128,82a46,46,0,1,0,46,46A46.06,46.06,0,0,0,128,82Zm0,80a34,34,0,1,1,34-34A34,34,0,0,1,128,162Zm108-54.4a6,6,0,0,0-2.92-4L202.64,86.22l-.42-.71L202.1,51.2A6,6,0,0,0,200,46.64a110.12,110.12,0,0,0-36.07-20.31,6,6,0,0,0-4.84.45L128.46,43.86h-1L96.91,26.76a6,6,0,0,0-4.86-.44A109.92,109.92,0,0,0,56,46.68a6,6,0,0,0-2.12,4.55l-.16,34.34c-.14.23-.28.47-.41.71L22.91,103.57A6,6,0,0,0,20,107.62a104.81,104.81,0,0,0,0,40.78,6,6,0,0,0,2.92,4l30.42,17.33.42.71.12,34.31A6,6,0,0,0,56,209.36a110.12,110.12,0,0,0,36.07,20.31,6,6,0,0,0,4.84-.45l30.61-17.08h1l30.56,17.1A6.09,6.09,0,0,0,162,230a5.83,5.83,0,0,0,1.93-.32,109.92,109.92,0,0,0,36-20.36,6,6,0,0,0,2.12-4.55l.16-34.34c.14-.23.28-.47.41-.71l30.42-17.29a6,6,0,0,0,2.92-4.05A104.81,104.81,0,0,0,236,107.6Zm-11.25,35.79L195.32,160.1a6.07,6.07,0,0,0-2.28,2.3c-.59,1-1.21,2.11-1.86,3.14a6,6,0,0,0-.91,3.16l-.16,33.21a98.15,98.15,0,0,1-27.52,15.53L133,200.88a6,6,0,0,0-2.93-.77h-.14c-1.24,0-2.5,0-3.74,0a6,6,0,0,0-3.07.76L93.45,217.43a98,98,0,0,1-27.56-15.49l-.12-33.17a6,6,0,0,0-.91-3.16c-.64-1-1.27-2.08-1.86-3.14a6,6,0,0,0-2.27-2.3L31.3,143.4a93,93,0,0,1,0-30.79L60.68,95.9A6.07,6.07,0,0,0,63,93.6c.59-1,1.21-2.11,1.86-3.14a6,6,0,0,0,.91-3.16l.16-33.21A98.15,98.15,0,0,1,93.41,38.56L123,55.12a5.81,5.81,0,0,0,3.07.76c1.24,0,2.5,0,3.74,0a6,6,0,0,0,3.07-.76l29.65-16.56a98,98,0,0,1,27.56,15.49l.12,33.17a6,6,0,0,0,.91,3.16c.64,1,1.27,2.08,1.86,3.14a6,6,0,0,0,2.27,2.3L224.7,112.6A93,93,0,0,1,224.73,143.39Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,82a46,46,0,1,0,46,46A46.06,46.06,0,0,0,128,82Zm0,80a34,34,0,1,1,34-34A34,34,0,0,1,128,162Zm108-54.4a6,6,0,0,0-2.92-4L202.64,86.22l-.42-.71L202.1,51.2A6,6,0,0,0,200,46.64a110.12,110.12,0,0,0-36.07-20.31,6,6,0,0,0-4.84.45L128.46,43.86h-1L96.91,26.76a6,6,0,0,0-4.86-.44A109.92,109.92,0,0,0,56,46.68a6,6,0,0,0-2.12,4.55l-.16,34.34c-.14.23-.28.47-.41.71L22.91,103.57A6,6,0,0,0,20,107.62a104.81,104.81,0,0,0,0,40.78,6,6,0,0,0,2.92,4l30.42,17.33.42.71.12,34.31A6,6,0,0,0,56,209.36a110.12,110.12,0,0,0,36.07,20.31,6,6,0,0,0,4.84-.45l30.61-17.08h1l30.56,17.1A6.09,6.09,0,0,0,162,230a5.83,5.83,0,0,0,1.93-.32,109.92,109.92,0,0,0,36-20.36,6,6,0,0,0,2.12-4.55l.16-34.34c.14-.23.28-.47.41-.71l30.42-17.29a6,6,0,0,0,2.92-4.05A104.81,104.81,0,0,0,236,107.6Zm-11.25,35.79L195.32,160.1a6.07,6.07,0,0,0-2.28,2.3c-.59,1-1.21,2.11-1.86,3.14a6,6,0,0,0-.91,3.16l-.16,33.21a98.15,98.15,0,0,1-27.52,15.53L133,200.88a6,6,0,0,0-2.93-.77h-.14c-1.24,0-2.5,0-3.74,0a6,6,0,0,0-3.07.76L93.45,217.43a98,98,0,0,1-27.56-15.49l-.12-33.17a6,6,0,0,0-.91-3.16c-.64-1-1.27-2.08-1.86-3.14a6,6,0,0,0-2.27-2.3L31.3,143.4a93,93,0,0,1,0-30.79L60.68,95.9A6.07,6.07,0,0,0,63,93.6c.59-1,1.21-2.11,1.86-3.14a6,6,0,0,0,.91-3.16l.16-33.21A98.15,98.15,0,0,1,93.41,38.56L123,55.12a5.81,5.81,0,0,0,3.07.76c1.24,0,2.5,0,3.74,0a6,6,0,0,0,3.07-.76l29.65-16.56a98,98,0,0,1,27.56,15.49l.12,33.17a6,6,0,0,0,.91,3.16c.64,1,1.27,2.08,1.86,3.14a6,6,0,0,0,2.27,2.3L224.7,112.6A93,93,0,0,1,224.73,143.39Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a8.createElement(a8.Fragment, null, /* @__PURE__ */ a8.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a8.createElement(a8.Fragment, null, /* @__PURE__ */ a8.createElement("path", { d: "M128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164Zm106-56a4,4,0,0,0-2-2.7l-30.89-17.6q-.47-.82-1-1.62L200.1,51.2a3.94,3.94,0,0,0-1.42-3,107.8,107.8,0,0,0-35.41-19.94,4,4,0,0,0-3.23.29L129,45.87h-2l-31-17.36a4,4,0,0,0-3.23-.3,108.05,108.05,0,0,0-35.39,20,4,4,0,0,0-1.41,3l-.16,34.9-1,1.62L23.9,105.3A4,4,0,0,0,22,108a102.76,102.76,0,0,0,0,40,4,4,0,0,0,1.95,2.7l30.89,17.6q.47.83,1,1.62l.12,34.87a3.94,3.94,0,0,0,1.42,3,107.8,107.8,0,0,0,35.41,19.94,4,4,0,0,0,3.23-.29L127,210.13h2l31,17.36a4,4,0,0,0,3.23.3,108.05,108.05,0,0,0,35.39-20,4,4,0,0,0,1.41-3l.16-34.9,1-1.62L232.1,150.7a4,4,0,0,0,2-2.71A102.76,102.76,0,0,0,234,108Zm-7.48,36.67L196.3,161.84a4,4,0,0,0-1.51,1.53c-.61,1.09-1.25,2.17-1.91,3.24a3.92,3.92,0,0,0-.61,2.1l-.16,34.15a99.8,99.8,0,0,1-29.7,16.77l-30.4-17a4.06,4.06,0,0,0-2-.51H130c-1.28,0-2.57,0-3.84,0a4.1,4.1,0,0,0-2.05.51l-30.45,17A100.23,100.23,0,0,1,63.89,202.9l-.12-34.12a3.93,3.93,0,0,0-.61-2.11c-.66-1-1.3-2.14-1.91-3.23a4,4,0,0,0-1.51-1.53L29.49,144.68a94.78,94.78,0,0,1,0-33.34L59.7,94.16a4,4,0,0,0,1.51-1.53c.61-1.09,1.25-2.17,1.91-3.23a4,4,0,0,0,.61-2.11l.16-34.15a99.8,99.8,0,0,1,29.7-16.77l30.4,17a4.1,4.1,0,0,0,2.05.51c1.28,0,2.57,0,3.84,0a4,4,0,0,0,2.05-.51l30.45-17A100.23,100.23,0,0,1,192.11,53.1l.12,34.12a3.93,3.93,0,0,0,.61,2.11c.66,1,1.3,2.14,1.91,3.23a4,4,0,0,0,1.51,1.53l30.25,17.23A94.78,94.78,0,0,1,226.54,144.66Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164Zm106-56a4,4,0,0,0-2-2.7l-30.89-17.6q-.47-.82-1-1.62L200.1,51.2a3.94,3.94,0,0,0-1.42-3,107.8,107.8,0,0,0-35.41-19.94,4,4,0,0,0-3.23.29L129,45.87h-2l-31-17.36a4,4,0,0,0-3.23-.3,108.05,108.05,0,0,0-35.39,20,4,4,0,0,0-1.41,3l-.16,34.9-1,1.62L23.9,105.3A4,4,0,0,0,22,108a102.76,102.76,0,0,0,0,40,4,4,0,0,0,1.95,2.7l30.89,17.6q.47.83,1,1.62l.12,34.87a3.94,3.94,0,0,0,1.42,3,107.8,107.8,0,0,0,35.41,19.94,4,4,0,0,0,3.23-.29L127,210.13h2l31,17.36a4,4,0,0,0,3.23.3,108.05,108.05,0,0,0,35.39-20,4,4,0,0,0,1.41-3l.16-34.9,1-1.62L232.1,150.7a4,4,0,0,0,2-2.71A102.76,102.76,0,0,0,234,108Zm-7.48,36.67L196.3,161.84a4,4,0,0,0-1.51,1.53c-.61,1.09-1.25,2.17-1.91,3.24a3.92,3.92,0,0,0-.61,2.1l-.16,34.15a99.8,99.8,0,0,1-29.7,16.77l-30.4-17a4.06,4.06,0,0,0-2-.51H130c-1.28,0-2.57,0-3.84,0a4.1,4.1,0,0,0-2.05.51l-30.45,17A100.23,100.23,0,0,1,63.89,202.9l-.12-34.12a3.93,3.93,0,0,0-.61-2.11c-.66-1-1.3-2.14-1.91-3.23a4,4,0,0,0-1.51-1.53L29.49,144.68a94.78,94.78,0,0,1,0-33.34L59.7,94.16a4,4,0,0,0,1.51-1.53c.61-1.09,1.25-2.17,1.91-3.23a4,4,0,0,0,.61-2.11l.16-34.15a99.8,99.8,0,0,1,29.7-16.77l30.4,17a4.1,4.1,0,0,0,2.05.51c1.28,0,2.57,0,3.84,0a4,4,0,0,0,2.05-.51l30.45-17A100.23,100.23,0,0,1,192.11,53.1l.12,34.12a3.93,3.93,0,0,0,.61,2.11c.66,1,1.3,2.14,1.91,3.23a4,4,0,0,0,1.51,1.53l30.25,17.23A94.78,94.78,0,0,1,226.54,144.66Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/GitBranch.es.js
-  var a9 = __toESM(require_react(), 1);
-  var e8 = /* @__PURE__ */ new Map([
+  var a10 = __toESM(require_react(), 1);
+  var e10 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z" }))
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M224,64a24,24,0,1,1-24-24A24,24,0,0,1,224,64Z", opacity: "0.2" }), /* @__PURE__ */ a9.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M224,64a24,24,0,1,1-24-24A24,24,0,0,1,224,64Z", opacity: "0.2" }), /* @__PURE__ */ a10.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192Z" }))
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M230,64a30,30,0,1,0-36,29.4V112a10,10,0,0,1-10,10H96a21.84,21.84,0,0,0-10,2.42v-31a30,30,0,1,0-12,0v69.2a30,30,0,1,0,12,0V144a10,10,0,0,1,10-10h88a22,22,0,0,0,22-22V93.4A30.05,30.05,0,0,0,230,64ZM62,64A18,18,0,1,1,80,82,18,18,0,0,1,62,64ZM98,192a18,18,0,1,1-18-18A18,18,0,0,1,98,192ZM200,82a18,18,0,1,1,18-18A18,18,0,0,1,200,82Z" }))
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M230,64a30,30,0,1,0-36,29.4V112a10,10,0,0,1-10,10H96a21.84,21.84,0,0,0-10,2.42v-31a30,30,0,1,0-12,0v69.2a30,30,0,1,0,12,0V144a10,10,0,0,1,10-10h88a22,22,0,0,0,22-22V93.4A30.05,30.05,0,0,0,230,64ZM62,64A18,18,0,1,1,80,82,18,18,0,0,1,62,64ZM98,192a18,18,0,1,1-18-18A18,18,0,0,1,98,192ZM200,82a18,18,0,1,1,18-18A18,18,0,0,1,200,82Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M228,64a28,28,0,1,0-32,27.71V112a12,12,0,0,1-12,12H96a19.91,19.91,0,0,0-12,4V91.71a28,28,0,1,0-8,0v72.58a28,28,0,1,0,8,0V144a12,12,0,0,1,12-12h88a20,20,0,0,0,20-20V91.71A28,28,0,0,0,228,64ZM60,64A20,20,0,1,1,80,84,20,20,0,0,1,60,64Zm40,128a20,20,0,1,1-20-20A20,20,0,0,1,100,192ZM200,84a20,20,0,1,1,20-20A20,20,0,0,1,200,84Z" }))
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M228,64a28,28,0,1,0-32,27.71V112a12,12,0,0,1-12,12H96a19.91,19.91,0,0,0-12,4V91.71a28,28,0,1,0-8,0v72.58a28,28,0,1,0,8,0V144a12,12,0,0,1,12-12h88a20,20,0,0,0,20-20V91.71A28,28,0,0,0,228,64ZM60,64A20,20,0,1,1,80,84,20,20,0,0,1,60,64Zm40,128a20,20,0,1,1-20-20A20,20,0,0,1,100,192ZM200,84a20,20,0,1,1,20-20A20,20,0,0,1,200,84Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/Info.es.js
+  var e11 = __toESM(require_react(), 1);
+  var a11 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M108,84a16,16,0,1,1,16,16A16,16,0,0,1,108,84Zm128,44A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Zm-72,36.68V132a20,20,0,0,0-20-20,12,12,0,0,0-4,23.32V168a20,20,0,0,0,20,20,12,12,0,0,0,4-23.32Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e11.createElement("path", { d: "M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M142,176a6,6,0,0,1-6,6,14,14,0,0,1-14-14V128a2,2,0,0,0-2-2,6,6,0,0,1,0-12,14,14,0,0,1,14,14v40a2,2,0,0,0,2,2A6,6,0,0,1,142,176ZM124,94a10,10,0,1,0-10-10A10,10,0,0,0,124,94Zm106,34A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M140,176a4,4,0,0,1-4,4,12,12,0,0,1-12-12V128a4,4,0,0,0-4-4,4,4,0,0,1,0-8,12,12,0,0,1,12,12v40a4,4,0,0,0,4,4A4,4,0,0,1,140,176ZM124,92a8,8,0,1,0-8-8A8,8,0,0,0,124,92Zm104,36A100,100,0,1,1,128,28,100.11,100.11,0,0,1,228,128Zm-8,0a92,92,0,1,0-92,92A92.1,92.1,0,0,0,220,128Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/List.es.js
-  var a10 = __toESM(require_react(), 1);
-  var e9 = /* @__PURE__ */ new Map([
+  var a12 = __toESM(require_react(), 1);
+  var e12 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M216,64V192H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a10.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M216,64V192H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a12.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM192,184H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM192,184H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128ZM40,70H216a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12ZM216,186H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128ZM40,70H216a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12ZM216,186H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H40a4,4,0,0,1,0-8H216A4,4,0,0,1,220,128ZM40,68H216a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8ZM216,188H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Z" }))
+      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H40a4,4,0,0,1,0-8H216A4,4,0,0,1,220,128ZM40,68H216a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8ZM216,188H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/MagnifyingGlass.es.js
-  var e10 = __toESM(require_react(), 1);
-  var a11 = /* @__PURE__ */ new Map([
+  var e13 = __toESM(require_react(), 1);
+  var a13 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z", opacity: "0.2" }), /* @__PURE__ */ e10.createElement("path", { d: "M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z", opacity: "0.2" }), /* @__PURE__ */ e13.createElement("path", { d: "M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e10.createElement(e10.Fragment, null, /* @__PURE__ */ e10.createElement("path", { d: "M226.83,221.17l-52.7-52.7a84.1,84.1,0,1,0-5.66,5.66l52.7,52.7a4,4,0,0,0,5.66-5.66ZM36,112a76,76,0,1,1,76,76A76.08,76.08,0,0,1,36,112Z" }))
+      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M226.83,221.17l-52.7-52.7a84.1,84.1,0,1,0-5.66,5.66l52.7,52.7a4,4,0,0,0,5.66-5.66ZM36,112a76,76,0,1,1,76,76A76.08,76.08,0,0,1,36,112Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Pause.es.js
-  var a12 = __toESM(require_react(), 1);
-  var e11 = /* @__PURE__ */ new Map([
+  var a14 = __toESM(require_react(), 1);
+  var e14 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z" }))
+      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement(
+      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement(
         "path",
         {
           d: "M208,48V208a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8h40A8,8,0,0,1,208,48ZM96,40H56a8,8,0,0,0-8,8V208a8,8,0,0,0,8,8H96a8,8,0,0,0,8-8V48A8,8,0,0,0,96,40Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a12.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
+      ), /* @__PURE__ */ a14.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z" }))
+      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z" }))
+      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
+      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M200,36H160a12,12,0,0,0-12,12V208a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V48A12,12,0,0,0,200,36Zm4,172a4,4,0,0,1-4,4H160a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4ZM96,36H56A12,12,0,0,0,44,48V208a12,12,0,0,0,12,12H96a12,12,0,0,0,12-12V48A12,12,0,0,0,96,36Zm4,172a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4H96a4,4,0,0,1,4,4Z" }))
+      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,36H160a12,12,0,0,0-12,12V208a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V48A12,12,0,0,0,200,36Zm4,172a4,4,0,0,1-4,4H160a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4ZM96,36H56A12,12,0,0,0,44,48V208a12,12,0,0,0,12,12H96a12,12,0,0,0,12-12V48A12,12,0,0,0,96,36Zm4,172a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4H96a4,4,0,0,1,4,4Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/PencilSimple.es.js
+  var a15 = __toESM(require_react(), 1);
+  var e15 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M230.14,70.54,185.46,25.85a20,20,0,0,0-28.29,0L33.86,149.17A19.85,19.85,0,0,0,28,163.31V208a20,20,0,0,0,20,20H92.69a19.86,19.86,0,0,0,14.14-5.86L230.14,98.82a20,20,0,0,0,0-28.28ZM91,204H52V165l84-84,39,39ZM192,103,153,64l18.34-18.34,39,39Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement(
+        "path",
+        {
+          d: "M221.66,90.34,192,120,136,64l29.66-29.66a8,8,0,0,1,11.31,0L221.66,79A8,8,0,0,1,221.66,90.34Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ a15.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M225.9,74.78,181.21,30.09a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H92.69a13.94,13.94,0,0,0,9.9-4.1L225.9,94.58a14,14,0,0,0,0-19.8ZM94.1,209.41a2,2,0,0,1-1.41.59H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.48,183.51,120ZM217.41,86.1,192,111.51,144.49,64,169.9,38.58a2,2,0,0,1,2.83,0l44.68,44.69a2,2,0,0,1,0,2.83Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M224.49,76.2,179.8,31.51a12,12,0,0,0-17,0L133.17,61.17h0L39.52,154.83A11.9,11.9,0,0,0,36,163.31V208a12,12,0,0,0,12,12H92.69a12,12,0,0,0,8.48-3.51L224.48,93.17a12,12,0,0,0,0-17Zm-129,134.63A4,4,0,0,1,92.69,212H48a4,4,0,0,1-4-4V163.31a4,4,0,0,1,1.17-2.83L136,69.65,186.34,120ZM218.83,87.51,192,114.34,141.66,64l26.82-26.83a4,4,0,0,1,5.66,0l44.69,44.68a4,4,0,0,1,0,5.66Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Play.es.js
-  var e12 = __toESM(require_react(), 1);
-  var a13 = /* @__PURE__ */ new Map([
+  var e16 = __toESM(require_react(), 1);
+  var a16 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M234.49,111.07,90.41,22.94A20,20,0,0,0,60,39.87V216.13a20,20,0,0,0,30.41,16.93l144.08-88.13a19.82,19.82,0,0,0,0-33.86ZM84,208.85V47.15L216.16,128Z" }))
+      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M234.49,111.07,90.41,22.94A20,20,0,0,0,60,39.87V216.13a20,20,0,0,0,30.41,16.93l144.08-88.13a19.82,19.82,0,0,0,0-33.86ZM84,208.85V47.15L216.16,128Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement(
+      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement(
         "path",
         {
           d: "M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e12.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
+      ), /* @__PURE__ */ e16.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z" }))
+      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z" }))
+      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
+      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M230.32,117.9,86.24,29.79a11.91,11.91,0,0,0-12.17-.23A11.71,11.71,0,0,0,68,39.89V216.11a11.71,11.71,0,0,0,6.07,10.33,11.91,11.91,0,0,0,12.17-.23L230.32,138.1a11.82,11.82,0,0,0,0-20.2Zm-4.18,13.37L82.06,219.39a4,4,0,0,1-4.07.07,3.77,3.77,0,0,1-2-3.35V39.89a3.77,3.77,0,0,1,2-3.35,4,4,0,0,1,4.07.07l144.08,88.12a3.8,3.8,0,0,1,0,6.54Z" }))
+      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M230.32,117.9,86.24,29.79a11.91,11.91,0,0,0-12.17-.23A11.71,11.71,0,0,0,68,39.89V216.11a11.71,11.71,0,0,0,6.07,10.33,11.91,11.91,0,0,0,12.17-.23L230.32,138.1a11.82,11.82,0,0,0,0-20.2Zm-4.18,13.37L82.06,219.39a4,4,0,0,1-4.07.07,3.77,3.77,0,0,1-2-3.35V39.89a3.77,3.77,0,0,1,2-3.35,4,4,0,0,1,4.07.07l144.08,88.12a3.8,3.8,0,0,1,0,6.54Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Plus.es.js
-  var e13 = __toESM(require_react(), 1);
-  var a14 = /* @__PURE__ */ new Map([
+  var e17 = __toESM(require_react(), 1);
+  var a17 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement(
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement(
         "path",
         {
           d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e13.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+      ), /* @__PURE__ */ e17.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H136v48a8,8,0,0,1-16,0V136H72a8,8,0,0,1,0-16h48V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H136v48a8,8,0,0,1-16,0V136H72a8,8,0,0,1,0-16h48V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H132v84a4,4,0,0,1-8,0V132H40a4,4,0,0,1,0-8h84V40a4,4,0,0,1,8,0v84h84A4,4,0,0,1,220,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H132v84a4,4,0,0,1-8,0V132H40a4,4,0,0,1,0-8h84V40a4,4,0,0,1,8,0v84h84A4,4,0,0,1,220,128Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Record.es.js
-  var e14 = __toESM(require_react(), 1);
-  var a15 = /* @__PURE__ */ new Map([
+  var e18 = __toESM(require_react(), 1);
+  var a18 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm0-148a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64Zm0,104a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm0-148a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64Zm0,104a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M192,128a64,64,0,1,1-64-64A64,64,0,0,1,192,128Z", opacity: "0.2" }), /* @__PURE__ */ e14.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M192,128a64,64,0,1,1-64-64A64,64,0,0,1,192,128Z", opacity: "0.2" }), /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm72-88a72,72,0,1,1-72-72A72.08,72.08,0,0,1,200,128Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm72-88a72,72,0,1,1-72-72A72.08,72.08,0,0,1,200,128Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm0-160a70,70,0,1,0,70,70A70.08,70.08,0,0,0,128,58Zm0,128a58,58,0,1,1,58-58A58.07,58.07,0,0,1,128,186Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm0-160a70,70,0,1,0,70,70A70.08,70.08,0,0,0,128,58Zm0,128a58,58,0,1,1,58-58A58.07,58.07,0,0,1,128,186Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm0-160a68,68,0,1,0,68,68A68.07,68.07,0,0,0,128,60Zm0,128a60,60,0,1,1,60-60A60.07,60.07,0,0,1,128,188Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm0-160a68,68,0,1,0,68,68A68.07,68.07,0,0,0,128,60Zm0,128a60,60,0,1,1,60-60A60.07,60.07,0,0,1,128,188Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/RocketLaunch.es.js
-  var a16 = __toESM(require_react(), 1);
-  var e15 = /* @__PURE__ */ new Map([
+  var a19 = __toESM(require_react(), 1);
+  var e19 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M227.85,46.89a20,20,0,0,0-18.74-18.74c-13.13-.77-46.65.42-74.48,28.24L131,60H74.36a19.83,19.83,0,0,0-14.14,5.86L25.87,100.19a20,20,0,0,0,11.35,33.95l37.14,5.18,42.32,42.32,5.19,37.18A19.88,19.88,0,0,0,135.34,235a20.13,20.13,0,0,0,6.37,1,19.9,19.9,0,0,0,14.1-5.87l34.34-34.35A19.85,19.85,0,0,0,196,181.64V125l3.6-3.59C227.43,93.54,228.62,60,227.85,46.89ZM76,84h31L75.75,115.28l-27.23-3.8ZM151.6,73.37A72.27,72.27,0,0,1,204,52a72.17,72.17,0,0,1-21.38,52.41L128,159,97,128ZM172,180l-27.49,27.49-3.8-27.23L172,149Zm-72,22c-8.71,11.85-26.19,26-60,26a12,12,0,0,1-12-12c0-33.84,14.12-51.32,26-60A12,12,0,1,1,68.18,175.3C62.3,179.63,55.51,187.8,53,203c15.21-2.51,23.37-9.3,27.7-15.18A12,12,0,1,1,100,202Z" }))
+      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M227.85,46.89a20,20,0,0,0-18.74-18.74c-13.13-.77-46.65.42-74.48,28.24L131,60H74.36a19.83,19.83,0,0,0-14.14,5.86L25.87,100.19a20,20,0,0,0,11.35,33.95l37.14,5.18,42.32,42.32,5.19,37.18A19.88,19.88,0,0,0,135.34,235a20.13,20.13,0,0,0,6.37,1,19.9,19.9,0,0,0,14.1-5.87l34.34-34.35A19.85,19.85,0,0,0,196,181.64V125l3.6-3.59C227.43,93.54,228.62,60,227.85,46.89ZM76,84h31L75.75,115.28l-27.23-3.8ZM151.6,73.37A72.27,72.27,0,0,1,204,52a72.17,72.17,0,0,1-21.38,52.41L128,159,97,128ZM172,180l-27.49,27.49-3.8-27.23L172,149Zm-72,22c-8.71,11.85-26.19,26-60,26a12,12,0,0,1-12-12c0-33.84,14.12-51.32,26-60A12,12,0,1,1,68.18,175.3C62.3,179.63,55.51,187.8,53,203c15.21-2.51,23.37-9.3,27.7-15.18A12,12,0,1,1,100,202Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement(
+      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement(
         "path",
         {
           d: "M184,120v61.65a8,8,0,0,1-2.34,5.65l-34.35,34.35a8,8,0,0,1-13.57-4.53L128,176ZM136,72H74.35a8,8,0,0,0-5.65,2.34L34.35,108.69a8,8,0,0,0,4.53,13.57L80,128ZM40,216c37.65,0,50.69-19.69,54.56-28.18L68.18,161.44C59.69,165.31,40,178.35,40,216Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a16.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
+      ), /* @__PURE__ */ a19.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M101.85,191.14C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Zm122-144a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.4,27.07h0L88,108.7A8,8,0,0,1,76.67,97.39l26.56-26.57A4,4,0,0,0,100.41,64H74.35A15.9,15.9,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A16,16,0,0,0,192,181.65V155.59a4,4,0,0,0-6.83-2.82l-26.57,26.56a8,8,0,0,1-11.71-.42,8.2,8.2,0,0,1,.6-11.1l49.27-49.27h0C223.45,91.86,224.6,59.71,223.85,47.12Z" }))
+      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M101.85,191.14C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Zm122-144a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.4,27.07h0L88,108.7A8,8,0,0,1,76.67,97.39l26.56-26.57A4,4,0,0,0,100.41,64H74.35A15.9,15.9,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A16,16,0,0,0,192,181.65V155.59a4,4,0,0,0-6.83-2.82l-26.57,26.56a8,8,0,0,1-11.71-.42,8.2,8.2,0,0,1,.6-11.1l49.27-49.27h0C223.45,91.86,224.6,59.71,223.85,47.12Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.44a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.89V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.87,121.64l-38.14-5.32A1.93,1.93,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.87-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.47,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.91,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z" }))
+      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.44a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.89V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.87,121.64l-38.14-5.32A1.93,1.93,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.87-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.47,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.91,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
+      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M219.86,47.36a12,12,0,0,0-11.22-11.22c-12-.71-42.82.38-68.35,25.91L134.35,68h-60a11.9,11.9,0,0,0-8.48,3.52L31.52,105.85a12,12,0,0,0,6.81,20.37l39.79,5.55,46.11,46.11,5.55,39.81a12,12,0,0,0,20.37,6.79l34.34-34.35a11.9,11.9,0,0,0,3.52-8.48v-60l5.94-5.94C219.48,90.18,220.57,59.41,219.86,47.36ZM36.21,115.6a3.94,3.94,0,0,1,1-4.09L71.53,77.17A4,4,0,0,1,74.35,76h52L78.58,123.76,39.44,118.3A3.94,3.94,0,0,1,36.21,115.6ZM180,181.65a4,4,0,0,1-1.17,2.83l-34.35,34.34a4,4,0,0,1-6.79-2.25l-5.46-39.15L180,129.65Zm-52-11.31L85.66,128l60.28-60.29c23.24-23.24,51.25-24.23,62.22-23.58a3.93,3.93,0,0,1,3.71,3.71c.65,11-.35,39-23.58,62.22ZM98.21,189.48C94,198.66,80,220,40,220a4,4,0,0,1-4-4c0-40,21.34-54,30.52-58.21a4,4,0,0,1,3.32,7.28c-7.46,3.41-24.43,14.66-25.76,46.85,32.19-1.33,43.44-18.3,46.85-25.76a4,4,0,1,1,7.28,3.32Z" }))
+      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M219.86,47.36a12,12,0,0,0-11.22-11.22c-12-.71-42.82.38-68.35,25.91L134.35,68h-60a11.9,11.9,0,0,0-8.48,3.52L31.52,105.85a12,12,0,0,0,6.81,20.37l39.79,5.55,46.11,46.11,5.55,39.81a12,12,0,0,0,20.37,6.79l34.34-34.35a11.9,11.9,0,0,0,3.52-8.48v-60l5.94-5.94C219.48,90.18,220.57,59.41,219.86,47.36ZM36.21,115.6a3.94,3.94,0,0,1,1-4.09L71.53,77.17A4,4,0,0,1,74.35,76h52L78.58,123.76,39.44,118.3A3.94,3.94,0,0,1,36.21,115.6ZM180,181.65a4,4,0,0,1-1.17,2.83l-34.35,34.34a4,4,0,0,1-6.79-2.25l-5.46-39.15L180,129.65Zm-52-11.31L85.66,128l60.28-60.29c23.24-23.24,51.25-24.23,62.22-23.58a3.93,3.93,0,0,1,3.71,3.71c.65,11-.35,39-23.58,62.22ZM98.21,189.48C94,198.66,80,220,40,220a4,4,0,0,1-4-4c0-40,21.34-54,30.52-58.21a4,4,0,0,1,3.32,7.28c-7.46,3.41-24.43,14.66-25.76,46.85,32.19-1.33,43.44-18.3,46.85-25.76a4,4,0,1,1,7.28,3.32Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/SignOut.es.js
-  var a17 = __toESM(require_react(), 1);
-  var e16 = /* @__PURE__ */ new Map([
+  var a20 = __toESM(require_react(), 1);
+  var e20 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement(
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement(
         "path",
         {
           d: "M224,56V200a16,16,0,0,1-16,16H48V40H208A16,16,0,0,1,224,56Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a17.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      ), /* @__PURE__ */ a20.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40A8,8,0,0,0,176,88v32H112a8,8,0,0,0,0,16h64v32a8,8,0,0,0,13.66,5.66l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40A8,8,0,0,0,176,88v32H112a8,8,0,0,0,0,16h64v32a8,8,0,0,0,13.66,5.66l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M118,216a6,6,0,0,1-6,6H48a6,6,0,0,1-6-6V40a6,6,0,0,1,6-6h64a6,6,0,0,1,0,12H54V210h58A6,6,0,0,1,118,216Zm110.24-92.24-40-40a6,6,0,0,0-8.48,8.48L209.51,122H112a6,6,0,0,0,0,12h97.51l-29.75,29.76a6,6,0,1,0,8.48,8.48l40-40A6,6,0,0,0,228.24,123.76Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M118,216a6,6,0,0,1-6,6H48a6,6,0,0,1-6-6V40a6,6,0,0,1,6-6h64a6,6,0,0,1,0,12H54V210h58A6,6,0,0,1,118,216Zm110.24-92.24-40-40a6,6,0,0,0-8.48,8.48L209.51,122H112a6,6,0,0,0,0,12h97.51l-29.75,29.76a6,6,0,1,0,8.48,8.48l40-40A6,6,0,0,0,228.24,123.76Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a17.createElement(a17.Fragment, null, /* @__PURE__ */ a17.createElement("path", { d: "M116,216a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V40a4,4,0,0,1,4-4h64a4,4,0,0,1,0,8H52V212h60A4,4,0,0,1,116,216Zm110.83-90.83-40-40a4,4,0,0,0-5.66,5.66L214.34,124H112a4,4,0,0,0,0,8H214.34l-33.17,33.17a4,4,0,0,0,5.66,5.66l40-40A4,4,0,0,0,226.83,125.17Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M116,216a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V40a4,4,0,0,1,4-4h64a4,4,0,0,1,0,8H52V212h60A4,4,0,0,1,116,216Zm110.83-90.83-40-40a4,4,0,0,0-5.66,5.66L214.34,124H112a4,4,0,0,0,0,8H214.34l-33.17,33.17a4,4,0,0,0,5.66,5.66l40-40A4,4,0,0,0,226.83,125.17Z" }))
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/TextAlignLeft.es.js
-  var a18 = __toESM(require_react(), 1);
-  var e17 = /* @__PURE__ */ new Map([
+  // node_modules/@phosphor-icons/react/dist/defs/SquaresFour.es.js
+  var a21 = __toESM(require_react(), 1);
+  var e21 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M28,64A12,12,0,0,1,40,52H216a12,12,0,0,1,0,24H40A12,12,0,0,1,28,64Zm12,52H168a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24Zm176,16H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Zm-48,40H40a12,12,0,0,0,0,24H168a12,12,0,0,0,0-24Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M216,64V168a16,16,0,0,1-16,16H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a18.createElement("path", { d: "M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,48H168a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm176,24H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm-48,40H40a8,8,0,0,0,0,16H168a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement(
+        "path",
+        {
+          d: "M112,56v48a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8h48A8,8,0,0,1,112,56Zm88-8H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V56A8,8,0,0,0,200,48Zm-96,96H56a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,104,144Zm96,0H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,200,144Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ a21.createElement("path", { d: "M200,136H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48ZM104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM160,184H64a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Zm32-32H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16ZM56,112a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H64A8,8,0,0,1,56,112ZM192,88H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M120,56v48a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40h48A16,16,0,0,1,120,56Zm80-16H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm-96,96H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm96,0H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M34,64a6,6,0,0,1,6-6H216a6,6,0,0,1,0,12H40A6,6,0,0,1,34,64Zm6,46H168a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12Zm176,28H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Zm-48,40H40a6,6,0,0,0,0,12H168a6,6,0,0,0,0-12Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M104,42H56A14,14,0,0,0,42,56v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V56A14,14,0,0,0,104,42Zm2,62a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm94-62H152a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V56A14,14,0,0,0,200,42Zm2,62a2,2,0,0,1-2,2H152a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm-98,34H56a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V152A14,14,0,0,0,104,138Zm2,62a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V152a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm94-62H152a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V152A14,14,0,0,0,200,138Zm2,62a2,2,0,0,1-2,2H152a2,2,0,0,1-2-2V152a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,48H168a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm176,24H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm-48,40H40a8,8,0,0,0,0,16H168a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a18.createElement(a18.Fragment, null, /* @__PURE__ */ a18.createElement("path", { d: "M36,64a4,4,0,0,1,4-4H216a4,4,0,0,1,0,8H40A4,4,0,0,1,36,64Zm4,44H168a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8Zm176,32H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Zm-48,40H40a4,4,0,0,0,0,8H168a4,4,0,0,0,0-8Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M104,44H56A12,12,0,0,0,44,56v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V56A12,12,0,0,0,104,44Zm4,60a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V56a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Zm92-60H152a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V56A12,12,0,0,0,200,44Zm4,60a4,4,0,0,1-4,4H152a4,4,0,0,1-4-4V56a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4ZM104,140H56a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V152A12,12,0,0,0,104,140Zm4,60a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V152a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Zm92-60H152a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V152A12,12,0,0,0,200,140Zm4,60a4,4,0,0,1-4,4H152a4,4,0,0,1-4-4V152a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/Warning.es.js
+  var a22 = __toESM(require_react(), 1);
+  var e22 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement(
+        "path",
+        {
+          d: "M215.46,216H40.54C27.92,216,20,202.79,26.13,192.09L113.59,40.22c6.3-11,22.52-11,28.82,0l87.46,151.87C236,202.79,228.08,216,215.46,216Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ a22.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M235.07,189.09,147.61,37.22h0a22.75,22.75,0,0,0-39.22,0L20.93,189.09a21.53,21.53,0,0,0,0,21.72A22.35,22.35,0,0,0,40.55,222h174.9a22.35,22.35,0,0,0,19.6-11.19A21.53,21.53,0,0,0,235.07,189.09ZM224.66,204.8a10.46,10.46,0,0,1-9.21,5.2H40.55a10.46,10.46,0,0,1-9.21-5.2,9.51,9.51,0,0,1,0-9.72L118.79,43.21a10.75,10.75,0,0,1,18.42,0l87.46,151.87A9.51,9.51,0,0,1,224.66,204.8ZM122,144V104a6,6,0,0,1,12,0v40a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,180Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M233.34,190.09,145.88,38.22h0a20.75,20.75,0,0,0-35.76,0L22.66,190.09a19.52,19.52,0,0,0,0,19.71A20.36,20.36,0,0,0,40.54,220H215.46a20.36,20.36,0,0,0,17.86-10.2A19.52,19.52,0,0,0,233.34,190.09ZM226.4,205.8a12.47,12.47,0,0,1-10.94,6.2H40.54a12.47,12.47,0,0,1-10.94-6.2,11.45,11.45,0,0,1,0-11.72L117.05,42.21a12.76,12.76,0,0,1,21.9,0L226.4,194.08A11.45,11.45,0,0,1,226.4,205.8ZM124,144V104a4,4,0,0,1,8,0v40a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,180Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/WarningCircle.es.js
-  var e18 = __toESM(require_react(), 1);
-  var a19 = /* @__PURE__ */ new Map([
+  var e23 = __toESM(require_react(), 1);
+  var a23 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z" }))
+      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
+      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e23.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z" }))
+      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm-6-82V80a6,6,0,0,1,12,0v56a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,172Z" }))
+      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm-6-82V80a6,6,0,0,1,12,0v56a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,172Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
+      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm-4-84V80a4,4,0,0,1,8,0v56a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,172Z" }))
+      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm-4-84V80a4,4,0,0,1,8,0v56a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,172Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/X.es.js
-  var e19 = __toESM(require_react(), 1);
-  var a20 = /* @__PURE__ */ new Map([
+  var e24 = __toESM(require_react(), 1);
+  var a24 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" }))
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement(
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement(
         "path",
         {
           d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e19.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      ), /* @__PURE__ */ e24.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM181.66,170.34a8,8,0,0,1-11.32,11.32L128,139.31,85.66,181.66a8,8,0,0,1-11.32-11.32L116.69,128,74.34,85.66A8,8,0,0,1,85.66,74.34L128,116.69l42.34-42.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM181.66,170.34a8,8,0,0,1-11.32,11.32L128,139.31,85.66,181.66a8,8,0,0,1-11.32-11.32L116.69,128,74.34,85.66A8,8,0,0,1,85.66,74.34L128,116.69l42.34-42.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z" }))
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M202.83,197.17a4,4,0,0,1-5.66,5.66L128,133.66,58.83,202.83a4,4,0,0,1-5.66-5.66L122.34,128,53.17,58.83a4,4,0,0,1,5.66-5.66L128,122.34l69.17-69.17a4,4,0,1,1,5.66,5.66L133.66,128Z" }))
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M202.83,197.17a4,4,0,0,1-5.66,5.66L128,133.66,58.83,202.83a4,4,0,0,1-5.66-5.66L122.34,128,53.17,58.83a4,4,0,0,1,5.66-5.66L128,122.34l69.17-69.17a4,4,0,1,1,5.66,5.66L133.66,128Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
-  var e20 = __toESM(require_react(), 1);
+  var e25 = __toESM(require_react(), 1);
 
   // node_modules/@phosphor-icons/react/dist/lib/context.es.js
   var import_react = __toESM(require_react(), 1);
@@ -25036,177 +25407,342 @@
   });
 
   // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
-  var p = e20.forwardRef(
-    (s5, a23) => {
+  var p = e25.forwardRef(
+    (s7, a28) => {
       const {
-        alt: n8,
-        color: r5,
-        size: t4,
-        weight: o19,
-        mirrored: c7,
+        alt: n9,
+        color: r8,
+        size: t5,
+        weight: o24,
+        mirrored: c9,
         children: i,
         weights: m4,
         ...x
-      } = s5, {
+      } = s7, {
         color: d = "currentColor",
         size: l3,
         weight: f2 = "regular",
         mirrored: g = false,
         ...w
-      } = e20.useContext(o);
-      return /* @__PURE__ */ e20.createElement(
+      } = e25.useContext(o);
+      return /* @__PURE__ */ e25.createElement(
         "svg",
         {
-          ref: a23,
+          ref: a28,
           xmlns: "http://www.w3.org/2000/svg",
-          width: t4 != null ? t4 : l3,
-          height: t4 != null ? t4 : l3,
-          fill: r5 != null ? r5 : d,
+          width: t5 != null ? t5 : l3,
+          height: t5 != null ? t5 : l3,
+          fill: r8 != null ? r8 : d,
           viewBox: "0 0 256 256",
-          transform: c7 || g ? "scale(-1, 1)" : void 0,
+          transform: c9 || g ? "scale(-1, 1)" : void 0,
           ...w,
           ...x
         },
-        !!n8 && /* @__PURE__ */ e20.createElement("title", null, n8),
+        !!n9 && /* @__PURE__ */ e25.createElement("title", null, n9),
         i,
-        m4.get(o19 != null ? o19 : f2)
+        m4.get(o24 != null ? o24 : f2)
       );
     }
   );
   p.displayName = "IconBase";
 
-  // node_modules/@phosphor-icons/react/dist/csr/ArrowDown.es.js
+  // node_modules/@phosphor-icons/react/dist/csr/ArrowClockwise.es.js
   var o2 = __toESM(require_react(), 1);
-  var r2 = o2.forwardRef((e34, t4) => /* @__PURE__ */ o2.createElement(p, { ref: t4, ...e34, weights: a }));
-  r2.displayName = "ArrowDownIcon";
-  var c = r2;
+  var r2 = o2.forwardRef((e40, c9) => /* @__PURE__ */ o2.createElement(p, { ref: c9, ...e40, weights: a }));
+  r2.displayName = "ArrowClockwiseIcon";
+  var m = r2;
 
-  // node_modules/@phosphor-icons/react/dist/csr/ChartLine.es.js
-  var e21 = __toESM(require_react(), 1);
-  var o3 = e21.forwardRef((r5, t4) => /* @__PURE__ */ e21.createElement(p, { ref: t4, ...r5, weights: e2 }));
-  o3.displayName = "ChartLineIcon";
-  var c2 = o3;
+  // node_modules/@phosphor-icons/react/dist/csr/ArrowDown.es.js
+  var o3 = __toESM(require_react(), 1);
+  var r3 = o3.forwardRef((e40, t5) => /* @__PURE__ */ o3.createElement(p, { ref: t5, ...e40, weights: a2 }));
+  r3.displayName = "ArrowDownIcon";
+  var c = r3;
+
+  // node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js
+  var t2 = __toESM(require_react(), 1);
+  var e26 = t2.forwardRef((o24, r8) => /* @__PURE__ */ t2.createElement(p, { ref: r8, ...o24, weights: t }));
+  e26.displayName = "CaretRightIcon";
+  var s = e26;
 
   // node_modules/@phosphor-icons/react/dist/csr/Check.es.js
-  var e22 = __toESM(require_react(), 1);
-  var o4 = e22.forwardRef((c7, r5) => /* @__PURE__ */ e22.createElement(p, { ref: r5, ...c7, weights: a3 }));
+  var e27 = __toESM(require_react(), 1);
+  var o4 = e27.forwardRef((c9, r8) => /* @__PURE__ */ e27.createElement(p, { ref: r8, ...c9, weights: a3 }));
   o4.displayName = "CheckIcon";
   var n = o4;
 
   // node_modules/@phosphor-icons/react/dist/csr/CheckCircle.es.js
-  var e23 = __toESM(require_react(), 1);
-  var c3 = e23.forwardRef((o19, r5) => /* @__PURE__ */ e23.createElement(p, { ref: r5, ...o19, weights: a4 }));
-  c3.displayName = "CheckCircleIcon";
-  var s = c3;
+  var e28 = __toESM(require_react(), 1);
+  var c2 = e28.forwardRef((o24, r8) => /* @__PURE__ */ e28.createElement(p, { ref: r8, ...o24, weights: a4 }));
+  c2.displayName = "CheckCircleIcon";
+  var s2 = c2;
+
+  // node_modules/@phosphor-icons/react/dist/csr/CircleNotch.es.js
+  var o5 = __toESM(require_react(), 1);
+  var c3 = o5.forwardRef((e40, r8) => /* @__PURE__ */ o5.createElement(p, { ref: r8, ...e40, weights: a5 }));
+  c3.displayName = "CircleNotchIcon";
+  var s3 = c3;
 
   // node_modules/@phosphor-icons/react/dist/csr/Copy.es.js
-  var o5 = __toESM(require_react(), 1);
-  var e24 = o5.forwardRef((r5, t4) => /* @__PURE__ */ o5.createElement(p, { ref: t4, ...r5, weights: e5 }));
-  e24.displayName = "CopyIcon";
-  var s2 = e24;
+  var o6 = __toESM(require_react(), 1);
+  var e29 = o6.forwardRef((r8, t5) => /* @__PURE__ */ o6.createElement(p, { ref: t5, ...r8, weights: e7 }));
+  e29.displayName = "CopyIcon";
+  var s4 = e29;
 
   // node_modules/@phosphor-icons/react/dist/csr/DownloadSimple.es.js
-  var o6 = __toESM(require_react(), 1);
-  var e25 = o6.forwardRef((a23, m4) => /* @__PURE__ */ o6.createElement(p, { ref: m4, ...a23, weights: e6 }));
-  e25.displayName = "DownloadSimpleIcon";
-  var l2 = e25;
+  var o7 = __toESM(require_react(), 1);
+  var e30 = o7.forwardRef((a28, m4) => /* @__PURE__ */ o7.createElement(p, { ref: m4, ...a28, weights: e8 }));
+  e30.displayName = "DownloadSimpleIcon";
+  var l2 = e30;
 
   // node_modules/@phosphor-icons/react/dist/csr/Eye.es.js
-  var e26 = __toESM(require_react(), 1);
-  var o7 = e26.forwardRef((r5, t4) => /* @__PURE__ */ e26.createElement(p, { ref: t4, ...r5, weights: a7 }));
-  o7.displayName = "EyeIcon";
-  var n2 = o7;
+  var e31 = __toESM(require_react(), 1);
+  var o8 = e31.forwardRef((r8, t5) => /* @__PURE__ */ e31.createElement(p, { ref: t5, ...r8, weights: a8 }));
+  o8.displayName = "EyeIcon";
+  var n2 = o8;
 
   // node_modules/@phosphor-icons/react/dist/csr/GearSix.es.js
-  var e27 = __toESM(require_react(), 1);
-  var o8 = e27.forwardRef((r5, a23) => /* @__PURE__ */ e27.createElement(p, { ref: a23, ...r5, weights: l }));
-  o8.displayName = "GearSixIcon";
-  var s3 = o8;
+  var e32 = __toESM(require_react(), 1);
+  var o9 = e32.forwardRef((r8, a28) => /* @__PURE__ */ e32.createElement(p, { ref: a28, ...r8, weights: l }));
+  o9.displayName = "GearSixIcon";
+  var s5 = o9;
 
   // node_modules/@phosphor-icons/react/dist/csr/GitBranch.es.js
-  var o9 = __toESM(require_react(), 1);
-  var r3 = o9.forwardRef((t4, a23) => /* @__PURE__ */ o9.createElement(p, { ref: a23, ...t4, weights: e8 }));
-  r3.displayName = "GitBranchIcon";
-  var m = r3;
+  var o10 = __toESM(require_react(), 1);
+  var r4 = o10.forwardRef((t5, a28) => /* @__PURE__ */ o10.createElement(p, { ref: a28, ...t5, weights: e10 }));
+  r4.displayName = "GitBranchIcon";
+  var m2 = r4;
+
+  // node_modules/@phosphor-icons/react/dist/csr/Info.es.js
+  var o11 = __toESM(require_react(), 1);
+  var e33 = o11.forwardRef((r8, t5) => /* @__PURE__ */ o11.createElement(p, { ref: t5, ...r8, weights: a11 }));
+  e33.displayName = "InfoIcon";
+  var c4 = e33;
 
   // node_modules/@phosphor-icons/react/dist/csr/List.es.js
-  var o10 = __toESM(require_react(), 1);
-  var t = o10.forwardRef((e34, r5) => /* @__PURE__ */ o10.createElement(p, { ref: r5, ...e34, weights: e9 }));
-  t.displayName = "ListIcon";
-  var c4 = t;
+  var o12 = __toESM(require_react(), 1);
+  var t3 = o12.forwardRef((e40, r8) => /* @__PURE__ */ o12.createElement(p, { ref: r8, ...e40, weights: e12 }));
+  t3.displayName = "ListIcon";
+  var c5 = t3;
 
   // node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js
-  var a21 = __toESM(require_react(), 1);
-  var o11 = a21.forwardRef((s5, n8) => /* @__PURE__ */ a21.createElement(p, { ref: n8, ...s5, weights: a11 }));
-  o11.displayName = "MagnifyingGlassIcon";
-  var f = o11;
+  var a25 = __toESM(require_react(), 1);
+  var o13 = a25.forwardRef((s7, n9) => /* @__PURE__ */ a25.createElement(p, { ref: n9, ...s7, weights: a13 }));
+  o13.displayName = "MagnifyingGlassIcon";
+  var f = o13;
 
   // node_modules/@phosphor-icons/react/dist/csr/Pause.es.js
-  var e28 = __toESM(require_react(), 1);
-  var o12 = e28.forwardRef((a23, r5) => /* @__PURE__ */ e28.createElement(p, { ref: r5, ...a23, weights: e11 }));
-  o12.displayName = "PauseIcon";
-  var n3 = o12;
+  var e34 = __toESM(require_react(), 1);
+  var o14 = e34.forwardRef((a28, r8) => /* @__PURE__ */ e34.createElement(p, { ref: r8, ...a28, weights: e14 }));
+  o14.displayName = "PauseIcon";
+  var n3 = o14;
+
+  // node_modules/@phosphor-icons/react/dist/csr/PencilSimple.es.js
+  var e35 = __toESM(require_react(), 1);
+  var o15 = e35.forwardRef((i, m4) => /* @__PURE__ */ e35.createElement(p, { ref: m4, ...i, weights: e15 }));
+  o15.displayName = "PencilSimpleIcon";
+  var a26 = o15;
 
   // node_modules/@phosphor-icons/react/dist/csr/Play.es.js
-  var o13 = __toESM(require_react(), 1);
-  var a22 = o13.forwardRef((e34, r5) => /* @__PURE__ */ o13.createElement(p, { ref: r5, ...e34, weights: a13 }));
-  a22.displayName = "PlayIcon";
-  var n4 = a22;
+  var o16 = __toESM(require_react(), 1);
+  var a27 = o16.forwardRef((e40, r8) => /* @__PURE__ */ o16.createElement(p, { ref: r8, ...e40, weights: a16 }));
+  a27.displayName = "PlayIcon";
+  var n4 = a27;
 
   // node_modules/@phosphor-icons/react/dist/csr/Plus.es.js
-  var o14 = __toESM(require_react(), 1);
-  var e29 = o14.forwardRef((r5, s5) => /* @__PURE__ */ o14.createElement(p, { ref: s5, ...r5, weights: a14 }));
-  e29.displayName = "PlusIcon";
-  var n5 = e29;
+  var o17 = __toESM(require_react(), 1);
+  var e36 = o17.forwardRef((r8, s7) => /* @__PURE__ */ o17.createElement(p, { ref: s7, ...r8, weights: a17 }));
+  e36.displayName = "PlusIcon";
+  var n5 = e36;
 
   // node_modules/@phosphor-icons/react/dist/csr/Record.es.js
-  var o15 = __toESM(require_react(), 1);
-  var e30 = o15.forwardRef((r5, c7) => /* @__PURE__ */ o15.createElement(p, { ref: c7, ...r5, weights: a15 }));
-  e30.displayName = "RecordIcon";
-  var n6 = e30;
+  var o18 = __toESM(require_react(), 1);
+  var e37 = o18.forwardRef((r8, c9) => /* @__PURE__ */ o18.createElement(p, { ref: c9, ...r8, weights: a18 }));
+  e37.displayName = "RecordIcon";
+  var n6 = e37;
 
   // node_modules/@phosphor-icons/react/dist/csr/RocketLaunch.es.js
-  var o16 = __toESM(require_react(), 1);
-  var c5 = o16.forwardRef((e34, t4) => /* @__PURE__ */ o16.createElement(p, { ref: t4, ...e34, weights: e15 }));
-  c5.displayName = "RocketLaunchIcon";
-  var s4 = c5;
+  var o19 = __toESM(require_react(), 1);
+  var c6 = o19.forwardRef((e40, t5) => /* @__PURE__ */ o19.createElement(p, { ref: t5, ...e40, weights: e19 }));
+  c6.displayName = "RocketLaunchIcon";
+  var s6 = c6;
 
   // node_modules/@phosphor-icons/react/dist/csr/SignOut.es.js
-  var o17 = __toESM(require_react(), 1);
-  var t2 = o17.forwardRef((e34, r5) => /* @__PURE__ */ o17.createElement(p, { ref: r5, ...e34, weights: e16 }));
-  t2.displayName = "SignOutIcon";
-  var c6 = t2;
+  var o20 = __toESM(require_react(), 1);
+  var t4 = o20.forwardRef((e40, r8) => /* @__PURE__ */ o20.createElement(p, { ref: r8, ...e40, weights: e20 }));
+  t4.displayName = "SignOutIcon";
+  var c7 = t4;
 
-  // node_modules/@phosphor-icons/react/dist/csr/TextAlignLeft.es.js
-  var e31 = __toESM(require_react(), 1);
-  var t3 = e31.forwardRef((o19, r5) => /* @__PURE__ */ e31.createElement(p, { ref: r5, ...o19, weights: e17 }));
-  t3.displayName = "TextAlignLeftIcon";
-  var m2 = t3;
+  // node_modules/@phosphor-icons/react/dist/csr/SquaresFour.es.js
+  var o21 = __toESM(require_react(), 1);
+  var r5 = o21.forwardRef((e40, a28) => /* @__PURE__ */ o21.createElement(p, { ref: a28, ...e40, weights: e21 }));
+  r5.displayName = "SquaresFourIcon";
+  var n7 = r5;
+
+  // node_modules/@phosphor-icons/react/dist/csr/Warning.es.js
+  var o22 = __toESM(require_react(), 1);
+  var r6 = o22.forwardRef((n9, a28) => /* @__PURE__ */ o22.createElement(p, { ref: a28, ...n9, weights: e22 }));
+  r6.displayName = "WarningIcon";
+  var c8 = r6;
 
   // node_modules/@phosphor-icons/react/dist/csr/WarningCircle.es.js
-  var r4 = __toESM(require_react(), 1);
-  var e32 = r4.forwardRef((o19, n8) => /* @__PURE__ */ r4.createElement(p, { ref: n8, ...o19, weights: a19 }));
-  e32.displayName = "WarningCircleIcon";
-  var m3 = e32;
+  var r7 = __toESM(require_react(), 1);
+  var e38 = r7.forwardRef((o24, n9) => /* @__PURE__ */ r7.createElement(p, { ref: n9, ...o24, weights: a23 }));
+  e38.displayName = "WarningCircleIcon";
+  var m3 = e38;
 
   // node_modules/@phosphor-icons/react/dist/csr/X.es.js
-  var o18 = __toESM(require_react(), 1);
-  var e33 = o18.forwardRef((r5, t4) => /* @__PURE__ */ o18.createElement(p, { ref: t4, ...r5, weights: a20 }));
-  e33.displayName = "XIcon";
-  var n7 = e33;
+  var o23 = __toESM(require_react(), 1);
+  var e39 = o23.forwardRef((r8, t5) => /* @__PURE__ */ o23.createElement(p, { ref: t5, ...r8, weights: a24 }));
+  e39.displayName = "XIcon";
+  var n8 = e39;
 
   // src/components/Icon.jsx
   var ICON_DEFAULTS = { size: 15, weight: "bold" };
 
+  // src/components/ProcessList.jsx
+  var STATUS_TAGS = {
+    errored: { label: "Errored", tone: "critical" },
+    error: { label: "Errored", tone: "critical" },
+    stopped: { label: "Stopped", tone: "" },
+    stopping: { label: "Stopping", tone: "warning" },
+    launching: { label: "Starting", tone: "warning" },
+    "one-launch-status": { label: "Starting", tone: "warning" }
+  };
+  var OFFLINE_ROWS = {
+    deploying: { label: "Deploying", tone: "accent", dot: "deploying" },
+    broken: { label: "Deploy failed", tone: "critical", dot: "errored" },
+    offline: { label: "Not in PM2", tone: "", dot: "stopped" }
+  };
+  function Row({ rowKey, name: name2, dot, isRunning, isSelected, isDeployed, meta, tag, onSelect }) {
+    return /* @__PURE__ */ import_react4.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `process-item${isSelected ? " active" : ""}`,
+        "data-running": isRunning,
+        "aria-current": isSelected ? "page" : void 0,
+        onClick: () => onSelect(rowKey)
+      },
+      /* @__PURE__ */ import_react4.default.createElement("span", { className: "status-dot", "data-status": dot }),
+      /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-name" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-label" }, name2), isDeployed && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-deployed", title: "Deployed by Hawkeye" }, /* @__PURE__ */ import_react4.default.createElement(m2, { size: 10, weight: "bold", "aria-label": "Deployed by Hawkeye" }))),
+      meta && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-meta" }, meta.cpu != null && /* @__PURE__ */ import_react4.default.createElement("span", null, meta.cpu.toFixed(0), "%"), meta.memory != null && /* @__PURE__ */ import_react4.default.createElement("span", null, formatBytes(meta.memory)), meta.isMonitored && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-rec", title: "Monitored - logs and metrics are being stored" }, /* @__PURE__ */ import_react4.default.createElement(n6, { size: 9, weight: "fill" }))),
+      tag && /* @__PURE__ */ import_react4.default.createElement("span", { className: `tag${tag.tone ? ` tag--${tag.tone}` : ""}` }, tag.label)
+    );
+  }
+  function ProcessList({
+    processes,
+    selection,
+    onSelect,
+    deployedNames = /* @__PURE__ */ new Set(),
+    offlineDeployments = [],
+    attentionCount,
+    drawerOpen = false
+  }) {
+    const [filter, setFilter] = (0, import_react4.useState)("");
+    const selectedStr = String(selection);
+    const query = filter.trim().toLowerCase();
+    const total = processes.length + offlineDeployments.length;
+    const { running, notRunning } = (0, import_react4.useMemo)(() => {
+      const matches = (name2) => !query || String(name2).toLowerCase().includes(query);
+      const rows = [
+        ...processes.map((p2) => {
+          const status = String(p2.status ?? "").toLowerCase();
+          const key = p2.id ?? p2.name;
+          return {
+            key,
+            name: p2.name,
+            dot: status,
+            isRunning: status === "online",
+            isDeployed: deployedNames.has(p2.name),
+            meta: { cpu: p2.cpu, memory: p2.memory, isMonitored: p2.isMonitored },
+            tag: STATUS_TAGS[status] ?? {
+              label: status ? status[0].toUpperCase() + status.slice(1) : "Unknown",
+              tone: ""
+            }
+          };
+        }),
+        ...offlineDeployments.map((d) => {
+          const look = OFFLINE_ROWS[offlineStatus(d)];
+          return {
+            key: deploymentKey(d.id),
+            name: d.pm2_name,
+            dot: look.dot,
+            isRunning: false,
+            isDeployed: true,
+            tag: { label: look.label, tone: look.tone }
+          };
+        })
+      ].filter((row) => matches(row.name));
+      return { running: rows.filter((r8) => r8.isRunning), notRunning: rows.filter((r8) => !r8.isRunning) };
+    }, [processes, offlineDeployments, deployedNames, query]);
+    const group = (title, rows) => rows.length > 0 && /* @__PURE__ */ import_react4.default.createElement("div", { className: "process-group", role: "group", "aria-label": title }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "process-group-head" }, /* @__PURE__ */ import_react4.default.createElement("p", { className: "section-label" }, title), /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-group-count" }, rows.length)), rows.map((row) => /* @__PURE__ */ import_react4.default.createElement(
+      Row,
+      {
+        key: row.key,
+        rowKey: row.key,
+        name: row.name,
+        dot: row.dot,
+        isRunning: row.isRunning,
+        isSelected: String(row.key) === selectedStr,
+        isDeployed: row.isDeployed,
+        meta: row.isRunning ? row.meta : void 0,
+        tag: row.isRunning ? void 0 : row.tag,
+        onSelect
+      }
+    )));
+    return /* @__PURE__ */ import_react4.default.createElement("aside", { className: "app-sidebar", "data-open": drawerOpen }, /* @__PURE__ */ import_react4.default.createElement("nav", { className: "sidebar-nav", "aria-label": "Main" }, /* @__PURE__ */ import_react4.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `sidebar-nav-item${selection == null ? " active" : ""}`,
+        "aria-current": selection == null ? "page" : void 0,
+        onClick: () => onSelect(null)
+      },
+      /* @__PURE__ */ import_react4.default.createElement(n7, { size: 15 }),
+      "Overview",
+      attentionCount > 0 && /* @__PURE__ */ import_react4.default.createElement(
+        "span",
+        {
+          className: "sidebar-nav-badge",
+          title: `${attentionCount} ${attentionCount === 1 ? "item needs" : "items need"} attention`
+        },
+        attentionCount
+      )
+    )), /* @__PURE__ */ import_react4.default.createElement("div", { className: "sidebar-head" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "sidebar-head-row" }, /* @__PURE__ */ import_react4.default.createElement("p", { className: "section-label" }, "Processes"), /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-group-count" }, total)), total > 6 && /* @__PURE__ */ import_react4.default.createElement("label", { className: "sidebar-search" }, /* @__PURE__ */ import_react4.default.createElement(f, { className: "sidebar-search-icon", size: 13, weight: "bold" }), /* @__PURE__ */ import_react4.default.createElement(
+      "input",
+      {
+        className: "input",
+        type: "text",
+        value: filter,
+        placeholder: "Filter processes",
+        "aria-label": "Filter processes",
+        onChange: (e40) => setFilter(e40.target.value)
+      }
+    ))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "process-list" }, running.length + notRunning.length === 0 && /* @__PURE__ */ import_react4.default.createElement("p", { className: "sidebar-empty" }, total === 0 ? "No PM2 processes found." : `Nothing matches "${filter.trim()}".`), group("Running", running), group("Not running", notRunning)));
+  }
+
+  // src/components/ProcessHeader.jsx
+  var import_react6 = __toESM(require_react(), 1);
+
   // src/components/ConfirmButton.jsx
-  var import_react4 = __toESM(require_react(), 1);
-  function ConfirmButton({ label, question, choices, variant = "default", size = "default" }) {
-    const [asking, setAsking] = (0, import_react4.useState)(false);
-    const [busy, setBusy] = (0, import_react4.useState)(false);
-    const triggerRef = (0, import_react4.useRef)(null);
-    const cancelRef = (0, import_react4.useRef)(null);
-    const restoreFocusRef = (0, import_react4.useRef)(false);
-    (0, import_react4.useEffect)(() => {
+  var import_react5 = __toESM(require_react(), 1);
+  function ConfirmButton({
+    label,
+    question,
+    choices,
+    variant = "default",
+    size = "default",
+    icon = null,
+    className = "",
+    disabled = false,
+    title
+  }) {
+    const [asking, setAsking] = (0, import_react5.useState)(false);
+    const [busy, setBusy] = (0, import_react5.useState)(false);
+    const triggerRef = (0, import_react5.useRef)(null);
+    const cancelRef = (0, import_react5.useRef)(null);
+    const restoreFocusRef = (0, import_react5.useRef)(false);
+    (0, import_react5.useEffect)(() => {
       if (asking) {
         cancelRef.current?.focus();
       } else if (restoreFocusRef.current) {
@@ -25228,33 +25764,37 @@
       }
     }
     const sizeClass = size === "sm" ? " btn--sm" : "";
+    const variantClass = { danger: " btn--danger", primary: " btn--primary" }[variant] ?? "";
     if (!asking) {
-      return /* @__PURE__ */ import_react4.default.createElement(
+      return /* @__PURE__ */ import_react5.default.createElement(
         "button",
         {
           ref: triggerRef,
           type: "button",
-          className: `btn${variant === "danger" ? " btn--danger" : ""}${sizeClass}`,
+          className: `btn${variantClass}${sizeClass}${className ? ` ${className}` : ""}`,
+          disabled,
+          title,
           onClick: () => setAsking(true)
         },
+        icon,
         label
       );
     }
-    return /* @__PURE__ */ import_react4.default.createElement(
+    return /* @__PURE__ */ import_react5.default.createElement(
       "span",
       {
         className: "confirm",
         role: "group",
         "aria-label": question,
-        onKeyDown: (e34) => {
-          if (e34.key === "Escape" && !busy) {
-            e34.stopPropagation();
+        onKeyDown: (e40) => {
+          if (e40.key === "Escape" && !busy) {
+            e40.stopPropagation();
             close();
           }
         }
       },
-      /* @__PURE__ */ import_react4.default.createElement("span", { className: "confirm-label" }, question),
-      /* @__PURE__ */ import_react4.default.createElement("span", { className: "confirm-actions" }, choices.map((choice) => /* @__PURE__ */ import_react4.default.createElement(
+      /* @__PURE__ */ import_react5.default.createElement("span", { className: "confirm-label" }, question),
+      /* @__PURE__ */ import_react5.default.createElement("span", { className: "confirm-actions" }, choices.map((choice) => /* @__PURE__ */ import_react5.default.createElement(
         "button",
         {
           key: choice.label,
@@ -25264,113 +25804,47 @@
           onClick: () => run(choice)
         },
         choice.label
-      )), /* @__PURE__ */ import_react4.default.createElement("button", { ref: cancelRef, type: "button", className: "btn btn--sm btn--quiet", disabled: busy, onClick: close }, "Cancel"))
+      )), /* @__PURE__ */ import_react5.default.createElement("button", { ref: cancelRef, type: "button", className: "btn btn--sm btn--quiet", disabled: busy, onClick: close }, "Cancel"))
     );
-  }
-
-  // src/components/ProcessList.jsx
-  var OFFLINE_TAG_TONE = {
-    deploying: " tag--accent",
-    broken: " tag--critical",
-    offline: ""
-  };
-  var OFFLINE_TAG_LABEL = {
-    deploying: "Deploying",
-    broken: "Failed",
-    offline: "Stopped"
-  };
-  function ProcRow({ proc, isSelected, isDeployed, onSelect }) {
-    const id = proc.id ?? proc.name;
-    const status = String(proc.status ?? "").toLowerCase();
-    return /* @__PURE__ */ import_react5.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `process-item${isSelected ? " active" : ""}`,
-        role: "option",
-        "aria-selected": isSelected,
-        onClick: () => onSelect(id)
-      },
-      /* @__PURE__ */ import_react5.default.createElement("span", { className: "status-dot", "data-status": status }),
-      /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-name" }, proc.name, isDeployed && /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-deployed", title: "Deployed by Hawkeye" }, /* @__PURE__ */ import_react5.default.createElement(m, { size: 10, weight: "bold" }))),
-      /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-meta" }, proc.cpu != null && /* @__PURE__ */ import_react5.default.createElement("span", null, proc.cpu.toFixed(0), "%"), proc.memory != null && /* @__PURE__ */ import_react5.default.createElement("span", null, formatBytes(proc.memory)), proc.isMonitored && /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-rec", title: "Monitored - logs and metrics are being stored" }, /* @__PURE__ */ import_react5.default.createElement(n6, { size: 9, weight: "fill" })))
-    );
-  }
-  function ProcessList({
-    processes,
-    selectedProcessId,
-    onSelect,
-    onEditDeployment,
-    deployedNames = /* @__PURE__ */ new Set(),
-    offlineDeployments = [],
-    onDeleteDeployment,
-    drawerOpen = false
-  }) {
-    const [filter, setFilter] = (0, import_react5.useState)("");
-    const selectedIdStr = String(selectedProcessId);
-    const query = filter.trim().toLowerCase();
-    const matches = (name2) => !query || String(name2).toLowerCase().includes(query);
-    const { running, notRunning } = (0, import_react5.useMemo)(() => {
-      const visible = processes.filter((p2) => matches(p2.name));
-      return {
-        running: visible.filter((p2) => String(p2.status ?? "").toLowerCase() === "online"),
-        notRunning: visible.filter((p2) => String(p2.status ?? "").toLowerCase() !== "online")
-      };
-    }, [processes, query]);
-    const visibleOffline = offlineDeployments.filter((d) => matches(d.pm2_name));
-    const totalVisible = running.length + notRunning.length + visibleOffline.length;
-    const showFilter = processes.length + offlineDeployments.length > 6;
-    const group = (title, items) => items.length > 0 && /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-group" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-group-head" }, /* @__PURE__ */ import_react5.default.createElement("p", { className: "section-label" }, title), /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-group-count" }, items.length)), items.map((proc) => /* @__PURE__ */ import_react5.default.createElement(
-      ProcRow,
-      {
-        key: proc.id ?? proc.name,
-        proc,
-        isSelected: String(proc.id ?? proc.name) === selectedIdStr,
-        isDeployed: deployedNames.has(proc.name),
-        onSelect
-      }
-    )));
-    return /* @__PURE__ */ import_react5.default.createElement("aside", { className: "app-sidebar", "data-open": drawerOpen }, showFilter && /* @__PURE__ */ import_react5.default.createElement("div", { className: "sidebar-search" }, /* @__PURE__ */ import_react5.default.createElement(f, { className: "sidebar-search-icon", size: 13, weight: "bold" }), /* @__PURE__ */ import_react5.default.createElement(
-      "input",
-      {
-        className: "input",
-        type: "text",
-        value: filter,
-        placeholder: "Filter processes",
-        "aria-label": "Filter processes",
-        onChange: (e34) => setFilter(e34.target.value)
-      }
-    )), /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-list", role: "listbox", "aria-label": "PM2 processes" }, totalVisible === 0 && /* @__PURE__ */ import_react5.default.createElement("p", { className: "sidebar-empty" }, processes.length === 0 && offlineDeployments.length === 0 ? "No PM2 processes found." : `Nothing matches "${filter.trim()}".`), group("Running", running), group("Not running", notRunning), visibleOffline.length > 0 && /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-group" }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "process-group-head" }, /* @__PURE__ */ import_react5.default.createElement("p", { className: "section-label" }, "Not deployed"), /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-group-count" }, visibleOffline.length)), visibleOffline.map((dep) => /* @__PURE__ */ import_react5.default.createElement("div", { className: "offline-item", key: dep.id }, /* @__PURE__ */ import_react5.default.createElement("div", { className: "offline-item-top" }, /* @__PURE__ */ import_react5.default.createElement("span", { className: "process-item-name" }, dep.pm2_name), /* @__PURE__ */ import_react5.default.createElement("span", { className: `tag${OFFLINE_TAG_TONE[dep.displayStatus] ?? ""}` }, OFFLINE_TAG_LABEL[dep.displayStatus] ?? dep.displayStatus)), /* @__PURE__ */ import_react5.default.createElement("div", { className: "offline-item-actions" }, /* @__PURE__ */ import_react5.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: () => onEditDeployment(dep.pm2_name) }, "Redeploy"), /* @__PURE__ */ import_react5.default.createElement(
-      ConfirmButton,
-      {
-        label: "Delete",
-        question: `Delete ${dep.pm2_name}?`,
-        variant: "danger",
-        size: "sm",
-        choices: [{ label: "Delete", danger: true, onConfirm: () => onDeleteDeployment(dep.id) }]
-      }
-    )))))));
   }
 
   // src/components/ProcessHeader.jsx
-  var import_react6 = __toESM(require_react(), 1);
-  function shortRepo(url) {
-    if (!url) return "";
-    const cleaned = url.replace(/\.git$/, "").replace(/^git@[^:]+:/, "").replace(/^https?:\/\/[^/]+\//, "");
-    const parts = cleaned.split("/").filter(Boolean);
-    return parts.length >= 2 ? parts.slice(-2).join("/") : cleaned;
+  var OFFLINE_STATUS_TEXT = {
+    broken: "deploy failed",
+    deploying: "deploying",
+    offline: "not in PM2"
+  };
+  function DeployChip({ deployment, onClick }) {
+    const body = /* @__PURE__ */ import_react6.default.createElement(import_react6.default.Fragment, null, /* @__PURE__ */ import_react6.default.createElement(m2, { size: 12, weight: "bold" }), /* @__PURE__ */ import_react6.default.createElement("span", { className: "deploy-chip-repo" }, shortRepo(deployment.repo_url)), /* @__PURE__ */ import_react6.default.createElement("span", { className: "deploy-chip-branch" }, deployment.branch));
+    if (!onClick) return /* @__PURE__ */ import_react6.default.createElement("span", { className: "deploy-chip deploy-chip--static" }, body);
+    return /* @__PURE__ */ import_react6.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "deploy-chip",
+        title: `Deployed by Hawkeye from ${shortRepo(deployment.repo_url)}. Open the Deploy tab.`,
+        onClick
+      },
+      body
+    );
   }
   function ProcessHeader({
-    selectedProcess,
-    details,
-    selectedDeployment,
+    selectedProcess = null,
+    offlineDeployment = null,
+    details = null,
+    selectedDeployment = null,
     onRestart,
     onStop,
     onStart,
-    onEditDeployment,
+    onOpenDeploy,
     onShowMetrics = null,
     children
   }) {
+    if (offlineDeployment) {
+      const state = offlineStatus(offlineDeployment);
+      const name2 = offlineDeployment.pm2_name;
+      return /* @__PURE__ */ import_react6.default.createElement("header", { className: "process-header" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-row" }, /* @__PURE__ */ import_react6.default.createElement("h1", { className: "process-name" }, name2), /* @__PURE__ */ import_react6.default.createElement("span", { className: "status-text", "data-status": state === "broken" ? "broken" : state }, OFFLINE_STATUS_TEXT[state]), /* @__PURE__ */ import_react6.default.createElement(DeployChip, { deployment: offlineDeployment })), /* @__PURE__ */ import_react6.default.createElement("p", { className: "stat-strip-empty" }, offlineDeployment.last_deployed_at ? `No PM2 process. It was last deployed ${formatDateTime(offlineDeployment.last_deployed_at)}.` : `No PM2 process. Hawkeye has a deployment for ${name2}, but it never started.`), children);
+    }
     const status = String(selectedProcess.status ?? "");
     const statusLower = status.toLowerCase();
     const isOnline = statusLower === "online";
@@ -25390,18 +25864,7 @@
       } : { label: "uptime", value: "---" },
       ...pid != null ? [{ label: "pid", value: String(pid) }] : []
     ] : null;
-    return /* @__PURE__ */ import_react6.default.createElement("header", { className: "process-header" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-row" }, /* @__PURE__ */ import_react6.default.createElement("h1", { className: "process-name" }, selectedProcess.name), /* @__PURE__ */ import_react6.default.createElement("span", { className: "status-text", "data-status": statusLower }, status), isDeployed && /* @__PURE__ */ import_react6.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "deploy-chip",
-        title: `Deployed by Hawkeye from ${selectedDeployment.repo_url}. Open the deployment configuration.`,
-        onClick: () => onEditDeployment(selectedProcess.name)
-      },
-      /* @__PURE__ */ import_react6.default.createElement(m, { size: 12, weight: "bold" }),
-      /* @__PURE__ */ import_react6.default.createElement("span", { className: "deploy-chip-repo" }, shortRepo(selectedDeployment.repo_url)),
-      /* @__PURE__ */ import_react6.default.createElement("span", { className: "deploy-chip-branch" }, selectedDeployment.branch)
-    ), /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-actions" }, isDeployed && /* @__PURE__ */ import_react6.default.createElement("button", { type: "button", className: "btn", onClick: () => onEditDeployment(selectedProcess.name) }, "Redeploy"), !isOrphan && /* @__PURE__ */ import_react6.default.createElement(
+    return /* @__PURE__ */ import_react6.default.createElement("header", { className: "process-header" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-row" }, /* @__PURE__ */ import_react6.default.createElement("h1", { className: "process-name" }, selectedProcess.name), /* @__PURE__ */ import_react6.default.createElement("span", { className: "status-text", "data-status": statusLower }, statusLower), isDeployed && /* @__PURE__ */ import_react6.default.createElement(DeployChip, { deployment: selectedDeployment, onClick: onOpenDeploy }), /* @__PURE__ */ import_react6.default.createElement("div", { className: "process-header-actions" }, !isOrphan && /* @__PURE__ */ import_react6.default.createElement(
       ConfirmButton,
       {
         label: "Restart",
@@ -25434,141 +25897,247 @@
   // src/components/MetricsPanel.jsx
   var import_react8 = __toESM(require_react(), 1);
 
-  // src/components/Sparkline.jsx
+  // src/components/TimeSeriesChart.jsx
   var import_react7 = __toESM(require_react(), 1);
-  function Sparkline({ samples, height = 32, color: color2 = "var(--accent)", formatValue }) {
-    const wrapperRef = (0, import_react7.useRef)(null);
-    const [tooltip, setTooltip] = (0, import_react7.useState)(null);
-    const [dims, setDims] = (0, import_react7.useState)({ w: 0, h: 0 });
-    const hasSamples = Boolean(samples && samples.length >= 2);
+
+  // src/services/chart.js
+  var HOUR_MS = 36e5;
+  var HOUR_STEPS = [1, 3, 6, 12, 24];
+  var MAX_X_TICKS = 5;
+  var NOW_GAP_MS = 90 * 6e4;
+  var LEFT_EDGE_PX = 16;
+  var RIGHT_EDGE_PX = 44;
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function pad(n9) {
+    return String(n9).padStart(2, "0");
+  }
+  function formatClock(t5) {
+    const d = new Date(t5);
+    return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+  function formatChartTime(t5) {
+    const d = new Date(t5);
+    return `${d.getDate()} ${MONTHS[d.getMonth()]}, ${formatClock(t5)}`;
+  }
+  function niceCeil(value) {
+    if (!Number.isFinite(value) || value <= 0) return 1;
+    const exp = 10 ** Math.floor(Math.log10(value));
+    const fraction = value / exp;
+    const nice = [1, 2, 4, 5, 10].find((step) => fraction <= step + 1e-9) ?? 10;
+    return nice * exp;
+  }
+  function byteAxisUnit(maxBytes) {
+    const units = ["B", "KB", "MB", "GB", "TB"];
+    let i = 0;
+    while (maxBytes >= 1024 ** (i + 1) && i < units.length - 1) i += 1;
+    return { unit: 1024 ** i, label: units[i] };
+  }
+  function hourTicks(t0, t1, widthPx) {
+    const span = t1 - t0;
+    const now = { label: "now", pct: 100, align: "end" };
+    if (!(span > 0)) return [now];
+    const minPct = widthPx > 0 ? LEFT_EDGE_PX / widthPx * 100 : 0;
+    const maxPct = widthPx > 0 ? 100 - RIGHT_EDGE_PX / widthPx * 100 : 100;
+    const first = new Date(t0);
+    first.setMinutes(0, 0, 0);
+    const candidates = [];
+    for (let t5 = first.getTime() + HOUR_MS; t5 < t1 - NOW_GAP_MS; t5 += HOUR_MS) {
+      const pct2 = (t5 - t0) / span * 100;
+      if (pct2 >= minPct && pct2 <= maxPct) candidates.push({ t: t5, pct: pct2 });
+    }
+    for (const step of HOUR_STEPS) {
+      const ticks = candidates.filter(({ t: t5 }) => new Date(t5).getHours() % step === 0);
+      if (ticks.length + 1 <= MAX_X_TICKS || step === HOUR_STEPS.at(-1)) {
+        return [...ticks.map(({ t: t5, pct: pct2 }) => ({ label: formatClock(t5), pct: pct2, align: "center" })), now];
+      }
+    }
+    return [now];
+  }
+  function sampleAt(samples, t5) {
+    let found = null;
+    for (const sample of samples) {
+      if (sample.t > t5) break;
+      found = sample;
+    }
+    return found;
+  }
+  function findPeak(samples) {
+    let peak = null;
+    for (const sample of samples) {
+      if (sample.v == null) continue;
+      if (!peak || sample.v > peak.v) peak = sample;
+    }
+    return peak;
+  }
+
+  // src/components/TimeSeriesChart.jsx
+  var PAD = 4;
+  var FLIP_AT = 0.62;
+  function toStepPoints(samples) {
+    const points = [];
+    samples.forEach((sample, i) => {
+      points.push(sample);
+      if (i < samples.length - 1) points.push({ t: samples[i + 1].t, v: sample.v });
+    });
+    return points;
+  }
+  function nearestIndex(samples, t5) {
+    let best = 0;
+    samples.forEach((sample, i) => {
+      if (Math.abs(sample.t - t5) < Math.abs(samples[best].t - t5)) best = i;
+    });
+    return best;
+  }
+  function LineKey({ color: color2, dashed }) {
+    return /* @__PURE__ */ import_react7.default.createElement("span", { className: "ts-key", style: { borderTopColor: color2, borderTopStyle: dashed ? "dashed" : "solid" } });
+  }
+  function TimeSeriesChart({
+    series,
+    height,
+    max,
+    ticks,
+    formatValue,
+    formatTick = formatValue,
+    threshold = null,
+    compact = false,
+    axisWidth = 32,
+    label
+  }) {
+    const wrapRef = (0, import_react7.useRef)(null);
+    const [width, setWidth] = (0, import_react7.useState)(0);
+    const [hover, setHover] = (0, import_react7.useState)(null);
+    const primary = series[0]?.samples ?? [];
+    const hasData = primary.length >= 2;
     (0, import_react7.useLayoutEffect)(() => {
-      const el = wrapperRef.current;
+      const el = wrapRef.current;
       if (!el) return void 0;
-      const measure = () => {
-        const rect = el.getBoundingClientRect();
-        setDims((prev) => prev.w === rect.width && prev.h === rect.height ? prev : { w: rect.width, h: rect.height });
-      };
+      const measure = () => setWidth(el.getBoundingClientRect().width);
       measure();
-      const ro = new ResizeObserver(measure);
-      ro.observe(el);
-      return () => ro.disconnect();
-    }, [hasSamples]);
-    const heightStyle = typeof height === "number" ? `${height}px` : height;
-    if (!hasSamples) return null;
-    const w = dims.w;
-    const h = dims.h;
-    const ready = w > 1 && h > 1;
-    const tMin = samples[0].t;
-    const tMax = samples[samples.length - 1].t;
-    const tRange = tMax - tMin || 1;
-    const vals = samples.map((s5) => s5.v);
-    const vMin = Math.min(...vals);
-    const vMax = Math.max(...vals);
-    const vRange = vMax - vMin || 1;
-    function xPos(t4) {
-      return (t4 - tMin) / tRange * w;
+      const observer = new ResizeObserver(measure);
+      observer.observe(el);
+      return () => observer.disconnect();
+    }, [hasData]);
+    if (!hasData) {
+      return /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-nodata", style: { height } }, "Not enough history yet");
     }
-    const isFlat = vMax === vMin;
-    function yPos(v) {
-      if (isFlat) return h / 2;
-      return h - (v - vMin) / vRange * (h - 2) - 1;
+    const all2 = series.flatMap((s7) => s7.samples);
+    const t0 = Math.min(...series.filter((s7) => s7.samples.length).map((s7) => s7.samples[0].t));
+    const t1 = Math.max(...all2.map((s7) => s7.t));
+    const span = t1 - t0 || 1;
+    const top = max ?? niceCeil(Math.max(...all2.map((s7) => s7.v), threshold?.value ?? 0));
+    const yTicks = compact ? [] : ticks ?? [0, top / 2, top];
+    const xPx = (t5) => (t5 - t0) / span * width;
+    const xPct = (t5) => (t5 - t0) / span * 100;
+    const yPx = (v) => height - PAD - Math.min(Math.max(v, 0), top) / top * (height - 2 * PAD);
+    const index2 = hover == null ? null : Math.min(hover, primary.length - 1);
+    const hoverT = index2 == null ? null : primary[index2].t;
+    const hoverPct = hoverT == null ? 0 : xPct(hoverT);
+    const rows = hoverT == null ? [] : series.map((s7) => ({ ...s7, sample: s7 === series[0] ? primary[index2] : sampleAt(s7.samples, hoverT) })).filter((s7) => s7.sample);
+    const current = primary.at(-1).v;
+    const ariaLabel = `${label}, now ${formatValue(current)}. Use the arrow keys to read values.`;
+    const onPointerMove = (e40) => {
+      const rect = e40.currentTarget.getBoundingClientRect();
+      const share = Math.max(0, Math.min(1, (e40.clientX - rect.left) / (rect.width || 1)));
+      setHover(nearestIndex(primary, t0 + share * span));
+    };
+    const onKeyDown = (e40) => {
+      if (e40.key !== "ArrowLeft" && e40.key !== "ArrowRight") return;
+      e40.preventDefault();
+      const from = index2 ?? primary.length - 1;
+      const next = from + (e40.key === "ArrowLeft" ? -1 : 1);
+      setHover(Math.max(0, Math.min(primary.length - 1, next)));
+    };
+    let tooltipStyle;
+    if (compact) {
+      const share = hoverPct / 100;
+      const shift = share > 0.7 ? "-100%" : share < 0.3 ? "0" : "-50%";
+      tooltipStyle = { left: `${hoverPct}%`, transform: `translateX(${shift})` };
+    } else {
+      const shift = hoverPct / 100 > FLIP_AT ? "calc(-100% - var(--s-3))" : "var(--s-3)";
+      tooltipStyle = { left: `${hoverPct}%`, transform: `translateX(${shift})` };
     }
-    function toStepPoints(samps) {
-      const result = [];
-      for (let i = 0; i < samps.length; i++) {
-        result.push(samps[i]);
-        if (i < samps.length - 1) {
-          result.push({ t: samps[i + 1].t, v: samps[i].v });
-        }
-      }
-      return result;
-    }
-    const stepPoints = toStepPoints(samples);
-    const points = stepPoints.map((s5) => `${xPos(s5.t).toFixed(2)},${yPos(s5.v).toFixed(2)}`).join(" ");
-    const lastX = xPos(stepPoints[stepPoints.length - 1].t).toFixed(2);
-    const areaPoints = `${points} ${lastX},${h} 0,${h}`;
-    function nearestSample(svgX) {
-      let best = samples[0];
-      let bestDist = Math.abs(xPos(samples[0].t) - svgX);
-      for (const s5 of samples) {
-        const d = Math.abs(xPos(s5.t) - svgX);
-        if (d < bestDist) {
-          bestDist = d;
-          best = s5;
-        }
-      }
-      return best;
-    }
-    function handleMouseMove(e34) {
-      const el = wrapperRef.current;
-      if (!el || !ready) return;
-      const rect = el.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(1, (e34.clientX - rect.left) / rect.width));
-      const svgX = pct * w;
-      const s5 = nearestSample(svgX);
-      setTooltip({ pct: xPos(s5.t) / w, svgX: xPos(s5.t), svgY: yPos(s5.v), v: s5.v, t: s5.t });
-    }
-    function handleMouseLeave() {
-      setTooltip(null);
-    }
-    const displayValue = tooltip ? formatValue ? formatValue(tooltip.v) : tooltip.v.toFixed(1) : null;
-    const displayTime = tooltip ? new Date(tooltip.t).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : null;
-    const tooltipShift = tooltip && tooltip.pct > 0.65 ? "translateX(-100%)" : "translateX(-50%)";
-    return /* @__PURE__ */ import_react7.default.createElement("div", { ref: wrapperRef, className: "sparkline-wrapper", onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave }, /* @__PURE__ */ import_react7.default.createElement(
-      "svg",
-      {
-        width: "100%",
-        height: heightStyle,
-        viewBox: `0 0 ${Math.max(w, 1)} ${Math.max(h, 1)}`,
-        preserveAspectRatio: "none",
-        "aria-hidden": "true",
-        className: "sparkline",
-        style: { display: "block", width: "100%", height: heightStyle }
-      },
-      ready && /* @__PURE__ */ import_react7.default.createElement(import_react7.default.Fragment, null, /* @__PURE__ */ import_react7.default.createElement("polygon", { points: areaPoints, fill: color2, opacity: "0.12" }), /* @__PURE__ */ import_react7.default.createElement(
-        "polyline",
-        {
-          points,
-          fill: "none",
-          stroke: color2,
-          strokeWidth: "1.5",
-          strokeLinejoin: "round",
-          strokeLinecap: "round",
-          vectorEffect: "non-scaling-stroke"
-        }
-      ), tooltip && /* @__PURE__ */ import_react7.default.createElement(import_react7.default.Fragment, null, /* @__PURE__ */ import_react7.default.createElement(
-        "line",
-        {
-          x1: tooltip.svgX.toFixed(2),
-          y1: "0",
-          x2: tooltip.svgX.toFixed(2),
-          y2: h,
-          stroke: color2,
-          strokeWidth: "0.75",
-          strokeDasharray: "2 2",
-          opacity: "0.5",
-          vectorEffect: "non-scaling-stroke"
-        }
-      ), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: tooltip.svgX.toFixed(2), cy: tooltip.svgY.toFixed(2), r: "2.5", fill: color2 })))
-    ), ready && tooltip && /* @__PURE__ */ import_react7.default.createElement(
+    const plot = /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-plot-wrap", ref: wrapRef, style: { height } }, /* @__PURE__ */ import_react7.default.createElement(
       "div",
       {
-        className: "sparkline-tooltip",
-        style: { left: `${(tooltip.pct * 100).toFixed(1)}%`, transform: tooltipShift }
+        className: "ts-plot",
+        role: "img",
+        tabIndex: 0,
+        "aria-label": ariaLabel,
+        onPointerMove,
+        onPointerLeave: () => setHover(null),
+        onFocus: () => setHover(primary.length - 1),
+        onBlur: () => setHover(null),
+        onKeyDown
       },
-      /* @__PURE__ */ import_react7.default.createElement("span", { className: "sparkline-tooltip-value" }, displayValue),
-      /* @__PURE__ */ import_react7.default.createElement("span", { className: "sparkline-tooltip-time" }, displayTime)
-    ));
+      width > 0 && /* @__PURE__ */ import_react7.default.createElement("svg", { width, height, viewBox: `0 0 ${width} ${height}`, "aria-hidden": "true" }, compact ? /* @__PURE__ */ import_react7.default.createElement("line", { className: "ts-grid ts-grid--base", x1: "0", x2: width, y1: height - 0.5, y2: height - 0.5 }) : yTicks.map((tick) => /* @__PURE__ */ import_react7.default.createElement(
+        "line",
+        {
+          key: tick,
+          className: tick === 0 ? "ts-grid ts-grid--base" : "ts-grid",
+          x1: "0",
+          x2: width,
+          y1: Math.round(yPx(tick)) + 0.5,
+          y2: Math.round(yPx(tick)) + 0.5
+        }
+      )), series.map((s7) => {
+        if (s7.samples.length === 0) return null;
+        const points = toStepPoints(s7.samples).map((p2) => `${xPx(p2.t).toFixed(1)},${yPx(p2.v).toFixed(1)}`).join(" ");
+        const showArea = s7.area ?? !s7.dashed;
+        const firstX = xPx(s7.samples[0].t).toFixed(1);
+        const lastX = xPx(s7.samples.at(-1).t).toFixed(1);
+        return /* @__PURE__ */ import_react7.default.createElement("g", { key: s7.name }, showArea && /* @__PURE__ */ import_react7.default.createElement(
+          "polygon",
+          {
+            className: "ts-area",
+            points: `${firstX},${height} ${points} ${lastX},${height}`,
+            style: { fill: s7.color }
+          }
+        ), /* @__PURE__ */ import_react7.default.createElement(
+          "polyline",
+          {
+            className: "ts-line",
+            points,
+            style: { stroke: s7.color },
+            strokeDasharray: s7.dashed ? "4 4" : void 0
+          }
+        ));
+      }))
+    ), threshold && threshold.value <= top && /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-threshold", style: { top: yPx(threshold.value) }, "aria-hidden": "true" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "ts-threshold-label" }, threshold.label)), index2 == null ? series.map(
+      (s7) => s7.samples.length > 0 && /* @__PURE__ */ import_react7.default.createElement(
+        "span",
+        {
+          key: s7.name,
+          className: "ts-dot",
+          "aria-hidden": "true",
+          style: { left: `${xPct(s7.samples.at(-1).t)}%`, top: yPx(s7.samples.at(-1).v), background: s7.color }
+        }
+      )
+    ) : /* @__PURE__ */ import_react7.default.createElement(import_react7.default.Fragment, null, /* @__PURE__ */ import_react7.default.createElement("span", { className: "ts-crosshair", style: { left: `${hoverPct}%` }, "aria-hidden": "true" }), rows.map((s7) => /* @__PURE__ */ import_react7.default.createElement(
+      "span",
+      {
+        key: s7.name,
+        className: "ts-dot",
+        "aria-hidden": "true",
+        style: { left: `${hoverPct}%`, top: yPx(s7.sample.v), background: s7.color }
+      }
+    )), /* @__PURE__ */ import_react7.default.createElement("div", { className: compact ? "ts-tooltip ts-tooltip--above" : "ts-tooltip", role: "status", style: tooltipStyle }, rows.map(
+      (s7) => compact ? /* @__PURE__ */ import_react7.default.createElement("div", { key: s7.name, className: "ts-tooltip-value" }, formatValue(s7.sample.v)) : /* @__PURE__ */ import_react7.default.createElement("div", { key: s7.name, className: "ts-tooltip-row" }, /* @__PURE__ */ import_react7.default.createElement(LineKey, { color: s7.color, dashed: s7.dashed }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "ts-tooltip-value" }, formatValue(s7.sample.v)), /* @__PURE__ */ import_react7.default.createElement("span", { className: "ts-tooltip-name" }, s7.name))
+    ), /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-tooltip-time" }, formatChartTime(hoverT)))));
+    if (compact) return /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-chart ts-chart--compact" }, plot);
+    return /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-chart", style: { gridTemplateColumns: `minmax(0, 1fr) ${axisWidth / 16}rem` } }, plot, /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-y", style: { height }, "aria-hidden": "true" }, yTicks.map((tick) => /* @__PURE__ */ import_react7.default.createElement("span", { key: tick, style: { top: yPx(tick) } }, formatTick(tick)))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "ts-x", "aria-hidden": "true" }, hourTicks(t0, t1, width).map((tick) => /* @__PURE__ */ import_react7.default.createElement("span", { key: `${tick.label}-${tick.pct}`, "data-align": tick.align, style: { left: `${tick.pct}%` } }, tick.label))));
   }
 
   // src/components/MetricsPanel.jsx
-  function MetricCard({ id, label, value, samples, formatValue, color: color2 }) {
-    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card", id }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-head" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-label" }, label), /* @__PURE__ */ import_react8.default.createElement("span", { className: "metric-card-value" }, value)), samples.length >= 2 ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-chart" }, /* @__PURE__ */ import_react8.default.createElement(Sparkline, { samples, formatValue, color: color2, height: "100%" })) : /* @__PURE__ */ import_react8.default.createElement("div", { className: "metric-card-nodata" }, "Not enough history yet"));
-  }
   function withLivePoint(samples, liveValue, now) {
     const lastT = samples.at(-1)?.t;
     if (lastT == null || liveValue == null || now <= lastT) return samples;
     return [...samples, { t: now, v: liveValue }];
+  }
+  function clipToWindow(samples, from) {
+    if (from == null) return samples;
+    const before = samples.filter((s7) => s7.t <= from).at(-1);
+    const inside = samples.filter((s7) => s7.t > from);
+    return before ? [{ t: from, v: before.v }, ...inside] : inside;
   }
   function mergeAppMetrics(live, history, now) {
     const byName = /* @__PURE__ */ new Map();
@@ -25577,7 +26146,7 @@
         name: series.name,
         unit: series.unit,
         current: series.samples.at(-1)?.value ?? null,
-        samples: series.samples.map((s5) => ({ t: s5.sampled_at, v: s5.value }))
+        samples: series.samples.map((s7) => ({ t: s7.sampled_at, v: s7.value }))
       });
     }
     for (const metric of live) {
@@ -25589,80 +26158,127 @@
         samples: withLivePoint(entry.samples, metric.value, now)
       });
     }
-    return [...byName.values()].sort((a23, b) => a23.name.localeCompare(b.name));
+    return [...byName.values()].sort((a28, b) => a28.name.localeCompare(b.name));
+  }
+  function ProcessChartCard({ id, label, value, peak, series, children }) {
+    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card", id }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card-head" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-label" }, label), peak && /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-peak" }, peak)), /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-value" }, value), series.length > 1 && /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card-legend" }, series.map((s7) => /* @__PURE__ */ import_react8.default.createElement("span", { key: s7.name }, /* @__PURE__ */ import_react8.default.createElement(
+      "span",
+      {
+        className: "chart-card-legend-key",
+        style: { borderTopColor: s7.color, borderTopStyle: s7.dashed ? "dashed" : "solid" }
+      }
+    ), s7.name))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card-plot" }, children));
   }
   function MetricsPanel({
+    processName,
     details,
     metricsHistory = [],
     customMetricsHistory = [],
     hostSamples = [],
-    hostCurrent = null,
     isMonitored,
     metricsRetentionMs = 24 * 60 * 60 * 1e3,
-    onEnableMonitoring
+    memoryLimit = null,
+    onEnableMonitoring,
+    onShowHost
   }) {
-    const pct = (v) => `${v.toFixed(1)}%`;
-    const retention = formatDuration(metricsRetentionMs);
-    const latestHost = hostSamples.length > 0 ? hostSamples[hostSamples.length - 1] : null;
+    const pct2 = (v) => `${Math.round(v * 10) / 10}%`;
+    const windowLabel = formatShortDuration(metricsRetentionMs);
     const now = Date.now();
     const appMetrics = mergeAppMetrics(details?.customMetrics ?? [], customMetricsHistory, now);
     const cpuSamples = withLivePoint(
-      metricsHistory.map((s5) => ({ t: s5.sampled_at, v: s5.cpu })),
+      metricsHistory.map((s7) => ({ t: s7.sampled_at, v: s7.cpu })),
       details?.process.cpu,
       now
     );
     const memorySamples = withLivePoint(
-      metricsHistory.map((s5) => ({ t: s5.sampled_at, v: s5.memory })),
+      metricsHistory.map((s7) => ({ t: s7.sampled_at, v: s7.memory })),
       details?.process.memory,
       now
     );
-    const hostStats = [
-      { label: "Host CPU", current: hostCurrent?.cpu ?? latestHost?.cpu, key: "cpu", color: "var(--accent)" },
-      { label: "Host RAM", current: hostCurrent?.ram ?? latestHost?.ram, key: "ram", color: "var(--success)" },
-      { label: "Host disk", current: hostCurrent?.disk ?? latestHost?.disk, key: "disk", color: "var(--info)" }
+    const hostCpuSamples = clipToWindow(
+      hostSamples.filter((s7) => s7.cpu != null).map((s7) => ({ t: s7.sampled_at, v: s7.cpu })),
+      cpuSamples[0]?.t
+    );
+    const cpuSeries = [
+      { name: processName, color: "var(--accent)", samples: cpuSamples },
+      { name: "Host CPU", color: "var(--muted)", samples: hostCpuSamples, dashed: true }
     ];
-    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-panel fade-in" }, /* @__PURE__ */ import_react8.default.createElement("section", null, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-group-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "manage-section-title" }, "This process"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, isMonitored ? `Sampled every 20 s, kept for ${retention}` : "Live values only")), !isMonitored && /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-notice" }, /* @__PURE__ */ import_react8.default.createElement("p", { className: "hint" }, "History is not stored for this process, so these charts stay empty."), /* @__PURE__ */ import_react8.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: onEnableMonitoring }, "Turn on monitoring")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid" }, /* @__PURE__ */ import_react8.default.createElement(
-      MetricCard,
+    const memorySeries = [{ name: processName, color: "var(--success)", samples: memorySamples }];
+    const limitBytes = parseMemorySize(memoryLimit);
+    const memoryTop = Math.max(0, ...memorySamples.map((s7) => s7.v), limitBytes ?? 0);
+    const memoryUnit = byteAxisUnit(memoryTop);
+    const memoryMax = niceCeil(memoryTop / memoryUnit.unit) * memoryUnit.unit;
+    const peakLine = (samples, format) => {
+      const peak = findPeak(samples);
+      return peak ? /* @__PURE__ */ import_react8.default.createElement(import_react8.default.Fragment, null, windowLabel, " peak ", /* @__PURE__ */ import_react8.default.createElement("span", { className: "num" }, format(peak.v)), " at ", formatClock(peak.t)) : null;
+    };
+    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-panel fade-in" }, /* @__PURE__ */ import_react8.default.createElement("section", { className: "metrics-section", "aria-labelledby": "metrics-process" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "section-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { id: "metrics-process", className: "card-title" }, "This process"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, isMonitored ? `Sampled every 20 s, kept for ${windowLabel}.` : "Live values only.", " Hover a chart for exact values.")), !isMonitored && /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-notice" }, /* @__PURE__ */ import_react8.default.createElement("p", { className: "hint" }, "History is not stored for this process, so these charts stay empty."), /* @__PURE__ */ import_react8.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: onEnableMonitoring }, "Turn on monitoring")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid" }, /* @__PURE__ */ import_react8.default.createElement(
+      ProcessChartCard,
       {
         id: "metric-cpu",
         label: "CPU",
         value: details ? `${details.process.cpu}%` : "--",
-        samples: cpuSamples,
-        formatValue: pct,
-        color: "var(--accent)"
-      }
+        peak: peakLine(cpuSamples, pct2),
+        series: cpuSeries
+      },
+      /* @__PURE__ */ import_react8.default.createElement(
+        TimeSeriesChart,
+        {
+          series: cpuSeries,
+          height: 160,
+          axisWidth: 44,
+          formatValue: pct2,
+          formatTick: (v) => `${v}%`,
+          label: `CPU of ${processName} and of the host over the last ${windowLabel}`
+        }
+      )
     ), /* @__PURE__ */ import_react8.default.createElement(
-      MetricCard,
+      ProcessChartCard,
       {
         id: "metric-mem",
         label: "Memory",
         value: details ? formatBytes(details.process.memory) : "--",
-        samples: memorySamples,
-        formatValue: formatBytes,
-        color: "var(--success)"
-      }
-    ))), /* @__PURE__ */ import_react8.default.createElement("section", null, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-group-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "manage-section-title" }, "Application metrics"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, "Reported by the process through tx2 or @pm2/io")), appMetrics.length > 0 ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid" }, appMetrics.map((metric) => /* @__PURE__ */ import_react8.default.createElement(
-      MetricCard,
+        peak: peakLine(memorySamples, formatBytes),
+        series: memorySeries
+      },
+      /* @__PURE__ */ import_react8.default.createElement(
+        TimeSeriesChart,
+        {
+          series: memorySeries,
+          height: 160,
+          axisWidth: 44,
+          max: memoryMax,
+          ticks: [0, memoryMax / 2, memoryMax],
+          formatValue: formatBytes,
+          formatTick: (v) => `${v / memoryUnit.unit} ${memoryUnit.label}`,
+          threshold: limitBytes ? { value: limitBytes, label: `PM2 restarts it above ${formatBytes(limitBytes)}` } : null,
+          label: `Memory of ${processName} over the last ${windowLabel}${limitBytes ? `. PM2 restarts it above ${formatBytes(limitBytes)}` : ""}`
+        }
+      )
+    ))), /* @__PURE__ */ import_react8.default.createElement("section", { className: "metrics-section", "aria-labelledby": "metrics-app" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "section-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { id: "metrics-app", className: "card-title" }, "Application metrics"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, "Reported by the process through tx2 or @pm2/io")), appMetrics.length > 0 ? /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid metrics-grid--small" }, appMetrics.map((metric) => {
+      const format = (v) => formatMetricValue(v, metric.unit);
+      const value = metric.current != null ? format(metric.current) : "--";
+      return /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card chart-card--small", key: metric.name }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card-head" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-label" }, metric.name), /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-value chart-card-value--small" }, value)), /* @__PURE__ */ import_react8.default.createElement(
+        TimeSeriesChart,
+        {
+          series: [{ name: metric.name, color: "var(--info)", samples: metric.samples }],
+          height: 56,
+          compact: true,
+          formatValue: format,
+          label: `${metric.name} over the last ${windowLabel}`
+        }
+      ));
+    })) : /* @__PURE__ */ import_react8.default.createElement("p", { className: "hint" }, details ? "This process reports no metrics. Register some with tx2.metric() or @pm2/io to chart them here." : "Waiting for the first reading.")), /* @__PURE__ */ import_react8.default.createElement("p", { className: "metrics-host-note" }, /* @__PURE__ */ import_react8.default.createElement(c4, { size: 14 }), "Host RAM and disk live on the Overview.", /* @__PURE__ */ import_react8.default.createElement(
+      "a",
       {
-        key: metric.name,
-        label: metric.name,
-        value: metric.current != null ? formatMetricValue(metric.current, metric.unit) : "--",
-        samples: metric.samples,
-        formatValue: (v) => formatMetricValue(v, metric.unit),
-        color: "var(--info)"
-      }
-    ))) : /* @__PURE__ */ import_react8.default.createElement("p", { className: "hint" }, details ? "This process reports no metrics. Register some with tx2.metric() or @pm2/io to chart them here." : "Waiting for the first reading.")), /* @__PURE__ */ import_react8.default.createElement("section", null, /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-group-head" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "manage-section-title" }, "Host"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "hint" }, "The machine this process runs on, last ", retention)), /* @__PURE__ */ import_react8.default.createElement("div", { className: "metrics-grid" }, hostStats.map((stat) => /* @__PURE__ */ import_react8.default.createElement(
-      MetricCard,
-      {
-        key: stat.key,
-        id: `metric-host-${stat.key}`,
-        label: stat.label,
-        value: stat.current != null ? pct(stat.current) : "--",
-        samples: hostSamples.map((s5) => ({ t: s5.sampled_at, v: s5[stat.key] })),
-        formatValue: pct,
-        color: stat.color
-      }
-    )))));
+        href: "#host",
+        onClick: (e40) => {
+          e40.preventDefault();
+          onShowHost();
+        }
+      },
+      "Open host metrics"
+    )));
   }
 
   // src/components/ManagePanel.jsx
@@ -25674,94 +26290,66 @@
     return typeof action === "object" ? action.name : action;
   }
   function Actions({ actions, selectedProcessId, csrfToken, onCsrfRefresh }) {
-    const [arming, setArming] = (0, import_react9.useState)(null);
-    const [params, setParams] = (0, import_react9.useState)("");
-    const [busy, setBusy] = (0, import_react9.useState)(false);
+    const [params, setParams] = (0, import_react9.useState)({});
     const [result, setResult] = (0, import_react9.useState)(null);
     if (actions.length === 0) return null;
     async function trigger(name2, requiresParams) {
       if (selectedProcessId == null || !csrfToken) return;
-      setBusy(true);
       setResult(null);
       try {
         const body = { actionName: name2 };
-        if (requiresParams && params.trim()) body.params = params.trim();
+        const value = (params[name2] ?? "").trim();
+        if (requiresParams && value) body.params = value;
         await fetchWithCsrf(`/api/processes/${encodeURIComponent(selectedProcessId)}/actions/trigger`, {
           onCsrfRefresh,
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)
         });
-        setResult({ ok: true, text: `${name2} triggered.` });
+        setResult({ ok: true, name: name2, text: "triggered." });
+        setParams((prev) => ({ ...prev, [name2]: "" }));
       } catch (err) {
-        setResult({ ok: false, text: err.message ?? `${name2} failed.` });
-      } finally {
-        setBusy(false);
-        setArming(null);
-        setParams("");
+        setResult({ ok: false, name: name2, text: err.message ? `failed: ${err.message}` : "failed." });
       }
     }
-    return /* @__PURE__ */ import_react9.default.createElement(import_react9.default.Fragment, null, /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-list" }, actions.map((action) => {
+    return /* @__PURE__ */ import_react9.default.createElement(import_react9.default.Fragment, null, actions.map((action) => {
       const name2 = actionName(action);
       const requiresParams = typeof action === "object" && Array.isArray(action.params) && action.params.length > 0;
-      const isArmed = arming === name2;
-      return /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-row", key: name2 }, isArmed ? /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-row-form" }, /* @__PURE__ */ import_react9.default.createElement("span", { className: "action-row-name" }, name2), requiresParams && /* @__PURE__ */ import_react9.default.createElement(
+      return /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-row", key: name2 }, /* @__PURE__ */ import_react9.default.createElement("span", { className: "action-row-name" }, name2), requiresParams && /* @__PURE__ */ import_react9.default.createElement(
         "input",
         {
-          className: "input",
+          className: "input action-row-input",
           type: "text",
-          value: params,
-          placeholder: "Parameters",
-          "aria-label": `Parameters for ${name2}`,
-          disabled: busy,
-          onChange: (e34) => setParams(e34.target.value)
+          value: params[name2] ?? "",
+          placeholder: "parameter",
+          "aria-label": `Parameter for ${name2}`,
+          onChange: (e40) => setParams((prev) => ({ ...prev, [name2]: e40.target.value }))
         }
       ), /* @__PURE__ */ import_react9.default.createElement(
-        "button",
+        ConfirmButton,
         {
-          type: "button",
-          className: "btn btn--sm btn--primary",
-          disabled: busy,
-          onClick: () => trigger(name2, requiresParams)
-        },
-        busy ? "Running" : "Run"
-      ), /* @__PURE__ */ import_react9.default.createElement(
-        "button",
-        {
-          type: "button",
-          className: "btn btn--sm btn--quiet",
-          disabled: busy,
-          onClick: () => {
-            setArming(null);
-            setParams("");
-          }
-        },
-        "Cancel"
-      )) : /* @__PURE__ */ import_react9.default.createElement(import_react9.default.Fragment, null, /* @__PURE__ */ import_react9.default.createElement("span", { className: "action-row-name" }, name2), /* @__PURE__ */ import_react9.default.createElement(
-        "button",
-        {
-          type: "button",
-          className: "btn btn--sm",
-          onClick: () => {
-            setArming(name2);
-            setParams("");
-            setResult(null);
-          }
-        },
-        "Run"
-      )));
-    })), result && /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react9.default.createElement(s, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react9.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react9.default.createElement("span", null, result.text)));
+          label: "Run",
+          question: `Run ${name2}?`,
+          size: "sm",
+          className: "btn--sunken",
+          choices: [{ label: "Run", onConfirm: () => trigger(name2, requiresParams) }]
+        }
+      ));
+    }), result && /* @__PURE__ */ import_react9.default.createElement("div", { className: "action-result action-result--card", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react9.default.createElement(s2, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react9.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react9.default.createElement("span", null, /* @__PURE__ */ import_react9.default.createElement("span", { className: "num" }, result.name), " ", result.text)));
   }
 
   // src/components/ManagePanel.jsx
   function monitoringBenefits(metricsRetentionMs, logsRetentionMs) {
     return [
-      `CPU, memory and application metrics, sampled every 20 s and kept for ${formatDuration(metricsRetentionMs)}`,
-      `Log lines stored and searchable for ${formatDuration(logsRetentionMs)}`,
+      `CPU, memory and application metrics, sampled every 20 s and kept for ${formatShortDuration(metricsRetentionMs)}`,
+      `Log lines stored and searchable for ${formatShortDuration(logsRetentionMs)}`,
       "Alerts when a matching log line appears"
     ];
   }
   var LOG_LEVEL_CHOICES = ["trace", "debug", "info", "warn", "error", "fatal", "silent"];
+  function Card({ id, title, hint, danger = false, children }) {
+    return /* @__PURE__ */ import_react10.default.createElement("section", { className: `card${danger ? " card--danger" : ""}`, "aria-labelledby": id }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { id, className: "card-title" }, title), hint && /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-hint" }, hint)), children);
+  }
   function ManagePanel({
     selectedProcess,
     isMonitored,
@@ -25769,6 +26357,7 @@
     logsRetentionMs = 14 * 24 * 60 * 60 * 1e3,
     onToggleMonitoring,
     onToggleAlerts,
+    onOpenAlerting,
     actions,
     logLevel,
     onSetLogLevel,
@@ -25776,7 +26365,6 @@
     csrfToken,
     onCsrfRefresh,
     selectedDeployment,
-    onEditDeployment,
     onDelete,
     onRemoveOrphan
   }) {
@@ -25784,37 +26372,65 @@
     const isOrphan = selectedProcess.isOrphan ?? false;
     const alertsEnabled = selectedProcess.alertsEnabled !== false;
     const statusLower = String(selectedProcess.status ?? "").toLowerCase();
-    const isDeletable = !isOrphan && ["stopped", "errored", "error", "one-launch-status"].includes(statusLower);
     const isOnline = statusLower === "online";
-    return /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-panel fade-in" }, /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Monitoring"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Without monitoring you see live data only. Nothing survives a page reload.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Store history for ", name2, isMonitored && /* @__PURE__ */ import_react10.default.createElement("span", { className: "tag tag--accent" }, "On")), !isMonitored && /* @__PURE__ */ import_react10.default.createElement("ul", { className: "manage-benefits" }, monitoringBenefits(metricsRetentionMs, logsRetentionMs).map((benefit) => /* @__PURE__ */ import_react10.default.createElement("li", { key: benefit }, /* @__PURE__ */ import_react10.default.createElement(n, { size: 11, weight: "bold" }), /* @__PURE__ */ import_react10.default.createElement("span", null, benefit))))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, isMonitored ? /* @__PURE__ */ import_react10.default.createElement(
-      ConfirmButton,
+    const isStopped = ["stopped", "errored", "error", "one-launch-status"].includes(statusLower);
+    const hasDeployment = Boolean(selectedDeployment);
+    return /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-panel fade-in" }, /* @__PURE__ */ import_react10.default.createElement(
+      Card,
       {
-        label: "Turn off",
-        question: `Delete all stored history for ${name2}?`,
-        variant: "danger",
-        choices: [{ label: "Delete history", danger: true, onConfirm: () => onToggleMonitoring(name2, true) }]
-      }
-    ) : /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onToggleMonitoring(name2, false) }, "Turn on"))), isMonitored && /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Alerts"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Send a notification when a log line matches your alerting rules. Configure reporters in Settings.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react10.default.createElement(
-      "input",
-      {
-        type: "checkbox",
-        checked: alertsEnabled,
-        onChange: (e34) => onToggleAlerts(name2, e34.target.checked)
-      }
-    ), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-label" }, alertsEnabled ? "Enabled" : "Disabled"))))), isOnline && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Log level"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Changes how much the running process logs, without restarting it. It applies to this instance only and is gone as soon as the process restarts.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Current level", logLevel.level && /* @__PURE__ */ import_react10.default.createElement("span", { className: "tag tag--accent" }, logLevel.level)), logLevel.supported === false && /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, name2, " did not answer. It needs the Hawkeye log-level listener, see the README for the snippet.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "level-picker", role: "group", "aria-label": "Log level" }, LOG_LEVEL_CHOICES.map((choice) => /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        key: choice,
-        type: "button",
-        className: "btn btn--sm",
-        "data-active": logLevel.level === choice,
-        "data-quiet": choice === "silent",
-        "aria-pressed": logLevel.level === choice,
-        disabled: logLevel.busy,
-        onClick: () => onSetLogLevel(choice)
+        id: "manage-history",
+        title: "History and alerts",
+        hint: "Without stored history you see live data only, and nothing survives a page reload."
       },
-      choice
-    )))))), actions.length > 0 && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Custom actions"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Actions this process registered with PM2 through axm_actions.")), /* @__PURE__ */ import_react10.default.createElement(
+      /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-label" }, "Store logs and metrics", isMonitored && /* @__PURE__ */ import_react10.default.createElement("span", { className: "tag tag--accent" }, "On")), isMonitored ? /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-hint" }, "Logs are kept for ", formatShortDuration(logsRetentionMs), ", metrics for", " ", formatShortDuration(metricsRetentionMs), ".") : /* @__PURE__ */ import_react10.default.createElement("ul", { className: "manage-benefits" }, monitoringBenefits(metricsRetentionMs, logsRetentionMs).map((benefit) => /* @__PURE__ */ import_react10.default.createElement("li", { key: benefit }, /* @__PURE__ */ import_react10.default.createElement(n, { size: 11, weight: "bold" }), /* @__PURE__ */ import_react10.default.createElement("span", null, benefit))))), isMonitored ? /* @__PURE__ */ import_react10.default.createElement(
+        ConfirmButton,
+        {
+          label: "Turn off",
+          question: `Delete all stored history for ${name2}?`,
+          variant: "danger",
+          choices: [{ label: "Delete history", danger: true, onConfirm: () => onToggleMonitoring(name2, true) }]
+        }
+      ) : /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onToggleMonitoring(name2, false) }, "Turn on")),
+      isMonitored && /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-label" }, "Alerts"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-hint" }, "Notify when a log line of ", name2, " matches the alert rules. Rules and reporters are set in", " ", /* @__PURE__ */ import_react10.default.createElement(
+        "a",
+        {
+          href: "#settings-alerting",
+          onClick: (e40) => {
+            e40.preventDefault();
+            onOpenAlerting();
+          }
+        },
+        "Settings, Alerting"
+      ), ".")), /* @__PURE__ */ import_react10.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react10.default.createElement(
+        "input",
+        {
+          type: "checkbox",
+          checked: alertsEnabled,
+          "aria-label": `Alerts for ${name2}`,
+          onChange: (e40) => onToggleAlerts(name2, e40.target.checked)
+        }
+      ), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-label" }, alertsEnabled ? "Enabled" : "Disabled")))
+    ), isOnline && /* @__PURE__ */ import_react10.default.createElement(
+      Card,
+      {
+        id: "manage-level",
+        title: "Log level",
+        hint: "Changes how much the running process logs, without restarting it. It applies to this instance only and is gone as soon as the process restarts."
+      },
+      /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row-text card-row-text--narrow" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-label" }, "Current level", logLevel.level && /* @__PURE__ */ import_react10.default.createElement("span", { className: "tag tag--accent" }, logLevel.level)), logLevel.supported === false && /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-hint" }, name2, " did not answer. It needs the Hawkeye log-level listener, see the README for the snippet.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "segmented", role: "group", "aria-label": "Log level" }, LOG_LEVEL_CHOICES.map((choice) => /* @__PURE__ */ import_react10.default.createElement(
+        "button",
+        {
+          key: choice,
+          type: "button",
+          className: "segmented-item",
+          "data-quiet": choice === "silent",
+          "aria-pressed": logLevel.level === choice,
+          disabled: logLevel.busy,
+          onClick: () => onSetLogLevel(choice)
+        },
+        choice
+      ))))
+    ), actions.length > 0 && /* @__PURE__ */ import_react10.default.createElement(Card, { id: "manage-actions", title: "Custom actions", hint: `Registered by ${name2} with PM2 through axm_actions.` }, /* @__PURE__ */ import_react10.default.createElement(
       Actions,
       {
         actions,
@@ -25822,7 +26438,7 @@
         csrfToken,
         onCsrfRefresh
       }
-    )), selectedDeployment && !isOrphan && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Deployment")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, selectedDeployment.repo_url), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "Branch ", selectedDeployment.branch, selectedDeployment.last_deployed_at ? `, last deployed ${formatDate(selectedDeployment.last_deployed_at)}` : ", never deployed successfully"), selectedDeployment.watch_enabled === 1 && /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, `Auto-deploy every ${selectedDeployment.watch_interval_minutes} min`, selectedDeployment.watch_last_checked_at ? `, last checked ${new Date(selectedDeployment.watch_last_checked_at).toLocaleTimeString("en-GB")}` : ", not checked yet", selectedDeployment.watch_last_error ? `. Last error: ${selectedDeployment.watch_last_error}` : "")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn", onClick: () => onEditDeployment(name2) }, "Redeploy")))), (isOrphan || isDeletable) && /* @__PURE__ */ import_react10.default.createElement("section", { className: "manage-section manage-section--danger" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-section-head" }, /* @__PURE__ */ import_react10.default.createElement("h2", { className: "manage-section-title" }, "Remove")), isOrphan && /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Orphaned record"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, "This process is tracked by Hawkeye but no longer exists in PM2. Removing it deletes its stored history.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement(
+    )), /* @__PURE__ */ import_react10.default.createElement(Card, { id: "manage-remove", title: "Remove", danger: true }, isOrphan ? /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-label" }, "Orphaned record"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-hint" }, "This process is tracked by Hawkeye but no longer exists in PM2. Removing it deletes its stored history.")), /* @__PURE__ */ import_react10.default.createElement(
       ConfirmButton,
       {
         label: "Remove record",
@@ -25830,18 +26446,18 @@
         variant: "danger",
         choices: [{ label: "Remove", danger: true, onConfirm: () => onRemoveOrphan(name2) }]
       }
-    ))), isDeletable && /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "manage-row-label" }, "Delete from PM2"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "hint" }, selectedDeployment ? "You can keep the cloned files on disk or remove them along with the process." : "Removes the process from PM2. Files on disk are untouched.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "manage-row-control" }, /* @__PURE__ */ import_react10.default.createElement(
+    )) : /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-row-text" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-label" }, "Delete from PM2"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "card-row-hint" }, isStopped ? hasDeployment ? "You can keep the cloned files on disk or remove them along with the process." : "Removes the process from PM2. Files on disk are untouched." : hasDeployment ? `Stop ${name2} first. You can then keep the cloned files on disk or remove them too.` : `Stop ${name2} first. Removing it from PM2 leaves the files on disk untouched.`)), isStopped ? /* @__PURE__ */ import_react10.default.createElement(
       ConfirmButton,
       {
         label: "Delete",
         question: `Delete ${name2}?`,
         variant: "danger",
-        choices: selectedDeployment ? [
+        choices: hasDeployment ? [
           { label: "PM2 only", onConfirm: () => onDelete(false) },
           { label: "PM2 and disk", danger: true, onConfirm: () => onDelete(true) }
         ] : [{ label: "Delete", danger: true, onConfirm: () => onDelete(false) }]
       }
-    )))));
+    ) : /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "btn", disabled: true, title: "Stop the process first" }, "Delete"))));
   }
 
   // src/components/LogStream.jsx
@@ -25928,10 +26544,10 @@
       const text5 = filteredLines.map((l3) => l3.text).join("\n");
       const blob = new Blob([text5], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
-      const a23 = document.createElement("a");
-      a23.href = url;
-      a23.download = `${details?.process?.name ?? "logs"}.log`;
-      a23.click();
+      const a28 = document.createElement("a");
+      a28.href = url;
+      a28.download = `${details?.process?.name ?? "logs"}.log`;
+      a28.click();
       URL.revokeObjectURL(url);
     };
     return /* @__PURE__ */ import_react11.default.createElement("section", { className: "log-panel" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-filters", role: "group", "aria-label": "Filter by log level" }, FILTER_LEVELS.map((level) => /* @__PURE__ */ import_react11.default.createElement(
@@ -25953,7 +26569,7 @@
         placeholder: "Search",
         "aria-label": "Search logs",
         value: logSearch,
-        onChange: (e34) => onSearchChange(e34.target.value)
+        onChange: (e40) => onSearchChange(e40.target.value)
       }
     )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar-status" }, copyStatus && /* @__PURE__ */ import_react11.default.createElement("span", { role: "status" }, copyStatus), /* @__PURE__ */ import_react11.default.createElement("span", { className: "log-status-dot", "data-paused": logPaused }), /* @__PURE__ */ import_react11.default.createElement("span", null, logPaused ? `Paused${pausedCount > 0 ? `, ${pausedCount} held` : ""}` : "Live"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "log-count" }, isFiltered ? `${filteredLines.length} of ${allLines.length}` : `${allLines.length}`, " lines")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar-actions" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
@@ -25975,7 +26591,7 @@
         "aria-label": "Copy visible lines",
         onClick: copyLogs
       },
-      /* @__PURE__ */ import_react11.default.createElement(s2, { size: 14 })
+      /* @__PURE__ */ import_react11.default.createElement(s4, { size: 14 })
     ), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -29301,13 +29917,13 @@
      * @return {undefined}
      *   Nothing.
      */
-    setCursor(n8) {
-      if (n8 === this.left.length || n8 > this.left.length && this.right.length === 0 || n8 < 0 && this.left.length === 0) return;
-      if (n8 < this.left.length) {
-        const removed = this.left.splice(n8, Number.POSITIVE_INFINITY);
+    setCursor(n9) {
+      if (n9 === this.left.length || n9 > this.left.length && this.right.length === 0 || n9 < 0 && this.left.length === 0) return;
+      if (n9 < this.left.length) {
+        const removed = this.left.splice(n9, Number.POSITIVE_INFINITY);
         chunkedPush(this.right, removed.reverse());
       } else {
-        const removed = this.right.splice(this.left.length + this.right.length - n8, Number.POSITIVE_INFINITY);
+        const removed = this.right.splice(this.left.length + this.right.length - n9, Number.POSITIVE_INFINITY);
         chunkedPush(this.left, removed.reverse());
       }
     }
@@ -35610,8 +36226,8 @@
     }, []);
     (0, import_react13.useEffect)(() => {
       if (!open) return;
-      const handler = (e34) => {
-        if (panelRef.current && !panelRef.current.contains(e34.target)) {
+      const handler = (e40) => {
+        if (panelRef.current && !panelRef.current.contains(e40.target)) {
           setOpen(false);
         }
       };
@@ -35620,8 +36236,8 @@
     }, [open]);
     (0, import_react13.useEffect)(() => {
       if (!open) return;
-      const handler = (e34) => {
-        if (e34.key === "Escape") setOpen(false);
+      const handler = (e40) => {
+        if (e40.key === "Escape") setOpen(false);
       };
       document.addEventListener("keydown", handler);
       return () => document.removeEventListener("keydown", handler);
@@ -35851,8 +36467,8 @@
     function set(key, value) {
       setFields((prev) => ({ ...prev, [key]: value }));
     }
-    async function handleSave(e34) {
-      e34.preventDefault();
+    async function handleSave(e40) {
+      e40.preventDefault();
       if (!csrfToken || !fields) return;
       setSaving(true);
       setNotice(null);
@@ -35896,7 +36512,7 @@
           className: "input",
           type: "text",
           value: fields[key] ?? "",
-          onChange: (e34) => set(key, e34.target.value),
+          onChange: (e40) => set(key, e40.target.value),
           autoComplete: "off"
         }
       ), /* @__PURE__ */ import_react16.default.createElement("p", { className: "hint" }, meta?.hint ? `${meta.hint} ` : "", /* @__PURE__ */ import_react16.default.createElement("code", null, key)));
@@ -35908,7 +36524,7 @@
         type: "password",
         value: newPassword,
         placeholder: "Leave blank to keep the current one",
-        onChange: (e34) => setNewPassword(e34.target.value),
+        onChange: (e40) => setNewPassword(e40.target.value),
         autoComplete: "new-password"
       }
     ), /* @__PURE__ */ import_react16.default.createElement("p", { className: "hint" }, "A new salt and hash are derived on save. The plaintext is never stored.")))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-actions" }, /* @__PURE__ */ import_react16.default.createElement("button", { className: "btn btn--primary", type: "submit", disabled: saving }, saving ? "Saving" : "Save changes")));
@@ -35939,7 +36555,7 @@
         placeholder: keyPlaceholder,
         "aria-label": `${itemLabel} name ${i + 1}`,
         value: row.key,
-        onChange: (e34) => onUpdate(i, "key", e34.target.value)
+        onChange: (e40) => onUpdate(i, "key", e40.target.value)
       }
     ), /* @__PURE__ */ import_react17.default.createElement(
       "input",
@@ -35949,7 +36565,7 @@
         placeholder: valuePlaceholder,
         "aria-label": `${itemLabel} value ${i + 1}`,
         value: row.value,
-        onChange: (e34) => onUpdate(i, "value", e34.target.value)
+        onChange: (e40) => onUpdate(i, "value", e40.target.value)
       }
     ), /* @__PURE__ */ import_react17.default.createElement(
       "button",
@@ -35959,7 +36575,7 @@
         "aria-label": `Remove ${itemLabel.toLowerCase()} ${i + 1}`,
         onClick: () => onRemove(i)
       },
-      /* @__PURE__ */ import_react17.default.createElement(n7, { size: 13 })
+      /* @__PURE__ */ import_react17.default.createElement(n8, { size: 13 })
     ))), /* @__PURE__ */ import_react17.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: onAdd }, /* @__PURE__ */ import_react17.default.createElement(n5, { size: 12, weight: "bold" }), addLabel));
   }
 
@@ -36103,7 +36719,7 @@
         setNtfyTesting(false);
       }
     }
-    const testResult = (result) => result && /* @__PURE__ */ import_react18.default.createElement("span", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react18.default.createElement(s, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react18.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, result.ok ? `Delivered, HTTP ${result.status}` : `Failed: ${result.error ?? `HTTP ${result.status}`}`));
+    const testResult = (result) => result && /* @__PURE__ */ import_react18.default.createElement("span", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react18.default.createElement(s2, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react18.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, result.ok ? `Delivered, HTTP ${result.status}` : `Failed: ${result.error ?? `HTTP ${result.status}`}`));
     return /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-page" }, /* @__PURE__ */ import_react18.default.createElement("p", { className: "hint" }, "These rules apply to every process that has monitoring and alerts turned on. Alerts are switched on per process in its Manage tab."), saveError && /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-notice settings-notice--error" }, saveError), /* @__PURE__ */ import_react18.default.createElement("section", { className: "settings-group" }, /* @__PURE__ */ import_react18.default.createElement("h3", { className: "settings-group-title" }, "When to alert"), /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "choice-list" }, /* @__PURE__ */ import_react18.default.createElement("label", { className: "choice" }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
       {
@@ -36130,7 +36746,7 @@
         type: "number",
         min: "1",
         value: throttleMinutes,
-        onChange: (e34) => set("alert.throttleMinutes", e34.target.value)
+        onChange: (e40) => set("alert.throttleMinutes", e40.target.value)
       }
     ), /* @__PURE__ */ import_react18.default.createElement("span", null, "minutes"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", null, "Trigger on these levels"), /* @__PURE__ */ import_react18.default.createElement("div", { className: "checkbox-row" }, ["error", "warn", "info", "debug"].map((level) => /* @__PURE__ */ import_react18.default.createElement("label", { className: "checkbox", key: level }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36144,7 +36760,7 @@
       {
         type: "checkbox",
         checked: webhookEnabled,
-        onChange: (e34) => set("reporter.webhook.enabled", e34.target.checked ? "1" : "0")
+        onChange: (e40) => set("reporter.webhook.enabled", e40.target.checked ? "1" : "0")
       }
     ), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-label" }, webhookEnabled ? "Enabled" : "Disabled"))), webhookEnabled && /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "wh-url" }, "URL"), /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36154,7 +36770,7 @@
         type: "url",
         value: webhookUrl,
         placeholder: "https://hooks.example.com/alert",
-        onChange: (e34) => set("reporter.webhook.url", e34.target.value)
+        onChange: (e40) => set("reporter.webhook.url", e40.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement(
       KeyValueList,
@@ -36184,7 +36800,7 @@
       {
         type: "checkbox",
         checked: ntfyEnabled,
-        onChange: (e34) => set("reporter.ntfy.enabled", e34.target.checked ? "1" : "0")
+        onChange: (e40) => set("reporter.ntfy.enabled", e40.target.checked ? "1" : "0")
       }
     ), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-label" }, ntfyEnabled ? "Enabled" : "Disabled"))), ntfyEnabled && /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "ntfy-server" }, "Server URL"), /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36193,7 +36809,7 @@
         className: "input",
         type: "url",
         value: ntfyServerUrl,
-        onChange: (e34) => set("reporter.ntfy.serverUrl", e34.target.value)
+        onChange: (e40) => set("reporter.ntfy.serverUrl", e40.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "ntfy-topic" }, "Topic"), /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36202,7 +36818,7 @@
         className: "input",
         value: ntfyTopic,
         placeholder: "my-alerts",
-        onChange: (e34) => set("reporter.ntfy.topic", e34.target.value)
+        onChange: (e40) => set("reporter.ntfy.topic", e40.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "ntfy-priority" }, "Priority"), /* @__PURE__ */ import_react18.default.createElement(
       "select",
@@ -36210,7 +36826,7 @@
         id: "ntfy-priority",
         className: "select",
         value: ntfyPriority,
-        onChange: (e34) => set("reporter.ntfy.priority", e34.target.value)
+        onChange: (e40) => set("reporter.ntfy.priority", e40.target.value)
       },
       /* @__PURE__ */ import_react18.default.createElement("option", { value: "min" }, "min"),
       /* @__PURE__ */ import_react18.default.createElement("option", { value: "low" }, "low"),
@@ -36225,7 +36841,7 @@
         type: showNtfyToken ? "text" : "password",
         value: ntfyToken,
         placeholder: "Optional",
-        onChange: (e34) => set("reporter.ntfy.token", e34.target.value),
+        onChange: (e40) => set("reporter.ntfy.token", e40.target.value),
         autoComplete: "off"
       }
     ), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: () => setShowNtfyToken((v) => !v) }, showNtfyToken ? "Hide" : "Show"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn", onClick: sendNtfyTest, disabled: ntfyTesting || !ntfyTopic }, ntfyTesting ? "Sending" : "Send a test"), testResult(ntfyTestResult)))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-actions" }, /* @__PURE__ */ import_react18.default.createElement("button", { className: "btn btn--primary", type: "button", onClick: onSave, disabled: saving }, saving ? "Saving" : "Save changes")));
@@ -36236,8 +36852,8 @@
     { id: "General", label: "General", desc: "Server, sign in, retention" },
     { id: "Alerting", label: "Alerting", desc: "When and where to notify" }
   ];
-  function Settings({ onClose, csrfToken, onCsrfRefresh }) {
-    const [activePage, setActivePage] = (0, import_react19.useState)("General");
+  function Settings({ onClose, csrfToken, onCsrfRefresh, initialPage = "General" }) {
+    const [activePage, setActivePage] = (0, import_react19.useState)(initialPage);
     const [alertingSettings, setAlertingSettings] = (0, import_react19.useState)({});
     const [alertingSettingsLoaded, setAlertingSettingsLoaded] = (0, import_react19.useState)(false);
     const [isDirty, setIsDirty] = (0, import_react19.useState)(false);
@@ -36288,8 +36904,8 @@
         setSaving(false);
       }
     }
-    function handleOverlayClick(e34) {
-      if (e34.target === e34.currentTarget) handleClose();
+    function handleOverlayClick(e40) {
+      if (e40.target === e40.currentTarget) handleClose();
     }
     return /* @__PURE__ */ import_react19.default.createElement("div", { className: "overlay", onClick: handleOverlayClick, role: "dialog", "aria-modal": "true", "aria-label": "Settings" }, /* @__PURE__ */ import_react19.default.createElement("div", { ref: modalRef, className: "modal modal--settings", tabIndex: -1 }, /* @__PURE__ */ import_react19.default.createElement("nav", { className: "settings-sidebar" }, /* @__PURE__ */ import_react19.default.createElement("p", { className: "section-label settings-sidebar-title" }, "Settings"), PAGES.map((page) => /* @__PURE__ */ import_react19.default.createElement(
       "button",
@@ -36301,7 +36917,7 @@
       },
       /* @__PURE__ */ import_react19.default.createElement("span", { className: "settings-nav-label" }, page.label),
       /* @__PURE__ */ import_react19.default.createElement("span", { className: "settings-nav-desc" }, page.desc)
-    ))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-main" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "modal-header" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "modal-title" }, activePage), confirmingClose ? /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm-label" }, "Discard unsaved changes?"), /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm-actions" }, /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--sm btn--danger", onClick: onClose }, "Discard"), /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setConfirmingClose(false) }, "Keep editing"))) : /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": "Close settings", onClick: handleClose }, /* @__PURE__ */ import_react19.default.createElement(n7, { size: 15 }))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-body" }, saveSuccess && activePage === "Alerting" && /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-notice settings-notice--success" }, "Alerting settings saved."), activePage === "General" && /* @__PURE__ */ import_react19.default.createElement(GeneralSettings, { csrfToken, onCsrfRefresh }), activePage === "Alerting" && alertingSettingsLoaded && /* @__PURE__ */ import_react19.default.createElement(
+    ))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-main" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "modal-header" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "modal-title" }, activePage), confirmingClose ? /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm-label" }, "Discard unsaved changes?"), /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm-actions" }, /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--sm btn--danger", onClick: onClose }, "Discard"), /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setConfirmingClose(false) }, "Keep editing"))) : /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": "Close settings", onClick: handleClose }, /* @__PURE__ */ import_react19.default.createElement(n8, { size: 15 }))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-body" }, saveSuccess && activePage === "Alerting" && /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-notice settings-notice--success" }, "Alerting settings saved."), activePage === "General" && /* @__PURE__ */ import_react19.default.createElement(GeneralSettings, { csrfToken, onCsrfRefresh }), activePage === "Alerting" && alertingSettingsLoaded && /* @__PURE__ */ import_react19.default.createElement(
       AlertingSettings,
       {
         settings: alertingSettings,
@@ -36316,25 +36932,207 @@
   }
 
   // src/components/DeployModal.jsx
-  var import_react20 = __toESM(require_react(), 1);
+  var import_react21 = __toESM(require_react(), 1);
 
-  // src/services/deployment.js
-  function normalizePm2Number(value, fallback) {
-    if (value === "" || value === null || value === void 0) return fallback;
-    const parsed = Number(value);
-    return Number.isFinite(parsed) ? parsed : fallback;
+  // src/components/DeployPanel.jsx
+  var import_react20 = __toESM(require_react(), 1);
+  var WATCH_TICK_MS = 6e4;
+  function ActionLink({ onClick, children }) {
+    return /* @__PURE__ */ import_react20.default.createElement(
+      "a",
+      {
+        href: "#",
+        className: "card-link",
+        onClick: (e40) => {
+          e40.preventDefault();
+          onClick();
+        }
+      },
+      children
+    );
+  }
+  function EditButton({ onClick, sunken = true }) {
+    return /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: `btn${sunken ? " btn--sunken" : ""}`, onClick }, /* @__PURE__ */ import_react20.default.createElement(a26, { size: 13 }), "Edit configuration");
+  }
+  function stepNote(step, deployment, firstDeploy) {
+    if (step.stage === "install" && step.skipped) return "Skipped";
+    if (step.skipped) return "Not set, skipped";
+    if (step.stage === "clone") return firstDeploy ? "Into the folder above" : "Untracked files such as .env stay";
+    if (step.stage === "post_setup") return "Runs inside the repository";
+    if (step.stage === "start") return pm2Summary(deployment.pm2_options);
+    return "";
+  }
+  function StepList({ steps, compact = false }) {
+    return /* @__PURE__ */ import_react20.default.createElement("ol", { className: `step-list${compact ? " step-list--compact" : ""}` }, steps.map((step, i) => /* @__PURE__ */ import_react20.default.createElement("li", { key: step.stage, className: "step-list-item", "data-skipped": step.skipped }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "step-list-number" }, i + 1), /* @__PURE__ */ import_react20.default.createElement("div", { className: "step-list-body" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "step-list-head" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "step-list-title" }, step.title), step.note && /* @__PURE__ */ import_react20.default.createElement("span", { className: "step-list-note" }, step.note)), step.code && /* @__PURE__ */ import_react20.default.createElement("code", { className: "step-list-code" }, step.code)))));
+  }
+  function ConfirmCallout({ deployment, changes, onConfirm, onEdit }) {
+    const [busy, setBusy] = (0, import_react20.useState)(false);
+    const ref = (0, import_react20.useRef)(null);
+    (0, import_react20.useEffect)(() => setBusy(false), [changes]);
+    (0, import_react20.useEffect)(() => {
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, []);
+    const answer = async (confirmed) => {
+      setBusy(true);
+      await onConfirm(confirmed);
+    };
+    return /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout callout--warning callout--stack", role: "alert", ref }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "callout-title" }, "The deploy folder has local changes"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "callout-text" }, "Updating to the latest ", /* @__PURE__ */ import_react20.default.createElement("span", { className: "num" }, deployment.branch), " would overwrite these files. Discard them to continue, or cancel the deployment. Untracked files stay either way."), /* @__PURE__ */ import_react20.default.createElement("pre", { className: "code-block" }, changes), /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout-actions" }, /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--danger", disabled: busy, onClick: () => answer(true) }, "Discard changes and continue"), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn", disabled: busy, onClick: () => answer(false) }, "Cancel deployment")), /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint" }, "Do not want to be asked again? Set Local changes to Discard without asking in the", " ", /* @__PURE__ */ import_react20.default.createElement(ActionLink, { onClick: onEdit }, "configuration"), "."));
+  }
+  var STEP_ICONS = {
+    done: /* @__PURE__ */ import_react20.default.createElement(s2, { size: 16, weight: "fill", "aria-label": "Done" }),
+    active: /* @__PURE__ */ import_react20.default.createElement(s3, { size: 16, className: "spin", "aria-label": "Running" }),
+    wait: /* @__PURE__ */ import_react20.default.createElement(c8, { size: 16, weight: "fill", "aria-label": "Waiting for you" }),
+    fail: /* @__PURE__ */ import_react20.default.createElement(m3, { size: 16, weight: "fill", "aria-label": "Failed" })
+  };
+  function DeployRun({ deployment, run, hasProcess, onRedeploy, onEdit, onConfirm, onDismiss, onOpenLogs }) {
+    const outputRef = (0, import_react20.useRef)(null);
+    const name2 = deployment.pm2_name;
+    const firstDeploy = isFirstDeploy(deployment, run);
+    const startsProcess = firstDeploy || (run?.startsProcess ?? !hasProcess);
+    const steps = planDeploy(deployment, { firstDeploy, startsProcess }).filter((s7) => !s7.skipped);
+    const lines = run?.lines ?? [];
+    const { states, outcome, failedIndex, exitCode } = deriveRunState(steps, lines);
+    const startedBeforeLoad = !run && deployment.deploying;
+    const activeIndex = states.findIndex((s7) => s7 === "active");
+    const failedStep = steps[failedIndex];
+    const finishedAt = run?.finishedAt ? formatClock(run.finishedAt) : "";
+    (0, import_react20.useEffect)(() => {
+      const el = outputRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    }, [lines.length]);
+    let icon;
+    let title;
+    let sub;
+    if (outcome === "confirm") {
+      icon = /* @__PURE__ */ import_react20.default.createElement(c8, { size: 18, weight: "fill" });
+      title = "Redeploy is waiting for you";
+      sub = `Nothing has changed yet. ${name2} keeps running the old version.`;
+    } else if (outcome === "failed") {
+      icon = /* @__PURE__ */ import_react20.default.createElement(m3, { size: 18, weight: "fill" });
+      if (failedStep?.stage === "start") {
+        title = `${failedStep.title} failed`;
+        sub = "Check the output below.";
+      } else {
+        title = `${firstDeploy ? "Deploy" : "Redeploy"} failed at ${failedStep?.title ?? "the first step"}`;
+        sub = startsProcess ? `The steps after ${failedStep?.title} did not run, so nothing runs in PM2 yet.` : `The steps after ${failedStep?.title} did not run. ${name2} was not restarted and still runs the previous version.`;
+      }
+    } else if (outcome === "success") {
+      icon = /* @__PURE__ */ import_react20.default.createElement(s2, { size: 18, weight: "fill" });
+      title = firstDeploy ? "Deployed" : "Redeployed";
+      sub = startsProcess ? `${name2} started at ${finishedAt}.` : `${name2} restarted at ${finishedAt} with the latest ${deployment.branch}.`;
+    } else {
+      icon = /* @__PURE__ */ import_react20.default.createElement(s3, { size: 18, className: "spin" });
+      title = `${firstDeploy ? "Deploying" : "Redeploying"} ${name2}`;
+      const keeps = startsProcess ? "" : ` ${name2} keeps serving the old version until the restart.`;
+      if (startedBeforeLoad) {
+        sub = "Started before this page was loaded, so its earlier output is not shown. New output appears here.";
+      } else if (activeIndex >= 0) {
+        sub = `Step ${activeIndex + 1} of ${steps.length}: ${steps[activeIndex].title}.${keeps}`;
+      } else {
+        sub = `Starting.${keeps}`;
+      }
+    }
+    const finished = outcome === "failed" || outcome === "success";
+    const outputState = { running: "Live", confirm: "Paused" }[outcome] ?? "Finished";
+    const shownLines = lines.filter((l3) => l3.status !== "confirm" && (l3.line || l3.stage === "done"));
+    const runNote = (step, state) => {
+      if (state === "wait") return "Waiting for you";
+      if (state === "skip") return "Did not run";
+      if (state === "fail") return exitCode != null ? `Exited with code ${exitCode}` : "Failed";
+      return step.command;
+    };
+    return /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("section", { className: "card deploy-run", "aria-labelledby": "deploy-run-title", "data-outcome": outcome }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-head" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "deploy-run-icon" }, icon), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-heading", "aria-live": "polite" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-run-title", className: "card-title" }, title), /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-hint card-hint--tight" }, sub)), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-actions" }, outcome === "failed" && /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement(EditButton, { onClick: () => onEdit(deployment) }), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onRedeploy(deployment) }, "Try again")), outcome === "success" && hasProcess && /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--sunken", onClick: onOpenLogs }, "Open logs"), finished && /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--quiet", onClick: () => onDismiss(deployment.id) }, "Dismiss"))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-body" }, /* @__PURE__ */ import_react20.default.createElement("ol", { className: "run-steps", "aria-label": "Deployment steps" }, steps.map((step, i) => /* @__PURE__ */ import_react20.default.createElement("li", { key: step.stage, className: "run-step", "data-state": states[i] }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "run-step-icon" }, STEP_ICONS[states[i]] ?? /* @__PURE__ */ import_react20.default.createElement("span", { className: "run-step-ring", role: "img", "aria-label": "Not started" })), /* @__PURE__ */ import_react20.default.createElement("div", { className: "run-step-text" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "run-step-title" }, step.title), /* @__PURE__ */ import_react20.default.createElement("p", { className: "run-step-note" }, runNote(step, states[i])))))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-main" }, outcome === "confirm" && run?.confirmChanges && /* @__PURE__ */ import_react20.default.createElement(
+      ConfirmCallout,
+      {
+        deployment,
+        changes: run.confirmChanges,
+        onConfirm: (confirmed) => onConfirm(deployment.id, confirmed),
+        onEdit: () => onEdit(deployment)
+      }
+    ), /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-box" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-box-head" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "output-box-title" }, "Output"), /* @__PURE__ */ import_react20.default.createElement("span", null, outputState)), /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-box-body", ref: outputRef }, shownLines.map((entry, i) => /* @__PURE__ */ import_react20.default.createElement("div", { key: i, className: "output-line", "data-tone": outputTone(entry) }, entry.stage === "done" ? "Deployed." : entry.line)), outcome === "running" && /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-line", "data-tone": "detail" }, "Working")))))), !finished && /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint" }, "You can switch to another process or tab while this runs. The deployment keeps running on the server even if you close the page."));
+  }
+  function OfflineCallout({ deployment, onRedeploy, onEdit, onDelete }) {
+    const broken = offlineStatus(deployment) === "broken";
+    const name2 = deployment.pm2_name;
+    return /* @__PURE__ */ import_react20.default.createElement(
+      "section",
+      {
+        className: `callout callout--row${broken ? " callout--critical" : ""}`,
+        role: "alert",
+        "aria-labelledby": "offline-title"
+      },
+      broken ? /* @__PURE__ */ import_react20.default.createElement(m3, { size: 18, weight: "fill", className: "callout-icon" }) : /* @__PURE__ */ import_react20.default.createElement(c4, { size: 18, className: "callout-icon" }),
+      /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout-body" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "offline-title", className: "card-title" }, broken ? "The first deployment did not finish" : `${name2} is not in PM2`), /* @__PURE__ */ import_react20.default.createElement("p", { className: "callout-text" }, broken ? "Nothing runs in PM2 yet. Fix the cause, then deploy again. The output of the failed run is not kept after a page reload, so deploying again also shows you the error." : "It was deployed before, but PM2 no longer has a process for it. Deploy again to start it, or delete the deployment.")),
+      /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout-actions" }, /* @__PURE__ */ import_react20.default.createElement(
+        ConfirmButton,
+        {
+          label: "Delete deployment",
+          question: `Delete ${name2}?`,
+          variant: "danger",
+          choices: [{ label: "Delete", danger: true, onConfirm: () => onDelete(deployment.id) }]
+        }
+      ), /* @__PURE__ */ import_react20.default.createElement(EditButton, { onClick: () => onEdit(deployment), sunken: false }), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onRedeploy(deployment) }, /* @__PURE__ */ import_react20.default.createElement(s6, { size: 13 }), "Deploy again"))
+    );
+  }
+  function Row2({ label, children }) {
+    return /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("dt", null, label), /* @__PURE__ */ import_react20.default.createElement("dd", null, children));
+  }
+  function DeployPanel({
+    deployment,
+    run,
+    hasProcess,
+    onRedeploy,
+    onEdit,
+    onConfirm,
+    onDismiss,
+    onOpenLogs,
+    onDelete
+  }) {
+    const name2 = deployment.pm2_name;
+    const active = isRunActive(deployment, run);
+    const showRun = active || Boolean(run && !run.dismissed);
+    const firstDeploy = deployment.last_deployed_at == null;
+    const steps = planDeploy(deployment, { firstDeploy, startsProcess: !hasProcess }).map((step) => ({
+      ...step,
+      note: stepNote(step, deployment, firstDeploy)
+    }));
+    const envKeys = Object.keys(deployment.env_vars ?? {});
+    const envFile = deployment.pm2_options?.env_file;
+    const watching = Boolean(deployment.watch_enabled);
+    const lastCheck = deployment.watch_last_checked_at;
+    const edit = () => onEdit(deployment);
+    let nextCheck = "Within a minute";
+    if (lastCheck) {
+      const due = lastCheck + deployment.watch_interval_minutes * 6e4;
+      nextCheck = due <= Date.now() + WATCH_TICK_MS ? "Within a minute" : formatClock(due);
+    }
+    return /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-panel fade-in" }, showRun && /* @__PURE__ */ import_react20.default.createElement(
+      DeployRun,
+      {
+        deployment,
+        run,
+        hasProcess,
+        onRedeploy,
+        onEdit,
+        onConfirm,
+        onDismiss,
+        onOpenLogs
+      }
+    ), !hasProcess && !showRun && /* @__PURE__ */ import_react20.default.createElement(OfflineCallout, { deployment, onRedeploy, onEdit, onDelete }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-columns" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-column deploy-column--main" }, /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-source" }, hasProcess ? /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head card-head--actions" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head-text" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-source", className: "card-title" }, "Deployment"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-hint" }, "Hawkeye cloned ", name2, " from Git and runs it under PM2.")), /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head-buttons" }, /* @__PURE__ */ import_react20.default.createElement(EditButton, { onClick: edit }), /* @__PURE__ */ import_react20.default.createElement(
+      ConfirmButton,
+      {
+        label: "Redeploy now",
+        question: `Redeploy ${name2} from ${deployment.branch}?`,
+        variant: "primary",
+        icon: /* @__PURE__ */ import_react20.default.createElement(m, { size: 13 }),
+        disabled: active,
+        title: active ? "A deployment of this app is running" : void 0,
+        choices: [{ label: "Redeploy", onConfirm: () => onRedeploy(deployment) }]
+      }
+    ))) : /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-source", className: "card-title" }, "Deployment")), /* @__PURE__ */ import_react20.default.createElement("dl", { className: "card-dl" }, /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Repository" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "num card-dl-break" }, deployment.repo_url)), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Branch" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "code-chip" }, deployment.branch)), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Folder on this server" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "num card-dl-break card-dl-dim" }, deployment.deploy_path)), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Last deployed" }, deployment.last_deployed_at ? /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "card-dl-ok" }, /* @__PURE__ */ import_react20.default.createElement(s2, { size: 13, weight: "fill" }), formatDateTime(deployment.last_deployed_at)), /* @__PURE__ */ import_react20.default.createElement("span", { className: "card-dl-muted" }, " (", formatAgo(deployment.last_deployed_at), ")")) : /* @__PURE__ */ import_react20.default.createElement("span", { className: "card-dl-bad" }, "Never")), hasProcess && /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Local changes" }, deployment.discard_local_changes ? "Discards them without asking" : "Asks before discarding them"))), /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-steps" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-steps", className: "card-title" }, hasProcess ? "What a redeploy does" : "What a deploy does"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-hint" }, hasProcess ? "These steps run in order. Steps that are not set up are skipped. If one fails, the steps after it do not run and the running process stays as it is." : "The first deploy clones the repository. Later redeploys fetch the branch instead.")), /* @__PURE__ */ import_react20.default.createElement(StepList, { steps }))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-column deploy-column--side" }, /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-auto" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head card-head--side" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-auto", className: "card-title" }, "Auto-deploy"), /* @__PURE__ */ import_react20.default.createElement("span", { className: `tag${watching ? " tag--accent" : ""}` }, watching ? "On" : "Off"), /* @__PURE__ */ import_react20.default.createElement(ActionLink, { onClick: edit }, "Change")), watching ? /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text" }, "Checks ", /* @__PURE__ */ import_react20.default.createElement("span", { className: "num" }, deployment.branch), " every ", deployment.watch_interval_minutes, " min and redeploys when it has new commits. Local changes are discarded without asking, since nobody is there to confirm."), /* @__PURE__ */ import_react20.default.createElement("dl", { className: "card-dl card-dl--side" }, /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Last check" }, lastCheck ? formatClock(lastCheck) : "Not checked yet"), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Next check" }, nextCheck), deployment.watch_last_commit && /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Last deployed commit" }, deployment.watch_last_commit.slice(0, 7)))) : /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text card-side-text--last" }, "Deploys only when you start it here."), deployment.watch_last_error && /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-warning" }, /* @__PURE__ */ import_react20.default.createElement(c8, { size: 14, weight: "fill" }), /* @__PURE__ */ import_react20.default.createElement("span", null, "The last check failed: ", /* @__PURE__ */ import_react20.default.createElement("span", { className: "num" }, deployment.watch_last_error)))), /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-env" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head card-head--side" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-env", className: "card-title" }, "Environment"), /* @__PURE__ */ import_react20.default.createElement(ActionLink, { onClick: edit }, "Change")), envFile || envKeys.length > 0 ? /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text card-side-text--muted" }, "Applied on every deploy. Values are not shown here."), /* @__PURE__ */ import_react20.default.createElement("dl", { className: "card-dl card-dl--side" }, /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Env file" }, envFile || "None"), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Variables" }, envKeys.length > 0 ? /* @__PURE__ */ import_react20.default.createElement("span", { className: "code-chips" }, envKeys.map((key) => /* @__PURE__ */ import_react20.default.createElement("span", { key, className: "code-chip code-chip--dim" }, key))) : "None"))) : /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text card-side-text--muted card-side-text--last" }, "No env file and no variables set.")))));
   }
 
   // src/components/DeployModal.jsx
-  var ALL_STAGES = ["pre_setup", "clone", "install", "build", "post_setup", "start"];
-  var STAGE_LABELS = {
-    pre_setup: "Pre-setup",
-    clone: "Clone",
-    install: "Install",
-    build: "Build",
-    post_setup: "Post-setup",
-    start: "Start"
-  };
   var DEFAULT_WATCH_INTERVAL_MINUTES = 5;
   var DEFAULT_PM2_OPTIONS = {
     interpreter: "node",
@@ -36361,8 +37159,11 @@
     source_map_support: true,
     env_file: ""
   };
-  function Fieldset({ title, summary, defaultOpen = false, children }) {
-    return /* @__PURE__ */ import_react20.default.createElement("details", { className: "deploy-fieldset", open: defaultOpen }, /* @__PURE__ */ import_react20.default.createElement("summary", null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "deploy-fieldset-title" }, title), /* @__PURE__ */ import_react20.default.createElement("span", { className: "deploy-fieldset-summary" }, summary)), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-fieldset-body" }, children));
+  function Option({ title, summary, defaultOpen = false, children }) {
+    return /* @__PURE__ */ import_react21.default.createElement("details", { className: "deploy-option", open: defaultOpen }, /* @__PURE__ */ import_react21.default.createElement("summary", null, /* @__PURE__ */ import_react21.default.createElement(s, { size: 12, className: "deploy-option-caret" }), /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-option-title" }, title), /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-option-summary" }, summary)), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-option-body" }, children));
+  }
+  function Section({ number: number2, title, note, quiet = false, children }) {
+    return /* @__PURE__ */ import_react21.default.createElement("fieldset", { className: "deploy-section" }, /* @__PURE__ */ import_react21.default.createElement("legend", null, /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-section-number", "data-quiet": quiet }, number2), title, note && /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-section-note" }, note)), children);
   }
   var INSTALL_BASES = ["npm install", "npm ci", "yarn install", "yarn", "pnpm install", "skip"];
   function splitInstallCmd(stored) {
@@ -36372,25 +37173,13 @@
     return { base, args: stored.length > base.length ? stored.slice(base.length + 1) : "" };
   }
   function Field({ label, hint, required, children }) {
-    const id = (0, import_react20.useId)();
+    const id = (0, import_react21.useId)();
     const hintId = `${id}-hint`;
-    const control = (0, import_react20.isValidElement)(children) ? (0, import_react20.cloneElement)(children, { id, "aria-describedby": hint ? hintId : void 0 }) : children;
-    return /* @__PURE__ */ import_react20.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react20.default.createElement("label", { htmlFor: id }, label, required && /* @__PURE__ */ import_react20.default.createElement("span", { className: "field-req", "aria-label": "required" }, "*")), control, hint && /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint", id: hintId }, hint));
+    const control = (0, import_react21.isValidElement)(children) ? (0, import_react21.cloneElement)(children, { id, "aria-describedby": hint ? hintId : void 0 }) : children;
+    return /* @__PURE__ */ import_react21.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react21.default.createElement("label", { htmlFor: id }, label, required && /* @__PURE__ */ import_react21.default.createElement("span", { className: "field-req", "aria-label": "required" }, "*")), control, hint && /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint", id: hintId }, hint));
   }
   function Toggle({ label, hint, checked, onChange }) {
-    return /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react20.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react20.default.createElement("input", { type: "checkbox", checked, onChange: (e34) => onChange(e34.target.checked) }), /* @__PURE__ */ import_react20.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react20.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint" }, hint));
-  }
-  function StagePillBar({ visibleStages, currentStage, status }) {
-    const pillState = (stage) => {
-      const idx = visibleStages.indexOf(stage);
-      const curIdx = visibleStages.indexOf(currentStage);
-      if (currentStage === "error") return idx <= curIdx ? " is-error" : "";
-      if (currentStage === "done") return " is-done";
-      if (idx < curIdx) return " is-done";
-      if (idx === curIdx) return status === "error" ? " is-error" : " is-active";
-      return "";
-    };
-    return /* @__PURE__ */ import_react20.default.createElement("ol", { className: "deploy-stages" }, visibleStages.map((stage) => /* @__PURE__ */ import_react20.default.createElement("li", { key: stage, className: `deploy-stage${pillState(stage)}` }, STAGE_LABELS[stage])));
+    return /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react21.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react21.default.createElement("input", { type: "checkbox", checked, onChange: (e40) => onChange(e40.target.checked) }), /* @__PURE__ */ import_react21.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react21.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, hint));
   }
   function envObjToRows(obj) {
     const entries = Object.entries(obj || {});
@@ -36404,37 +37193,64 @@
       ignore_watch: ignore2
     };
   }
-  function DeployForm({ onCsrfRefresh, onDeployStarted, editingDeployment, onEditSaved, onSaveAndRedeploy }) {
+  function previewSteps(draft, { firstDeploy, name: name2 }) {
+    return planDeploy(draft, { firstDeploy }).filter((step) => ["clone", "install", "build", "start"].includes(step.stage)).map((step) => {
+      let note = "";
+      if (step.stage === "clone" && !firstDeploy) note = "Untracked files such as .env stay";
+      if (step.stage === "install" && step.skipped) note = "Skipped";
+      if (step.stage === "build" && step.skipped) note = "Skipped, no build command";
+      if (step.stage === "start") note = `as ${name2}, ${pm2Summary(draft.pm2_options)}`;
+      return { ...step, note };
+    });
+  }
+  function DeployModal({
+    onClose,
+    onCsrfRefresh,
+    onDeployStarted,
+    editingDeployment,
+    onEditSaved,
+    onSaveAndRedeploy,
+    deployBaseDir
+  }) {
     const isEdit = Boolean(editingDeployment);
-    const [appName, setAppName] = (0, import_react20.useState)(() => editingDeployment?.pm2_name ?? "");
-    const [repoUrl, setRepoUrl] = (0, import_react20.useState)(() => editingDeployment?.repo_url ?? "");
-    const [branch, setBranch] = (0, import_react20.useState)(() => editingDeployment?.branch ?? "main");
-    const [startScript, setStartScript] = (0, import_react20.useState)(() => editingDeployment?.start_script ?? "index.js");
-    const [installCmd, setInstallCmd] = (0, import_react20.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).base);
-    const [installArgs, setInstallArgs] = (0, import_react20.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).args);
-    const [buildCmd, setBuildCmd] = (0, import_react20.useState)(() => editingDeployment?.build_cmd ?? "");
-    const [preSetupScript, setPreSetupScript] = (0, import_react20.useState)(() => editingDeployment?.pre_setup_script ?? "");
-    const [postSetupScript, setPostSetupScript] = (0, import_react20.useState)(() => editingDeployment?.post_setup_script ?? "");
-    const [envVars, setEnvVars] = (0, import_react20.useState)(
+    const firstDeploy = !isEdit || editingDeployment.last_deployed_at == null;
+    const modalRef = (0, import_react21.useRef)(null);
+    const titleId = (0, import_react21.useId)();
+    useDialogFocus(modalRef, onClose);
+    const [appName, setAppName] = (0, import_react21.useState)(() => editingDeployment?.pm2_name ?? "");
+    const [appNameTouched, setAppNameTouched] = (0, import_react21.useState)(isEdit);
+    const [repoUrl, setRepoUrl] = (0, import_react21.useState)(() => editingDeployment?.repo_url ?? "");
+    const [branch, setBranch] = (0, import_react21.useState)(() => editingDeployment?.branch ?? "main");
+    const [startScript, setStartScript] = (0, import_react21.useState)(() => editingDeployment?.start_script ?? "index.js");
+    const [installCmd, setInstallCmd] = (0, import_react21.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).base);
+    const [installArgs, setInstallArgs] = (0, import_react21.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).args);
+    const [buildCmd, setBuildCmd] = (0, import_react21.useState)(() => editingDeployment?.build_cmd ?? "");
+    const [preSetupScript, setPreSetupScript] = (0, import_react21.useState)(() => editingDeployment?.pre_setup_script ?? "");
+    const [postSetupScript, setPostSetupScript] = (0, import_react21.useState)(() => editingDeployment?.post_setup_script ?? "");
+    const [envVars, setEnvVars] = (0, import_react21.useState)(
       () => isEdit ? envObjToRows(editingDeployment.env_vars) : [{ key: "", value: "" }]
     );
-    const [pm2Opts, setPm2Opts] = (0, import_react20.useState)(
+    const [pm2Opts, setPm2Opts] = (0, import_react21.useState)(
       () => isEdit ? pm2OptsFromStored(editingDeployment.pm2_options) : { ...DEFAULT_PM2_OPTIONS }
     );
-    const [watchEnabled, setWatchEnabled] = (0, import_react20.useState)(() => Boolean(editingDeployment?.watch_enabled));
-    const [watchIntervalMinutes, setWatchIntervalMinutes] = (0, import_react20.useState)(
+    const [watchEnabled, setWatchEnabled] = (0, import_react21.useState)(() => Boolean(editingDeployment?.watch_enabled));
+    const [watchIntervalMinutes, setWatchIntervalMinutes] = (0, import_react21.useState)(
       () => editingDeployment?.watch_interval_minutes ?? DEFAULT_WATCH_INTERVAL_MINUTES
     );
-    const [discardLocalChanges, setDiscardLocalChanges] = (0, import_react20.useState)(
+    const [discardLocalChanges, setDiscardLocalChanges] = (0, import_react21.useState)(
       () => Boolean(editingDeployment?.discard_local_changes)
     );
-    const [submitting, setSubmitting] = (0, import_react20.useState)(false);
-    const [error, setError] = (0, import_react20.useState)("");
+    const [submitting, setSubmitting] = (0, import_react21.useState)(false);
+    const [error, setError] = (0, import_react21.useState)("");
     const setOpt = (key, val) => setPm2Opts((prev) => ({ ...prev, [key]: val }));
     const addEnvVar = () => setEnvVars((prev) => [...prev, { key: "", value: "" }]);
     const removeEnvVar = (i) => setEnvVars((prev) => prev.filter((_, idx) => idx !== i));
     const updateEnvVar = (i, field, val) => setEnvVars((prev) => prev.map((row, idx) => idx === i ? { ...row, [field]: val } : row));
-    const buildPayload = (0, import_react20.useCallback)(() => {
+    const name2 = appNameTouched ? appName : deriveAppName(repoUrl);
+    const shownName = name2.trim() || "my-app";
+    const envCount = envVars.filter((v) => v.key.trim()).length;
+    const fullInstallCmd = installArgs.trim() ? `${installCmd} ${installArgs.trim()}` : installCmd;
+    const buildPayload = (0, import_react21.useCallback)(() => {
       const envVarsObj = {};
       for (const { key, value } of envVars) {
         if (key.trim()) envVarsObj[key.trim()] = value;
@@ -36447,13 +37263,13 @@
         kill_timeout: normalizePm2Number(pm2Opts.kill_timeout, 1600),
         listen_timeout: normalizePm2Number(pm2Opts.listen_timeout, 3e3),
         min_uptime: pm2Opts.min_uptime ? Number(pm2Opts.min_uptime) : void 0,
-        ignore_watch: pm2Opts.ignore_watch ? pm2Opts.ignore_watch.split("\n").map((s5) => s5.trim()).filter(Boolean) : ["node_modules"]
+        ignore_watch: pm2Opts.ignore_watch ? pm2Opts.ignore_watch.split("\n").map((s7) => s7.trim()).filter(Boolean) : ["node_modules"]
       };
       return {
         repoUrl: repoUrl.trim(),
         branch: branch.trim() || "main",
         startScript: startScript.trim() || "index.js",
-        installCmd: installArgs.trim() ? `${installCmd} ${installArgs.trim()}` : installCmd,
+        installCmd: fullInstallCmd,
         buildCmd: buildCmd.trim(),
         preSetupScript: preSetupScript.trim(),
         postSetupScript: postSetupScript.trim(),
@@ -36469,8 +37285,7 @@
       repoUrl,
       branch,
       startScript,
-      installCmd,
-      installArgs,
+      fullInstallCmd,
       buildCmd,
       preSetupScript,
       postSetupScript,
@@ -36478,9 +37293,9 @@
       watchIntervalMinutes,
       discardLocalChanges
     ]);
-    const onSubmit = (0, import_react20.useCallback)(
-      async (e34) => {
-        e34.preventDefault();
+    const onSubmit = (0, import_react21.useCallback)(
+      async (e40) => {
+        e40.preventDefault();
         setError("");
         setSubmitting(true);
         try {
@@ -36493,23 +37308,23 @@
             });
             if (onEditSaved) await onEditSaved();
           } else {
-            const payload = buildPayload();
             const result = await fetchWithCsrf("/api/deployments", {
               onCsrfRefresh,
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ appName: appName.trim(), ...payload })
+              body: JSON.stringify({ appName: name2.trim(), ...buildPayload() })
             });
-            onDeployStarted(result.deploymentId);
+            await onDeployStarted(result.deploymentId);
           }
         } catch (err) {
           setError(err.message);
           setSubmitting(false);
         }
       },
-      [isEdit, editingDeployment, appName, buildPayload, onCsrfRefresh, onDeployStarted, onEditSaved]
+      [isEdit, editingDeployment, name2, buildPayload, onCsrfRefresh, onDeployStarted, onEditSaved]
     );
-    const onRedeployClick = (0, import_react20.useCallback)(async () => {
+    const onRedeployClick = (0, import_react21.useCallback)(async () => {
+      if (!modalRef.current?.querySelector("form")?.reportValidity()) return;
       setError("");
       setSubmitting(true);
       try {
@@ -36525,610 +37340,781 @@
         setSubmitting(false);
       }
     }, [editingDeployment, onCsrfRefresh, buildPayload, onSaveAndRedeploy]);
-    return /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("form", { id: "deploy-form", className: "deploy-body", onSubmit }, /* @__PURE__ */ import_react20.default.createElement("section", { className: "deploy-required" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint" }, "Hawkeye clones the repository into the deploy base directory and starts it under PM2. On a redeploy it fetches the branch and checks it out instead of cloning again."), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react20.default.createElement(
-      Field,
+    const draft = {
+      repo_url: repoUrl.trim(),
+      branch: branch.trim() || "main",
+      deploy_path: isEdit ? editingDeployment.deploy_path : `${deployBaseDir ?? "<deploy base folder>"}/${shownName}`,
+      install_cmd: fullInstallCmd,
+      build_cmd: buildCmd,
+      start_script: startScript.trim() || "index.js",
+      pm2_options: pm2Opts
+    };
+    let setupSummary = "None";
+    if (preSetupScript.trim() && postSetupScript.trim()) setupSummary = "Pre-setup and post-setup";
+    else if (preSetupScript.trim()) setupSummary = "Pre-setup";
+    else if (postSetupScript.trim()) setupSummary = "Post-setup";
+    return /* @__PURE__ */ import_react21.default.createElement(
+      "div",
       {
-        label: "App name",
-        required: !isEdit,
-        hint: isEdit ? "Tied to the deploy path, so it cannot change after the first deployment." : "PM2 process name, and the directory name under the deploy base path."
+        className: "overlay overlay--top",
+        onClick: (e40) => e40.target === e40.currentTarget && !submitting && onClose(),
+        role: "dialog",
+        "aria-modal": "true",
+        "aria-labelledby": titleId
       },
-      /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "text",
-          required: !isEdit,
-          placeholder: "my-api",
-          value: appName,
-          readOnly: isEdit,
-          onChange: isEdit ? void 0 : (e34) => setAppName(e34.target.value)
-        }
-      )
-    ), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Branch", hint: "Cloned and pulled from on each deploy." }, /* @__PURE__ */ import_react20.default.createElement(
-      "input",
-      {
-        className: "input",
-        type: "text",
-        placeholder: "main",
-        value: branch,
-        onChange: (e34) => setBranch(e34.target.value)
-      }
-    ))), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Repository URL", required: true, hint: "HTTPS or SSH. Private repos need a key on the server." }, /* @__PURE__ */ import_react20.default.createElement(
-      "input",
-      {
-        className: "input",
-        type: "text",
-        required: true,
-        placeholder: "https://github.com/owner/repo",
-        value: repoUrl,
-        onChange: (e34) => setRepoUrl(e34.target.value)
-      }
-    )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Start script", required: true, hint: "Entry point relative to the repo root." }, /* @__PURE__ */ import_react20.default.createElement(
-      "input",
-      {
-        className: "input",
-        type: "text",
-        required: true,
-        placeholder: "index.js",
-        value: startScript,
-        onChange: (e34) => setStartScript(e34.target.value)
-      }
-    ))), /* @__PURE__ */ import_react20.default.createElement(Fieldset, { title: "Install and build", summary: `${installCmd}${buildCmd ? `, ${buildCmd}` : ""}` }, /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Install command", hint: "Run after cloning to install dependencies." }, /* @__PURE__ */ import_react20.default.createElement("select", { className: "select", value: installCmd, onChange: (e34) => setInstallCmd(e34.target.value) }, /* @__PURE__ */ import_react20.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react20.default.createElement("option", { value: "npm ci" }, "npm ci"), /* @__PURE__ */ import_react20.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react20.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react20.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react20.default.createElement("option", { value: "skip" }, "Skip installing"))), installCmd !== "skip" && /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Extra install flags", hint: "Appended to the install command." }, /* @__PURE__ */ import_react20.default.createElement(
-      "input",
-      {
-        className: "input",
-        type: "text",
-        placeholder: "--prod",
-        value: installArgs,
-        onChange: (e34) => setInstallArgs(e34.target.value)
-      }
-    )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Build command", hint: "Optional step after installing. Leave blank to skip." }, /* @__PURE__ */ import_react20.default.createElement(
-      "input",
-      {
-        className: "input",
-        type: "text",
-        placeholder: "npm run build",
-        value: buildCmd,
-        onChange: (e34) => setBuildCmd(e34.target.value)
-      }
-    )), /* @__PURE__ */ import_react20.default.createElement(
-      Field,
-      {
-        label: "Pre-setup script",
-        hint: "Shell script run in the deploy base directory before cloning. Use it to check that required tools exist."
-      },
-      /* @__PURE__ */ import_react20.default.createElement(
-        "textarea",
-        {
-          className: "textarea",
-          rows: 3,
-          placeholder: "#!/bin/sh\nwhich ffmpeg || exit 1",
-          value: preSetupScript,
-          onChange: (e34) => setPreSetupScript(e34.target.value)
-        }
-      )
-    ), /* @__PURE__ */ import_react20.default.createElement(
-      Field,
-      {
-        label: "Post-setup script",
-        hint: "Shell script run inside the repo after building and before PM2 starts. Use it for migrations."
-      },
-      /* @__PURE__ */ import_react20.default.createElement(
-        "textarea",
-        {
-          className: "textarea",
-          rows: 3,
-          placeholder: "#!/bin/sh\nnode scripts/migrate.js",
-          value: postSetupScript,
-          onChange: (e34) => setPostSetupScript(e34.target.value)
-        }
-      )
-    )), /* @__PURE__ */ import_react20.default.createElement(Fieldset, { title: "Redeploy", summary: discardLocalChanges ? "Discards local changes" : "Asks first" }, /* @__PURE__ */ import_react20.default.createElement(
-      Toggle,
-      {
-        label: "Discard local changes without asking",
-        hint: "When a redeploy finds modified tracked files in the deploy directory, it runs git reset --hard before updating instead of pausing to ask. Untracked files are kept.",
-        checked: discardLocalChanges,
-        onChange: setDiscardLocalChanges
-      }
-    )), /* @__PURE__ */ import_react20.default.createElement(
-      Fieldset,
-      {
-        title: "Auto-deploy",
-        summary: watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || "main"}` : "Off"
-      },
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Deploy automatically when the branch gets new commits",
-          hint: "Hawkeye polls the remote branch and runs the same redeploy it runs when you click Redeploy. Local changes in the deploy directory are discarded without asking, since nobody is there to confirm.",
-          checked: watchEnabled,
-          onChange: setWatchEnabled
-        }
-      ),
-      watchEnabled && /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Check every", hint: "Minutes between polls, 1 to 1440." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "number",
-          min: 1,
-          max: 1440,
-          value: watchIntervalMinutes,
-          onChange: (e34) => setWatchIntervalMinutes(e34.target.value)
-        }
-      ))
-    ), /* @__PURE__ */ import_react20.default.createElement(
-      Fieldset,
-      {
-        title: "Environment",
-        summary: envVars.filter((v) => v.key.trim()).length ? `${envVars.filter((v) => v.key.trim()).length} variable(s)` : "None set"
-      },
-      /* @__PURE__ */ import_react20.default.createElement(
+      /* @__PURE__ */ import_react21.default.createElement("div", { ref: modalRef, className: "modal modal--deploy", tabIndex: -1 }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "modal-header modal-header--stacked" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "modal-heading" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: titleId, className: "modal-title" }, isEdit ? `Edit ${editingDeployment.pm2_name}` : "New deployment"), /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, isEdit ? "Changes apply on the next deploy." : "Hawkeye clones a Git repository onto this server and runs it under PM2.")), /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": "Close", onClick: onClose }, /* @__PURE__ */ import_react21.default.createElement(n8, { size: 15 }))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-modal-body" }, /* @__PURE__ */ import_react21.default.createElement("form", { id: "deploy-form", className: "deploy-form", onSubmit }, /* @__PURE__ */ import_react21.default.createElement(Section, { number: 1, title: "Where the code comes from" }, /* @__PURE__ */ import_react21.default.createElement(
         Field,
         {
-          label: "Env file",
-          hint: "Path to a .env file, relative to the repo root or absolute on the server. Read on every deploy."
+          label: "Repository URL",
+          required: true,
+          hint: "HTTPS or SSH. A private repository needs a deploy key on this server."
         },
-        /* @__PURE__ */ import_react20.default.createElement(
+        /* @__PURE__ */ import_react21.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
-            placeholder: ".env.production",
-            value: pm2Opts.env_file,
-            onChange: (e34) => setOpt("env_file", e34.target.value)
+            required: true,
+            placeholder: "https://github.com/owner/repo",
+            value: repoUrl,
+            onChange: (e40) => setRepoUrl(e40.target.value)
           }
         )
-      ),
-      /* @__PURE__ */ import_react20.default.createElement(
-        KeyValueList,
-        {
-          label: "Variables",
-          hint: "Set here, these override anything loaded from the env file above.",
-          rows: envVars,
-          keyPlaceholder: "KEY",
-          valuePlaceholder: "value",
-          itemLabel: "Variable",
-          addLabel: "Add variable",
-          onAdd: addEnvVar,
-          onUpdate: updateEnvVar,
-          onRemove: removeEnvVar
-        }
-      )
-    ), /* @__PURE__ */ import_react20.default.createElement(
-      Fieldset,
-      {
-        title: "How PM2 runs it",
-        summary: `${pm2Opts.exec_mode}, ${pm2Opts.instances} instance${Number(pm2Opts.instances) === 1 ? "" : "s"}`
-      },
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Interpreter", hint: "Leave as node for standard Node.js." }, /* @__PURE__ */ import_react20.default.createElement(
+      ), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Branch", hint: "Fetched again on every redeploy." }, /* @__PURE__ */ import_react21.default.createElement(
         "input",
         {
           className: "input",
           type: "text",
-          placeholder: "node",
-          value: pm2Opts.interpreter,
-          onChange: (e34) => setOpt("interpreter", e34.target.value)
+          placeholder: "main",
+          value: branch,
+          onChange: (e40) => setBranch(e40.target.value)
         }
-      )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Interpreter args", hint: "Flags passed to Node before the script." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
+      )), /* @__PURE__ */ import_react21.default.createElement(
+        Field,
         {
-          className: "input",
-          type: "text",
-          placeholder: "--max-old-space-size=4096",
-          value: pm2Opts.interpreter_args,
-          onChange: (e34) => setOpt("interpreter_args", e34.target.value)
-        }
-      ))),
-      /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Script args", hint: "Arguments forwarded to your application." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "text",
-          placeholder: "--port 8080",
-          value: pm2Opts.args,
-          onChange: (e34) => setOpt("args", e34.target.value)
-        }
-      )),
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Exec mode", hint: "Cluster spawns several workers sharing one port." }, /* @__PURE__ */ import_react20.default.createElement(
-        "select",
-        {
-          className: "select",
-          value: pm2Opts.exec_mode,
-          onChange: (e34) => setOpt("exec_mode", e34.target.value)
+          label: "App name",
+          required: !isEdit,
+          hint: isEdit ? "Tied to the deploy path, so it cannot change after the first deployment." : "Taken from the repository name. It becomes the PM2 process name and the folder name, and cannot change later."
         },
-        /* @__PURE__ */ import_react20.default.createElement("option", { value: "fork" }, "fork"),
-        /* @__PURE__ */ import_react20.default.createElement("option", { value: "cluster" }, "cluster")
-      )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Instances", hint: "Use -1 for one per CPU core. Above 1 needs cluster mode." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "number",
-          min: "-1",
-          value: pm2Opts.instances,
-          onChange: (e34) => setOpt("instances", e34.target.value)
-        }
-      ))),
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Source map support",
-          hint: "Stack traces from transpiled code point at the original source lines.",
-          checked: pm2Opts.source_map_support,
-          onChange: (v) => setOpt("source_map_support", v)
-        }
-      )
-    ), /* @__PURE__ */ import_react20.default.createElement(
-      Fieldset,
-      {
-        title: "Crash recovery",
-        summary: pm2Opts.autorestart ? `Auto-restart, max ${pm2Opts.max_restarts}` : "Auto-restart off"
-      },
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Restart on crash",
-          hint: "Restart whenever the process exits, whatever the exit code.",
-          checked: pm2Opts.autorestart,
-          onChange: (v) => setOpt("autorestart", v)
-        }
-      ),
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Restart above memory", hint: "For example 200M or 1G. Blank disables this." }, /* @__PURE__ */ import_react20.default.createElement(
+        /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            required: !isEdit,
+            placeholder: "my-api",
+            value: name2,
+            readOnly: isEdit,
+            onChange: isEdit ? void 0 : (e40) => {
+              setAppNameTouched(true);
+              setAppName(e40.target.value);
+            }
+          }
+        )
+      ))), /* @__PURE__ */ import_react21.default.createElement(Section, { number: 2, title: "How to build and start it" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Install command" }, /* @__PURE__ */ import_react21.default.createElement("select", { className: "select", value: installCmd, onChange: (e40) => setInstallCmd(e40.target.value) }, /* @__PURE__ */ import_react21.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "npm ci" }, "npm ci"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "skip" }, "Skip installing"))), installCmd !== "skip" && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Extra install flags" }, /* @__PURE__ */ import_react21.default.createElement(
         "input",
         {
           className: "input",
           type: "text",
-          placeholder: "200M",
-          value: pm2Opts.max_memory_restart,
-          onChange: (e34) => setOpt("max_memory_restart", e34.target.value)
+          placeholder: "--omit=dev",
+          value: installArgs,
+          onChange: (e40) => setInstallArgs(e40.target.value)
         }
-      )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Max consecutive restarts", hint: "After this many, PM2 marks the app errored." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.max_restarts,
-          onChange: (e34) => setOpt("max_restarts", e34.target.value)
-        }
-      ))),
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Delay between restarts (ms)", hint: "Avoids hammering a downstream dependency." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.restart_delay,
-          onChange: (e34) => setOpt("restart_delay", e34.target.value)
-        }
-      )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Minimum uptime (ms)", hint: "Below this, a start counts as a failure." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "number",
-          min: "0",
-          placeholder: "1000",
-          value: pm2Opts.min_uptime,
-          onChange: (e34) => setOpt("min_uptime", e34.target.value)
-        }
-      ))),
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Shutdown grace period (ms)", hint: "Time after SIGINT before PM2 sends SIGKILL." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.kill_timeout,
-          onChange: (e34) => setOpt("kill_timeout", e34.target.value)
-        }
-      )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Scheduled restart", hint: "Cron expression. 0 2 * * * restarts nightly at 2 AM." }, /* @__PURE__ */ import_react20.default.createElement(
+      ))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Build command", hint: "Leave empty to skip the build step." }, /* @__PURE__ */ import_react21.default.createElement(
         "input",
         {
           className: "input",
           type: "text",
-          placeholder: "0 2 * * *",
-          value: pm2Opts.cron_restart,
-          onChange: (e34) => setOpt("cron_restart", e34.target.value)
+          placeholder: "npm run build",
+          value: buildCmd,
+          onChange: (e40) => setBuildCmd(e40.target.value)
         }
-      ))),
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Wait for a ready signal",
-          hint: "Startup finishes only once the app calls process.send('ready').",
-          checked: pm2Opts.wait_ready,
-          onChange: (v) => setOpt("wait_ready", v)
-        }
-      ),
-      pm2Opts.wait_ready && /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Ready signal timeout (ms)", hint: "Past this, the start counts as failed." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
-        {
-          className: "input",
-          type: "number",
-          min: "0",
-          value: pm2Opts.listen_timeout,
-          onChange: (e34) => setOpt("listen_timeout", e34.target.value)
-        }
-      )),
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Shut down with an IPC message",
-          hint: "Sends process.send('shutdown') instead of SIGINT when stopping.",
-          checked: pm2Opts.shutdown_with_message,
-          onChange: (v) => setOpt("shutdown_with_message", v)
-        }
-      )
-    ), /* @__PURE__ */ import_react20.default.createElement(
-      Fieldset,
-      {
-        title: "Logging and file watching",
-        summary: `${pm2Opts.time ? "Timestamps on" : "Timestamps off"}, ${pm2Opts.watch ? "watching" : "not watching"}`
-      },
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Timestamp every log line",
-          hint: "Required for Hawkeye to sort stdout and stderr chronologically. Keep this on.",
-          checked: pm2Opts.time,
-          onChange: (v) => setOpt("time", v)
-        }
-      ),
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Combine stdout and stderr",
-          hint: "Writes both streams to one file.",
-          checked: pm2Opts.combine_logs,
-          onChange: (v) => setOpt("combine_logs", v)
-        }
-      ),
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-two-col" }, /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Stdout file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react20.default.createElement(
+      )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Start script", required: true, hint: "Entry point, relative to the repository root." }, /* @__PURE__ */ import_react21.default.createElement(
         "input",
         {
           className: "input",
           type: "text",
-          placeholder: "/var/log/my-app/out.log",
-          value: pm2Opts.out_file,
-          onChange: (e34) => setOpt("out_file", e34.target.value)
+          required: true,
+          placeholder: "index.js",
+          value: startScript,
+          onChange: (e40) => setStartScript(e40.target.value)
         }
-      )), /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Stderr file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react20.default.createElement(
-        "input",
+      )))), /* @__PURE__ */ import_react21.default.createElement(Section, { number: 3, title: "Options", note: "The defaults work for most apps.", quiet: true }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-options" }, /* @__PURE__ */ import_react21.default.createElement(
+        Option,
         {
-          className: "input",
-          type: "text",
-          placeholder: "/var/log/my-app/error.log",
-          value: pm2Opts.error_file,
-          onChange: (e34) => setOpt("error_file", e34.target.value)
-        }
-      ))),
-      /* @__PURE__ */ import_react20.default.createElement(
-        Toggle,
-        {
-          label: "Restart on file changes",
-          hint: "Useful in development, generally wrong in production.",
-          checked: pm2Opts.watch,
-          onChange: (v) => setOpt("watch", v)
-        }
-      ),
-      pm2Opts.watch && /* @__PURE__ */ import_react20.default.createElement(Field, { label: "Ignore these paths", hint: "One pattern per line." }, /* @__PURE__ */ import_react20.default.createElement(
-        "textarea",
-        {
-          className: "textarea",
-          rows: 3,
-          value: pm2Opts.ignore_watch,
-          onChange: (e34) => setOpt("ignore_watch", e34.target.value)
-        }
-      ))
-    )), /* @__PURE__ */ import_react20.default.createElement("div", { className: "modal-footer" }, error && /* @__PURE__ */ import_react20.default.createElement("span", { className: "action-result", "data-ok": "false" }, /* @__PURE__ */ import_react20.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react20.default.createElement("span", null, error)), /* @__PURE__ */ import_react20.default.createElement("span", { className: "modal-footer-spacer" }), /* @__PURE__ */ import_react20.default.createElement("button", { type: "submit", form: "deploy-form", className: isEdit ? "btn" : "btn btn--primary", disabled: submitting }, submitting ? isEdit ? "Saving" : "Starting" : isEdit ? "Save only" : "Deploy"), isEdit && /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--primary", disabled: submitting, onClick: onRedeployClick }, submitting ? "Saving" : "Save and redeploy")));
-  }
-  function DeployProgress({ lines, currentStage, status, visibleStages, onClose, confirmChanges, onConfirmDeploy }) {
-    const logRef = (0, import_react20.useRef)(null);
-    const confirmRef = (0, import_react20.useRef)(null);
-    const isDone = currentStage === "done" && status === "success";
-    const isError = status === "error";
-    const isConfirming = status === "confirm";
-    (0, import_react20.useEffect)(() => {
-      const el = logRef.current;
-      if (el) el.scrollTop = el.scrollHeight;
-    }, [lines]);
-    (0, import_react20.useEffect)(() => {
-      if (isConfirming && confirmRef.current) {
-        confirmRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      }
-    }, [isConfirming]);
-    return /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-body" }, /* @__PURE__ */ import_react20.default.createElement(StagePillBar, { visibleStages, currentStage, status }), isConfirming && confirmChanges && /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-confirm", ref: confirmRef }, /* @__PURE__ */ import_react20.default.createElement("p", null, "The deploy directory has local changes that the update would overwrite. Discard them to continue, or cancel the deployment."), /* @__PURE__ */ import_react20.default.createElement("pre", { className: "code-preview" }, confirmChanges), /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint" }, "To skip this question on future redeploys, turn on Discard local changes without asking under Redeploy in the deployment settings."), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-confirm-actions" }, /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--danger", onClick: () => onConfirmDeploy(true) }, "Discard and continue"), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn", onClick: () => onConfirmDeploy(false) }, "Cancel deployment"))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-log", ref: logRef }, lines.map((entry, i) => /* @__PURE__ */ import_react20.default.createElement("span", { key: i, className: entry.status === "error" ? "deploy-log-line--error" : void 0 }, entry.line)), !isDone && !isError && !isConfirming && /* @__PURE__ */ import_react20.default.createElement("span", { className: "deploy-log-waiting" }, "Working")), isDone && /* @__PURE__ */ import_react20.default.createElement("div", { className: "action-result", "data-ok": "true" }, /* @__PURE__ */ import_react20.default.createElement(s, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react20.default.createElement("span", null, "Deployed. The process is running in PM2 and appears in the sidebar.")), isError && /* @__PURE__ */ import_react20.default.createElement("div", { className: "action-result", "data-ok": "false" }, /* @__PURE__ */ import_react20.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react20.default.createElement("span", null, "Deployment failed. Fix the cause above, then use Redeploy to retry."))), (isDone || isError) && /* @__PURE__ */ import_react20.default.createElement("div", { className: "modal-footer" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "modal-footer-spacer" }), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: onClose }, "Close")));
-  }
-  function DeployModal({
-    onCsrfRefresh,
-    onClose,
-    onDeployStarted,
-    deployProgressLines,
-    deployProgressStage,
-    deployProgressStatus,
-    activeDeploymentId,
-    editingDeployment,
-    onEditSaved,
-    onSaveAndRedeploy,
-    confirmChanges,
-    onConfirmDeploy
-  }) {
-    const isEdit = Boolean(editingDeployment);
-    const showProgress = !isEdit && activeDeploymentId !== null;
-    const isDoneOrError = deployProgressStatus === "success" || deployProgressStatus === "error";
-    const isRunning = showProgress && !isDoneOrError;
-    const modalRef = (0, import_react20.useRef)(null);
-    useDialogFocus(modalRef, onClose);
-    const visibleStages = ALL_STAGES.filter(
-      (s5) => s5 === "clone" || s5 === "install" || s5 === "start" || (deployProgressLines || []).some((l3) => l3.stage === s5)
-    );
-    let title = "Deploy from Git";
-    if (isEdit) title = `Edit ${editingDeployment.pm2_name}`;
-    else if (showProgress) title = "Deploying";
-    return /* @__PURE__ */ import_react20.default.createElement(
-      "div",
-      {
-        className: "overlay",
-        onClick: (e34) => e34.target === e34.currentTarget && !isRunning && onClose(),
-        role: "dialog",
-        "aria-modal": "true",
-        "aria-label": title
-      },
-      /* @__PURE__ */ import_react20.default.createElement("div", { ref: modalRef, className: "modal modal--deploy", tabIndex: -1 }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "modal-header" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "modal-title" }, title), /* @__PURE__ */ import_react20.default.createElement(
-        "button",
-        {
-          type: "button",
-          className: "btn btn--icon",
-          "aria-label": isRunning ? "Close, the deployment keeps running" : "Close",
-          title: isRunning ? "Close. The deployment keeps running on the server." : void 0,
-          onClick: onClose
+          title: "Environment",
+          summary: envCount ? `${envCount} variable(s)` : "None set",
+          defaultOpen: envCount > 0 || Boolean(pm2Opts.env_file)
         },
-        /* @__PURE__ */ import_react20.default.createElement(n7, { size: 15 })
-      )), showProgress ? /* @__PURE__ */ import_react20.default.createElement(
-        DeployProgress,
+        /* @__PURE__ */ import_react21.default.createElement(
+          Field,
+          {
+            label: "Env file",
+            hint: "Relative to the repository root, or an absolute path on this server. Read on every deploy."
+          },
+          /* @__PURE__ */ import_react21.default.createElement(
+            "input",
+            {
+              className: "input",
+              type: "text",
+              placeholder: ".env.production",
+              value: pm2Opts.env_file,
+              onChange: (e40) => setOpt("env_file", e40.target.value)
+            }
+          )
+        ),
+        /* @__PURE__ */ import_react21.default.createElement(
+          KeyValueList,
+          {
+            label: "Variables",
+            hint: "Variables set here override the same names from the env file.",
+            rows: envVars,
+            keyPlaceholder: "KEY",
+            valuePlaceholder: "value",
+            itemLabel: "Variable",
+            addLabel: "Add variable",
+            onAdd: addEnvVar,
+            onUpdate: updateEnvVar,
+            onRemove: removeEnvVar
+          }
+        )
+      ), /* @__PURE__ */ import_react21.default.createElement(
+        Option,
         {
-          lines: deployProgressLines,
-          currentStage: deployProgressStage,
-          status: deployProgressStatus,
-          visibleStages,
-          onClose,
-          confirmChanges,
-          onConfirmDeploy
-        }
-      ) : /* @__PURE__ */ import_react20.default.createElement(
-        DeployForm,
+          title: "Auto-deploy",
+          summary: watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || "main"}` : "Off"
+        },
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Deploy automatically when the branch gets new commits",
+            hint: "Hawkeye polls the remote branch and runs the same redeploy it runs when you click Redeploy now. Local changes in the deploy folder are discarded without asking, since nobody is there to confirm.",
+            checked: watchEnabled,
+            onChange: setWatchEnabled
+          }
+        ),
+        watchEnabled && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Check every", hint: "Minutes between polls, 1 to 1440." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "number",
+            min: 1,
+            max: 1440,
+            value: watchIntervalMinutes,
+            onChange: (e40) => setWatchIntervalMinutes(e40.target.value)
+          }
+        ))
+      ), /* @__PURE__ */ import_react21.default.createElement(
+        Option,
         {
-          onCsrfRefresh,
-          onDeployStarted,
-          editingDeployment,
-          onEditSaved,
-          onSaveAndRedeploy
-        }
-      ))
+          title: "Local changes on redeploy",
+          summary: discardLocalChanges ? "Discards local changes" : "Asks first"
+        },
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Discard local changes without asking",
+            hint: "When a redeploy finds modified tracked files in the deploy folder, it runs git reset --hard before updating instead of pausing to ask. Untracked files are kept.",
+            checked: discardLocalChanges,
+            onChange: setDiscardLocalChanges
+          }
+        )
+      ), /* @__PURE__ */ import_react21.default.createElement(Option, { title: "Setup scripts", summary: setupSummary }, /* @__PURE__ */ import_react21.default.createElement(
+        Field,
+        {
+          label: "Pre-setup script",
+          hint: "Shell script run in the deploy base folder before cloning. Use it to check that required tools exist."
+        },
+        /* @__PURE__ */ import_react21.default.createElement(
+          "textarea",
+          {
+            className: "textarea",
+            rows: 3,
+            placeholder: "#!/bin/sh\nwhich ffmpeg || exit 1",
+            value: preSetupScript,
+            onChange: (e40) => setPreSetupScript(e40.target.value)
+          }
+        )
+      ), /* @__PURE__ */ import_react21.default.createElement(
+        Field,
+        {
+          label: "Post-setup script",
+          hint: "Shell script run inside the repository after building and before PM2 starts. Use it for migrations."
+        },
+        /* @__PURE__ */ import_react21.default.createElement(
+          "textarea",
+          {
+            className: "textarea",
+            rows: 3,
+            placeholder: "#!/bin/sh\nnode scripts/migrate.js",
+            value: postSetupScript,
+            onChange: (e40) => setPostSetupScript(e40.target.value)
+          }
+        )
+      )), /* @__PURE__ */ import_react21.default.createElement(
+        Option,
+        {
+          title: "How PM2 runs it",
+          summary: `${pm2Opts.exec_mode}, ${pm2Opts.instances} instance${Number(pm2Opts.instances) === 1 ? "" : "s"}`
+        },
+        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Interpreter", hint: "Leave as node for standard Node.js." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            placeholder: "node",
+            value: pm2Opts.interpreter,
+            onChange: (e40) => setOpt("interpreter", e40.target.value)
+          }
+        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Interpreter args", hint: "Flags passed to Node before the script." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            placeholder: "--max-old-space-size=4096",
+            value: pm2Opts.interpreter_args,
+            onChange: (e40) => setOpt("interpreter_args", e40.target.value)
+          }
+        ))),
+        /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Script args", hint: "Arguments forwarded to your application." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            placeholder: "--port 8080",
+            value: pm2Opts.args,
+            onChange: (e40) => setOpt("args", e40.target.value)
+          }
+        )),
+        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Exec mode", hint: "Cluster spawns several workers sharing one port." }, /* @__PURE__ */ import_react21.default.createElement(
+          "select",
+          {
+            className: "select",
+            value: pm2Opts.exec_mode,
+            onChange: (e40) => setOpt("exec_mode", e40.target.value)
+          },
+          /* @__PURE__ */ import_react21.default.createElement("option", { value: "fork" }, "fork"),
+          /* @__PURE__ */ import_react21.default.createElement("option", { value: "cluster" }, "cluster")
+        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Instances", hint: "Use -1 for one per CPU core. Above 1 needs cluster mode." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "number",
+            min: "-1",
+            value: pm2Opts.instances,
+            onChange: (e40) => setOpt("instances", e40.target.value)
+          }
+        ))),
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Source map support",
+            hint: "Stack traces from transpiled code point at the original source lines.",
+            checked: pm2Opts.source_map_support,
+            onChange: (v) => setOpt("source_map_support", v)
+          }
+        )
+      ), /* @__PURE__ */ import_react21.default.createElement(
+        Option,
+        {
+          title: "Crash recovery",
+          summary: pm2Opts.autorestart ? `Auto-restart, max ${pm2Opts.max_restarts}` : "Auto-restart off"
+        },
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Restart on crash",
+            hint: "Restart whenever the process exits, whatever the exit code.",
+            checked: pm2Opts.autorestart,
+            onChange: (v) => setOpt("autorestart", v)
+          }
+        ),
+        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Restart above memory", hint: "For example 200M or 1G. Blank disables this." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            placeholder: "200M",
+            value: pm2Opts.max_memory_restart,
+            onChange: (e40) => setOpt("max_memory_restart", e40.target.value)
+          }
+        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Max consecutive restarts", hint: "After this many, PM2 marks the app errored." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.max_restarts,
+            onChange: (e40) => setOpt("max_restarts", e40.target.value)
+          }
+        ))),
+        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Delay between restarts (ms)", hint: "Avoids hammering a downstream dependency." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.restart_delay,
+            onChange: (e40) => setOpt("restart_delay", e40.target.value)
+          }
+        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Minimum uptime (ms)", hint: "Below this, a start counts as a failure." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "number",
+            min: "0",
+            placeholder: "1000",
+            value: pm2Opts.min_uptime,
+            onChange: (e40) => setOpt("min_uptime", e40.target.value)
+          }
+        ))),
+        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Shutdown grace period (ms)", hint: "Time after SIGINT before PM2 sends SIGKILL." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.kill_timeout,
+            onChange: (e40) => setOpt("kill_timeout", e40.target.value)
+          }
+        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Scheduled restart", hint: "Cron expression. 0 2 * * * restarts nightly at 2 AM." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            placeholder: "0 2 * * *",
+            value: pm2Opts.cron_restart,
+            onChange: (e40) => setOpt("cron_restart", e40.target.value)
+          }
+        ))),
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Wait for a ready signal",
+            hint: "Startup finishes only once the app calls process.send('ready').",
+            checked: pm2Opts.wait_ready,
+            onChange: (v) => setOpt("wait_ready", v)
+          }
+        ),
+        pm2Opts.wait_ready && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Ready signal timeout (ms)", hint: "Past this, the start counts as failed." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "number",
+            min: "0",
+            value: pm2Opts.listen_timeout,
+            onChange: (e40) => setOpt("listen_timeout", e40.target.value)
+          }
+        )),
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Shut down with an IPC message",
+            hint: "Sends process.send('shutdown') instead of SIGINT when stopping.",
+            checked: pm2Opts.shutdown_with_message,
+            onChange: (v) => setOpt("shutdown_with_message", v)
+          }
+        )
+      ), /* @__PURE__ */ import_react21.default.createElement(
+        Option,
+        {
+          title: "Logging and file watching",
+          summary: `${pm2Opts.time ? "Timestamps on" : "Timestamps off"}, ${pm2Opts.watch ? "watching" : "not watching"}`
+        },
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Timestamp every log line",
+            hint: "Required for Hawkeye to sort stdout and stderr chronologically. Keep this on.",
+            checked: pm2Opts.time,
+            onChange: (v) => setOpt("time", v)
+          }
+        ),
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Combine stdout and stderr",
+            hint: "Writes both streams to one file.",
+            checked: pm2Opts.combine_logs,
+            onChange: (v) => setOpt("combine_logs", v)
+          }
+        ),
+        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Stdout file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            placeholder: "/var/log/my-app/out.log",
+            value: pm2Opts.out_file,
+            onChange: (e40) => setOpt("out_file", e40.target.value)
+          }
+        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Stderr file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react21.default.createElement(
+          "input",
+          {
+            className: "input",
+            type: "text",
+            placeholder: "/var/log/my-app/error.log",
+            value: pm2Opts.error_file,
+            onChange: (e40) => setOpt("error_file", e40.target.value)
+          }
+        ))),
+        /* @__PURE__ */ import_react21.default.createElement(
+          Toggle,
+          {
+            label: "Restart on file changes",
+            hint: "Useful in development, generally wrong in production.",
+            checked: pm2Opts.watch,
+            onChange: (v) => setOpt("watch", v)
+          }
+        ),
+        pm2Opts.watch && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Ignore these paths", hint: "One pattern per line." }, /* @__PURE__ */ import_react21.default.createElement(
+          "textarea",
+          {
+            className: "textarea",
+            rows: 3,
+            value: pm2Opts.ignore_watch,
+            onChange: (e40) => setOpt("ignore_watch", e40.target.value)
+          }
+        ))
+      )))), /* @__PURE__ */ import_react21.default.createElement("aside", { className: "deploy-preview", "aria-labelledby": `${titleId}-preview` }, /* @__PURE__ */ import_react21.default.createElement("div", null, /* @__PURE__ */ import_react21.default.createElement("h3", { id: `${titleId}-preview`, className: "deploy-preview-title" }, isEdit ? "What a redeploy will do" : "What Hawkeye will do"), /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, "Updates as you fill in the form.")), /* @__PURE__ */ import_react21.default.createElement(StepList, { steps: previewSteps(draft, { firstDeploy, name: shownName }), compact: true }), /* @__PURE__ */ import_react21.default.createElement("p", { className: "deploy-preview-after" }, isEdit ? `${firstDeploy ? "Save only stores the configuration." : `Save keeps ${shownName} running as it is.`} Save and redeploy runs these steps now.` : `After that, ${shownName} appears in the sidebar and its Deploy tab shows the progress.`))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "modal-footer" }, error ? /* @__PURE__ */ import_react21.default.createElement("span", { className: "action-result modal-footer-text", "data-ok": "false" }, /* @__PURE__ */ import_react21.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react21.default.createElement("span", null, error)) : /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint modal-footer-text" }, isEdit ? "Save does not touch the running process." : "The deployment runs on the server. You can close this window once it has started."), /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--quiet", onClick: onClose }, "Cancel"), isEdit && /* @__PURE__ */ import_react21.default.createElement("button", { type: "submit", form: "deploy-form", className: "btn", disabled: submitting }, submitting ? "Saving" : "Save"), isEdit ? /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--primary", disabled: submitting, onClick: onRedeployClick }, /* @__PURE__ */ import_react21.default.createElement(m, { size: 13 }), submitting ? "Saving" : "Save and redeploy") : /* @__PURE__ */ import_react21.default.createElement("button", { type: "submit", form: "deploy-form", className: "btn btn--primary", disabled: submitting }, /* @__PURE__ */ import_react21.default.createElement(s6, { size: 13 }), submitting ? "Starting" : "Deploy")))
     );
   }
 
   // src/components/HostMetrics.jsx
-  var import_react21 = __toESM(require_react(), 1);
-  function pressure(pct) {
-    if (pct == null) return "normal";
-    if (pct >= 90) return "critical";
-    if (pct >= 75) return "warn";
+  var import_react22 = __toESM(require_react(), 1);
+  function pressure(pct2) {
+    if (pct2 == null) return "normal";
+    if (pct2 >= 90) return "critical";
+    if (pct2 >= 75) return "warn";
     return "normal";
   }
-  function HostMetrics({ samples = [], current = null, onShowMetrics = null }) {
+  function HostMetrics({ samples = [], current = null, onShowHost }) {
     const latest = samples.length > 0 ? samples[samples.length - 1] : null;
     const stats = [
-      { label: "CPU", value: current?.cpu ?? latest?.cpu ?? null, chartId: "metric-host-cpu" },
-      { label: "RAM", value: current?.ram ?? latest?.ram ?? null, chartId: "metric-host-ram" },
-      { label: "Disk", value: current?.disk ?? latest?.disk ?? null, chartId: "metric-host-disk" }
+      { label: "CPU", value: current?.cpu ?? latest?.cpu ?? null },
+      { label: "RAM", value: current?.ram ?? latest?.ram ?? null },
+      { label: "Disk", value: current?.disk ?? latest?.disk ?? null }
     ];
-    return /* @__PURE__ */ import_react21.default.createElement("div", { className: "host-readout" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "host-readout-label" }, "Host"), stats.map((stat) => {
-      const body = /* @__PURE__ */ import_react21.default.createElement(import_react21.default.Fragment, null, /* @__PURE__ */ import_react21.default.createElement("span", { className: "host-stat-label" }, stat.label), /* @__PURE__ */ import_react21.default.createElement("span", { className: "host-stat-value", "data-level": pressure(stat.value) }, stat.value != null ? `${stat.value.toFixed(0)}%` : "--"));
-      return onShowMetrics ? /* @__PURE__ */ import_react21.default.createElement(
-        "button",
+    return /* @__PURE__ */ import_react22.default.createElement(
+      "a",
+      {
+        className: "host-readout",
+        href: "#host",
+        title: "Host CPU, RAM and disk on the Overview",
+        onClick: (e40) => {
+          e40.preventDefault();
+          onShowHost();
+        }
+      },
+      /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-readout-label" }, "Host"),
+      stats.map((stat) => /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-stat", key: stat.label }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-stat-label" }, stat.label), /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-stat-value", "data-level": pressure(stat.value) }, stat.value != null ? `${stat.value.toFixed(0)}%` : "--")))
+    );
+  }
+
+  // src/components/Overview.jsx
+  var import_react23 = __toESM(require_react(), 1);
+  var pct = (v) => `${Math.round(v)}%`;
+  function HostCard({ label, color: color2, samples, current, sub, windowLabel }) {
+    const level = pressure(current);
+    const peak = findPeak(samples);
+    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card-head" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "chart-card-label" }, label), level !== "normal" && /* @__PURE__ */ import_react23.default.createElement("span", { className: `tag ${level === "critical" ? "tag--critical" : "tag--warning"}` }, /* @__PURE__ */ import_react23.default.createElement(m3, { size: 11, weight: "fill" }), level === "critical" ? "Critical" : "High")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card-reading" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "chart-card-value" }, current != null ? pct(current) : "--"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "hint" }, sub)), peak && /* @__PURE__ */ import_react23.default.createElement("p", { className: "chart-card-peak" }, windowLabel, " peak ", /* @__PURE__ */ import_react23.default.createElement("span", { className: "num" }, pct(peak.v)), " at ", formatClock(peak.t)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card-plot" }, /* @__PURE__ */ import_react23.default.createElement(
+      TimeSeriesChart,
+      {
+        series: [{ name: `Host ${label}`, color: color2, samples }],
+        height: 120,
+        max: 100,
+        ticks: [0, 50, 100],
+        formatValue: pct,
+        label: `Host ${label} over the last ${windowLabel}`
+      }
+    )));
+  }
+  function Overview({
+    processes,
+    offlineCount,
+    attentionItems,
+    hostSamples,
+    hostCurrent,
+    metricsRetentionMs = 24 * 60 * 60 * 1e3,
+    onOpenLogs,
+    onOpenDeployment,
+    onShowHost
+  }) {
+    const total = processes.length + offlineCount;
+    const running = processes.filter((p2) => String(p2.status ?? "").toLowerCase() === "online").length;
+    const windowLabel = formatShortDuration(metricsRetentionMs);
+    const latest = hostSamples.at(-1) ?? null;
+    const series = (key) => hostSamples.map((s7) => ({ t: s7.sampled_at, v: s7[key] })).filter((s7) => s7.v != null);
+    const used = (usedKey, totalKey) => hostCurrent?.[usedKey] != null && hostCurrent?.[totalKey] != null ? `${formatBytesOf(hostCurrent[usedKey], hostCurrent[totalKey])} used` : "";
+    const act = (action) => {
+      if (action.kind === "logs") onOpenLogs(action.processKey);
+      else if (action.kind === "deployment") onOpenDeployment(action.deploymentId);
+      else onShowHost();
+    };
+    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "overview fade-in" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h1", { className: "overview-title" }, "Overview"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "overview-sub" }, total, " ", total === 1 ? "process" : "processes", ". ", running, " running, ", total - running, " not running.")), /* @__PURE__ */ import_react23.default.createElement("section", { className: "card", "aria-labelledby": "attention-title" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "attention-head" }, /* @__PURE__ */ import_react23.default.createElement("h2", { id: "attention-title", className: "card-title" }, "Needs attention"), attentionItems.length > 0 && /* @__PURE__ */ import_react23.default.createElement("span", { className: "tag tag--critical num" }, attentionItems.length)), /* @__PURE__ */ import_react23.default.createElement("ul", { className: "attention-list" }, attentionItems.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("li", { className: "attention-row" }, /* @__PURE__ */ import_react23.default.createElement(s2, { size: 16, weight: "fill", className: "attention-icon", "data-level": "ok", "aria-hidden": "true" }), /* @__PURE__ */ import_react23.default.createElement("div", { className: "attention-text" }, /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-title" }, "Nothing needs attention"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-detail" }, "Stopped processes are not counted."))) : attentionItems.map((item) => /* @__PURE__ */ import_react23.default.createElement("li", { className: "attention-row", key: item.key }, item.level === "critical" ? /* @__PURE__ */ import_react23.default.createElement(
+      m3,
+      {
+        size: 16,
+        weight: "fill",
+        className: "attention-icon",
+        "data-level": "critical",
+        "aria-label": "Critical"
+      }
+    ) : /* @__PURE__ */ import_react23.default.createElement(
+      c8,
+      {
+        size: 16,
+        weight: "fill",
+        className: "attention-icon",
+        "data-level": "warning",
+        "aria-label": "Warning"
+      }
+    ), /* @__PURE__ */ import_react23.default.createElement("div", { className: "attention-text" }, /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-title" }, item.title), /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-detail" }, item.detail)), /* @__PURE__ */ import_react23.default.createElement("button", { type: "button", className: "btn btn--sm btn--sunken", onClick: () => act(item.action) }, item.action.label))))), /* @__PURE__ */ import_react23.default.createElement("section", { id: "host", className: "overview-host", "aria-labelledby": "host-title" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "section-head" }, /* @__PURE__ */ import_react23.default.createElement("h2", { id: "host-title", className: "card-title" }, "Host"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "hint" }, "This machine. Sampled every 20 s, kept for ", windowLabel, ". Hover a chart for exact values.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "host-grid" }, /* @__PURE__ */ import_react23.default.createElement(
+      HostCard,
+      {
+        label: "CPU",
+        color: "var(--accent)",
+        samples: series("cpu"),
+        current: hostCurrent?.cpu ?? latest?.cpu ?? null,
+        sub: "average across all cores",
+        windowLabel
+      }
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      HostCard,
+      {
+        label: "RAM",
+        color: "var(--success)",
+        samples: series("ram"),
+        current: hostCurrent?.ram ?? latest?.ram ?? null,
+        sub: used("ramUsed", "ramTotal"),
+        windowLabel
+      }
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      HostCard,
+      {
+        label: "Disk",
+        color: "var(--info)",
+        samples: series("disk"),
+        current: hostCurrent?.disk ?? latest?.disk ?? null,
+        sub: used("diskUsed", "diskTotal"),
+        windowLabel
+      }
+    ))));
+  }
+
+  // src/services/attention.js
+  var HOST_CRITICAL_PCT = 90;
+  var DETAIL_MAX = 140;
+  function firstLine(text5) {
+    const line = String(text5 || "").split("\n").find((l3) => l3.trim()) ?? "";
+    return line.length > DETAIL_MAX ? `${line.slice(0, DETAIL_MAX - 1).trimEnd()}\u2026` : line.trim();
+  }
+  function failedStepTitle(deployment, lines) {
+    const lastReal = [...lines].reverse().find((l3) => DEPLOY_STAGES.includes(l3.stage));
+    const steps = planDeploy(deployment, { firstDeploy: deployment.last_deployed_at == null });
+    return steps.find((s7) => s7.stage === (lastReal?.stage ?? "clone"))?.title ?? "Update the code";
+  }
+  function buildAttentionItems({ processes, offlineDeployments, deployments, deployRuns, hostCurrent }) {
+    const items = [];
+    for (const proc of processes) {
+      if (String(proc.status ?? "").toLowerCase() !== "errored") continue;
+      items.push({
+        key: `errored:${proc.name}`,
+        level: "critical",
+        name: proc.name,
+        title: `${proc.name} is errored`,
+        detail: `${proc.restarts ?? 0} restarts. PM2 has stopped restarting it.`,
+        action: { label: "Open logs", kind: "logs", processKey: proc.id ?? proc.name }
+      });
+    }
+    for (const dep of offlineDeployments) {
+      if (offlineStatus(dep) !== "broken") continue;
+      items.push({
+        key: `broken:${dep.id}`,
+        level: "critical",
+        name: dep.pm2_name,
+        title: `${dep.pm2_name} was never deployed successfully`,
+        detail: "Its first deployment failed, so nothing runs in PM2.",
+        action: { label: "Open deployment", kind: "deployment", deploymentId: dep.id }
+      });
+    }
+    const brokenIds = new Set(offlineDeployments.filter((d) => offlineStatus(d) === "broken").map((d) => d.id));
+    for (const dep of deployments) {
+      const run = deployRuns[dep.id];
+      const last = run?.lines.at(-1);
+      if (!run || !last) continue;
+      if (last.stage === "error" && !brokenIds.has(dep.id)) {
+        items.push({
+          key: `run-failed:${dep.id}`,
+          level: "critical",
+          name: dep.pm2_name,
+          title: `${dep.pm2_name}: redeploy failed at ${failedStepTitle(dep, run.lines)}`,
+          detail: firstLine(last.line),
+          action: { label: "Open deployment", kind: "deployment", deploymentId: dep.id }
+        });
+      } else if (last.status === "confirm") {
+        items.push({
+          key: `run-confirm:${dep.id}`,
+          level: "warning",
+          name: dep.pm2_name,
+          title: `${dep.pm2_name}: deployment is waiting for you`,
+          detail: "Local changes in the deploy folder need a decision.",
+          action: { label: "Open deployment", kind: "deployment", deploymentId: dep.id }
+        });
+      }
+    }
+    if (hostCurrent) {
+      const host = [
         {
-          type: "button",
-          className: "host-stat host-stat--link",
-          key: stat.label,
-          title: `Show host ${stat.label} history in Metrics`,
-          onClick: () => onShowMetrics(stat.chartId)
+          key: "disk",
+          value: hostCurrent.disk,
+          title: (v) => `Disk is ${Math.round(v)}% full`,
+          detail: hostCurrent.diskUsed != null && hostCurrent.diskTotal != null ? `${formatBytesOf(hostCurrent.diskUsed, hostCurrent.diskTotal)} used on this machine.` : "On this machine."
         },
-        body
-      ) : /* @__PURE__ */ import_react21.default.createElement("span", { className: "host-stat", key: stat.label }, body);
-    }));
+        {
+          key: "ram",
+          value: hostCurrent.ram,
+          title: (v) => `RAM is ${Math.round(v)}% used`,
+          detail: hostCurrent.ramUsed != null && hostCurrent.ramTotal != null ? `${formatBytesOf(hostCurrent.ramUsed, hostCurrent.ramTotal)} used on this machine.` : "On this machine."
+        },
+        {
+          key: "cpu",
+          value: hostCurrent.cpu,
+          title: (v) => `CPU is at ${Math.round(v)}%`,
+          detail: "Average across all cores."
+        }
+      ];
+      for (const metric of host) {
+        if (metric.value == null || metric.value < HOST_CRITICAL_PCT) continue;
+        items.push({
+          key: `host:${metric.key}`,
+          level: "critical",
+          // Host items sort after the named ones of their level.
+          name: "\uFFFF",
+          title: metric.title(metric.value),
+          detail: metric.detail,
+          action: { label: "Show host", kind: "host" }
+        });
+      }
+    }
+    for (const dep of deployments) {
+      if (!dep.watch_last_error) continue;
+      const at = dep.watch_last_checked_at ? `Last check at ${formatClock(dep.watch_last_checked_at)}: ` : "";
+      items.push({
+        key: `watch:${dep.id}`,
+        level: "warning",
+        name: dep.pm2_name,
+        title: `${dep.pm2_name} auto-deploy check failed`,
+        detail: `${at}${firstLine(dep.watch_last_error)}${at ? "." : ""}`,
+        action: { label: "Open deployment", kind: "deployment", deploymentId: dep.id }
+      });
+    }
+    const rank = { critical: 0, warning: 1 };
+    return items.sort((a28, b) => rank[a28.level] - rank[b.level] || a28.name.localeCompare(b.name));
   }
 
   // src/components/App.jsx
-  var DEPLOY_BUFFER_IDS = 5;
-  var DEPLOY_BUFFER_EVENTS = 500;
   function processKey(item) {
     return item.id ?? item.name;
   }
   function keepSelection(items, prev) {
-    if (items.some((item) => String(processKey(item)) === String(prev))) return prev;
-    return items[0] ? processKey(items[0]) : null;
+    if (prev == null || deploymentIdFromKey(prev)) return prev;
+    return items.some((item) => String(processKey(item)) === String(prev)) ? prev : null;
   }
-  function bufferDeployProgress(buffer, event) {
-    const events = buffer.get(event.deploymentId) ?? [];
-    buffer.delete(event.deploymentId);
-    buffer.set(event.deploymentId, appendBounded(events, [event], DEPLOY_BUFFER_EVENTS));
-    while (buffer.size > DEPLOY_BUFFER_IDS) buffer.delete(buffer.keys().next().value);
+  function scrollToWhenRendered(elementId) {
+    requestAnimationFrame(
+      () => requestAnimationFrame(() => {
+        const target = document.getElementById(elementId);
+        if (!target) return;
+        const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+        target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+      })
+    );
   }
   var TABS = [
     { id: "logs", label: "Logs" },
     { id: "metrics", label: "Metrics" },
+    { id: "deploy", label: "Deploy" },
     { id: "manage", label: "Manage" }
   ];
   function App() {
-    const [csrfToken, setCsrfToken] = (0, import_react22.useState)(null);
-    const [processes, setProcesses] = (0, import_react22.useState)([]);
-    const [selectedProcessId, setSelectedProcessId] = (0, import_react22.useState)(null);
-    const [details, setDetails] = (0, import_react22.useState)(null);
-    const [error, setError] = (0, import_react22.useState)("");
-    const [wsConnected, setWsConnected] = (0, import_react22.useState)(false);
-    const [appVersion, setAppVersion] = (0, import_react22.useState)(null);
-    const [liveLines, setLiveLines] = (0, import_react22.useState)([]);
-    const [actions, setActions] = (0, import_react22.useState)([]);
-    const [metricsHistory, setMetricsHistory] = (0, import_react22.useState)([]);
-    const [customMetricsHistory, setCustomMetricsHistory] = (0, import_react22.useState)([]);
-    const [hostMetrics, setHostMetrics] = (0, import_react22.useState)([]);
-    const [hostCurrent, setHostCurrent] = (0, import_react22.useState)(null);
-    const [storedLogs, setStoredLogs] = (0, import_react22.useState)([]);
-    const [storedLogsReady, setStoredLogsReady] = (0, import_react22.useState)(false);
-    const [storedLogsCursor, setStoredLogsCursor] = (0, import_react22.useState)(null);
-    const [loadingOlderLogs, setLoadingOlderLogs] = (0, import_react22.useState)(false);
-    const [unreadLogCount, setUnreadLogCount] = (0, import_react22.useState)(0);
-    const [settingsOpen, setSettingsOpen] = (0, import_react22.useState)(false);
-    const [appConfig, setAppConfig] = (0, import_react22.useState)(null);
-    const [deployOpen, setDeployOpen] = (0, import_react22.useState)(false);
-    const [deployments, setDeployments] = (0, import_react22.useState)([]);
-    const [activeDeploymentId, setActiveDeploymentId] = (0, import_react22.useState)(null);
-    const [deployProgressLines, setDeployProgressLines] = (0, import_react22.useState)([]);
-    const [deployProgressStage, setDeployProgressStage] = (0, import_react22.useState)(null);
-    const [deployProgressStatus, setDeployProgressStatus] = (0, import_react22.useState)(null);
-    const [editingDeployment, setEditingDeployment] = (0, import_react22.useState)(null);
-    const [deployConfirmChanges, setDeployConfirmChanges] = (0, import_react22.useState)(null);
-    const [drawerOpen, setDrawerOpen] = (0, import_react22.useState)(false);
-    const [logFilters, setLogFilters] = (0, import_react22.useState)(/* @__PURE__ */ new Set(["info", "warn", "error"]));
-    const [logSearch, setLogSearch] = (0, import_react22.useState)("");
-    const [logPaused, setLogPaused] = (0, import_react22.useState)(false);
-    const [pausedCount, setPausedCount] = (0, import_react22.useState)(0);
-    const [logLevel, setLogLevel] = (0, import_react22.useState)({ supported: null, level: null, busy: false });
-    const [activeTab, setActiveTab] = (0, import_react22.useState)("logs");
-    const logRef = (0, import_react22.useRef)(null);
-    const autoStickRef = (0, import_react22.useRef)(true);
-    const wsRef = (0, import_react22.useRef)(null);
-    const selectedProcessIdRef = (0, import_react22.useRef)(null);
-    const liveQueueRef = (0, import_react22.useRef)([]);
-    const liveFrameRef = (0, import_react22.useRef)(null);
-    const liveSequenceRef = (0, import_react22.useRef)(0);
-    const olderLogsControllerRef = (0, import_react22.useRef)(null);
-    const logPausedRef = (0, import_react22.useRef)(false);
-    const pausedBufferRef = (0, import_react22.useRef)([]);
-    const activeDeploymentIdRef = (0, import_react22.useRef)(null);
-    const deployProgressBufferRef = (0, import_react22.useRef)(/* @__PURE__ */ new Map());
-    const loadProcesses = (0, import_react22.useCallback)(async () => {
+    const [csrfToken, setCsrfToken] = (0, import_react24.useState)(null);
+    const [processes, setProcesses] = (0, import_react24.useState)([]);
+    const [selection, setSelection] = (0, import_react24.useState)(null);
+    const [details, setDetails] = (0, import_react24.useState)(null);
+    const [error, setError] = (0, import_react24.useState)("");
+    const [wsConnected, setWsConnected] = (0, import_react24.useState)(false);
+    const [appVersion, setAppVersion] = (0, import_react24.useState)(null);
+    const [liveLines, setLiveLines] = (0, import_react24.useState)([]);
+    const [actions, setActions] = (0, import_react24.useState)([]);
+    const [metricsHistory, setMetricsHistory] = (0, import_react24.useState)([]);
+    const [customMetricsHistory, setCustomMetricsHistory] = (0, import_react24.useState)([]);
+    const [hostMetrics, setHostMetrics] = (0, import_react24.useState)([]);
+    const [hostCurrent, setHostCurrent] = (0, import_react24.useState)(null);
+    const [storedLogs, setStoredLogs] = (0, import_react24.useState)([]);
+    const [storedLogsReady, setStoredLogsReady] = (0, import_react24.useState)(false);
+    const [storedLogsCursor, setStoredLogsCursor] = (0, import_react24.useState)(null);
+    const [loadingOlderLogs, setLoadingOlderLogs] = (0, import_react24.useState)(false);
+    const [unreadLogCount, setUnreadLogCount] = (0, import_react24.useState)(0);
+    const [settingsPage, setSettingsPage] = (0, import_react24.useState)(null);
+    const [appConfig, setAppConfig] = (0, import_react24.useState)(null);
+    const [deployOpen, setDeployOpen] = (0, import_react24.useState)(false);
+    const [deployments, setDeployments] = (0, import_react24.useState)([]);
+    const [deploymentsLoaded, setDeploymentsLoaded] = (0, import_react24.useState)(false);
+    const [deployRuns, setDeployRuns] = (0, import_react24.useState)({});
+    const [editingDeployment, setEditingDeployment] = (0, import_react24.useState)(null);
+    const [drawerOpen, setDrawerOpen] = (0, import_react24.useState)(false);
+    const [logFilters, setLogFilters] = (0, import_react24.useState)(/* @__PURE__ */ new Set(["info", "warn", "error"]));
+    const [logSearch, setLogSearch] = (0, import_react24.useState)("");
+    const [logPaused, setLogPaused] = (0, import_react24.useState)(false);
+    const [pausedCount, setPausedCount] = (0, import_react24.useState)(0);
+    const [logLevel, setLogLevel] = (0, import_react24.useState)({ supported: null, level: null, busy: false });
+    const [activeTab, setActiveTab] = (0, import_react24.useState)("logs");
+    const logRef = (0, import_react24.useRef)(null);
+    const autoStickRef = (0, import_react24.useRef)(true);
+    const wsRef = (0, import_react24.useRef)(null);
+    const selectedProcessIdRef = (0, import_react24.useRef)(null);
+    const liveQueueRef = (0, import_react24.useRef)([]);
+    const liveFrameRef = (0, import_react24.useRef)(null);
+    const liveSequenceRef = (0, import_react24.useRef)(0);
+    const olderLogsControllerRef = (0, import_react24.useRef)(null);
+    const logPausedRef = (0, import_react24.useRef)(false);
+    const pausedBufferRef = (0, import_react24.useRef)([]);
+    const selectionRef = (0, import_react24.useRef)(null);
+    const selectedProcessId = deploymentIdFromKey(selection) ? null : selection;
+    const selectedDeploymentId = deploymentIdFromKey(selection);
+    const select = (0, import_react24.useCallback)((key, tab2) => {
+      if (tab2) setActiveTab(tab2);
+      else if (String(selectionRef.current) !== String(key)) setActiveTab("logs");
+      selectionRef.current = key;
+      setSelection(key);
+      setDrawerOpen(false);
+    }, []);
+    const loadProcesses = (0, import_react24.useCallback)(async () => {
       try {
         const payload = await fetchJson("/api/processes");
         setProcesses(payload.items);
-        setSelectedProcessId((prev) => keepSelection(payload.items, prev));
+        setSelection((prev) => keepSelection(payload.items, prev));
       } catch (loadError) {
         setProcesses([]);
-        setSelectedProcessId(null);
+        setSelection(null);
         setError(loadError.message);
       }
     }, []);
-    const loadDeployments = (0, import_react22.useCallback)(() => {
-      fetchJson("/api/deployments").then((payload) => setDeployments(payload.deployments || [])).catch((loadError) => setError(`Failed to load deployments: ${loadError.message}`));
-    }, []);
-    const loadHostMetrics = (0, import_react22.useCallback)(() => {
+    const loadDeployments = (0, import_react24.useCallback)(
+      () => fetchJson("/api/deployments").then((payload) => {
+        setDeployments(payload.deployments || []);
+        setDeploymentsLoaded(true);
+      }).catch((loadError) => setError(`Failed to load deployments: ${loadError.message}`)),
+      []
+    );
+    const loadHostMetrics = (0, import_react24.useCallback)(() => {
       fetchJson("/api/host-metrics").then((payload) => {
         setHostMetrics(payload.samples || []);
         setHostCurrent(payload.current || null);
       }).catch((loadError) => setError(`Failed to load host metrics: ${loadError.message}`));
     }, []);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       fetchJson("/api/auth/session").then((payload) => {
         setCsrfToken(payload.csrfToken);
         if (payload.version) setAppVersion(payload.version);
@@ -37136,31 +38122,21 @@
         return Promise.all([loadProcesses(), loadDeployments(), loadHostMetrics()]);
       }).catch((sessionError) => setError(sessionError.message));
     }, [loadProcesses, loadDeployments, loadHostMetrics]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       const interval = setInterval(loadHostMetrics, 2e4);
       return () => clearInterval(interval);
     }, [loadHostMetrics]);
-    (0, import_react22.useEffect)(() => {
-      activeDeploymentIdRef.current = activeDeploymentId;
-    }, [activeDeploymentId]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       selectedProcessIdRef.current = selectedProcessId;
     }, [selectedProcessId]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
+      selectionRef.current = selection;
+    }, [selection]);
+    (0, import_react24.useEffect)(() => {
       const interval = setInterval(loadDeployments, 6e4);
       return () => clearInterval(interval);
     }, [loadDeployments]);
-    const applyDeployProgress = (0, import_react22.useCallback)(
-      (data) => {
-        setDeployConfirmChanges(data.status === "confirm" ? data.line : null);
-        setDeployProgressLines((prev) => [...prev, { stage: data.stage, line: data.line, status: data.status }]);
-        setDeployProgressStage(data.stage);
-        setDeployProgressStatus(data.status);
-        if (data.stage === "done" || data.stage === "error") loadDeployments();
-      },
-      [loadDeployments]
-    );
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const flushLiveQueue = () => {
         liveFrameRef.current = null;
@@ -37193,7 +38169,7 @@
             const { type, data } = JSON.parse(event.data);
             if (type === "processes") {
               setProcesses(data.items);
-              setSelectedProcessId((prev) => keepSelection(data.items, prev));
+              setSelection((prev) => keepSelection(data.items, prev));
               if (data.hostCurrent !== void 0) setHostCurrent(data.hostCurrent);
             } else if (type === "details") {
               if (isForSelection(data)) setDetails(data);
@@ -37208,12 +38184,8 @@
             } else if (type === "error") {
               setError(data.error);
             } else if (type === "deploy_progress") {
-              if (activeDeploymentIdRef.current !== data.deploymentId) {
-                bufferDeployProgress(deployProgressBufferRef.current, data);
-                if (data.stage === "done" || data.stage === "error") loadDeployments();
-                return;
-              }
-              applyDeployProgress(data);
+              setDeployRuns((runs) => recordDeployEvent(runs, data));
+              if (data.stage === "done" || data.stage === "error") loadDeployments();
             }
           } catch {
           }
@@ -37225,25 +38197,40 @@
         liveFrameRef.current = null;
         liveQueueRef.current = [];
       };
-    }, [applyDeployProgress, loadDeployments]);
-    const selectedProcess = (0, import_react22.useMemo)(
+    }, [loadDeployments]);
+    const selectedProcess = (0, import_react24.useMemo)(
       () => processes.find((item) => String(processKey(item)) === String(selectedProcessId)) || null,
       [processes, selectedProcessId]
     );
     const isSelectedMonitored = selectedProcess?.isMonitored ?? false;
-    const selectedDeployment = (0, import_react22.useMemo)(
+    const selectedDeployment = (0, import_react24.useMemo)(
       () => deployments.find((d) => d.pm2_name === selectedProcess?.name) ?? null,
       [deployments, selectedProcess]
     );
-    const deployedNames = (0, import_react22.useMemo)(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
-    const offlineDeployments = (0, import_react22.useMemo)(() => {
-      const runningNames = new Set(processes.map((p2) => p2.name));
-      return deployments.filter((d) => !runningNames.has(d.pm2_name)).map((d) => ({
-        ...d,
-        displayStatus: d.deploying ? "deploying" : d.last_deployed_at == null ? "broken" : "offline"
-      }));
-    }, [deployments, processes]);
-    const loadMetrics = (0, import_react22.useCallback)((processId, signal, failureLabel) => {
+    const deployedNames = (0, import_react24.useMemo)(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
+    const offlineDeployments = (0, import_react24.useMemo)(() => {
+      const pm2Names = new Set(processes.map((p2) => p2.name));
+      return deployments.filter((d) => !pm2Names.has(d.pm2_name)).map((d) => !d.deploying && isRunActive(d, deployRuns[d.id]) ? { ...d, deploying: 1 } : d);
+    }, [deployments, processes, deployRuns]);
+    const selectedOfflineDeployment = (0, import_react24.useMemo)(
+      () => selectedDeploymentId ? offlineDeployments.find((d) => d.id === selectedDeploymentId) ?? null : null,
+      [offlineDeployments, selectedDeploymentId]
+    );
+    (0, import_react24.useEffect)(() => {
+      if (!selectedDeploymentId || !deploymentsLoaded) return;
+      const deployment = deployments.find((d) => d.id === selectedDeploymentId);
+      if (!deployment) {
+        select(null);
+        return;
+      }
+      const proc = processes.find((p2) => p2.name === deployment.pm2_name);
+      if (proc) select(processKey(proc), "deploy");
+    }, [selectedDeploymentId, deployments, deploymentsLoaded, processes, select]);
+    const attentionItems = (0, import_react24.useMemo)(
+      () => buildAttentionItems({ processes, offlineDeployments, deployments, deployRuns, hostCurrent }),
+      [processes, offlineDeployments, deployments, deployRuns, hostCurrent]
+    );
+    const loadMetrics = (0, import_react24.useCallback)((processId, signal, failureLabel) => {
       fetchJson(`/api/processes/${encodeURIComponent(processId)}/metrics`, { signal }).then((payload) => {
         setMetricsHistory(payload.samples || []);
         setCustomMetricsHistory(payload.custom || []);
@@ -37251,7 +38238,7 @@
         if (loadError.name !== "AbortError") setError(`${failureLabel}: ${loadError.message}`);
       });
     }, []);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       const controller = new AbortController();
       olderLogsControllerRef.current?.abort();
       olderLogsControllerRef.current = null;
@@ -37275,7 +38262,7 @@
       });
       return () => controller.abort();
     }, [selectedProcessId]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       const controller = new AbortController();
       setDetails(null);
       setLiveLines([]);
@@ -37291,8 +38278,6 @@
       setPausedCount(0);
       autoStickRef.current = true;
       setLogSearch("");
-      setDrawerOpen(false);
-      setActiveTab("logs");
       if (selectedProcessId === null || selectedProcessId === void 0) {
         return () => controller.abort();
       }
@@ -37304,7 +38289,7 @@
     }, [selectedProcessId, loadMetrics]);
     const selectedIsOnline = String(selectedProcess?.status ?? "").toLowerCase() === "online";
     const selectedUptime = details?.process?.uptime ?? null;
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       setLogLevel({ supported: null, level: null, busy: false });
       if (selectedProcessId == null || !selectedIsOnline || selectedUptime == null) return void 0;
       const controller = new AbortController();
@@ -37317,13 +38302,13 @@
       });
       return () => controller.abort();
     }, [selectedProcessId, selectedIsOnline, selectedUptime]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       const ws = wsRef.current;
       if (!wsConnected || ws?.readyState !== WebSocket.OPEN) return;
       const message = selectedProcessId === null || selectedProcessId === void 0 ? { type: "deselect" } : { type: "select", data: { processId: String(selectedProcessId) } };
       ws.send(JSON.stringify(message));
     }, [selectedProcessId, wsConnected]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0 || !isSelectedMonitored) return;
       let controller = null;
       const interval = setInterval(() => {
@@ -37336,7 +38321,7 @@
         controller?.abort();
       };
     }, [selectedProcessId, isSelectedMonitored, loadMetrics]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       const container = logRef.current;
       if (!container) return void 0;
       const onScroll = () => {
@@ -37345,17 +38330,17 @@
       container.addEventListener("scroll", onScroll);
       return () => container.removeEventListener("scroll", onScroll);
     }, [activeTab, selectedProcessId]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       autoStickRef.current = true;
       setUnreadLogCount(0);
     }, [activeTab]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       const container = logRef.current;
       if (container && autoStickRef.current) {
         container.scrollTop = container.scrollHeight;
       }
     }, [storedLogs, liveLines, activeTab]);
-    const onTogglePause = (0, import_react22.useCallback)(() => {
+    const onTogglePause = (0, import_react24.useCallback)(() => {
       setLogPaused((paused) => {
         const next = !paused;
         logPausedRef.current = next;
@@ -37369,7 +38354,7 @@
         return next;
       });
     }, []);
-    const scrollToLogBottom = (0, import_react22.useCallback)(() => {
+    const scrollToLogBottom = (0, import_react24.useCallback)(() => {
       const container = logRef.current;
       if (container) {
         container.scrollTop = container.scrollHeight;
@@ -37377,13 +38362,13 @@
         setUnreadLogCount(0);
       }
     }, []);
-    const allLines = (0, import_react22.useMemo)(() => {
+    const allLines = (0, import_react24.useMemo)(() => {
       if (isSelectedMonitored && storedLogsReady) {
         return [...storedLogs, ...liveLines];
       }
       return liveLines;
     }, [isSelectedMonitored, storedLogsReady, storedLogs, liveLines]);
-    const loadOlderLogs = (0, import_react22.useCallback)(async () => {
+    const loadOlderLogs = (0, import_react24.useCallback)(async () => {
       const processId = selectedProcessIdRef.current;
       if (processId == null || !storedLogsCursor || loadingOlderLogs) return;
       const controller = new AbortController();
@@ -37408,88 +38393,95 @@
         }
       }
     }, [loadingOlderLogs, storedLogsCursor]);
-    const refreshCsrf = (0, import_react22.useCallback)(async () => {
+    const refreshCsrf = (0, import_react24.useCallback)(async () => {
       const session = await fetchJson("/api/auth/session");
       setCsrfToken(session.csrfToken);
       return session.csrfToken;
     }, []);
-    const showMetric = (0, import_react22.useCallback)((chartId) => {
+    const showMetric = (0, import_react24.useCallback)((chartId) => {
       setActiveTab("metrics");
-      if (!chartId) return;
-      requestAnimationFrame(
-        () => requestAnimationFrame(() => {
-          const target = document.getElementById(chartId);
-          if (!target) return;
-          const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-          target.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-        })
-      );
+      if (chartId) scrollToWhenRendered(chartId);
     }, []);
-    const showDeployProgress = (0, import_react22.useCallback)((deploymentId) => {
-      setDeployProgressLines([]);
-      setDeployProgressStage("clone");
-      setDeployProgressStatus("running");
-      setDeployConfirmChanges(null);
-      activeDeploymentIdRef.current = deploymentId;
-      setActiveDeploymentId(deploymentId);
-    }, []);
-    const failDeployProgress = (0, import_react22.useCallback)((message) => {
-      setDeployProgressLines((prev) => [...prev, { stage: "error", line: message, status: "error" }]);
-      setDeployProgressStage("error");
-      setDeployProgressStatus("error");
-    }, []);
-    const onDeployStarted = (0, import_react22.useCallback)(
+    const showHost = (0, import_react24.useCallback)(() => {
+      select(null);
+      scrollToWhenRendered("host");
+    }, [select]);
+    const openDeployment = (0, import_react24.useCallback)(
       (deploymentId) => {
-        showDeployProgress(deploymentId);
-        const buffered = deployProgressBufferRef.current.get(deploymentId) ?? [];
-        deployProgressBufferRef.current.delete(deploymentId);
-        buffered.forEach(applyDeployProgress);
+        const deployment = deployments.find((d) => d.id === deploymentId);
+        const proc = deployment && processes.find((p2) => p2.name === deployment.pm2_name);
+        select(proc ? processKey(proc) : deploymentKey(deploymentId), "deploy");
       },
-      [showDeployProgress, applyDeployProgress]
+      [deployments, processes, select]
     );
-    const onSaveAndRedeploy = (0, import_react22.useCallback)(
-      async (deploymentId) => {
-        setEditingDeployment(null);
-        deployProgressBufferRef.current.delete(deploymentId);
-        showDeployProgress(deploymentId);
+    const failRun = (0, import_react24.useCallback)((deploymentId, message) => {
+      setDeployRuns((runs) => recordDeployEvent(runs, { deploymentId, stage: "error", line: message, status: "error" }));
+    }, []);
+    const onRedeploy = (0, import_react24.useCallback)(
+      async (deployment) => {
+        setDeployRuns(
+          (runs) => startRun(runs, deployment.id, {
+            firstDeploy: deployment.last_deployed_at == null,
+            startsProcess: !processes.some((p2) => p2.name === deployment.pm2_name)
+          })
+        );
         try {
-          await fetchWithCsrf(`/api/deployments/${deploymentId}/redeploy`, {
+          await fetchWithCsrf(`/api/deployments/${deployment.id}/redeploy`, {
             onCsrfRefresh: refreshCsrf,
             method: "POST"
           });
         } catch (err) {
-          failDeployProgress(err.message);
+          failRun(deployment.id, err.message);
         }
       },
-      [refreshCsrf, showDeployProgress, failDeployProgress]
+      [refreshCsrf, failRun, processes]
     );
-    const onConfirmDeploy = (0, import_react22.useCallback)(
-      async (confirmed) => {
-        if (!activeDeploymentId) return;
-        setDeployConfirmChanges(null);
+    const onDeployStarted = (0, import_react24.useCallback)(
+      async (deploymentId) => {
+        setDeployOpen(false);
+        setEditingDeployment(null);
+        setDeployRuns((runs) => runs[deploymentId] ? runs : startRun(runs, deploymentId, { firstDeploy: true }));
+        await loadDeployments();
+        select(deploymentKey(deploymentId), "deploy");
+      },
+      [loadDeployments, select]
+    );
+    const onSaveAndRedeploy = (0, import_react24.useCallback)(
+      async (deploymentId) => {
+        const deployment = deployments.find((d) => d.id === deploymentId);
+        setDeployOpen(false);
+        setEditingDeployment(null);
+        openDeployment(deploymentId);
+        loadDeployments();
+        if (deployment) await onRedeploy(deployment);
+      },
+      [deployments, openDeployment, loadDeployments, onRedeploy]
+    );
+    const onConfirmDeploy = (0, import_react24.useCallback)(
+      async (deploymentId, confirmed) => {
         try {
-          await fetchWithCsrf(`/api/deployments/${activeDeploymentId}/confirm`, {
+          await fetchWithCsrf(`/api/deployments/${deploymentId}/confirm`, {
             onCsrfRefresh: refreshCsrf,
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ confirmed })
           });
         } catch (err) {
-          failDeployProgress(err.message);
+          failRun(deploymentId, err.message);
         }
       },
-      [activeDeploymentId, refreshCsrf, failDeployProgress]
+      [refreshCsrf, failRun]
     );
-    const onEditDeployment = (0, import_react22.useCallback)(
-      (pm2Name) => {
-        const dep = deployments.find((d) => d.pm2_name === pm2Name);
-        if (!dep) return;
-        setEditingDeployment(dep);
-        setDeployOpen(true);
-      },
-      [deployments]
-    );
-    const onDeleteDeployment = (0, import_react22.useCallback)(
+    const onDismissRun = (0, import_react24.useCallback)((deploymentId) => {
+      setDeployRuns(
+        (runs) => runs[deploymentId] ? { ...runs, [deploymentId]: { ...runs[deploymentId], dismissed: true } } : runs
+      );
+    }, []);
+    const onEditDeployment = (0, import_react24.useCallback)((deployment) => {
+      setEditingDeployment(deployment);
+      setDeployOpen(true);
+    }, []);
+    const onDeleteDeployment = (0, import_react24.useCallback)(
       async (deploymentId) => {
         if (!csrfToken) return;
         try {
@@ -37497,14 +38489,14 @@
             onCsrfRefresh: refreshCsrf,
             method: "DELETE"
           });
-          loadDeployments();
+          await loadDeployments();
         } catch (err) {
           setError(err.message);
         }
       },
       [csrfToken, refreshCsrf, loadDeployments]
     );
-    const onEditSaved = (0, import_react22.useCallback)(async () => {
+    const onEditSaved = (0, import_react24.useCallback)(async () => {
       loadDeployments();
       setDeployOpen(false);
       setEditingDeployment(null);
@@ -37533,7 +38525,7 @@
           method: "DELETE"
         });
         if (withDeploy) loadDeployments();
-        setSelectedProcessId(null);
+        select(null);
       } catch (deleteError) {
         setError(deleteError.message);
       }
@@ -37547,7 +38539,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ pm2Name, monitored: false })
         });
-        setSelectedProcessId((prev) => String(prev) === pm2Name ? null : prev);
+        if (String(selectionRef.current) === pm2Name) select(null);
       } catch (removeError) {
         setError(removeError.message);
       }
@@ -37565,7 +38557,7 @@
       }
       window.location.replace("/login");
     };
-    const onToggleMonitoring = (0, import_react22.useCallback)(
+    const onToggleMonitoring = (0, import_react24.useCallback)(
       async (pm2Name, currentlyMonitored) => {
         if (!csrfToken) return;
         try {
@@ -37583,7 +38575,7 @@
       },
       [csrfToken, refreshCsrf]
     );
-    const onToggleAlerts = (0, import_react22.useCallback)(
+    const onToggleAlerts = (0, import_react24.useCallback)(
       async (pm2Name, alertsEnabled) => {
         if (!csrfToken) return;
         setProcesses((prev) => prev.map((p2) => p2.name === pm2Name ? { ...p2, alertsEnabled } : p2));
@@ -37601,7 +38593,7 @@
       },
       [csrfToken, refreshCsrf]
     );
-    const onSetLogLevel = (0, import_react22.useCallback)(
+    const onSetLogLevel = (0, import_react24.useCallback)(
       async (level) => {
         if (!csrfToken || selectedProcessId == null) return;
         const processId = selectedProcessId;
@@ -37623,185 +38615,232 @@
       },
       [csrfToken, selectedProcessId, refreshCsrf]
     );
-    const hasSelection = selectedProcessId != null;
-    return /* @__PURE__ */ import_react22.default.createElement(o.Provider, { value: ICON_DEFAULTS }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react22.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react22.default.createElement("header", { className: "app-topbar" }, /* @__PURE__ */ import_react22.default.createElement(
+    const isSelectedOrphan = selectedProcess?.isOrphan ?? false;
+    const shownDeployment = selectedOfflineDeployment ?? (isSelectedOrphan ? null : selectedDeployment);
+    const shownRun = shownDeployment ? deployRuns[shownDeployment.id] : void 0;
+    const deployDot = deployTabDot(shownDeployment, shownRun);
+    const tabs = TABS.filter((tab2) => tab2.id !== "deploy" || shownDeployment);
+    const visibleTab = tabs.some((tab2) => tab2.id === activeTab) ? activeTab : "logs";
+    const renderTabs = (list3, current) => /* @__PURE__ */ import_react24.default.createElement("div", { className: "tabs", role: "tablist", "aria-label": "Process views" }, list3.map((tab2) => /* @__PURE__ */ import_react24.default.createElement(
+      "button",
+      {
+        key: tab2.id,
+        type: "button",
+        role: "tab",
+        id: `tab-${tab2.id}`,
+        "aria-selected": current === tab2.id,
+        "aria-controls": `panel-${tab2.id}`,
+        className: "tab",
+        onClick: () => setActiveTab(tab2.id)
+      },
+      tab2.label,
+      tab2.id === "logs" && allLines.length > 0 && /* @__PURE__ */ import_react24.default.createElement("span", { className: "tab-count" }, allLines.length.toLocaleString("en-US")),
+      tab2.id === "deploy" && deployDot && /* @__PURE__ */ import_react24.default.createElement("span", { className: "tab-dot", "data-tone": deployDot.tone, title: deployDot.label }),
+      tab2.id === "manage" && !isSelectedMonitored && /* @__PURE__ */ import_react24.default.createElement("span", { className: "tab-flag", title: "Monitoring is off for this process" })
+    )));
+    const deployPanel = shownDeployment && /* @__PURE__ */ import_react24.default.createElement(
+      DeployPanel,
+      {
+        deployment: shownDeployment,
+        run: shownRun,
+        hasProcess: !selectedOfflineDeployment,
+        onRedeploy,
+        onEdit: onEditDeployment,
+        onConfirm: onConfirmDeploy,
+        onDismiss: onDismissRun,
+        onOpenLogs: () => setActiveTab("logs"),
+        onDelete: onDeleteDeployment
+      }
+    );
+    let content3;
+    if (selectedOfflineDeployment) {
+      content3 = /* @__PURE__ */ import_react24.default.createElement(import_react24.default.Fragment, null, /* @__PURE__ */ import_react24.default.createElement(ProcessHeader, { offlineDeployment: selectedOfflineDeployment }, renderTabs([{ id: "deploy", label: "Deploy" }], "deploy")), /* @__PURE__ */ import_react24.default.createElement("div", { className: "tab-panel tab-panel--scroll", role: "tabpanel", id: "panel-deploy", "aria-labelledby": "tab-deploy" }, deployPanel));
+    } else if (selectedProcess) {
+      content3 = /* @__PURE__ */ import_react24.default.createElement(import_react24.default.Fragment, null, /* @__PURE__ */ import_react24.default.createElement(
+        ProcessHeader,
+        {
+          selectedProcess,
+          details,
+          selectedDeployment,
+          onRestart: () => runProcessCommand("restart"),
+          onStop: () => runProcessCommand("stop"),
+          onStart: () => runProcessCommand("start"),
+          onOpenDeploy: () => setActiveTab("deploy"),
+          onShowMetrics: showMetric
+        },
+        renderTabs(tabs, visibleTab)
+      ), /* @__PURE__ */ import_react24.default.createElement(
+        "div",
+        {
+          className: visibleTab === "logs" ? "tab-panel" : "tab-panel tab-panel--scroll",
+          role: "tabpanel",
+          id: `panel-${visibleTab}`,
+          "aria-labelledby": `tab-${visibleTab}`
+        },
+        visibleTab === "logs" && /* @__PURE__ */ import_react24.default.createElement(
+          LogStream,
+          {
+            details,
+            allLines,
+            logRef,
+            isMonitored: isSelectedMonitored,
+            unreadCount: unreadLogCount,
+            onScrollToBottom: scrollToLogBottom,
+            logFilters,
+            onToggleFilter: (level) => setLogFilters((prev) => {
+              const next = new Set(prev);
+              if (next.has(level)) next.delete(level);
+              else next.add(level);
+              return next;
+            }),
+            logSearch,
+            onSearchChange: setLogSearch,
+            logPaused,
+            pausedCount,
+            onTogglePause,
+            hasOlderLogs: Boolean(storedLogsCursor),
+            loadingOlderLogs,
+            onLoadOlderLogs: loadOlderLogs
+          }
+        ),
+        visibleTab === "metrics" && /* @__PURE__ */ import_react24.default.createElement(
+          MetricsPanel,
+          {
+            processName: selectedProcess.name,
+            details,
+            metricsHistory,
+            customMetricsHistory,
+            hostSamples: hostMetrics,
+            isMonitored: isSelectedMonitored,
+            metricsRetentionMs: appConfig?.metricsRetentionMs,
+            memoryLimit: selectedDeployment?.pm2_options?.max_memory_restart,
+            onEnableMonitoring: () => onToggleMonitoring(selectedProcess.name, false),
+            onShowHost: showHost
+          }
+        ),
+        visibleTab === "deploy" && deployPanel,
+        visibleTab === "manage" && /* @__PURE__ */ import_react24.default.createElement(
+          ManagePanel,
+          {
+            selectedProcess,
+            isMonitored: isSelectedMonitored,
+            metricsRetentionMs: appConfig?.metricsRetentionMs,
+            logsRetentionMs: appConfig?.logsRetentionMs,
+            onToggleMonitoring,
+            onToggleAlerts,
+            onOpenAlerting: () => setSettingsPage("Alerting"),
+            actions,
+            logLevel,
+            onSetLogLevel,
+            selectedProcessId,
+            csrfToken,
+            onCsrfRefresh: refreshCsrf,
+            selectedDeployment,
+            onDelete,
+            onRemoveOrphan
+          }
+        )
+      ));
+    } else {
+      content3 = /* @__PURE__ */ import_react24.default.createElement(
+        Overview,
+        {
+          processes,
+          offlineCount: offlineDeployments.length,
+          attentionItems,
+          hostSamples: hostMetrics,
+          hostCurrent,
+          metricsRetentionMs: appConfig?.metricsRetentionMs,
+          onOpenLogs: (key) => select(key, "logs"),
+          onOpenDeployment: openDeployment,
+          onShowHost: showHost
+        }
+      );
+    }
+    return /* @__PURE__ */ import_react24.default.createElement(o.Provider, { value: ICON_DEFAULTS }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react24.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react24.default.createElement("header", { className: "app-topbar" }, /* @__PURE__ */ import_react24.default.createElement(
       "button",
       {
         className: "topbar-menu-btn",
         type: "button",
         "aria-label": "Toggle process list",
         "aria-expanded": drawerOpen,
-        onClick: () => setDrawerOpen((o19) => !o19)
+        onClick: () => setDrawerOpen((o24) => !o24)
       },
-      /* @__PURE__ */ import_react22.default.createElement(c4, { size: 15, weight: "bold" })
-    ), /* @__PURE__ */ import_react22.default.createElement("a", { className: "topbar-brand", href: "/", "aria-label": "pm2-hawkeye home" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react22.default.createElement(n2, { size: 15, weight: "bold", color: "var(--accent)" })), /* @__PURE__ */ import_react22.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye"))), /* @__PURE__ */ import_react22.default.createElement(
-      HostMetrics,
+      /* @__PURE__ */ import_react24.default.createElement(c5, { size: 15, weight: "bold" })
+    ), /* @__PURE__ */ import_react24.default.createElement(
+      "a",
       {
-        samples: hostMetrics,
-        current: hostCurrent,
-        onShowMetrics: hasSelection && selectedProcess ? showMetric : null
-      }
-    ), /* @__PURE__ */ import_react22.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react22.default.createElement("div", { className: "conn-state", "data-connected": wsConnected, title: wsConnected ? "Live" : "Reconnecting" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "conn-dot" }), /* @__PURE__ */ import_react22.default.createElement("span", null, wsConnected ? "Live" : "Reconnecting")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "topbar-divider" }), /* @__PURE__ */ import_react22.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react22.default.createElement(
+        className: "topbar-brand",
+        href: "/",
+        "aria-label": "pm2-hawkeye home",
+        onClick: (e40) => {
+          e40.preventDefault();
+          select(null);
+        }
+      },
+      /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react24.default.createElement(n2, { size: 15, weight: "bold", color: "var(--accent)" })),
+      /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye"))
+    ), /* @__PURE__ */ import_react24.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent, onShowHost: showHost }), /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react24.default.createElement("div", { className: "conn-state", "data-connected": wsConnected, title: wsConnected ? "Live" : "Reconnecting" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "conn-dot" }), /* @__PURE__ */ import_react24.default.createElement("span", null, wsConnected ? "Live" : "Reconnecting")), /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-divider" }), /* @__PURE__ */ import_react24.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react24.default.createElement(
       "button",
       {
         className: "btn btn--primary btn--sm",
         type: "button",
-        "aria-label": "Deploy from Git",
+        "aria-label": "New deployment",
         onClick: () => {
-          setActiveDeploymentId(null);
+          setEditingDeployment(null);
           setDeployOpen(true);
         }
       },
-      /* @__PURE__ */ import_react22.default.createElement(s4, { size: 13, weight: "bold" }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, "Deploy")
-    ), /* @__PURE__ */ import_react22.default.createElement(
+      /* @__PURE__ */ import_react24.default.createElement(n5, { size: 13, weight: "bold" }),
+      /* @__PURE__ */ import_react24.default.createElement("span", null, "New deployment")
+    ), /* @__PURE__ */ import_react24.default.createElement(
       "button",
       {
         className: "btn btn--icon",
         type: "button",
         title: "Settings",
         "aria-label": "Settings",
-        onClick: () => setSettingsOpen(true)
+        onClick: () => setSettingsPage("General")
       },
-      /* @__PURE__ */ import_react22.default.createElement(s3, { size: 15 })
-    ), /* @__PURE__ */ import_react22.default.createElement("button", { className: "btn btn--icon", type: "button", title: "Sign out", "aria-label": "Sign out", onClick: onLogout }, /* @__PURE__ */ import_react22.default.createElement(c6, { size: 15 })))), drawerOpen && /* @__PURE__ */ import_react22.default.createElement("div", { className: "topbar-drawer-overlay", onClick: () => setDrawerOpen(false) }), /* @__PURE__ */ import_react22.default.createElement(
+      /* @__PURE__ */ import_react24.default.createElement(s5, { size: 15 })
+    ), /* @__PURE__ */ import_react24.default.createElement("button", { className: "btn btn--icon", type: "button", title: "Sign out", "aria-label": "Sign out", onClick: onLogout }, /* @__PURE__ */ import_react24.default.createElement(c7, { size: 15 })))), drawerOpen && /* @__PURE__ */ import_react24.default.createElement("div", { className: "topbar-drawer-overlay", onClick: () => setDrawerOpen(false) }), /* @__PURE__ */ import_react24.default.createElement(
       ProcessList,
       {
         processes,
-        selectedProcessId,
-        onSelect: (id) => {
-          setSelectedProcessId(id);
-          setDrawerOpen(false);
-        },
-        onEditDeployment,
+        selection,
+        onSelect: (key) => select(key),
         deployedNames,
         offlineDeployments,
-        onDeleteDeployment,
+        attentionCount: attentionItems.length,
         drawerOpen
       }
-    ), /* @__PURE__ */ import_react22.default.createElement("main", { className: "content" }, error && /* @__PURE__ */ import_react22.default.createElement("div", { className: "action-result", "data-ok": "false", style: { margin: "var(--s-3) var(--s-5) 0" } }, /* @__PURE__ */ import_react22.default.createElement("span", null, error), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setError("") }, "Dismiss")), hasSelection && selectedProcess ? /* @__PURE__ */ import_react22.default.createElement(import_react22.default.Fragment, null, /* @__PURE__ */ import_react22.default.createElement(
-      ProcessHeader,
+    ), /* @__PURE__ */ import_react24.default.createElement("main", { className: "content" }, error && /* @__PURE__ */ import_react24.default.createElement("div", { className: "action-result", "data-ok": "false", style: { margin: "var(--s-3) var(--s-5) 0" } }, /* @__PURE__ */ import_react24.default.createElement("span", null, error), /* @__PURE__ */ import_react24.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setError("") }, "Dismiss")), content3), /* @__PURE__ */ import_react24.default.createElement(Footer, { version: appVersion }), settingsPage && /* @__PURE__ */ import_react24.default.createElement(
+      Settings,
       {
-        selectedProcess,
-        details,
-        selectedDeployment,
-        onRestart: () => runProcessCommand("restart"),
-        onStop: () => runProcessCommand("stop"),
-        onStart: () => runProcessCommand("start"),
-        onEditDeployment,
-        onShowMetrics: showMetric
-      },
-      /* @__PURE__ */ import_react22.default.createElement("div", { className: "tabs", role: "tablist", "aria-label": "Process views" }, TABS.map((tab2) => /* @__PURE__ */ import_react22.default.createElement(
-        "button",
-        {
-          key: tab2.id,
-          type: "button",
-          role: "tab",
-          id: `tab-${tab2.id}`,
-          "aria-selected": activeTab === tab2.id,
-          "aria-controls": `panel-${tab2.id}`,
-          className: "tab",
-          onClick: () => setActiveTab(tab2.id)
-        },
-        tab2.label,
-        tab2.id === "logs" && allLines.length > 0 && /* @__PURE__ */ import_react22.default.createElement("span", { className: "tab-count" }, allLines.length),
-        tab2.id === "manage" && !isSelectedMonitored && /* @__PURE__ */ import_react22.default.createElement("span", { className: "tab-flag", title: "Monitoring is off for this process" })
-      )))
-    ), /* @__PURE__ */ import_react22.default.createElement(
-      "div",
-      {
-        className: activeTab === "logs" ? "tab-panel" : "tab-panel tab-panel--scroll",
-        role: "tabpanel",
-        id: `panel-${activeTab}`,
-        "aria-labelledby": `tab-${activeTab}`
-      },
-      activeTab === "logs" && /* @__PURE__ */ import_react22.default.createElement(
-        LogStream,
-        {
-          details,
-          allLines,
-          logRef,
-          isMonitored: isSelectedMonitored,
-          unreadCount: unreadLogCount,
-          onScrollToBottom: scrollToLogBottom,
-          logFilters,
-          onToggleFilter: (level) => setLogFilters((prev) => {
-            const next = new Set(prev);
-            if (next.has(level)) next.delete(level);
-            else next.add(level);
-            return next;
-          }),
-          logSearch,
-          onSearchChange: setLogSearch,
-          logPaused,
-          pausedCount,
-          onTogglePause,
-          hasOlderLogs: Boolean(storedLogsCursor),
-          loadingOlderLogs,
-          onLoadOlderLogs: loadOlderLogs
-        }
-      ),
-      activeTab === "metrics" && /* @__PURE__ */ import_react22.default.createElement(
-        MetricsPanel,
-        {
-          details,
-          metricsHistory,
-          customMetricsHistory,
-          hostSamples: hostMetrics,
-          hostCurrent,
-          isMonitored: isSelectedMonitored,
-          metricsRetentionMs: appConfig?.metricsRetentionMs,
-          onEnableMonitoring: () => onToggleMonitoring(selectedProcess.name, false)
-        }
-      ),
-      activeTab === "manage" && /* @__PURE__ */ import_react22.default.createElement(
-        ManagePanel,
-        {
-          selectedProcess,
-          isMonitored: isSelectedMonitored,
-          metricsRetentionMs: appConfig?.metricsRetentionMs,
-          logsRetentionMs: appConfig?.logsRetentionMs,
-          onToggleMonitoring,
-          onToggleAlerts,
-          actions,
-          logLevel,
-          onSetLogLevel,
-          selectedProcessId,
-          csrfToken,
-          onCsrfRefresh: refreshCsrf,
-          selectedDeployment,
-          onEditDeployment,
-          onDelete,
-          onRemoveOrphan
-        }
-      )
-    )) : /* @__PURE__ */ import_react22.default.createElement("div", { className: "welcome-state" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "welcome-card" }, /* @__PURE__ */ import_react22.default.createElement("h2", null, "No process selected"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "subtle" }, "Pick a PM2 process on the left to read its logs, chart its resource use, and manage it."), /* @__PURE__ */ import_react22.default.createElement("div", { className: "welcome-hints" }, /* @__PURE__ */ import_react22.default.createElement("p", { className: "welcome-hints-title" }, "Each process gets three views."), /* @__PURE__ */ import_react22.default.createElement("ul", { className: "welcome-hints-list" }, /* @__PURE__ */ import_react22.default.createElement("li", null, /* @__PURE__ */ import_react22.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react22.default.createElement(m2, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", null, /* @__PURE__ */ import_react22.default.createElement("strong", null, "Logs"), "stdout and stderr merged, filterable by level and searchable.")), /* @__PURE__ */ import_react22.default.createElement("li", null, /* @__PURE__ */ import_react22.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react22.default.createElement(c2, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", null, /* @__PURE__ */ import_react22.default.createElement("strong", null, "Metrics"), "CPU, memory and the app's own tx2 metrics over time, next to host CPU, RAM and disk.")), /* @__PURE__ */ import_react22.default.createElement("li", null, /* @__PURE__ */ import_react22.default.createElement("span", { className: "welcome-hint-icon" }, /* @__PURE__ */ import_react22.default.createElement(s3, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", null, /* @__PURE__ */ import_react22.default.createElement("strong", null, "Manage"), "Monitoring, alerts, PM2 custom actions, deployment and removal."))))))), /* @__PURE__ */ import_react22.default.createElement(Footer, { version: appVersion }), settingsOpen && /* @__PURE__ */ import_react22.default.createElement(Settings, { onClose: () => setSettingsOpen(false), csrfToken, onCsrfRefresh: refreshCsrf }), deployOpen && /* @__PURE__ */ import_react22.default.createElement(
+        initialPage: settingsPage,
+        onClose: () => setSettingsPage(null),
+        csrfToken,
+        onCsrfRefresh: refreshCsrf
+      }
+    ), deployOpen && /* @__PURE__ */ import_react24.default.createElement(
       DeployModal,
       {
         onCsrfRefresh: refreshCsrf,
+        deployBaseDir: appConfig?.deployBaseDir,
         onClose: () => {
-          if (deployConfirmChanges) onConfirmDeploy(false);
           setDeployOpen(false);
-          setActiveDeploymentId(null);
           setEditingDeployment(null);
-          setDeployConfirmChanges(null);
         },
         onDeployStarted,
-        deployProgressLines,
-        deployProgressStage,
-        deployProgressStatus,
-        activeDeploymentId,
         editingDeployment,
         onEditSaved,
-        onSaveAndRedeploy,
-        confirmChanges: deployConfirmChanges,
-        onConfirmDeploy
+        onSaveAndRedeploy
       }
     )));
   }
 
   // src/main.jsx
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react23.default.createElement(App, null));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react25.default.createElement(App, null));
 })();
 /*! Bundled license information:
 

@@ -141,7 +141,7 @@
 
 .log-line {
   display: grid;
-  grid-template-columns: 4.25rem 2.25rem minmax(0, 1fr);
+  grid-template-columns: 4rem 2.25rem minmax(0, 1fr);
   gap: var(--s-2);
   padding: 0 var(--s-5) 0 var(--s-4);
   border-left: 0.125rem solid transparent;
@@ -154,6 +154,7 @@
 
   &.level-error {
     border-left-color: var(--log-error);
+    background: var(--log-error-tint);
     .log-text { color: var(--log-error); }
   }
 

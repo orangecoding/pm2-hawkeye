@@ -4,42 +4,10 @@
  */
 
 import React from 'react';
-import Sparkline from './Sparkline.jsx';
-import { formatBytes, formatDuration, formatMetricValue } from '../services/format.js';
-
-/**
- * One metric with its history drawn underneath.
- *
- * The `id` is the scroll target for the matching readout in the top bar or the
- * process header, which are shortcuts into this panel rather than second homes
- * for the chart.
- *
- * @param {{
- *   id?: string,
- *   label: string,
- *   value: string,
- *   samples: { t: number, v: number }[],
- *   formatValue: (v: number) => string,
- *   color: string,
- * }} props
- */
-function MetricCard({ id, label, value, samples, formatValue, color }) {
-  return (
-    <div className="metric-card" id={id}>
-      <div className="metric-card-head">
-        <span className="metric-card-label">{label}</span>
-        <span className="metric-card-value">{value}</span>
-      </div>
-      {samples.length >= 2 ? (
-        <div className="metric-card-chart">
-          <Sparkline samples={samples} formatValue={formatValue} color={color} height="100%" />
-        </div>
-      ) : (
-        <div className="metric-card-nodata">Not enough history yet</div>
-      )}
-    </div>
-  );
-}
+import TimeSeriesChart from './TimeSeriesChart.jsx';
+import { Info } from './Icon.jsx';
+import { byteAxisUnit, findPeak, formatClock, niceCeil } from '../services/chart.js';
+import { formatBytes, formatMetricValue, formatShortDuration, parseMemorySize } from '../services/format.js';
 
 /**
  * Extend a stored series with the live value at `now`.
@@ -58,6 +26,22 @@ function withLivePoint(samples, liveValue, now) {
   const lastT = samples.at(-1)?.t;
   if (lastT == null || liveValue == null || now <= lastT) return samples;
   return [...samples, { t: now, v: liveValue }];
+}
+
+/**
+ * Cut a comparison series down to the window of the series it is compared
+ * with. The sample in force at the window start is kept, moved to the start,
+ * so the step line begins at the left edge.
+ *
+ * @param {{ t: number, v: number }[]} samples
+ * @param {number | undefined} from - Window start, Unix ms.
+ * @returns {{ t: number, v: number }[]}
+ */
+function clipToWindow(samples, from) {
+  if (from == null) return samples;
+  const before = samples.filter((s) => s.t <= from).at(-1);
+  const inside = samples.filter((s) => s.t > from);
+  return before ? [{ t: from, v: before.v }, ...inside] : inside;
 }
 
 /**
@@ -97,41 +81,80 @@ function mergeAppMetrics(live, history, now) {
 }
 
 /**
- * Metrics tab.
- *
- * Shows process history and host history side by side, every chart drawn at
- * once. Host CPU, RAM and disk used to sit in the top bar as three small
- * buttons whose charts opened in transient popovers, which made them easy to
- * miss and impossible to compare against the process they belong to.
- *
- * Between the two sits one chart per application metric the process reports
- * through tx2 or @pm2/io: live values from `details.customMetrics`, history
- * from `customMetricsHistory`.
+ * One process chart: label and peak, the current value, a legend when it
+ * compares series, then the chart. The `id` is the scroll target of the
+ * matching readout in the process header.
  *
  * @param {{
+ *   id: string,
+ *   label: string,
+ *   value: string,
+ *   peak: string | null,
+ *   series: { name: string, color: string, dashed?: boolean }[],
+ *   children: React.ReactNode,
+ * }} props - `peak` is the formatted "24 h peak" line, or null without history.
+ */
+function ProcessChartCard({ id, label, value, peak, series, children }) {
+  return (
+    <div className="chart-card" id={id}>
+      <div className="chart-card-head">
+        <span className="chart-card-label">{label}</span>
+        {peak && <span className="chart-card-peak">{peak}</span>}
+      </div>
+      <span className="chart-card-value">{value}</span>
+      {series.length > 1 && (
+        <div className="chart-card-legend">
+          {series.map((s) => (
+            <span key={s.name}>
+              <span
+                className="chart-card-legend-key"
+                style={{ borderTopColor: s.color, borderTopStyle: s.dashed ? 'dashed' : 'solid' }}
+              />
+              {s.name}
+            </span>
+          ))}
+        </div>
+      )}
+      <div className="chart-card-plot">{children}</div>
+    </div>
+  );
+}
+
+/**
+ * Metrics tab: the process's CPU and memory, then one small chart per
+ * application metric it reports through tx2 or @pm2/io.
+ *
+ * Host CPU is drawn into the CPU chart for comparison; host RAM and disk live
+ * on the Overview, since they do not belong to any one process.
+ *
+ * @param {{
+ *   processName: string,
  *   details: object | null,
  *   metricsHistory: object[],
  *   customMetricsHistory?: { name: string, unit: string | null, samples: { sampled_at: number, value: number }[] }[],
- *   hostSamples: object[],
- *   hostCurrent: object | null,
+ *   hostSamples: { sampled_at: number, cpu: number }[],
  *   isMonitored: boolean,
  *   metricsRetentionMs?: number,
+ *   memoryLimit?: string | number | null,
  *   onEnableMonitoring: () => void,
- * }} props
+ *   onShowHost: () => void,
+ * }} props - `memoryLimit` is the deployment's `max_memory_restart`, drawn
+ *   as a threshold on the memory chart.
  */
 export default function MetricsPanel({
+  processName,
   details,
   metricsHistory = [],
   customMetricsHistory = [],
   hostSamples = [],
-  hostCurrent = null,
   isMonitored,
   metricsRetentionMs = 24 * 60 * 60 * 1000,
+  memoryLimit = null,
   onEnableMonitoring,
+  onShowHost,
 }) {
-  const pct = (v) => `${v.toFixed(1)}%`;
-  const retention = formatDuration(metricsRetentionMs);
-  const latestHost = hostSamples.length > 0 ? hostSamples[hostSamples.length - 1] : null;
+  const pct = (v) => `${Math.round(v * 10) / 10}%`;
+  const windowLabel = formatShortDuration(metricsRetentionMs);
   const now = Date.now();
   const appMetrics = mergeAppMetrics(details?.customMetrics ?? [], customMetricsHistory, now);
   const cpuSamples = withLivePoint(
@@ -144,19 +167,50 @@ export default function MetricsPanel({
     details?.process.memory,
     now,
   );
+  const hostCpuSamples = clipToWindow(
+    hostSamples.filter((s) => s.cpu != null).map((s) => ({ t: s.sampled_at, v: s.cpu })),
+    cpuSamples[0]?.t,
+  );
 
-  const hostStats = [
-    { label: 'Host CPU', current: hostCurrent?.cpu ?? latestHost?.cpu, key: 'cpu', color: 'var(--accent)' },
-    { label: 'Host RAM', current: hostCurrent?.ram ?? latestHost?.ram, key: 'ram', color: 'var(--success)' },
-    { label: 'Host disk', current: hostCurrent?.disk ?? latestHost?.disk, key: 'disk', color: 'var(--info)' },
+  const cpuSeries = [
+    { name: processName, color: 'var(--accent)', samples: cpuSamples },
+    { name: 'Host CPU', color: 'var(--muted)', samples: hostCpuSamples, dashed: true },
   ];
+  const memorySeries = [{ name: processName, color: 'var(--success)', samples: memorySamples }];
+
+  // Memory is labelled in one binary unit picked from the larger of the data
+  // and the restart limit, so the ticks read 0 / 200 / 400 MB, not raw bytes.
+  const limitBytes = parseMemorySize(memoryLimit);
+  const memoryTop = Math.max(0, ...memorySamples.map((s) => s.v), limitBytes ?? 0);
+  const memoryUnit = byteAxisUnit(memoryTop);
+  const memoryMax = niceCeil(memoryTop / memoryUnit.unit) * memoryUnit.unit;
+
+  /**
+   * The "24 h peak" line of a series, or null without samples.
+   *
+   * @param {{ t: number, v: number }[]} samples
+   * @param {(v: number) => string} format
+   */
+  const peakLine = (samples, format) => {
+    const peak = findPeak(samples);
+    return peak ? (
+      <>
+        {windowLabel} peak <span className="num">{format(peak.v)}</span> at {formatClock(peak.t)}
+      </>
+    ) : null;
+  };
 
   return (
     <div className="metrics-panel fade-in">
-      <section>
-        <div className="metrics-group-head">
-          <h2 className="manage-section-title">This process</h2>
-          <span className="hint">{isMonitored ? `Sampled every 20 s, kept for ${retention}` : 'Live values only'}</span>
+      <section className="metrics-section" aria-labelledby="metrics-process">
+        <div className="section-head">
+          <h2 id="metrics-process" className="card-title">
+            This process
+          </h2>
+          <span className="hint">
+            {isMonitored ? `Sampled every 20 s, kept for ${windowLabel}.` : 'Live values only.'} Hover a chart for exact
+            values.
+          </span>
         </div>
 
         {!isMonitored && (
@@ -169,43 +223,77 @@ export default function MetricsPanel({
         )}
 
         <div className="metrics-grid">
-          <MetricCard
+          <ProcessChartCard
             id="metric-cpu"
             label="CPU"
             value={details ? `${details.process.cpu}%` : '--'}
-            samples={cpuSamples}
-            formatValue={pct}
-            color="var(--accent)"
-          />
-          <MetricCard
+            peak={peakLine(cpuSamples, pct)}
+            series={cpuSeries}
+          >
+            <TimeSeriesChart
+              series={cpuSeries}
+              height={160}
+              axisWidth={44}
+              formatValue={pct}
+              formatTick={(v) => `${v}%`}
+              label={`CPU of ${processName} and of the host over the last ${windowLabel}`}
+            />
+          </ProcessChartCard>
+          <ProcessChartCard
             id="metric-mem"
             label="Memory"
             value={details ? formatBytes(details.process.memory) : '--'}
-            samples={memorySamples}
-            formatValue={formatBytes}
-            color="var(--success)"
-          />
+            peak={peakLine(memorySamples, formatBytes)}
+            series={memorySeries}
+          >
+            <TimeSeriesChart
+              series={memorySeries}
+              height={160}
+              axisWidth={44}
+              max={memoryMax}
+              ticks={[0, memoryMax / 2, memoryMax]}
+              formatValue={formatBytes}
+              formatTick={(v) => `${v / memoryUnit.unit} ${memoryUnit.label}`}
+              threshold={
+                limitBytes ? { value: limitBytes, label: `PM2 restarts it above ${formatBytes(limitBytes)}` } : null
+              }
+              label={`Memory of ${processName} over the last ${windowLabel}${
+                limitBytes ? `. PM2 restarts it above ${formatBytes(limitBytes)}` : ''
+              }`}
+            />
+          </ProcessChartCard>
         </div>
       </section>
 
-      <section>
-        <div className="metrics-group-head">
-          <h2 className="manage-section-title">Application metrics</h2>
+      <section className="metrics-section" aria-labelledby="metrics-app">
+        <div className="section-head">
+          <h2 id="metrics-app" className="card-title">
+            Application metrics
+          </h2>
           <span className="hint">Reported by the process through tx2 or @pm2/io</span>
         </div>
 
         {appMetrics.length > 0 ? (
-          <div className="metrics-grid">
-            {appMetrics.map((metric) => (
-              <MetricCard
-                key={metric.name}
-                label={metric.name}
-                value={metric.current != null ? formatMetricValue(metric.current, metric.unit) : '--'}
-                samples={metric.samples}
-                formatValue={(v) => formatMetricValue(v, metric.unit)}
-                color="var(--info)"
-              />
-            ))}
+          <div className="metrics-grid metrics-grid--small">
+            {appMetrics.map((metric) => {
+              const format = (v) => formatMetricValue(v, metric.unit);
+              const value = metric.current != null ? format(metric.current) : '--';
+              return (
+                <div className="chart-card chart-card--small" key={metric.name}>
+                  <div className="chart-card-head">
+                    <span className="chart-card-label">{metric.name}</span>
+                    <span className="chart-card-value chart-card-value--small">{value}</span>
+                  </div>
+                  <TimeSeriesChart
+                    series={[{ name: metric.name, color: 'var(--info)', samples: metric.samples }]}
+                    height={56}
+                    compact
+                    formatValue={format}
+                    label={`${metric.name} over the last ${windowLabel}`}
+                  />
+                </div>
+              );
+            })}
           </div>
         ) : (
           <p className="hint">
@@ -216,26 +304,19 @@ export default function MetricsPanel({
         )}
       </section>
 
-      <section>
-        <div className="metrics-group-head">
-          <h2 className="manage-section-title">Host</h2>
-          <span className="hint">The machine this process runs on, last {retention}</span>
-        </div>
-
-        <div className="metrics-grid">
-          {hostStats.map((stat) => (
-            <MetricCard
-              key={stat.key}
-              id={`metric-host-${stat.key}`}
-              label={stat.label}
-              value={stat.current != null ? pct(stat.current) : '--'}
-              samples={hostSamples.map((s) => ({ t: s.sampled_at, v: s[stat.key] }))}
-              formatValue={pct}
-              color={stat.color}
-            />
-          ))}
-        </div>
-      </section>
+      <p className="metrics-host-note">
+        <Info size={14} />
+        Host RAM and disk live on the Overview.
+        <a
+          href="#host"
+          onClick={(e) => {
+            e.preventDefault();
+            onShowHost();
+          }}
+        >
+          Open host metrics
+        </a>
+      </p>
     </div>
   );
 }

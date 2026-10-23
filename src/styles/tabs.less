@@ -1,8 +1,9 @@
 /* ── Tabs ───────────────────────────────────────────────────────────────────
-   The spine of the redesign. Every process-scoped function now sits behind
-   exactly one of these three, so there is a single place to look for each:
+   The spine of the process screen. Every process-scoped function sits behind
+   exactly one of these, so there is a single place to look for each:
      Logs    - what is it saying
      Metrics - how is it behaving
+     Deploy  - how Hawkeye deploys it (only for processes it deployed)
      Manage  - change it
    ───────────────────────────────────────────────────────────────────────── */
 
@@ -53,6 +54,24 @@
   height: 0.3125rem;
   border-radius: 50%;
   background: var(--accent);
+}
+
+/* State of the deployment on the Deploy tab: running, waiting for the user
+   or a failed auto-deploy check, or a failed run. */
+.tab-dot {
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 50%;
+
+  &[data-tone='accent'] {
+    background: var(--accent);
+  }
+  &[data-tone='warning'] {
+    background: var(--warning);
+  }
+  &[data-tone='critical'] {
+    background: var(--critical);
+  }
 }
 
 /* ── Tab panel ──────────────────────────────────────────────────────────── */

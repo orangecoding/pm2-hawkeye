@@ -7,11 +7,13 @@ import React from 'react';
 
 /**
  * Classify a utilisation percentage so the number can carry its own warning.
+ * The Overview host cards use the same thresholds for their High and
+ * Critical tags.
  *
  * @param {number|null|undefined} pct
  * @returns {'normal'|'warn'|'critical'}
  */
-function pressure(pct) {
+export function pressure(pct) {
   if (pct == null) return 'normal';
   if (pct >= 90) return 'critical';
   if (pct >= 75) return 'warn';
@@ -21,59 +23,45 @@ function pressure(pct) {
 /**
  * Host health readout in the top bar.
  *
- * States the three numbers. These used to be three buttons, each opening its
- * own popover chart from the top bar, which put a chart surface in the least
- * expected place in the app. The charts live in the Metrics tab now, next to
- * the process charts they should be compared against, and each number is a
- * shortcut that jumps to its chart there rather than drawing its own.
- *
- * Without `onShowMetrics` (no process selected, so there is no Metrics tab to
- * jump to) the numbers render as plain text instead of dead buttons.
+ * States the three numbers and is one link to the Overview's host section,
+ * where they are charted. It works the same from every screen: the host is
+ * not a property of the selected process, so it no longer jumps into a
+ * process's Metrics tab.
  *
  * @param {{
  *   samples: { sampled_at: number, cpu: number, ram: number, disk: number }[],
  *   current?: { cpu: number|null, ram: number|null, disk: number|null } | null,
- *   onShowMetrics?: ((chartId: string) => void) | null,
+ *   onShowHost: () => void,
  * }} props
  */
-export default function HostMetrics({ samples = [], current = null, onShowMetrics = null }) {
+export default function HostMetrics({ samples = [], current = null, onShowHost }) {
   const latest = samples.length > 0 ? samples[samples.length - 1] : null;
 
   const stats = [
-    { label: 'CPU', value: current?.cpu ?? latest?.cpu ?? null, chartId: 'metric-host-cpu' },
-    { label: 'RAM', value: current?.ram ?? latest?.ram ?? null, chartId: 'metric-host-ram' },
-    { label: 'Disk', value: current?.disk ?? latest?.disk ?? null, chartId: 'metric-host-disk' },
+    { label: 'CPU', value: current?.cpu ?? latest?.cpu ?? null },
+    { label: 'RAM', value: current?.ram ?? latest?.ram ?? null },
+    { label: 'Disk', value: current?.disk ?? latest?.disk ?? null },
   ];
 
   return (
-    <div className="host-readout">
+    <a
+      className="host-readout"
+      href="#host"
+      title="Host CPU, RAM and disk on the Overview"
+      onClick={(e) => {
+        e.preventDefault();
+        onShowHost();
+      }}
+    >
       <span className="host-readout-label">Host</span>
-      {stats.map((stat) => {
-        const body = (
-          <>
-            <span className="host-stat-label">{stat.label}</span>
-            <span className="host-stat-value" data-level={pressure(stat.value)}>
-              {stat.value != null ? `${stat.value.toFixed(0)}%` : '--'}
-            </span>
-          </>
-        );
-
-        return onShowMetrics ? (
-          <button
-            type="button"
-            className="host-stat host-stat--link"
-            key={stat.label}
-            title={`Show host ${stat.label} history in Metrics`}
-            onClick={() => onShowMetrics(stat.chartId)}
-          >
-            {body}
-          </button>
-        ) : (
-          <span className="host-stat" key={stat.label}>
-            {body}
+      {stats.map((stat) => (
+        <span className="host-stat" key={stat.label}>
+          <span className="host-stat-label">{stat.label}</span>
+          <span className="host-stat-value" data-level={pressure(stat.value)}>
+            {stat.value != null ? `${stat.value.toFixed(0)}%` : '--'}
           </span>
-        );
-      })}
-    </div>
+        </span>
+      ))}
+    </a>
   );
 }

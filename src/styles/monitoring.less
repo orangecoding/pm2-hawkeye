@@ -1,73 +1,14 @@
 /* ── Manage panel ───────────────────────────────────────────────────────────
-   The single home for every function that changes a process: monitoring,
-   alerting, PM2 custom actions, deployment config, and destructive actions.
-   These used to be spread across a strip, a dropdown, the header row and the
-   sidebar.
-
-   Sections are separated by hairlines and headings rather than nested cards,
-   so the panel reads as one document instead of a pile of boxes.
+   The single home for every function that changes a process: history,
+   alerting, log level, PM2 custom actions and removal, one card each.
+   Deployment has its own tab.
    ───────────────────────────────────────────────────────────────────────── */
 
 .manage-panel {
   display: flex;
   flex-direction: column;
-  max-width: 46rem;
-}
-
-.manage-section {
-  padding: var(--s-5) 0;
-  border-bottom: 0.0625rem solid var(--border);
-
-  &:first-child { padding-top: 0; }
-  &:last-child { border-bottom: 0; }
-}
-
-.manage-section-head {
-  margin-bottom: var(--s-3);
-}
-
-.manage-section-title {
-  margin: 0 0 var(--s-1);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-/* ── Row: label + description on the left, control on the right ─────────── */
-
-.manage-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--s-5);
-  padding: var(--s-3) 0;
-
-  & + .manage-row {
-    border-top: 0.0625rem solid var(--border);
-  }
-}
-
-.manage-row-text {
-  min-width: 0;
-  flex: 1;
-}
-
-.manage-row-label {
-  display: flex;
-  align-items: center;
-  gap: var(--s-2);
-  margin: 0 0 var(--s-1);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.manage-row-control {
-  display: flex;
-  align-items: center;
-  gap: var(--s-2);
-  flex-shrink: 0;
-  min-height: 2rem;
+  gap: var(--s-4);
+  max-width: 52.5rem;
 }
 
 /* ── What monitoring buys you ───────────────────────────────────────────────
@@ -82,7 +23,7 @@
   padding: var(--s-3) var(--s-4);
   list-style: none;
   border-radius: var(--r-2);
-  background: var(--bg-2);
+  background: var(--bg-1);
 
   li {
     display: grid;
@@ -105,18 +46,12 @@
    as a set of triggers.
    ───────────────────────────────────────────────────────────────────────── */
 
-.action-list {
-  display: grid;
-  gap: var(--s-1);
-}
-
 .action-row {
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-2) var(--s-3);
-  border-radius: var(--r-1);
-  background: var(--bg-2);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
 }
 
 .action-row-name {
@@ -124,22 +59,20 @@
   min-width: 0;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-dim);
+  color: var(--text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.action-row-form {
-  display: flex;
-  align-items: center;
-  gap: var(--s-2);
-  flex: 1;
-
-  .input {
-    height: 1.625rem;
-    font-size: 0.75rem;
-  }
+.input.action-row-input {
+  width: 12.5rem;
+  height: 1.625rem;
+  padding: 0 var(--s-2);
+  border-color: var(--border);
+  background: var(--bg-1);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
 }
 
 .action-result {
@@ -159,33 +92,55 @@
   }
 }
 
-/* ── Danger zone ────────────────────────────────────────────────────────── */
-
-.manage-section--danger {
-  .manage-section-title {
-    color: var(--critical);
-  }
+// The outcome of a custom action, inside the card below its rows.
+.action-result--card {
+  margin: 0 var(--s-4) var(--s-3);
 }
 
-/* ── Log level picker ───────────────────────────────────────────────────────
-   One button per level rather than a dropdown, matching the custom-action
-   rows: every level is visible without opening anything, and the active one
-   reads at a glance. `silent` is dimmed because it stops output entirely.
+/* ── Segmented control ──────────────────────────────────────────────────────
+   The log level picker: every level visible without opening anything, the
+   active one in accent. `silent` is dimmed because it stops output entirely.
    ───────────────────────────────────────────────────────────────────────── */
 
-.level-picker {
+.segmented {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-1);
-  justify-content: flex-end;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-1);
+  background: var(--bg-1);
+}
 
-  .btn[data-active='true'] {
-    border-color: var(--accent);
+.segmented-item {
+  height: 1.625rem;
+  padding: 0 var(--s-3);
+  border: 0;
+  border-radius: var(--r-1);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 100ms ease,
+    color 100ms ease;
+
+  &[data-quiet='true'] {
+    color: var(--muted);
+  }
+
+  &:hover:not(:disabled) {
+    color: var(--text);
+  }
+
+  &[aria-pressed='true'] {
+    background: var(--accent-soft);
     color: var(--accent);
   }
 
-  .btn[data-quiet='true'] {
-    margin-left: var(--s-2);
-    color: var(--muted);
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 }

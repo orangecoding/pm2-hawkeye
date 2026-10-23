@@ -13,15 +13,92 @@
   background: var(--bg-1);
 }
 
+/* ── Navigation ─────────────────────────────────────────────────────────────
+   The Overview is the home: nothing selected. Its row carries the number of
+   attention items so a problem is visible from any screen.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.sidebar-nav {
+  flex-shrink: 0;
+  padding: var(--s-2) var(--s-1);
+  border-bottom: 0.0625rem solid var(--border);
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  width: 100%;
+  height: 2rem;
+  padding: 0 var(--s-2);
+  border: 0;
+  border-radius: var(--r-1);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 100ms ease,
+    color 100ms ease;
+
+  &:hover {
+    background: var(--bg-3);
+    color: var(--text);
+  }
+
+  &.active {
+    background: var(--bg-3);
+    color: var(--text);
+
+    svg {
+      color: var(--accent);
+    }
+  }
+}
+
+.sidebar-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.125rem;
+  min-width: 1.125rem;
+  margin-left: auto;
+  padding: 0 var(--s-2);
+  border-radius: var(--r-1);
+  background: var(--critical-soft);
+  color: var(--critical);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Processes header and filter ────────────────────────────────────────── */
+
+.sidebar-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  flex-shrink: 0;
+  padding: var(--s-3) var(--s-3) var(--s-1);
+}
+
+.sidebar-head-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
 .sidebar-search {
   position: relative;
-  padding: var(--s-3);
-  border-bottom: 0.0625rem solid var(--border);
-  flex-shrink: 0;
+  display: block;
 
   .input {
     height: 1.875rem;
-    padding-left: 1.875rem;
+    padding: 0 var(--s-2) 0 1.875rem;
+    border-color: var(--border);
     font-size: 0.75rem;
     background: var(--bg-2);
   }
@@ -29,7 +106,7 @@
 
 .sidebar-search-icon {
   position: absolute;
-  left: 1.375rem;
+  left: var(--s-3);
   top: 50%;
   transform: translateY(-50%);
   color: var(--muted);
@@ -43,16 +120,16 @@
   padding-bottom: var(--s-3);
 }
 
-.process-group {
-  padding-top: var(--s-3);
-}
-
 .process-group-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--s-2);
-  padding: 0 var(--s-3) var(--s-2);
+  padding: var(--s-3) var(--s-3) var(--s-2);
+
+  .process-group + .process-group & {
+    padding-top: var(--s-4);
+  }
 }
 
 .process-group-count {
@@ -68,27 +145,25 @@
   grid-template-columns: 0.4375rem minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--s-2);
-  width: calc(100% - var(--s-3));
-  margin: 0 0 0.0625rem var(--s-1);
-  padding: var(--s-2) var(--s-2);
+  width: calc(100% - var(--s-2));
+  height: 2rem;
+  margin: 0 var(--s-1) 0.0625rem;
+  padding: 0 var(--s-2);
   border: 0;
   border-radius: var(--r-1);
   background: transparent;
+  color: var(--text-dim);
   text-align: left;
   cursor: pointer;
   transition: background-color 100ms ease;
 
-  &:hover {
-    background: var(--bg-2);
+  &[data-running='true'] {
+    color: var(--text);
   }
 
+  &:hover,
   &.active {
     background: var(--bg-3);
-
-    .process-item-name {
-      color: var(--text);
-      font-weight: 600;
-    }
   }
 }
 
@@ -97,11 +172,15 @@
   align-items: center;
   gap: var(--s-2);
   min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.process-item-label {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.8125rem;
-  color: var(--text-dim);
 }
 
 // Marks processes Hawkeye deployed, so they are distinguishable from ones
@@ -136,53 +215,6 @@
   text-align: center;
   font-size: 0.8125rem;
   color: var(--muted);
-}
-
-/* ── Offline deployments ────────────────────────────────────────────────────
-   Deployments with no running PM2 process. Same row shape as a process so the
-   list reads as one thing, with an explicit state tag instead of a dot.
-   ───────────────────────────────────────────────────────────────────────── */
-
-.offline-item {
-  padding: var(--s-2) var(--s-3);
-  margin: 0 var(--s-1);
-  border-radius: var(--r-1);
-
-  &:hover {
-    background: var(--bg-2);
-  }
-}
-
-.offline-item-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-2);
-  margin-bottom: var(--s-2);
-
-  .process-item-name {
-    flex: 1;
-  }
-}
-
-.offline-item-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-1);
-
-  > .btn {
-    flex: 1;
-  }
-
-  // The shared confirm needs the full row width inside a 15rem sidebar, so it
-  // drops below the buttons rather than squeezing them.
-  .confirm {
-    flex-basis: 100%;
-    flex-wrap: wrap;
-    height: auto;
-    padding: var(--s-2);
-    gap: var(--s-2);
-  }
 }
 
 /* ── Mobile drawer ──────────────────────────────────────────────────────── */

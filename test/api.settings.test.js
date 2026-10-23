@@ -145,7 +145,16 @@ describe('GET /api/auth/session (config block)', () => {
       'metricsRetentionMs',
       'logsRetentionMs',
       'sqliteDbPath',
+      'deployBaseDir',
     );
+  });
+
+  it('returns the absolute deploy base directory for the deploy form preview', async () => {
+    const { cookie } = await getAuthSession();
+    const res = await request(app).get('/api/auth/session').set('Cookie', cookie);
+    expect(res.status).to.equal(200);
+    expect(res.body.config.deployBaseDir).to.equal(config.DEPLOY_BASE_DIR);
+    expect(path.isAbsolute(res.body.config.deployBaseDir)).to.equal(true);
   });
 });
 

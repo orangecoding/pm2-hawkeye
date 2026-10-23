@@ -1,0 +1,100 @@
+/* ── Overview ───────────────────────────────────────────────────────────────
+   The home screen while nothing is selected: what needs attention, then the
+   host. No process table; the sidebar is the only process list.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.overview {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding: var(--s-5);
+}
+
+.overview-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.5rem;
+}
+
+.overview-sub {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── Needs attention ────────────────────────────────────────────────────── */
+
+.attention-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+}
+
+.attention-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.attention-row {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+
+.attention-icon {
+  &[data-level='critical'] {
+    color: var(--critical);
+  }
+  &[data-level='warning'] {
+    color: var(--warning);
+  }
+  &[data-level='ok'] {
+    color: var(--success);
+  }
+}
+
+.attention-text {
+  min-width: 0;
+}
+
+.attention-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.attention-detail {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── Host ───────────────────────────────────────────────────────────────── */
+
+.overview-host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  scroll-margin-top: var(--s-5);
+}
+
+.host-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17.5rem, 100%), 1fr));
+  gap: var(--s-3);
+}
+
+@media (max-width: 45rem) {
+  .overview {
+    padding: var(--s-4);
+  }
+}

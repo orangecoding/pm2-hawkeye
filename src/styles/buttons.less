@@ -12,7 +12,7 @@
   height: 2rem;
   padding: 0 var(--s-3);
   border-radius: var(--r-1);
-  border: 0.0625rem solid var(--border-strong);
+  border: 0.0625rem solid var(--border);
   background: var(--bg-2);
   color: var(--text);
   font-size: 0.8125rem;
@@ -63,6 +63,12 @@
   }
 }
 
+// A default button sitting on a raised card takes the panel colour, so it
+// reads as a control rather than as a second card surface.
+.btn--sunken {
+  background: var(--bg-1);
+}
+
 .btn--quiet {
   background: transparent;
   border-color: transparent;
@@ -81,7 +87,7 @@
 }
 
 .btn--icon {
-  width: 1.75rem;
+  width: 2rem;
   padding: 0;
   background: transparent;
   border-color: transparent;
@@ -152,7 +158,7 @@
     color: var(--muted);
   }
 
-  &:hover:not(:disabled):not(:read-only) {
+  &:hover:not(:disabled):not([readonly]) {
     border-color: var(--border-strong);
   }
 
@@ -161,8 +167,10 @@
     outline: none;
   }
 
+  // [readonly] rather than :read-only, which also matches every <select>
+  // and greyed out the selects of the deploy form.
   &:disabled,
-  &:read-only {
+  &[readonly] {
     opacity: 0.55;
     cursor: not-allowed;
   }
@@ -180,7 +188,8 @@
 .select {
   appearance: none;
   padding-right: var(--s-8);
-  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
     linear-gradient(135deg, var(--muted) 50%, transparent 50%);
   background-position: calc(100% - 1rem) 55%, calc(100% - 0.7rem) 55%;
   background-size: 0.3rem 0.3rem, 0.3rem 0.3rem;

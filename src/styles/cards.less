@@ -1,0 +1,324 @@
+/* ── Cards ──────────────────────────────────────────────────────────────────
+   The raised surface of the Overview, Manage and Deploy screens: a title with
+   an optional hint, then rows separated by hairlines. One shape everywhere,
+   so a card reads the same whatever it holds.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.card {
+  min-width: 0;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-2);
+}
+
+.card-head {
+  padding: var(--s-4) var(--s-4) var(--s-3);
+}
+
+// Title and hint on the left, buttons on the right, wrapping under each other
+// on a narrow card.
+.card-head--actions {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  padding: var(--s-4);
+}
+
+.card-head-text {
+  flex: 1 1 15rem;
+  min-width: 0;
+}
+
+.card-head-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+// Side-column cards: title, an optional tag, and a "Change" link on the right.
+.card-head--side {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-4) var(--s-2);
+
+  .card-link {
+    margin-left: auto;
+  }
+}
+
+.card-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.card-hint {
+  margin: var(--s-1) 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+
+  &--tight {
+    margin-top: 0.125rem;
+  }
+}
+
+.card--danger .card-title {
+  color: var(--critical);
+}
+
+.card-link {
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+/* ── Rows: text on the left, the control on the right ───────────────────── */
+
+.card-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+
+.card-row-text {
+  flex: 1 1 20rem;
+  min-width: 0;
+
+  &--narrow {
+    flex-basis: 12.5rem;
+  }
+}
+
+.card-row-label {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.card-row-hint {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── Definition lists ───────────────────────────────────────────────────── */
+
+.card-dl {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 10rem) minmax(0, 1fr);
+  margin: 0;
+  font-size: 0.8125rem;
+
+  dt {
+    padding: var(--s-3) var(--s-4);
+    border-top: 0.0625rem solid var(--border);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  dd {
+    min-width: 0;
+    margin: 0;
+    padding: var(--s-3) var(--s-4) var(--s-3) 0;
+    border-top: 0.0625rem solid var(--border);
+    color: var(--text);
+  }
+}
+
+// Narrow side cards: label left, value right-aligned in mono.
+.card-dl--side {
+  grid-template-columns: auto minmax(0, 1fr);
+  font-size: 0.75rem;
+
+  dt {
+    padding: var(--s-2) var(--s-4);
+  }
+
+  dd {
+    padding: var(--s-2) var(--s-4) var(--s-2) 0;
+    font-family: var(--font-mono);
+    text-align: right;
+  }
+}
+
+.card-dl-break {
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
+.card-dl-dim {
+  color: var(--text-dim);
+}
+
+.card-dl-muted {
+  color: var(--muted);
+}
+
+.card-dl-bad {
+  color: var(--critical);
+}
+
+.card-dl-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+
+  svg {
+    color: var(--success);
+  }
+}
+
+.card-side-text {
+  margin: 0;
+  padding: 0 var(--s-4) var(--s-3);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+
+  &--muted {
+    color: var(--muted);
+  }
+
+  &--last {
+    padding-bottom: var(--s-4);
+  }
+}
+
+.card-warning {
+  display: flex;
+  gap: var(--s-2);
+  margin: 0 var(--s-4) var(--s-4);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--r-1);
+  background: var(--warning-soft);
+  color: var(--warning);
+  font-size: 0.75rem;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 0.0625rem;
+  }
+}
+
+/* ── Code ───────────────────────────────────────────────────────────────── */
+
+.code-chip {
+  padding: 0.0625rem var(--s-2);
+  border-radius: var(--r-1);
+  background: var(--bg-3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text);
+
+  &--dim {
+    color: var(--text-dim);
+  }
+}
+
+.code-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--s-1);
+}
+
+.code-block {
+  margin: 0;
+  padding: var(--s-2) var(--s-3);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-1);
+  background: var(--bg-0);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  color: var(--log-default);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ── Section heads outside cards ────────────────────────────────────────── */
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+/* ── Callouts ───────────────────────────────────────────────────────────────
+   A box that needs a decision or reports a state that blocks the page. The
+   warning and critical variants use a faint fill with a stronger line.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.callout {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border: 0.0625rem solid var(--border-strong);
+  border-radius: var(--r-2);
+}
+
+.callout--row {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.callout--stack {
+  flex-direction: column;
+}
+
+.callout--warning {
+  border-color: var(--warning-callout-line);
+  background: var(--warning-callout);
+}
+
+.callout--critical {
+  border-color: var(--critical-callout-line);
+  background: var(--critical-callout);
+
+  .callout-icon {
+    color: var(--critical);
+  }
+}
+
+.callout-icon {
+  flex-shrink: 0;
+  margin-top: 0.0625rem;
+  color: var(--muted);
+}
+
+.callout-body {
+  flex: 1 1 22.5rem;
+  min-width: 0;
+}
+
+.callout-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.callout-text {
+  margin: var(--s-1) 0 0;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+
+  .callout--stack & {
+    margin: 0;
+  }
+}
+
+.callout-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}

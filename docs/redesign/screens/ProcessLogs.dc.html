@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Process Logs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0b0b0d}
+a{color:#fd8c66}a:hover{color:#ffa383}
+.hk-row:hover{background:#1e1e23 !important}
+.hk-btn:hover{background:#1e1e23 !important;border-color:rgba(255,255,255,0.14) !important}
+.hk-icon:hover{background:#1e1e23 !important;color:#ededf0 !important}
+.hk-host:hover{background:#17171b !important}
+.hk-tab:hover{color:#a7a7ae !important}
+.hk-stat:hover{color:#ededf0 !important}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #0b0b0d; color: #ededf0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.45">
+
+<header style="height: 48px; flex: 0 0 48px; display: flex; align-items: center; gap: 16px; padding: 0 16px; background: #111114; border-bottom: 1px solid rgba(255,255,255,0.07); box-sizing: border-box; min-width: 0">
+<a href="Main.dc.html" aria-label="pm2-hawkeye home" style="display: flex; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; color: #ededf0">
+<span style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(253,140,102,0.12); color: #fd8c66"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M251,123.13c-.37-.81-9.13-20.26-28.48-39.61C196.63,57.67,164,44,128,44S59.37,57.67,33.51,83.52C14.16,102.87,5.4,122.32,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212s68.63-13.66,94.48-39.51c19.36-19.35,28.12-38.79,28.49-39.61A12.08,12.08,0,0,0,251,123.13Zm-46.06,33C183.47,177.27,157.59,188,128,188s-55.47-10.73-76.91-31.88A130.36,130.36,0,0,1,29.52,128,130.45,130.45,0,0,1,51.09,99.89C72.54,78.73,98.41,68,128,68s55.46,10.73,76.91,31.89A130.36,130.36,0,0,1,226.48,128,130.45,130.45,0,0,1,204.91,156.12ZM128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,64a20,20,0,1,1,20-20A20,20,0,0,1,128,148Z"></path></svg></span>
+<span style="font-size: 14px; font-weight: 650; line-height: 1; white-space: nowrap"><span style="color: #fd8c66">pm2</span>-hawkeye</span>
+</a>
+<a href="Main.dc.html#host" class="hk-host" title="Host CPU, RAM and disk on the Overview" style="display: flex; align-items: center; gap: 12px; height: 28px; padding: 0 8px; border-radius: 4px; text-decoration: none; color: #ededf0; white-space: nowrap">
+<span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Host</span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">CPU</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae">23%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">RAM</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #a7a7ae">61%</span></span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-size: 11px; color: #8a8a92">Disk</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; font-weight: 600; color: #f87171">91%</span></span>
+</a>
+<span style="flex: 1; min-width: 0"></span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8a8a92; white-space: nowrap"><span style="width: 6px; height: 6px; border-radius: 50%; background: #34d399"></span>Live</span>
+<span style="width: 1px; height: 20px; background: rgba(255,255,255,0.07); flex-shrink: 0"></span>
+<a href="NewDeployment.dc.html" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 4px; background: #fd8c66; color: #1a0d07; font-size: 12px; font-weight: 600; text-decoration: none; white-space: nowrap"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>New deployment</a>
+<button type="button" class="hk-icon" aria-label="Settings" title="Settings" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.550,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z"></path></svg></button>
+<button type="button" class="hk-icon" aria-label="Sign out" title="Sign out" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z"></path></svg></button>
+</header>
+
+<div style="flex: 1; display: flex; flex-wrap: wrap; min-height: 0">
+
+<aside style="flex: 1 1 240px; display: flex; flex-direction: column; min-width: 0; background: #111114; border-right: 1px solid rgba(255,255,255,0.07); box-sizing: border-box">
+<nav aria-label="Main" style="padding: 8px 4px; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<a href="Main.dc.html" class="hk-row" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px; border-radius: 4px; background: transparent; color: #a7a7ae; font-size: 13px; font-weight: 500; text-decoration: none"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z"></path></svg>Overview<span style="margin-left: auto; height: 18px; min-width: 18px; padding: 0 6px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; background: rgba(248,113,113,0.13); color: #f87171; font-size: 11px; font-weight: 600" title="4 items need attention">4</span></a>
+</nav>
+<div style="padding: 12px 12px 4px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Processes</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">8</span></div>
+<label style="position: relative; display: block"><span style="position: absolute; left: 10px; top: 8px; color: #8a8a92; display: flex"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"></path></svg></span><input type="text" placeholder="Filter processes" aria-label="Filter processes" style="width: 100%; height: 30px; box-sizing: border-box; padding: 0 8px 0 30px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 12px"></label>
+</div>
+<div role="list" aria-label="PM2 processes" style="flex: 1; padding-bottom: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 12px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">5</span></div>
+<sc-for list="{{running}}" as="p" hint-placeholder-count="5">
+<a href="{{p.href}}" role="listitem" aria-current="{{p.current}}" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: {{p.bg}}; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #34d399"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}<sc-if value="{{p.deployed}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="10" height="10" fill="#8a8a92" aria-label="Deployed by Hawkeye" role="img"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg></sc-if></span>
+<span style="display: flex; align-items: center; gap: 8px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92"><span>{{p.cpu}}</span><span>{{p.mem}}</span><sc-if value="{{p.monitored}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 256 256" width="9" height="9" fill="#fd8c66" aria-label="Monitored" role="img"><path d="M232,128A104,104,0,1,1,128,24,104.13,104.13,0,0,1,232,128Z"></path></svg></sc-if></span>
+</a>
+</sc-for>
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 16px 12px 6px"><span style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a92">Not running</span><span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">3</span></div>
+<sc-for list="{{notRunning}}" as="p" hint-placeholder-count="3">
+<a href="{{p.href}}" role="listitem" class="hk-row" style="display: grid; grid-template-columns: 7px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 32px; margin: 0 4px 1px; padding: 0 8px; border-radius: 4px; background: transparent; color: #ededf0; text-decoration: none">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: {{p.dot}}"></span>
+<span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13px; font-weight: 500; color: #a7a7ae; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}</span>
+<span style="height: 18px; padding: 0 6px; display: inline-flex; align-items: center; border-radius: 4px; background: {{p.tagBg}}; color: {{p.tagFg}}; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap">{{p.tag}}</span>
+</a>
+</sc-for>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; background: #111114">
+
+<header style="padding: 16px 20px 0; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-height: 32px">
+<h1 style="margin: 0; font-size: 16px; font-weight: 650">shop-api</h1>
+<span style="font-size: 12px; color: #34d399">online</span>
+<a href="ProcessDeploy.dc.html" class="hk-btn" title="Deployed by Hawkeye from acme/shop-api. Open the Deploy tab." style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; color: #8a8a92; font-size: 11px; text-decoration: none"><svg viewBox="0 0 256 256" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z"></path></svg>acme/shop-api<span style="padding: 0 4px; border-radius: 4px; background: #1e1e23; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">main</span></a>
+<span style="flex: 1"></span>
+<div style="display: flex; align-items: center; gap: 8px">
+<button type="button" class="hk-btn" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Restart</button>
+<button type="button" class="hk-btn" style="height: 32px; padding: 0 12px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Stop</button>
+</div>
+</div>
+<dl style="display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; padding: 8px 0 12px; font-size: 12px">
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">cpu</dt><dd style="margin: 0"><a href="ProcessMetrics.dc.html" class="hk-stat" title="Show cpu history in Metrics" style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae; text-decoration: underline dotted rgba(253,140,102,0.34); text-underline-offset: 3px">2%</a></dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">mem</dt><dd style="margin: 0"><a href="ProcessMetrics.dc.html" class="hk-stat" title="Show mem history in Metrics" style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae; text-decoration: underline dotted rgba(253,140,102,0.34); text-underline-offset: 3px">142 MB</a></dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">restarts</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">0</dd></div>
+<div style="display: flex; gap: 6px" title="Started 20 Oct 2026, 10:14"><dt style="color: #8a8a92">uptime</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">3d 4h</dd></div>
+<div style="display: flex; gap: 6px"><dt style="color: #8a8a92">pid</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; color: #a7a7ae">48211</dd></div>
+</dl>
+<nav role="tablist" aria-label="Process views" style="display: flex; gap: 4px; margin-bottom: -1px">
+<a href="ProcessLogs.dc.html" role="tab" aria-selected="true" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid #fd8c66; color: #ededf0; font-size: 13px; font-weight: 500; text-decoration: none">Logs<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; color: #8a8a92">1,284</span></a>
+<a href="ProcessMetrics.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Metrics</a>
+<a href="ProcessDeploy.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Deploy<span title="Auto-deploy check failed" style="width: 5px; height: 5px; border-radius: 50%; background: #fbbf24"></span></a>
+<a href="ProcessManage.dc.html" role="tab" aria-selected="false" class="hk-tab" style="display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #8a8a92; font-size: 13px; font-weight: 500; text-decoration: none">Manage</a>
+</nav>
+</header>
+
+<section aria-label="Logs" style="flex: 1; display: flex; flex-direction: column; min-height: 0">
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 8px 20px; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<div role="group" aria-label="Filter by log level" style="display: flex; gap: 2px; padding: 2px; border-radius: 4px; background: #17171b">
+<button type="button" aria-pressed="true" style="height: 24px; padding: 0 8px; border: 0; border-radius: 4px; background: #0b0b0d; color: #60a5fa; font: inherit; font-size: 11px; font-weight: 600; cursor: pointer">INFO</button>
+<button type="button" aria-pressed="true" style="height: 24px; padding: 0 8px; border: 0; border-radius: 4px; background: #0b0b0d; color: #fbbf24; font: inherit; font-size: 11px; font-weight: 600; cursor: pointer">WARN</button>
+<button type="button" aria-pressed="true" style="height: 24px; padding: 0 8px; border: 0; border-radius: 4px; background: #0b0b0d; color: #f87171; font: inherit; font-size: 11px; font-weight: 600; cursor: pointer">ERROR</button>
+</div>
+<label style="position: relative; display: block; width: 240px"><span style="position: absolute; left: 9px; top: 8px; color: #8a8a92; display: flex"><svg viewBox="0 0 256 256" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"></path></svg></span><input type="text" placeholder="Search" aria-label="Search logs" style="width: 100%; height: 28px; box-sizing: border-box; padding: 0 8px 0 28px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font: inherit; font-size: 12px"></label>
+<span style="flex: 1"></span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8a8a92"><span style="width: 6px; height: 6px; border-radius: 50%; background: #34d399"></span>Live<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace">1,284 lines</span></span>
+<div style="display: flex; gap: 2px">
+<button type="button" class="hk-icon" aria-label="Pause the stream" title="Pause the stream" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z"></path></svg></button>
+<button type="button" class="hk-icon" aria-label="Copy visible lines" title="Copy visible lines" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M216,28H88A12,12,0,0,0,76,40V76H40A12,12,0,0,0,28,88V216a12,12,0,0,0,12,12H168a12,12,0,0,0,12-12V180h36a12,12,0,0,0,12-12V40A12,12,0,0,0,216,28ZM156,204H52V100H156Zm48-48H180V88a12,12,0,0,0-12-12H100V52H204Z"></path></svg></button>
+<button type="button" class="hk-icon" aria-label="Download visible lines" title="Download visible lines" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M228,144v64a12,12,0,0,1-12,12H40a12,12,0,0,1-12-12V144a12,12,0,0,1,24,0v52H204V144a12,12,0,0,1,24,0Zm-108.49,8.49a12,12,0,0,0,17,0l40-40a12,12,0,0,0-17-17L140,115V32a12,12,0,0,0-24,0v83L96.49,95.51a12,12,0,0,0-17,17Z"></path></svg></button>
+</div>
+</div>
+<div style="flex: 1; min-height: 0; padding: 8px 0; background: #0b0b0d; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; line-height: 20px">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="28">
+<div style="display: grid; grid-template-columns: 64px 44px minmax(0, 1fr); gap: 8px; padding: 0 20px; background: {{l.bg}}">
+<span style="color: #8a8a92">{{l.time}}</span>
+<span style="font-size: 10px; font-weight: 700; letter-spacing: 0.04em; color: {{l.levelColor}}">{{l.level}}</span>
+<span style="color: {{l.color}}; white-space: pre-wrap; word-break: break-word">{{l.msg}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+</main>
+</div>
+
+<footer style="height: 32px; flex: 0 0 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 16px; background: #111114; border-top: 1px solid rgba(255,255,255,0.07); color: #8a8a92; font-size: 11px; box-sizing: border-box">
+<span style="font-family: ui-monospace, 'SF Mono', Menlo, monospace">pm2-hawkeye <strong>v6.0.0</strong></span>
+<span>Made with <svg viewBox="0 0 256 256" width="10" height="10" fill="#f87171" role="img" aria-label="love" style="vertical-align: -1px"><path d="M240,102c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,228.66,16,172,16,102A62.07,62.07,0,0,1,78,40c20.65,0,38.73,8.88,50,23.89C139.27,48.88,157.35,40,178,40A62.07,62.07,0,0,1,240,102Z"></path></svg> by <a href="https://github.com/orangecoding" style="color: #a7a7ae; text-decoration: none">Christian Kellner</a></span>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":920}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var on = '#1e1e23', off = 'transparent';
+    var crit = { tagBg: 'rgba(248,113,113,0.13)', tagFg: '#f87171', dot: '#f87171' };
+    var L = { INFO: '#60a5fa', WARN: '#fbbf24', ERR: '#f87171', '': '#8a8a92' };
+    var raw = [
+      ['14:19:52', 'INFO', 'GET /api/products?page=2 200 14ms'],
+      ['14:19:53', 'INFO', 'GET /api/cart/8f2c 200 8ms'],
+      ['14:19:55', 'INFO', 'POST /api/cart/8f2c/items 201 22ms'],
+      ['14:19:58', 'INFO', 'GET /api/products/1182 200 11ms'],
+      ['14:20:01', 'WARN', 'Slow query on orders took 812ms (limit 500ms)'],
+      ['14:20:03', 'INFO', 'GET /api/health 200 1ms'],
+      ['14:20:04', 'INFO', 'POST /api/checkout 201 143ms'],
+      ['14:20:07', 'ERR', 'Payment provider timeout after 10000ms (order 51872)'],
+      ['', '', '    at PaymentClient.charge (src/payments/client.js:88:13)'],
+      ['', '', '    at async CheckoutService.complete (src/checkout/service.js:41:5)'],
+      ['14:20:07', 'INFO', 'Retrying payment for order 51872, attempt 2 of 3'],
+      ['14:20:08', 'INFO', 'POST /api/checkout 201 1204ms'],
+      ['14:20:12', 'INFO', 'GET /api/products?page=1 200 12ms'],
+      ['14:20:15', 'INFO', 'GET /api/orders/51872 200 9ms'],
+      ['14:20:19', 'INFO', 'Cache refreshed: 1,184 products in 64ms'],
+      ['14:20:22', 'INFO', 'GET /api/cart/a91d 200 7ms'],
+      ['14:20:26', 'WARN', 'Rate limit reached for 203.0.113.42, 429 sent'],
+      ['14:20:30', 'INFO', 'GET /api/health 200 1ms'],
+      ['14:20:33', 'INFO', 'POST /api/auth/login 200 88ms'],
+      ['14:20:35', 'INFO', 'GET /api/account 200 15ms'],
+      ['14:20:41', 'INFO', 'GET /api/products/2201 200 10ms'],
+      ['14:20:44', 'INFO', 'POST /api/cart/a91d/items 201 19ms'],
+      ['14:20:47', 'INFO', 'POST /api/checkout 201 151ms'],
+      ['14:20:52', 'INFO', 'GET /api/orders?status=open 200 31ms'],
+      ['14:20:58', 'INFO', 'GET /api/health 200 1ms'],
+      ['14:21:03', 'INFO', 'GET /api/products?q=lamp 200 27ms'],
+      ['14:21:06', 'INFO', 'GET /api/cart/77b0 200 6ms'],
+      ['14:21:09', 'INFO', 'Webhook delivered to fulfilment in 210ms']
+    ];
+    var lines = raw.map(function (r) {
+      var isErr = r[1] === 'ERR' || (r[1] === '' && r[2].indexOf('    at') === 0);
+      return {
+        time: r[0], level: r[1], msg: r[2],
+        levelColor: L[r[1]],
+        color: isErr ? '#f87171' : r[1] === 'WARN' ? '#fbbf24' : '#c4c4cc',
+        bg: isErr ? 'rgba(248,113,113,0.06)' : 'transparent'
+      };
+    });
+    return {
+      running: [
+        { name: 'fredy', cpu: '1%', mem: '96 MB', deployed: true, monitored: true, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'mail-relay', cpu: '0%', mem: '54 MB', deployed: false, monitored: false, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'pm2-hawkeye', cpu: '0%', mem: '88 MB', deployed: false, monitored: false, bg: off, current: 'false', href: 'ProcessLogs.dc.html' },
+        { name: 'shop-api', cpu: '2%', mem: '142 MB', deployed: true, monitored: true, bg: on, current: 'page', href: 'ProcessLogs.dc.html' },
+        { name: 'shop-worker', cpu: '11%', mem: '208 MB', deployed: true, monitored: true, bg: off, current: 'false', href: 'ProcessLogs.dc.html' }
+      ],
+      notRunning: [
+        { name: 'image-resizer', tag: 'Errored', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, href: 'ProcessLogs.dc.html' },
+        { name: 'landing-page', tag: 'Deploy failed', tagBg: crit.tagBg, tagFg: crit.tagFg, dot: crit.dot, href: 'DeployFailed.dc.html' },
+        { name: 'nightly-backup', tag: 'Stopped', tagBg: '#1e1e23', tagFg: '#a7a7ae', dot: '#8a8a92', href: 'ProcessLogs.dc.html' }
+      ],
+      lines: lines
+    };
+  }
+}
+</script>
+</body>
+</html>

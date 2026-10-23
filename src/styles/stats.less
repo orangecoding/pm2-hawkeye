@@ -1,8 +1,104 @@
-/* ── Metrics panel ──────────────────────────────────────────────────────────
-   Charts are always drawn. The old design hid every sparkline behind a click
-   and allowed only one open at a time, which made trends invisible by default
-   and comparison impossible.
+/* ── Chart cards ────────────────────────────────────────────────────────────
+   One card shape for every chart, on the Overview and in the Metrics tab:
+   label, the current value in large tabular figures, the peak of the stored
+   window, then the chart. Charts are always drawn, never behind a click.
    ───────────────────────────────────────────────────────────────────────── */
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-2);
+}
+
+.chart-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  min-height: 1.125rem;
+}
+
+.chart-card-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.chart-card-reading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: 0.125rem;
+}
+
+.chart-card-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 2rem;
+  color: var(--text);
+
+  &--small {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+}
+
+.chart-card-peak {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+
+  .num {
+    color: var(--text-dim);
+  }
+}
+
+.chart-card-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin-top: var(--s-1);
+  font-size: 0.6875rem;
+  color: var(--muted);
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+}
+
+.chart-card-legend-key {
+  width: 0.75rem;
+  height: 0;
+  border-top-width: 0.125rem;
+}
+
+.chart-card-plot {
+  margin-top: var(--s-4);
+}
+
+// Application metrics: many small charts, so the card is tighter and its
+// value sits on the label row.
+.chart-card--small {
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+}
+
+/* ── Metrics panel ──────────────────────────────────────────────────────── */
 
 .metrics-panel {
   display: flex;
@@ -10,25 +106,20 @@
   gap: var(--s-6);
 }
 
-.metrics-group-head {
+.metrics-section {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
   gap: var(--s-3);
-  margin-bottom: var(--s-3);
-  padding-bottom: var(--s-2);
-  border-bottom: 0.0625rem solid var(--border);
 }
 
-// A fixed track count rather than auto-fit, so a two-card section and a
-// three-card section share the same column edges instead of each stretching to
-// fill its own row.
-/* One chart per row. Side by side, three to a row, each curve was a few
-   hundred pixels wide and a 24-hour window collapsed into an unreadable smear;
-   full width buys the horizontal resolution the time axis needs. */
 .metrics-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(23.75rem, 100%), 1fr));
+  gap: var(--s-3);
+
+  &--small {
+    grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
+  }
 }
 
 .metrics-notice {
@@ -36,96 +127,18 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--s-4);
-  margin-bottom: var(--s-3);
   padding: var(--s-2) var(--s-3);
   border: 0.0625rem solid var(--accent-line);
   border-radius: var(--r-2);
   background: var(--accent-soft);
 }
 
-.metric-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-2);
-  padding: var(--s-3) var(--s-4);
-  border: 0.0625rem solid var(--border);
-  border-radius: var(--r-2);
-  background: var(--bg-2);
-}
-
-.metric-card-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s-2);
-}
-
-.metric-card-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-dim);
-}
-
-.metric-card-value {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.metric-card-chart {
-  /* Taller than the old three-up cards: a full-width chart needs the vertical
-     room to stay in proportion. */
-  height: 8rem;
-  margin: 0 calc(var(--s-1) * -1);
-}
-
-/* Placeholder with the chart's height so the grid does not reflow when
-   history arrives. */
-.metric-card-nodata {
+.metrics-host-note {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 8rem;
-  font-size: 0.75rem;
-  color: var(--muted);
-  border: 0.0625rem dashed var(--border);
-  border-radius: var(--r-1);
-}
-
-/* ── Sparkline internals ────────────────────────────────────────────────── */
-
-.sparkline-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.sparkline-tooltip {
-  position: absolute;
-  top: 0;
-  display: flex;
-  align-items: baseline;
+  flex-wrap: wrap;
   gap: var(--s-2);
-  padding: 0.125rem var(--s-2);
-  border-radius: var(--r-1);
-  background: var(--bg-0);
-  border: 0.0625rem solid var(--border-strong);
-  box-shadow: var(--shadow-1);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.6875rem;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 2;
-}
-
-.sparkline-tooltip-value {
-  color: var(--text);
-  font-weight: 600;
-}
-
-.sparkline-tooltip-time {
+  margin: 0;
+  font-size: 0.75rem;
   color: var(--muted);
 }

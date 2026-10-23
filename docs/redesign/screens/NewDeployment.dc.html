@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New Deployment</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#060608}
+a{color:#fd8c66}a:hover{color:#ffa383}
+.hk-btn:hover{background:#1e1e23 !important;border-color:rgba(255,255,255,0.14) !important}
+.hk-icon:hover{background:#1e1e23 !important;color:#ededf0 !important}
+.hk-primary:hover{background:#ffa383 !important;border-color:#ffa383 !important}
+.hk-quiet:hover{background:#17171b !important;color:#ededf0 !important}
+.hk-opt:hover{background:#1e1e23 !important}
+.hk-in:focus{outline:none;border-color:rgba(253,140,102,0.34) !important;box-shadow:0 0 0 3px rgba(253,140,102,0.12)}
+summary::-webkit-details-marker{display:none}
+details[open] .hk-caret{transform:rotate(90deg)}
+</style>
+</helmet>
+<div style="min-height: 100vh; box-sizing: border-box; padding: 40px 16px; background: #060608; color: #ededf0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.45">
+
+<div role="dialog" aria-modal="true" aria-labelledby="dlg-title" style="max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; background: #111114; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; box-shadow: 0 16px 40px rgba(6,6,8,0.55)">
+
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.07)">
+<div style="flex: 1; min-width: 0">
+<h1 id="dlg-title" style="margin: 0; font-size: 14px; font-weight: 600">{{title}}</h1>
+<p style="margin: 2px 0 0; font-size: 12px; color: #8a8a92">{{subtitle}}</p>
+</div>
+<a href="Main.dc.html" class="hk-icon" aria-label="Close" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 4px; color: #8a8a92"><svg viewBox="0 0 256 256" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path></svg></a>
+</div>
+
+<div style="display: flex; flex-wrap: wrap">
+
+<form style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 28px; padding: 20px; box-sizing: border-box">
+
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 16px; min-width: 0">
+<legend style="display: flex; align-items: center; gap: 8px; padding: 0; margin-bottom: 16px; font-size: 13px; font-weight: 600"><span style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(253,140,102,0.12); color: #fd8c66; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px">1</span>Where the code comes from</legend>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-repo" style="font-size: 12px; font-weight: 500; color: #a7a7ae">Repository URL <span style="color: #fd8c66">*</span></label>
+<input id="f-repo" class="hk-in" type="text" value="{{repo}}" onChange="{{onRepo}}" placeholder="https://github.com/owner/repo" aria-describedby="h-repo" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<p id="h-repo" style="margin: 0; font-size: 12px; color: #8a8a92">HTTPS or SSH. A private repository needs a deploy key on this server.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-branch" style="font-size: 12px; font-weight: 500; color: #a7a7ae">Branch</label>
+<input id="f-branch" class="hk-in" type="text" value="{{branch}}" onChange="{{onBranch}}" placeholder="main" aria-describedby="h-branch" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<p id="h-branch" style="margin: 0; font-size: 12px; color: #8a8a92">Fetched again on every redeploy.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-name" style="font-size: 12px; font-weight: 500; color: #a7a7ae">App name <sc-if value="{{isNew}}" hint-placeholder-val="{{true}}"><span style="color: #fd8c66">*</span></sc-if></label>
+<input id="f-name" class="hk-in" type="text" value="{{name}}" onChange="{{onName}}" readOnly="{{isEdit}}" placeholder="my-api" aria-describedby="h-name" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: {{nameBg}}; color: {{nameFg}}; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<p id="h-name" style="margin: 0; font-size: 12px; color: #8a8a92">{{nameHint}}</p>
+</div>
+</div>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 16px; min-width: 0">
+<legend style="display: flex; align-items: center; gap: 8px; padding: 0; margin-bottom: 16px; font-size: 13px; font-weight: 600"><span style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(253,140,102,0.12); color: #fd8c66; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px">2</span>How to build and start it</legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-install" style="font-size: 12px; font-weight: 500; color: #a7a7ae">Install command</label>
+<select id="f-install" class="hk-in" value="{{install}}" onChange="{{onInstall}}" style="height: 32px; box-sizing: border-box; padding: 0 8px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<option value="npm install">npm install</option>
+<option value="npm ci">npm ci</option>
+<option value="yarn install">yarn install</option>
+<option value="yarn">yarn</option>
+<option value="pnpm install">pnpm install</option>
+<option value="skip">Skip installing</option>
+</select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-flags" style="font-size: 12px; font-weight: 500; color: #a7a7ae">Extra install flags</label>
+<input id="f-flags" class="hk-in" type="text" value="{{flags}}" onChange="{{onFlags}}" placeholder="--omit=dev" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-build" style="font-size: 12px; font-weight: 500; color: #a7a7ae">Build command</label>
+<input id="f-build" class="hk-in" type="text" value="{{build}}" onChange="{{onBuild}}" placeholder="npm run build" aria-describedby="h-build" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<p id="h-build" style="margin: 0; font-size: 12px; color: #8a8a92">Leave empty to skip the build step.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-start" style="font-size: 12px; font-weight: 500; color: #a7a7ae">Start script <span style="color: #fd8c66">*</span></label>
+<input id="f-start" class="hk-in" type="text" value="{{start}}" onChange="{{onStart}}" placeholder="index.js" aria-describedby="h-start" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<p id="h-start" style="margin: 0; font-size: 12px; color: #8a8a92">Entry point, relative to the repository root.</p>
+</div>
+</div>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; min-width: 0">
+<legend style="display: flex; align-items: center; gap: 8px; padding: 0; margin-bottom: 12px; font-size: 13px; font-weight: 600"><span style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: #1e1e23; color: #a7a7ae; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px">3</span>Options<span style="font-size: 12px; font-weight: 400; color: #8a8a92">The defaults work for most apps.</span></legend>
+<div style="border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; overflow: hidden">
+
+<details open="{{true}}" style="border-bottom: 1px solid rgba(255,255,255,0.07)">
+<summary class="hk-opt" style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; cursor: pointer; list-style: none; background: transparent">
+<svg class="hk-caret" viewBox="0 0 256 256" width="12" height="12" fill="#8a8a92" aria-hidden="true"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"></path></svg>
+<span style="font-size: 13px; font-weight: 500">Environment</span>
+<span style="margin-left: auto; font-size: 12px; color: #8a8a92">2 variables, .env.production</span>
+</summary>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 4px 12px 16px 34px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="f-envfile" style="font-size: 12px; font-weight: 500; color: #a7a7ae">Env file</label>
+<input id="f-envfile" class="hk-in" type="text" value=".env.production" placeholder=".env.production" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<p style="margin: 0; font-size: 12px; color: #8a8a92">Relative to the repository root, or an absolute path on this server. Read on every deploy.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 500; color: #a7a7ae">Variables</span>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) 32px; gap: 6px">
+<input class="hk-in" type="text" value="NODE_ENV" aria-label="Variable 1 name" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<input class="hk-in" type="text" value="production" aria-label="Variable 1 value" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<button type="button" class="hk-icon" aria-label="Remove variable 1" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path></svg></button>
+<input class="hk-in" type="text" value="PORT" aria-label="Variable 2 name" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<input class="hk-in" type="text" value="8080" aria-label="Variable 2 value" style="height: 32px; box-sizing: border-box; padding: 0 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px">
+<button type="button" class="hk-icon" aria-label="Remove variable 2" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 4px; background: transparent; color: #8a8a92; cursor: pointer"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path></svg></button>
+</div>
+<button type="button" class="hk-quiet" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border: 0; border-radius: 4px; background: transparent; color: #a7a7ae; font: inherit; font-size: 12px; cursor: pointer"><svg viewBox="0 0 256 256" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path></svg>Add variable</button>
+<p style="margin: 0; font-size: 12px; color: #8a8a92">Variables set here override the same names from the env file.</p>
+</div>
+</div>
+</details>
+
+<sc-for list="{{options}}" as="o" hint-placeholder-count="6">
+<details style="border-bottom: {{o.border}}">
+<summary class="hk-opt" style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 12px; cursor: pointer; list-style: none; background: transparent">
+<svg class="hk-caret" viewBox="0 0 256 256" width="12" height="12" fill="#8a8a92" aria-hidden="true"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"></path></svg>
+<span style="font-size: 13px; font-weight: 500">{{o.title}}</span>
+<span style="margin-left: auto; font-size: 12px; color: #8a8a92">{{o.summary}}</span>
+</summary>
+<p style="margin: 0; padding: 0 12px 14px 34px; font-size: 12px; color: #8a8a92">{{o.hint}}</p>
+</details>
+</sc-for>
+
+</div>
+</fieldset>
+
+</form>
+
+<aside aria-labelledby="pv-h" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding: 20px; box-sizing: border-box; background: #0b0b0d; border-left: 1px solid rgba(255,255,255,0.07); border-radius: 0 0 8px 0">
+<div>
+<h2 id="pv-h" style="margin: 0; font-size: 13px; font-weight: 600">{{previewTitle}}</h2>
+<p style="margin: 2px 0 0; font-size: 12px; color: #8a8a92">Updates as you fill in the form.</p>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<sc-for list="{{preview}}" as="s" hint-placeholder-count="4">
+<li style="display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; padding-bottom: 16px">
+<span style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: {{s.numBg}}; color: {{s.numFg}}; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11px; font-weight: 600">{{s.n}}</span>
+<div style="min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<p style="margin: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap"><span style="font-size: 13px; font-weight: 600; color: {{s.titleColor}}">{{s.title}}</span><span style="font-size: 12px; color: #8a8a92">{{s.note}}</span></p>
+<sc-if value="{{s.hasCode}}" hint-placeholder-val="{{true}}"><code style="display: block; padding: 6px 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #111114; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; line-height: 18px; color: #c4c4cc; white-space: pre-wrap; word-break: break-all">{{s.code}}</code></sc-if>
+</div>
+</li>
+</sc-for>
+</ol>
+<p style="margin: 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.07); font-size: 12px; color: #a7a7ae">{{afterText}}</p>
+</aside>
+
+</div>
+
+<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 12px 20px; border-top: 1px solid rgba(255,255,255,0.07)">
+<p style="flex: 1 1 240px; margin: 0; font-size: 12px; color: #8a8a92">{{footerHint}}</p>
+<a href="Main.dc.html" class="hk-quiet" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 4px; color: #a7a7ae; font-size: 13px; font-weight: 500; text-decoration: none">Cancel</a>
+<sc-if value="{{isEdit}}" hint-placeholder-val="{{false}}"><a href="ProcessDeploy.dc.html" class="hk-btn" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; box-sizing: border-box; border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; background: #17171b; color: #ededf0; font-size: 13px; font-weight: 500; text-decoration: none">Save</a></sc-if>
+<a href="DeployRunning.dc.html" class="hk-primary" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border: 1px solid #fd8c66; border-radius: 4px; background: #fd8c66; color: #1a0d07; font-size: 13px; font-weight: 600; text-decoration: none"><svg viewBox="0 0 256 256" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M227.85,46.89a20,20,0,0,0-18.74-18.74c-13.13-.77-46.65.42-74.48,28.24L131,60H74.36a19.83,19.83,0,0,0-14.14,5.86L25.87,100.19a20,20,0,0,0,11.35,33.95l37.14,5.18,42.32,42.32,5.19,37.18A19.88,19.88,0,0,0,135.34,235a20.13,20.13,0,0,0,6.37,1,19.9,19.9,0,0,0,14.1-5.87l34.34-34.35A19.85,19.85,0,0,0,196,181.64V125l3.6-3.59C227.43,93.54,228.62,60,227.85,46.89ZM76,84h31L75.75,115.28l-27.23-3.8ZM151.6,73.37A72.27,72.27,0,0,1,204,52a72.17,72.17,0,0,1-21.38,52.41L128,159,97,128ZM172,180l-27.49,27.49-3.8-27.23L172,149Zm-72,22c-8.71,11.85-26.19,26-60,26a12,12,0,0,1-12-12c0-33.84,14.12-51.32,26-60A12,12,0,1,1,68.18,175.3C62.3,179.63,55.51,187.8,53,203c15.21-2.51,23.37-9.3,27.7-15.18A12,12,0,1,1,100,202Z"></path></svg>{{primaryLabel}}</a>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["new","edit"],"default":"new"},"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      repo: 'https://github.com/acme/shop-api.git',
+      branch: 'main',
+      name: '',
+      nameTouched: false,
+      install: 'npm ci',
+      flags: '--omit=dev',
+      build: 'npm run build',
+      start: 'dist/server.js'
+    };
+  }
+  deriveName(repo) {
+    var last = String(repo || '').trim().replace(/\/+$/, '').split(/[\/:]/).pop() || '';
+    return last.replace(/\.git$/, '').toLowerCase().replace(/[^a-z0-9._-]/g, '-');
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var isEdit = (this.props.mode ?? 'new') === 'edit';
+    var name = isEdit ? 'shop-api' : (s.nameTouched ? s.name : this.deriveName(s.repo));
+    var branch = s.branch.trim() || 'main';
+    var shown = name || 'my-app';
+    var dir = '/srv/hawkeye/deployments/' + shown;
+    var installCmd = s.install === 'skip' ? '' : (s.flags.trim() ? s.install + ' ' + s.flags.trim() : s.install);
+    var on = { numBg: 'rgba(253,140,102,0.12)', numFg: '#fd8c66', titleColor: '#ededf0' };
+    var off = { numBg: '#1e1e23', numFg: '#8a8a92', titleColor: '#8a8a92' };
+    function step(n, title, note, code, skipped) {
+      var look = skipped ? off : on;
+      return { n: n, title: title, note: note, code: code, hasCode: Boolean(code), numBg: look.numBg, numFg: look.numFg, titleColor: look.titleColor };
+    }
+    var preview = [
+      isEdit
+        ? step(1, 'Update the code', 'Untracked files such as .env stay', 'git fetch --depth 1 origin ' + branch + '\ngit checkout -B ' + branch + ' FETCH_HEAD', false)
+        : step(1, 'Clone the repository', '', 'git clone --branch ' + branch + ' --depth 1 ' + (s.repo.trim() || '<repository>') + ' ' + dir, false),
+      installCmd ? step(2, 'Install dependencies', '', installCmd, false) : step(2, 'Install dependencies', 'Skipped', '', true),
+      s.build.trim() ? step(3, 'Build', '', s.build.trim(), false) : step(3, 'Build', 'Skipped, no build command', '', true),
+      step(4, isEdit ? 'Restart in PM2' : 'Start in PM2', 'as ' + shown + ', fork mode, 1 instance', s.start.trim() || 'index.js', false)
+    ];
+    function setter(key) {
+      return function (e) {
+        var patch = {};
+        patch[key] = e.target.value;
+        if (key === 'name') patch.nameTouched = true;
+        self.setState(patch);
+      };
+    }
+    var opts = [
+      ['Auto-deploy', 'Off', 'Redeploy automatically when the branch gets new commits, checked every few minutes.'],
+      ['Local changes on redeploy', 'Ask first', 'What a redeploy does when tracked files in the deploy folder were changed on the server: ask you, or discard them.'],
+      ['Setup scripts', 'None', 'Shell scripts that run before cloning (pre-setup) and after building (post-setup), for example migrations.'],
+      ['How PM2 runs it', 'fork, 1 instance', 'Interpreter, its arguments, script arguments, fork or cluster mode, number of instances, source maps.'],
+      ['Crash recovery', 'Auto-restart, max 10', 'Restart on crash, memory limit, restart delay, minimum uptime, shutdown grace period, scheduled restart.'],
+      ['Logging and file watching', 'Timestamps on', 'Timestamps on every line (keep this on), separate log files, restart on file changes.']
+    ];
+    return {
+      isEdit: isEdit, isNew: !isEdit,
+      title: isEdit ? 'Edit shop-api' : 'New deployment',
+      subtitle: isEdit ? 'Changes apply on the next deploy.' : 'Hawkeye clones a Git repository onto this server and runs it under PM2.',
+      repo: s.repo, branch: s.branch, name: name, install: s.install, flags: s.flags, build: s.build, start: s.start,
+      nameBg: isEdit ? '#111114' : '#17171b',
+      nameFg: isEdit ? '#8a8a92' : '#ededf0',
+      nameHint: isEdit ? 'Tied to the folder on disk, so it cannot change after the first deployment.' : 'Taken from the repository name. It becomes the PM2 process name and the folder name, and cannot change later.',
+      onRepo: setter('repo'), onBranch: setter('branch'), onName: setter('name'), onInstall: setter('install'), onFlags: setter('flags'), onBuild: setter('build'), onStart: setter('start'),
+      previewTitle: isEdit ? 'What a redeploy will do' : 'What Hawkeye will do',
+      preview: preview,
+      afterText: isEdit ? 'Save keeps shop-api running as it is. Save and redeploy runs these steps now.' : 'After that, ' + shown + ' appears in the sidebar and its Deploy tab shows the progress.',
+      footerHint: isEdit ? 'Save does not touch the running process.' : 'The deployment runs on the server. You can close this window once it has started.',
+      primaryLabel: isEdit ? 'Save and redeploy' : 'Deploy',
+      options: opts.map(function (o, i) {
+        return { title: o[0], summary: o[1], hint: o[2], border: i === opts.length - 1 ? '0' : '1px solid rgba(255,255,255,0.07)' };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

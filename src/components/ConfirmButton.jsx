@@ -15,6 +15,10 @@ import React, { useEffect, useRef, useState } from 'react';
  * Pass more than one entry in `choices` when the action has variants (for
  * example deleting from PM2 only versus deleting from PM2 and disk).
  *
+ * `variant: 'primary'` is for the main action of a surface that still
+ * deserves a second look, such as Redeploy now: the trigger is the filled
+ * accent button, the prompt is the same as everywhere else.
+ *
  * The trigger is swapped for the prompt in place, so focus is managed by hand:
  * opening the prompt focuses Cancel (the safe answer, inside a group labelled
  * with the question so screen readers announce it), Escape cancels, and
@@ -24,11 +28,27 @@ import React, { useEffect, useRef, useState } from 'react';
  *   label: string,
  *   question: string,
  *   choices: { label: string, onConfirm: () => void | Promise<void>, danger?: boolean }[],
- *   variant?: 'default' | 'danger',
+ *   variant?: 'default' | 'danger' | 'primary',
  *   size?: 'default' | 'sm',
- * }} props
+ *   icon?: React.ReactNode,
+ *   className?: string,
+ *   disabled?: boolean,
+ *   title?: string,
+ * }} props - `icon` is drawn before the trigger label. `className` adds
+ *   classes to the trigger, e.g. `btn--sunken` on a raised card. A disabled
+ *   trigger cannot open the prompt; `title` says why.
  */
-export default function ConfirmButton({ label, question, choices, variant = 'default', size = 'default' }) {
+export default function ConfirmButton({
+  label,
+  question,
+  choices,
+  variant = 'default',
+  size = 'default',
+  icon = null,
+  className = '',
+  disabled = false,
+  title,
+}) {
   const [asking, setAsking] = useState(false);
   const [busy, setBusy] = useState(false);
   const triggerRef = useRef(null);
@@ -67,15 +87,19 @@ export default function ConfirmButton({ label, question, choices, variant = 'def
   }
 
   const sizeClass = size === 'sm' ? ' btn--sm' : '';
+  const variantClass = { danger: ' btn--danger', primary: ' btn--primary' }[variant] ?? '';
 
   if (!asking) {
     return (
       <button
         ref={triggerRef}
         type="button"
-        className={`btn${variant === 'danger' ? ' btn--danger' : ''}${sizeClass}`}
+        className={`btn${variantClass}${sizeClass}${className ? ` ${className}` : ''}`}
+        disabled={disabled}
+        title={title}
         onClick={() => setAsking(true)}
       >
+        {icon}
         {label}
       </button>
     );
