@@ -33,7 +33,7 @@ async function getAuthSession() {
 const validBody = {
   appName: 'test-deploy-app',
   repoUrl: 'https://github.com/owner/repo',
-  branch: 'main',
+  branch: 'master',
   startScript: 'index.js',
   installCmd: 'npm install',
 };

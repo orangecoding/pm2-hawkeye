@@ -1363,7 +1363,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React3 = require_react(), Internals = {
+        var React4 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1381,7 +1381,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), REACT_OPTIMISTIC_KEY = /* @__PURE__ */ Symbol.for("react.optimistic_key"), ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), REACT_OPTIMISTIC_KEY = /* @__PURE__ */ Symbol.for("react.optimistic_key"), ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -3067,7 +3067,7 @@
           node.defaultValue !== "" + value && (node.defaultValue = "" + value);
         }
         function validateOptionProps(element, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React3.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React4.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -20215,11 +20215,11 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React3 = require_react(), ReactDOM = require_react_dom(), searchTarget = null, searchBoundary = null, assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React4 = require_react(), ReactDOM = require_react_dom(), searchTarget = null, searchBoundary = null, assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
-        var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React3.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -23411,7 +23411,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React3.version;
+          var isomorphicReactPackageVersion = React4.version;
           if ("19.3.1" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.3.1\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -23552,11 +23552,11 @@
   });
 
   // src/login.jsx
-  var import_react4 = __toESM(require_react(), 1);
+  var import_react5 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // src/components/LoginApp.jsx
-  var import_react3 = __toESM(require_react(), 1);
+  var import_react4 = __toESM(require_react(), 1);
 
   // node_modules/@phosphor-icons/react/dist/defs/Eye.es.js
   var e = __toESM(require_react(), 1);
@@ -23651,12 +23651,168 @@
   o2.displayName = "EyeIcon";
   var n = o2;
 
+  // src/components/LoginBackdrop.jsx
+  var import_react3 = __toESM(require_react(), 1);
+
+  // src/services/dotField.js
+  var DOT_SPACING = 14;
+  var DOT_SIZE = 2;
+  var TWINKLE_SHARE = 0.22;
+  var MIN_FALLOFF = 0.02;
+  function buildDotField(width, height, random = Math.random) {
+    const dots = [];
+    const cx = width * 0.5;
+    const cy = height * 0.45;
+    const rx = Math.max(width * 0.62, 320);
+    const ry = Math.max(height * 0.72, 320);
+    const startX = (width % DOT_SPACING + DOT_SPACING - DOT_SIZE) / 2;
+    const startY = (height % DOT_SPACING + DOT_SPACING - DOT_SIZE) / 2;
+    for (let y = startY; y < height; y += DOT_SPACING) {
+      for (let x = startX; x < width; x += DOT_SPACING) {
+        const distance = Math.hypot((x - cx) / rx, (y - cy) / ry);
+        const falloff = Math.max(0, 1 - distance);
+        if (falloff < MIN_FALLOFF) continue;
+        const twinkles = random() < TWINKLE_SHARE;
+        dots.push({
+          x,
+          y,
+          falloff,
+          base: 0.16 + 0.12 * random(),
+          amp: twinkles ? 0.4 + 0.45 * random() : 0,
+          speed: 0.25 + 0.6 * random(),
+          phase: random() * Math.PI * 2
+        });
+      }
+    }
+    return dots;
+  }
+  function dotAlpha(dot, t) {
+    const wave = Math.max(0, Math.sin(t * dot.speed + dot.phase));
+    return dot.falloff * (dot.base + dot.amp * wave ** 3);
+  }
+  var PULL_RADIUS = 220;
+  var MAX_PULL = 10;
+  var MAX_BOOST = 0.28;
+  function pullTowards(dot, pointer, strength) {
+    if (!pointer || strength <= 0) return { x: dot.x, y: dot.y, boost: 0 };
+    const dx = pointer.x - dot.x;
+    const dy = pointer.y - dot.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance >= PULL_RADIUS) return { x: dot.x, y: dot.y, boost: 0 };
+    const reach = (1 - distance / PULL_RADIUS) ** 2;
+    const boost = MAX_BOOST * reach * strength;
+    if (distance === 0) return { x: dot.x, y: dot.y, boost };
+    const pull = Math.min(MAX_PULL * reach * strength, distance * 0.5);
+    return { x: dot.x + dx / distance * pull, y: dot.y + dy / distance * pull, boost };
+  }
+
+  // src/components/LoginBackdrop.jsx
+  var IDLE_FPS = 24;
+  var POINTER_FPS = 60;
+  var INTRO_MS = 1600;
+  var FOLLOW_RATE = 7;
+  var STRENGTH_RATE = 3;
+  function LoginBackdrop() {
+    const canvasRef = (0, import_react3.useRef)(null);
+    (0, import_react3.useEffect)(() => {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      if (!context) return void 0;
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const color = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#fd8c66";
+      const start = performance.now();
+      const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, seen: false, hovering: false, strength: 0 };
+      let dots = [];
+      let frame = 0;
+      let lastDraw = 0;
+      const resize = () => {
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = Math.round(window.innerWidth * ratio);
+        canvas.height = Math.round(window.innerHeight * ratio);
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        dots = buildDotField(window.innerWidth, window.innerHeight);
+      };
+      const ease = (dt) => {
+        const follow = 1 - Math.exp(-FOLLOW_RATE * dt);
+        pointer.x += (pointer.targetX - pointer.x) * follow;
+        pointer.y += (pointer.targetY - pointer.y) * follow;
+        const target = pointer.hovering ? 1 : 0;
+        pointer.strength += (target - pointer.strength) * (1 - Math.exp(-STRENGTH_RATE * dt));
+        if (!pointer.hovering && pointer.strength < 1e-3) pointer.strength = 0;
+      };
+      const draw = (now) => {
+        const progress = still ? 1 : Math.min(1, (now - start) / INTRO_MS);
+        const intro = 1 - (1 - progress) ** 3;
+        const centre = pointer.strength > 0 ? pointer : null;
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        context.fillStyle = color;
+        for (const dot of dots) {
+          const { x, y, boost } = pullTowards(dot, centre, pointer.strength);
+          const alpha = dotAlpha(dot, now / 1e3) + boost * Math.sqrt(dot.falloff);
+          context.globalAlpha = Math.min(1, alpha) * intro;
+          context.fillRect(x, y, DOT_SIZE, DOT_SIZE);
+        }
+        context.globalAlpha = 1;
+      };
+      const tick = (now) => {
+        frame = requestAnimationFrame(tick);
+        const fps = pointer.hovering || pointer.strength > 0 ? POINTER_FPS : IDLE_FPS;
+        if (now - lastDraw < 1e3 / fps - 2) return;
+        ease(Math.min(0.1, (now - lastDraw) / 1e3));
+        lastDraw = now;
+        draw(now);
+      };
+      const onPointerMove = (event) => {
+        if (event.pointerType === "touch") return;
+        pointer.targetX = event.clientX;
+        pointer.targetY = event.clientY;
+        if (!pointer.seen) {
+          pointer.x = event.clientX;
+          pointer.y = event.clientY;
+          pointer.seen = true;
+        }
+        pointer.hovering = true;
+      };
+      const onPointerGone = () => {
+        pointer.hovering = false;
+      };
+      const onMouseOut = (event) => {
+        if (!event.relatedTarget) onPointerGone();
+      };
+      const onResize = () => {
+        resize();
+        if (still) draw(performance.now());
+      };
+      resize();
+      window.addEventListener("resize", onResize);
+      if (still) {
+        draw(start);
+      } else {
+        frame = requestAnimationFrame(tick);
+        window.addEventListener("pointermove", onPointerMove, { passive: true });
+        document.addEventListener("mouseout", onMouseOut);
+        window.addEventListener("blur", onPointerGone);
+      }
+      return () => {
+        cancelAnimationFrame(frame);
+        window.removeEventListener("resize", onResize);
+        window.removeEventListener("pointermove", onPointerMove);
+        document.removeEventListener("mouseout", onMouseOut);
+        window.removeEventListener("blur", onPointerGone);
+      };
+    }, []);
+    return /* @__PURE__ */ import_react3.default.createElement("div", { className: "login-backdrop", "aria-hidden": "true" }, /* @__PURE__ */ import_react3.default.createElement("canvas", { ref: canvasRef }));
+  }
+
+  // package.json
+  var version = "6.0.0";
+
   // src/components/LoginApp.jsx
   function LoginApp() {
-    const [message, setMessage] = (0, import_react3.useState)({ text: "", tone: "muted" });
-    const [submitting, setSubmitting] = (0, import_react3.useState)(false);
-    const usernameRef = (0, import_react3.useRef)(null);
-    const passwordRef = (0, import_react3.useRef)(null);
+    const [message, setMessage] = (0, import_react4.useState)({ text: "", tone: "muted" });
+    const [submitting, setSubmitting] = (0, import_react4.useState)(false);
+    const usernameRef = (0, import_react4.useRef)(null);
+    const passwordRef = (0, import_react4.useRef)(null);
     const handleSubmit = async (e4) => {
       e4.preventDefault();
       const username = usernameRef.current.value.trim();
@@ -23688,7 +23844,7 @@
         setSubmitting(false);
       }
     };
-    return /* @__PURE__ */ import_react3.default.createElement("main", { className: "login-shell" }, /* @__PURE__ */ import_react3.default.createElement("section", { className: "login-panel" }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "login-brand" }, /* @__PURE__ */ import_react3.default.createElement("span", { className: "login-brand-mark" }, /* @__PURE__ */ import_react3.default.createElement(n, { size: 20, weight: "bold", color: "var(--accent)" })), /* @__PURE__ */ import_react3.default.createElement("h1", null, /* @__PURE__ */ import_react3.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react3.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye")), /* @__PURE__ */ import_react3.default.createElement("p", { className: "subtle" }, "Live process monitoring, merged log streaming, and one-click deployments for the PM2 daemon on this server.")), /* @__PURE__ */ import_react3.default.createElement("div", { className: "login-form-side" }, /* @__PURE__ */ import_react3.default.createElement("h2", null, "Sign in"), /* @__PURE__ */ import_react3.default.createElement("p", { className: "hint" }, "Use the administrator credentials from your .env file."), /* @__PURE__ */ import_react3.default.createElement("form", { className: "login-form", noValidate: true, onSubmit: handleSubmit }, /* @__PURE__ */ import_react3.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react3.default.createElement("label", { htmlFor: "login-username" }, "Username"), /* @__PURE__ */ import_react3.default.createElement(
+    return /* @__PURE__ */ import_react4.default.createElement("main", { className: "login-shell" }, /* @__PURE__ */ import_react4.default.createElement(LoginBackdrop, null), /* @__PURE__ */ import_react4.default.createElement("section", { className: "login-panel" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "login-brand" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "login-brand-mark" }, /* @__PURE__ */ import_react4.default.createElement(n, { size: 20, weight: "bold", color: "var(--accent)" })), /* @__PURE__ */ import_react4.default.createElement("h1", null, /* @__PURE__ */ import_react4.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react4.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye")), /* @__PURE__ */ import_react4.default.createElement("p", { className: "subtle" }, "Live process monitoring, merged log streaming, and one-click deployments for the PM2 daemon on this server."), /* @__PURE__ */ import_react4.default.createElement("p", { className: "login-version" }, "v", version)), /* @__PURE__ */ import_react4.default.createElement("div", { className: "login-form-side" }, /* @__PURE__ */ import_react4.default.createElement("h2", null, "Sign in"), /* @__PURE__ */ import_react4.default.createElement("p", { className: "hint" }, "Use the administrator credentials from your .env file."), /* @__PURE__ */ import_react4.default.createElement("form", { className: "login-form", noValidate: true, onSubmit: handleSubmit }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react4.default.createElement("label", { htmlFor: "login-username" }, "Username"), /* @__PURE__ */ import_react4.default.createElement(
       "input",
       {
         id: "login-username",
@@ -23702,7 +23858,7 @@
         autoFocus: true,
         required: true
       }
-    )), /* @__PURE__ */ import_react3.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react3.default.createElement("label", { htmlFor: "login-password" }, "Password"), /* @__PURE__ */ import_react3.default.createElement(
+    )), /* @__PURE__ */ import_react4.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react4.default.createElement("label", { htmlFor: "login-password" }, "Password"), /* @__PURE__ */ import_react4.default.createElement(
       "input",
       {
         id: "login-password",
@@ -23713,11 +23869,11 @@
         autoComplete: "current-password",
         required: true
       }
-    )), /* @__PURE__ */ import_react3.default.createElement("button", { className: "btn btn--primary btn--block login-submit", type: "submit", disabled: submitting }, submitting ? "Signing in" : "Sign in"), /* @__PURE__ */ import_react3.default.createElement("p", { className: `login-message login-message--${message.tone}`, role: "status" }, message.text)))));
+    )), /* @__PURE__ */ import_react4.default.createElement("button", { className: "btn btn--primary btn--block login-submit", type: "submit", disabled: submitting }, submitting ? "Signing in" : "Sign in"), /* @__PURE__ */ import_react4.default.createElement("p", { className: `login-message login-message--${message.tone}`, role: "status" }, message.text)))));
   }
 
   // src/login.jsx
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react4.default.createElement(LoginApp, null));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react5.default.createElement(LoginApp, null));
 })();
 /*! Bundled license information:
 

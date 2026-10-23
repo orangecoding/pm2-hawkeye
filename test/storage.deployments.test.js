@@ -33,7 +33,7 @@ function baseOpts(overrides = {}) {
   return {
     pm2Name: 'test-app',
     repoUrl: 'https://github.com/owner/repo',
-    branch: 'main',
+    branch: 'master',
     deployPath: '/tmp/apps/test-app',
     startScript: 'index.js',
     installCmd: 'npm install',
@@ -61,7 +61,7 @@ describe('deploymentStorage', () => {
     const row = getDeploymentByName('test-app');
     assert.ok(row, 'should find the record');
     assert.equal(row.pm2_name, 'test-app');
-    assert.equal(row.branch, 'main');
+    assert.equal(row.branch, 'master');
   });
 
   it('getDeploymentByName returns undefined for unknown name', () => {

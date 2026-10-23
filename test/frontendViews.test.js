@@ -122,7 +122,7 @@ describe('frontend view helpers', () => {
     it('plans the six deploy steps and marks the skipped ones', () => {
       const deployment = {
         repo_url: 'https://example.com/a.git',
-        branch: 'main',
+        branch: 'master',
         deploy_path: '/srv/a',
         install_cmd: 'npm ci',
         build_cmd: '',
@@ -142,12 +142,12 @@ describe('frontend view helpers', () => {
       ]);
       expect(redeploy.filter((s) => s.skipped).map((s) => s.stage)).to.deep.equal(['pre_setup', 'build']);
       expect(redeploy[1].title).to.equal('Update the code');
-      expect(redeploy[1].code).to.equal('git fetch --depth 1 origin main\ngit checkout -B main FETCH_HEAD');
+      expect(redeploy[1].code).to.equal('git fetch --depth 1 origin master\ngit checkout -B master FETCH_HEAD');
       expect(redeploy[4].command).to.equal('node migrate.js');
       expect(redeploy[5].title).to.equal('Restart in PM2');
 
       const first = planDeploy({ ...deployment, install_cmd: 'skip' }, { firstDeploy: true });
-      expect(first[1].code).to.equal('git clone --branch main --depth 1 https://example.com/a.git /srv/a');
+      expect(first[1].code).to.equal('git clone --branch master --depth 1 https://example.com/a.git /srv/a');
       expect(first[2].skipped).to.equal(true);
       expect(first[5].title).to.equal('Start in PM2');
 
@@ -163,7 +163,7 @@ describe('frontend view helpers', () => {
       expect(deriveRunState(steps, []).states).to.deep.equal(['pending', 'pending', 'pending', 'pending']);
 
       const running = deriveRunState(steps, [
-        { stage: 'clone', line: 'Fetching main from origin...\n', status: 'running' },
+        { stage: 'clone', line: 'Fetching master from origin...\n', status: 'running' },
         { stage: 'install', line: 'Running npm ci...\n', status: 'running' },
       ]);
       expect(running.outcome).to.equal('running');
@@ -229,7 +229,7 @@ describe('frontend view helpers', () => {
       const deployment = { last_deployed_at: 1 };
       expect(isFirstDeploy(deployment, undefined)).to.equal(false);
       expect(
-        isFirstDeploy(deployment, { lines: [{ stage: 'clone', line: 'Cloning https://x (branch: main)...\n' }] }),
+        isFirstDeploy(deployment, { lines: [{ stage: 'clone', line: 'Cloning https://x (branch: master)...\n' }] }),
       ).to.equal(true);
     });
 

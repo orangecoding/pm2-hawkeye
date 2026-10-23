@@ -496,7 +496,7 @@ The form closes once the deployment has started, and the new app's page shows ea
 | Field | Description |
 |---|---|
 | Repository URL | HTTPS URL of a GitHub or GitLab repository, or an SSH URL such as `git@github.com:user/repo.git`. A private repository needs a deploy key on the server. |
-| Branch | Git branch to clone and deploy from. Defaults to `main`. |
+| Branch | Git branch to clone and deploy from. Defaults to `master`. |
 | App name | Unique PM2 process name. Alphanumeric, dashes, and underscores only. It also names the deploy folder, so it cannot change after the first deploy. |
 
 **How to build and start it**

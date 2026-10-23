@@ -24453,7 +24453,7 @@
   }
   var DEPLOY_STAGES = ["pre_setup", "clone", "install", "build", "post_setup", "start"];
   function planDeploy(deployment, { firstDeploy, startsProcess = firstDeploy }) {
-    const branch = deployment.branch || "main";
+    const branch = deployment.branch || "master";
     const install = deployment.install_cmd ? deployment.install_cmd.trim() : "";
     const build = deployment.build_cmd ? deployment.build_cmd.trim() : "";
     const pre = deployment.pre_setup_script ? deployment.pre_setup_script.trim() : "";
@@ -37220,7 +37220,7 @@ git checkout -B ${branch} FETCH_HEAD`,
     const [appName, setAppName] = (0, import_react21.useState)(() => editingDeployment?.pm2_name ?? "");
     const [appNameTouched, setAppNameTouched] = (0, import_react21.useState)(isEdit);
     const [repoUrl, setRepoUrl] = (0, import_react21.useState)(() => editingDeployment?.repo_url ?? "");
-    const [branch, setBranch] = (0, import_react21.useState)(() => editingDeployment?.branch ?? "main");
+    const [branch, setBranch] = (0, import_react21.useState)(() => editingDeployment?.branch ?? "master");
     const [startScript, setStartScript] = (0, import_react21.useState)(() => editingDeployment?.start_script ?? "index.js");
     const [installCmd, setInstallCmd] = (0, import_react21.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).base);
     const [installArgs, setInstallArgs] = (0, import_react21.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).args);
@@ -37267,7 +37267,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       };
       return {
         repoUrl: repoUrl.trim(),
-        branch: branch.trim() || "main",
+        branch: branch.trim() || "master",
         startScript: startScript.trim() || "index.js",
         installCmd: fullInstallCmd,
         buildCmd: buildCmd.trim(),
@@ -37342,7 +37342,7 @@ git checkout -B ${branch} FETCH_HEAD`,
     }, [editingDeployment, onCsrfRefresh, buildPayload, onSaveAndRedeploy]);
     const draft = {
       repo_url: repoUrl.trim(),
-      branch: branch.trim() || "main",
+      branch: branch.trim() || "master",
       deploy_path: isEdit ? editingDeployment.deploy_path : `${deployBaseDir ?? "<deploy base folder>"}/${shownName}`,
       install_cmd: fullInstallCmd,
       build_cmd: buildCmd,
@@ -37385,7 +37385,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         {
           className: "input",
           type: "text",
-          placeholder: "main",
+          placeholder: "master",
           value: branch,
           onChange: (e40) => setBranch(e40.target.value)
         }
@@ -37482,7 +37482,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         Option,
         {
           title: "Auto-deploy",
-          summary: watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || "main"}` : "Off"
+          summary: watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || "master"}` : "Off"
         },
         /* @__PURE__ */ import_react21.default.createElement(
           Toggle,

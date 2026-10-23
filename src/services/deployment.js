@@ -152,7 +152,7 @@ export const DEPLOY_STAGES = ['pre_setup', 'clone', 'install', 'build', 'post_se
  *   `code` is the full command block, `command` a one-line label of it.
  */
 export function planDeploy(deployment, { firstDeploy, startsProcess = firstDeploy }) {
-  const branch = deployment.branch || 'main';
+  const branch = deployment.branch || 'master';
   const install = deployment.install_cmd ? deployment.install_cmd.trim() : '';
   const build = deployment.build_cmd ? deployment.build_cmd.trim() : '';
   const pre = deployment.pre_setup_script ? deployment.pre_setup_script.trim() : '';

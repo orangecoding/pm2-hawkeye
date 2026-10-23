@@ -251,7 +251,7 @@ export default function DeployModal({
   /** False while the app name still follows the repository URL. */
   const [appNameTouched, setAppNameTouched] = useState(isEdit);
   const [repoUrl, setRepoUrl] = useState(() => editingDeployment?.repo_url ?? '');
-  const [branch, setBranch] = useState(() => editingDeployment?.branch ?? 'main');
+  const [branch, setBranch] = useState(() => editingDeployment?.branch ?? 'master');
   const [startScript, setStartScript] = useState(() => editingDeployment?.start_script ?? 'index.js');
   const [installCmd, setInstallCmd] = useState(() => splitInstallCmd(editingDeployment?.install_cmd).base);
   const [installArgs, setInstallArgs] = useState(() => splitInstallCmd(editingDeployment?.install_cmd).args);
@@ -309,7 +309,7 @@ export default function DeployModal({
     };
     return {
       repoUrl: repoUrl.trim(),
-      branch: branch.trim() || 'main',
+      branch: branch.trim() || 'master',
       startScript: startScript.trim() || 'index.js',
       installCmd: fullInstallCmd,
       buildCmd: buildCmd.trim(),
@@ -392,7 +392,7 @@ export default function DeployModal({
 
   const draft = {
     repo_url: repoUrl.trim(),
-    branch: branch.trim() || 'main',
+    branch: branch.trim() || 'master',
     deploy_path: isEdit ? editingDeployment.deploy_path : `${deployBaseDir ?? '<deploy base folder>'}/${shownName}`,
     install_cmd: fullInstallCmd,
     build_cmd: buildCmd,
@@ -452,7 +452,7 @@ export default function DeployModal({
                   <input
                     className="input"
                     type="text"
-                    placeholder="main"
+                    placeholder="master"
                     value={branch}
                     onChange={(e) => setBranch(e.target.value)}
                   />
@@ -568,7 +568,7 @@ export default function DeployModal({
 
                 <Option
                   title="Auto-deploy"
-                  summary={watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || 'main'}` : 'Off'}
+                  summary={watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || 'master'}` : 'Off'}
                 >
                   <Toggle
                     label="Deploy automatically when the branch gets new commits"

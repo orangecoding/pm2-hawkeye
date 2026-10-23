@@ -5,9 +5,16 @@
 
 import React, { useRef, useState } from 'react';
 import { Eye } from './Icon.jsx';
+import LoginBackdrop from './LoginBackdrop.jsx';
+// esbuild inlines only the `version` field, not the rest of package.json.
+import { version } from '../../package.json';
 
 /**
- * Sign-in page.
+ * Sign-in page: a translucent panel over the animated dot field of
+ * {@link LoginBackdrop}. The brand half is clear glass that lets the dots show
+ * through; the form half is frosted, so the fields stay calm and legible.
+ * The running version sits in the bottom left corner of the brand half, so it
+ * can be read before signing in.
  *
  * The two labels above the headings ("LOGIN", "AUTHENTICATION") were dropped:
  * on a page with one form and one purpose they named what the heading directly
@@ -62,6 +69,7 @@ export default function LoginApp() {
 
   return (
     <main className="login-shell">
+      <LoginBackdrop />
       <section className="login-panel">
         <div className="login-brand">
           <span className="login-brand-mark">
@@ -74,6 +82,7 @@ export default function LoginApp() {
           <p className="subtle">
             Live process monitoring, merged log streaming, and one-click deployments for the PM2 daemon on this server.
           </p>
+          <p className="login-version">v{version}</p>
         </div>
 
         <div className="login-form-side">
