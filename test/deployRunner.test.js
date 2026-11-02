@@ -18,6 +18,7 @@ import {
   validateBranch,
   resolveDeployPath,
   parseEnvFile,
+  installEnvironment,
 } from '../lib/service/deployRunner.js';
 import path from 'node:path';
 import config from '../lib/config.js';
@@ -501,6 +502,15 @@ describe('deployRunner validators', () => {
       // After validateAppName rejects the name the router would never call this,
       // but we verify the second line of defence anyway.
       assert.throws(() => resolveDeployPath('..'), /escapes base directory/);
+    });
+  });
+
+  describe('installEnvironment', () => {
+    it("drops hawkeye's own NODE_ENV so the install keeps devDependencies", () => {
+      const env = { NODE_ENV: 'production', PATH: '/usr/bin', HOME: '/home/hawkeye' };
+
+      assert.deepEqual(installEnvironment(env), { PATH: '/usr/bin', HOME: '/home/hawkeye' });
+      assert.equal(env.NODE_ENV, 'production', 'leaves the given environment untouched');
     });
   });
 

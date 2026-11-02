@@ -155,11 +155,20 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
   const ntfyPriority = settings['reporter.ntfy.priority'] ?? 'default';
   const ntfyToken = settings['reporter.ntfy.token'] ?? '';
 
+  const alertaEnabled = settings['reporter.alerta.enabled'] === '1';
+  const alertaUrl = settings['reporter.alerta.url'] ?? '';
+  const alertaApiKey = settings['reporter.alerta.apiKey'] ?? '';
+  const alertaTargets = settings['reporter.alerta.targets'] ?? '';
+  const alertaPriority = settings['reporter.alerta.priority'] ?? 'active';
+
   const [showNtfyToken, setShowNtfyToken] = useState(false);
+  const [showAlertaApiKey, setShowAlertaApiKey] = useState(false);
   const [webhookTestResult, setWebhookTestResult] = useState(null);
   const [webhookTesting, setWebhookTesting] = useState(false);
   const [ntfyTestResult, setNtfyTestResult] = useState(null);
   const [ntfyTesting, setNtfyTesting] = useState(false);
+  const [alertaTestResult, setAlertaTestResult] = useState(null);
+  const [alertaTesting, setAlertaTesting] = useState(false);
 
   /**
    * @param {string} key
@@ -235,6 +244,30 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
       setNtfyTestResult({ ok: false, error: err.message });
     } finally {
       setNtfyTesting(false);
+    }
+  }
+
+  async function sendAlertaTest() {
+    if (!csrfToken) return;
+    setAlertaTesting(true);
+    setAlertaTestResult(null);
+    try {
+      const result = await fetchWithCsrf('/api/alerting/test/alerta', {
+        onCsrfRefresh,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: alertaUrl,
+          apiKey: alertaApiKey,
+          targets: alertaTargets,
+          priority: alertaPriority,
+        }),
+      });
+      setAlertaTestResult(result);
+    } catch (err) {
+      setAlertaTestResult({ ok: false, error: err.message });
+    } finally {
+      setAlertaTesting(false);
     }
   }
 
@@ -483,6 +516,91 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
                 {ntfyTesting ? 'Sending' : 'Send a test'}
               </button>
               {testResult(ntfyTestResult)}
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* alerta reporter */}
+      <section className="settings-group">
+        <div className="reporter-head">
+          <h3 className="settings-group-title">alerta</h3>
+          <label className="toggle">
+            <input
+              type="checkbox"
+              checked={alertaEnabled}
+              onChange={(e) => set('reporter.alerta.enabled', e.target.checked ? '1' : '0')}
+            />
+            <span className="toggle-track" />
+            <span className="toggle-label">{alertaEnabled ? 'Enabled' : 'Disabled'}</span>
+          </label>
+        </div>
+
+        {alertaEnabled && (
+          <div className="settings-group-fields">
+            <p className="hint">Every process gets its own topic in alerta, named after the process.</p>
+            <div className="field">
+              <label htmlFor="alerta-url">Server URL</label>
+              <input
+                id="alerta-url"
+                className="input"
+                type="url"
+                value={alertaUrl}
+                placeholder="https://alerta.example.com"
+                onChange={(e) => set('reporter.alerta.url', e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="alerta-api-key">API key</label>
+              <div className="input-suffix">
+                <input
+                  id="alerta-api-key"
+                  className="input"
+                  type={showAlertaApiKey ? 'text' : 'password'}
+                  value={alertaApiKey}
+                  onChange={(e) => set('reporter.alerta.apiKey', e.target.value)}
+                  autoComplete="off"
+                />
+                <button type="button" className="btn btn--sm" onClick={() => setShowAlertaApiKey((v) => !v)}>
+                  {showAlertaApiKey ? 'Hide' : 'Show'}
+                </button>
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="alerta-targets">Targets</label>
+              <input
+                id="alerta-targets"
+                className="input"
+                value={alertaTargets}
+                placeholder="chriz, katha"
+                onChange={(e) => set('reporter.alerta.targets', e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="alerta-priority">Priority</label>
+              <select
+                id="alerta-priority"
+                className="select"
+                value={alertaPriority}
+                onChange={(e) => set('reporter.alerta.priority', e.target.value)}
+              >
+                <option value="passive">passive</option>
+                <option value="active">active</option>
+                <option value="time-sensitive">time-sensitive</option>
+                <option value="critical">critical</option>
+              </select>
+            </div>
+
+            <div className="test-row">
+              <button
+                type="button"
+                className="btn"
+                onClick={sendAlertaTest}
+                disabled={alertaTesting || !alertaUrl || !alertaApiKey || !alertaTargets.trim()}
+              >
+                {alertaTesting ? 'Sending' : 'Send a test'}
+              </button>
+              {testResult(alertaTestResult)}
             </div>
           </div>
         )}

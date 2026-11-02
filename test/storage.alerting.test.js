@@ -86,6 +86,7 @@ describe('alertingSettingsStorage', () => {
     assert.deepEqual(cfg.logLevelThreshold, ['error']);
     assert.strictEqual(cfg.webhook.enabled, false);
     assert.strictEqual(cfg.ntfy.enabled, false);
+    assert.deepEqual(cfg.alerta, { enabled: false, url: '', apiKey: '', targets: '', priority: 'active' });
   });
 
   it('getAlertingConfig parses multi-value threshold', () => {

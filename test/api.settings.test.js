@@ -125,6 +125,49 @@ describe('POST /api/alerting/test/ntfy', () => {
   });
 });
 
+describe('POST /api/alerting/test/alerta', () => {
+  it('requires url, apiKey and targets', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/alerting/test/alerta')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .send({ url: 'http://localhost:19999', targets: 'chriz' });
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.equal('apiKey is required');
+  });
+
+  it('returns { ok: false, error: string } for an unreachable server', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/alerting/test/alerta')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .send({ url: 'http://localhost:19999', apiKey: 'key', targets: 'chriz' });
+    expect(res.status).to.equal(200);
+    expect(res.body.ok).to.equal(false);
+    expect(res.body.error).to.be.a('string');
+  });
+
+  it('saves the alerta settings keys', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/alerting/settings')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .send({
+        settings: {
+          'reporter.alerta.enabled': '1',
+          'reporter.alerta.url': 'https://alerta.example.com',
+          'reporter.alerta.apiKey': 'key',
+          'reporter.alerta.targets': 'chriz, katha',
+          'reporter.alerta.priority': 'critical',
+        },
+      });
+    expect(res.status).to.equal(200);
+  });
+});
+
 // ── Session config block ──────────────────────────────────────────────────────
 
 describe('GET /api/auth/session (config block)', () => {
