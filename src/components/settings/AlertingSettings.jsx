@@ -538,7 +538,7 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
 
         {alertaEnabled && (
           <div className="settings-group-fields">
-            <p className="hint">Every process gets its own topic in alerta, named after the process.</p>
+            <p className="hint">Every process gets its own topic in alerta, named hawkeye-&lt;process name&gt;.</p>
             <div className="field">
               <label htmlFor="alerta-url">Server URL</label>
               <input

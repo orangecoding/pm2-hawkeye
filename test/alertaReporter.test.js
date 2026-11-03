@@ -43,10 +43,10 @@ describe('alerta reporter', () => {
 
   describe('toAlertaTopic', () => {
     it('makes every PM2 process name a valid alerta topic', () => {
-      assert.equal(toAlertaTopic('my-app'), 'my-app');
-      assert.equal(toAlertaTopic('api.v2 (worker)'), 'api-v2-worker');
-      assert.equal(toAlertaTopic('x'.repeat(80)), 'x'.repeat(64));
-      assert.equal(toAlertaTopic('...'), 'pm2');
+      assert.equal(toAlertaTopic('my-app'), 'hawkeye-my-app');
+      assert.equal(toAlertaTopic('api.v2 (worker)'), 'hawkeye-api-v2-worker');
+      assert.equal(toAlertaTopic('x'.repeat(80)), `hawkeye-${'x'.repeat(56)}`);
+      assert.equal(toAlertaTopic('...'), 'hawkeye-pm2');
     });
   });
 
@@ -70,7 +70,7 @@ describe('alerta reporter', () => {
       assert.equal(init.headers.Authorization, 'Bearer secret-key');
       assert.deepEqual(JSON.parse(init.body), {
         targets: ['chriz', 'katha'],
-        topic: 'my-app',
+        topic: 'hawkeye-my-app',
         title: '[ERROR] my.app',
         message: '2026-11-02T13:00:00.000Z\nError: boom',
         priority: 'time-sensitive',
