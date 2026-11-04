@@ -126,15 +126,26 @@ describe('POST /api/alerting/test/ntfy', () => {
 });
 
 describe('POST /api/alerting/test/alerta', () => {
-  it('requires url, apiKey and targets', async () => {
+  it('requires an apiKey', async () => {
     const { cookie, csrfToken } = await getAuthSession();
     const res = await request(app)
       .post('/api/alerting/test/alerta')
       .set('Cookie', cookie)
       .set('X-CSRF-Token', csrfToken)
-      .send({ url: 'http://localhost:19999', targets: 'chriz' });
+      .send({ url: 'http://localhost:19999', endpoints: 'ha_home' });
     expect(res.status).to.equal(400);
     expect(res.body.error).to.equal('apiKey is required');
+  });
+
+  it('requires at least one endpoint', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/alerting/test/alerta')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .send({ url: 'http://localhost:19999', apiKey: 'key' });
+    expect(res.status).to.equal(400);
+    expect(res.body.error).to.equal('endpoints is required');
   });
 
   it('returns { ok: false, error: string } for an unreachable server', async () => {
@@ -143,7 +154,7 @@ describe('POST /api/alerting/test/alerta', () => {
       .post('/api/alerting/test/alerta')
       .set('Cookie', cookie)
       .set('X-CSRF-Token', csrfToken)
-      .send({ url: 'http://localhost:19999', apiKey: 'key', targets: 'chriz' });
+      .send({ url: 'http://localhost:19999', apiKey: 'key', endpoints: 'ha_home' });
     expect(res.status).to.equal(200);
     expect(res.body.ok).to.equal(false);
     expect(res.body.error).to.be.a('string');
@@ -160,7 +171,7 @@ describe('POST /api/alerting/test/alerta', () => {
           'reporter.alerta.enabled': '1',
           'reporter.alerta.url': 'https://alerta.example.com',
           'reporter.alerta.apiKey': 'key',
-          'reporter.alerta.targets': 'chriz, katha',
+          'reporter.alerta.endpoints': 'homeassistant_zu_hause, telegram_familie',
           'reporter.alerta.priority': 'critical',
         },
       });

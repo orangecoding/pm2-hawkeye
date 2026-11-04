@@ -8,12 +8,12 @@
  */
 
 import { strict as assert } from 'node:assert';
-import { parseTargets, sendAlerta, testAlerta, toAlertaTopic } from '../lib/service/reporters/alerta.js';
+import { parseEndpoints, sendAlerta, testAlerta, toAlertaTopic } from '../lib/service/reporters/alerta.js';
 
 const CONFIG = {
   url: 'https://alerta.example.com/',
   apiKey: ' secret-key ',
-  targets: 'chriz, katha',
+  endpoints: 'homeassistant_zu_hause, telegram_familie',
   priority: 'time-sensitive',
 };
 
@@ -50,10 +50,10 @@ describe('alerta reporter', () => {
     });
   });
 
-  describe('parseTargets', () => {
+  describe('parseEndpoints', () => {
     it('splits on commas, trims and drops empty and duplicate names', () => {
-      assert.deepEqual(parseTargets(' chriz, katha,,chriz '), ['chriz', 'katha']);
-      assert.deepEqual(parseTargets(''), []);
+      assert.deepEqual(parseEndpoints(' ha_home, telegram,,ha_home '), ['ha_home', 'telegram']);
+      assert.deepEqual(parseEndpoints(''), []);
     });
   });
 
@@ -69,7 +69,7 @@ describe('alerta reporter', () => {
       assert.equal(init.method, 'POST');
       assert.equal(init.headers.Authorization, 'Bearer secret-key');
       assert.deepEqual(JSON.parse(init.body), {
-        targets: ['chriz', 'katha'],
+        endpoints: ['homeassistant_zu_hause', 'telegram_familie'],
         topic: 'hawkeye-my-app',
         title: '[ERROR] my.app',
         message: '2026-11-02T13:00:00.000Z\nError: boom',
@@ -78,11 +78,13 @@ describe('alerta reporter', () => {
     });
 
     it("rejects with alerta's own error message", async () => {
-      stubFetch(400, { error: { code: 'UNKNOWN_TARGET', message: 'Unknown target: oma (known: chriz)' } });
+      stubFetch(400, {
+        error: { code: 'UNKNOWN_ENDPOINT', message: 'Unknown endpoint: oma (known: ha_home)' },
+      });
 
       await assert.rejects(
-        sendAlerta({ ...CONFIG, targets: 'oma' }, PAYLOAD),
-        /HTTP 400: Unknown target: oma \(known: chriz\)/,
+        sendAlerta({ ...CONFIG, endpoints: 'oma' }, PAYLOAD),
+        /HTTP 400: Unknown endpoint: oma \(known: ha_home\)/,
       );
     });
   });

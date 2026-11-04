@@ -158,7 +158,7 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
   const alertaEnabled = settings['reporter.alerta.enabled'] === '1';
   const alertaUrl = settings['reporter.alerta.url'] ?? '';
   const alertaApiKey = settings['reporter.alerta.apiKey'] ?? '';
-  const alertaTargets = settings['reporter.alerta.targets'] ?? '';
+  const alertaEndpoints = settings['reporter.alerta.endpoints'] ?? '';
   const alertaPriority = settings['reporter.alerta.priority'] ?? 'active';
 
   const [showNtfyToken, setShowNtfyToken] = useState(false);
@@ -259,7 +259,7 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
         body: JSON.stringify({
           url: alertaUrl,
           apiKey: alertaApiKey,
-          targets: alertaTargets,
+          endpoints: alertaEndpoints,
           priority: alertaPriority,
         }),
       });
@@ -567,14 +567,17 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
               </div>
             </div>
             <div className="field">
-              <label htmlFor="alerta-targets">Targets</label>
+              <label htmlFor="alerta-endpoints">Endpoints</label>
               <input
-                id="alerta-targets"
+                id="alerta-endpoints"
                 className="input"
-                value={alertaTargets}
-                placeholder="chriz, katha"
-                onChange={(e) => set('reporter.alerta.targets', e.target.value)}
+                value={alertaEndpoints}
+                placeholder="homeassistant_zu_hause, telegram_familie"
+                autoCapitalize="none"
+                spellCheck="false"
+                onChange={(e) => set('reporter.alerta.endpoints', e.target.value)}
               />
+              <p className="hint">Names of your endpoints in alerta, comma separated.</p>
             </div>
             <div className="field">
               <label htmlFor="alerta-priority">Priority</label>
@@ -596,7 +599,7 @@ export default function AlertingSettings({ settings, onChange, onSave, saving, s
                 type="button"
                 className="btn"
                 onClick={sendAlertaTest}
-                disabled={alertaTesting || !alertaUrl || !alertaApiKey || !alertaTargets.trim()}
+                disabled={alertaTesting || !alertaUrl || !alertaApiKey || !alertaEndpoints.trim()}
               >
                 {alertaTesting ? 'Sending' : 'Send a test'}
               </button>
