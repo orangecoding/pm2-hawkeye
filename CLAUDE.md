@@ -179,6 +179,22 @@ When adding new backend functionality, add corresponding tests. The CI pipeline 
 - A redeploy updates the clone with `git remote set-url` (the stored repo URL), `git fetch --depth 1 origin <branch>` and `git checkout -B <branch> FETCH_HEAD`, so edits to the repo URL or branch take effect and local commits are dropped; untracked files such as `.env` stay. A redeploy that finds tracked local changes in the deploy directory pauses on `waitForConfirmation` until the user discards or cancels. A deployment with `discard_local_changes` set, and every watcher-triggered deploy, skips that question and resets the working copy directly.
 - Deployments can opt into branch watching. `lib/service/branchWatcher.js` ticks once a minute, polls `git ls-remote` for every deployment whose own interval has elapsed, and runs the normal redeploy pipeline when the branch head differs from both the local `HEAD` and the last SHA it already deployed. Watcher-triggered deploys pass `autoConfirm` so `runDeploy` discards local changes instead of waiting for a confirmation nobody will give, and the outcome is sent through the alerting reporters.
 
+- The MCP server answers `POST /mcp` (`lib/transport/mcp.js`), Streamable HTTP
+  in stateless mode: every request builds its own `McpServer` holding only the
+  tools that are switched on, so a tool turned off disappears with the next
+  request. Clients send `Authorization: Bearer <key>`; while the server is off
+  the endpoint answers 404. Tools are defined once in `lib/transport/mcpTools.js`
+  (`access` read/write/destructive sets the default: read on, the rest off) and
+  call the same service functions as the HTTP routes,
+  `lib/service/processOperations.js` and `lib/service/deploymentOperations.js`,
+  so validation lives in one place. The MCP settings (`mcp.enabled`, `mcp.key`
+  in plain text, `mcp.tools` with only the tools that differ from their
+  default) share the `alerting_settings` key-value table, so
+  `GET /api/alerting/settings` must keep filtering to the known alerting keys.
+  Deploy progress goes through `report()` in `deployRunner.js`, which feeds the
+  WS broadcast and an in-memory run log (`getDeployRun`) that
+  `get_deployment_status` reads.
+
 ### Frontend structure
 
 The UI follows one path: **pick an object, then act on it.**
@@ -196,7 +212,7 @@ App.jsx                 shell, all state and API calls, selection and tab routin
 ├── ManagePanel.jsx     Manage tab - monitoring, alerts, log level, actions, delete
 │   └── Actions.jsx     PM2 axm_actions, one row per action
 ├── TimeSeriesChart.jsx the only chart: step lines, axes, crosshair, tooltip, keyboard
-├── Settings.jsx        overlay, General + Alerting pages
+├── Settings.jsx        overlay, General + Alerting + MCP server pages
 ├── DeployModal.jsx     deploy form only (new and edit), with a live step preview
 ├── ConfirmButton.jsx   the app's only confirmation idiom
 ├── KeyValueList.jsx    key/value row editor (env vars, webhook headers and body)
@@ -211,7 +227,10 @@ WebSocket is kept per deployment id in `deployRuns` (helpers in
 `src/services/deployment.js`, bounded to the five most recent deployments), so
 a run keeps going in the background while another process is open. The
 attention list of the Overview comes from `src/services/attention.js`, the
-chart math from `src/services/chart.js`.
+chart math from `src/services/chart.js`, the MCP snippets from
+`src/services/mcp.js`. Copy buttons go through `copyText` in
+`src/services/clipboard.js`, which falls back to a selected textarea on plain
+HTTP, where the Clipboard API is missing.
 
 Conventions worth keeping:
 

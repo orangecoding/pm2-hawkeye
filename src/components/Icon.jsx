@@ -15,6 +15,7 @@ export {
   Copy,
   DownloadSimple,
   Eye,
+  EyeSlash,
   GearSix,
   GitBranch,
   Info,

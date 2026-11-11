@@ -645,11 +645,11 @@
             );
           },
           count: function(children) {
-            var n9 = 0;
+            var n10 = 0;
             mapChildren(children, function() {
-              n9++;
+              n10++;
             });
-            return n9;
+            return n10;
           },
           toArray: function(children) {
             return mapChildren(children, function(child) {
@@ -11079,10 +11079,10 @@
                   addendum = null === lastEffect ? " You returned null. If your effect does not require clean up, return undefined (or nothing)." : "function" === typeof lastEffect.then ? "\n\nIt looks like you wrote " + hookName + "(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:\n\n" + hookName + "(() => {\n  async function fetchData() {\n    // You can await here\n    const response = await MyAPI.getData(someId);\n    // ...\n  }\n  fetchData();\n}, [someId]); // Or [] if effect doesn't need props or state\n\nLearn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching" : " You returned: " + lastEffect;
                   runWithFiberInDEV(
                     finishedWork,
-                    function(n9, a3) {
+                    function(n10, a3) {
                       console.error(
                         "%s must not return anything besides a function, which is used for clean-up.%s",
-                        n9,
+                        n10,
                         a3
                       );
                     },
@@ -23609,7 +23609,7 @@
   var p = e2.forwardRef(
     (s7, a3) => {
       const {
-        alt: n9,
+        alt: n10,
         color: r2,
         size: t,
         weight: o3,
@@ -23637,7 +23637,7 @@
           ...w,
           ...x
         },
-        !!n9 && /* @__PURE__ */ e2.createElement("title", null, n9),
+        !!n10 && /* @__PURE__ */ e2.createElement("title", null, n10),
         i,
         m4.get(o3 != null ? o3 : f2)
       );
@@ -23805,7 +23805,7 @@
   }
 
   // package.json
-  var version = "6.0.0";
+  var version = "7.0.0";
 
   // src/components/LoginApp.jsx
   function LoginApp() {

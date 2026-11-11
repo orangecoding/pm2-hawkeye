@@ -222,6 +222,9 @@
 /* ── Toggle switch ──────────────────────────────────────────────────────── */
 
 .toggle {
+  // Anchors the hidden checkbox to its switch, so focusing it by keyboard
+  // scrolls the switch into view and not some far ancestor.
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--s-2);

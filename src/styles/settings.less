@@ -346,6 +346,202 @@
   }
 }
 
+/* ── MCP server ─────────────────────────────────────────────────────────── */
+
+.mcp-lead {
+  font-size: 0.8125rem;
+}
+
+// Inline code in running text: the CLI flags, file names and commands.
+.mcp-page p code {
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--r-1);
+  background: var(--bg-2);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text);
+}
+
+.mcp-field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+
+  label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+}
+
+.mcp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.mcp-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+
+  .input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // Read-only here means "copy me", not "unavailable": keep full contrast.
+  .input[readonly] {
+    opacity: 1;
+    cursor: text;
+  }
+}
+
+.mcp-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.mcp-callout-text {
+  // One short paragraph: keep it beside the icon instead of wrapping below it.
+  flex: 1 1 0;
+  margin: 0;
+  line-height: 1.55;
+
+  strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+}
+
+.mcp-tabs {
+  align-self: flex-start;
+}
+
+.mcp-snippet {
+  position: relative;
+
+  .code-preview {
+    padding-right: 6.5rem;
+  }
+}
+
+.mcp-copy--overlay {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+}
+
+.mcp-copy--copied {
+  color: var(--success);
+}
+
+.mcp-copy--failed {
+  color: var(--critical);
+}
+
+.mcp-tls-hint {
+  display: flex;
+  gap: var(--s-2);
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+    color: var(--info);
+  }
+}
+
+.mcp-count {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.mcp-tool-group {
+  overflow: hidden;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-2);
+}
+
+.mcp-tool-group-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+}
+
+.mcp-tool-group-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.mcp-tool-group-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+
+  h4 {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+}
+
+.mcp-tool-group-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-shrink: 0;
+}
+
+.mcp-tool-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mcp-tool {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+
+.mcp-tool-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.mcp-tool-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.mcp-tool-name {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+
+  &[data-enabled='true'] {
+    color: var(--text);
+  }
+}
+
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 
 @media (max-width: 45rem) {
@@ -380,6 +576,10 @@
 
   .settings-body {
     padding: var(--s-4);
+  }
+
+  .mcp-tool-group-head {
+    flex-wrap: wrap;
   }
 
   .kv-row {

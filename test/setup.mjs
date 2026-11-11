@@ -24,6 +24,10 @@ const tmpEnvDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pm2-hawkeye-test-'));
 process.env.HAWKEYE_ENV_FILE = path.join(tmpEnvDir, '.env');
 fs.writeFileSync(process.env.HAWKEYE_ENV_FILE, '', 'utf8');
 
+// Deploy runs started by tests (setup scripts that fail on purpose) work in a
+// temp directory, never in the repository's apps/ folder.
+process.env.DEPLOY_BASE_DIR = path.join(tmpEnvDir, 'apps');
+
 const TEST_PASSWORD = 'admin';
 const salt = crypto.randomBytes(16);
 const hash = crypto.scryptSync(TEST_PASSWORD, salt, 64);

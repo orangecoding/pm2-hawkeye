@@ -19,6 +19,8 @@ import {
   resolveDeployPath,
   parseEnvFile,
   installEnvironment,
+  runDeploy,
+  getDeployRun,
 } from '../lib/service/deployRunner.js';
 import path from 'node:path';
 import config from '../lib/config.js';
@@ -558,6 +560,37 @@ describe('deployRunner validators', () => {
           }),
         )
         .catch(done);
+    });
+  });
+
+  describe('run log', () => {
+    it('records the output, the failing stage and the error of a run', async () => {
+      const deployment = {
+        id: '00000000-0000-4000-8000-00000000run1',
+        pm2_name: 'run-log-app',
+        repo_url: 'https://github.com/example/run-log-app.git',
+        branch: 'main',
+        deploy_path: path.join(config.DEPLOY_BASE_DIR, 'run-log-app'),
+        install_cmd: 'npm install',
+        build_cmd: null,
+        pre_setup_script: 'echo preparing the host\nexit 3\n',
+        post_setup_script: null,
+      };
+
+      const result = await runDeploy(deployment, { isRedeploy: false });
+
+      assert.equal(result.ok, false);
+      const run = getDeployRun(deployment.id);
+      assert.equal(run.status, 'error');
+      assert.equal(run.stage, 'error');
+      assert.match(run.error, /exited with code 3/);
+      assert.match(run.output, /Running pre-setup script/);
+      assert.match(run.output, /preparing the host/);
+      assert.ok(run.finishedAt >= run.startedAt);
+    });
+
+    it('returns null for a deployment that has not run since the start', () => {
+      assert.equal(getDeployRun('00000000-0000-4000-8000-000000000000'), null);
     });
   });
 });

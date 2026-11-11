@@ -450,6 +450,7 @@ h4 {
 }
 /* ── Toggle switch ──────────────────────────────────────────────────────── */
 .toggle {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--s-2);
@@ -811,6 +812,9 @@ h4 {
 .callout--warning {
   border-color: var(--warning-callout-line);
   background: var(--warning-callout);
+}
+.callout--warning .callout-icon {
+  color: var(--warning);
 }
 .callout--critical {
   border-color: var(--critical-callout-line);
@@ -2631,6 +2635,166 @@ h4 {
 .test-row .action-result {
   margin-top: 0;
 }
+/* ── MCP server ─────────────────────────────────────────────────────────── */
+.mcp-lead {
+  font-size: 0.8125rem;
+}
+.mcp-page p code {
+  padding: 0.0625rem 0.25rem;
+  border-radius: var(--r-1);
+  background: var(--bg-2);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text);
+}
+.mcp-field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+.mcp-field-head label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+.mcp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.mcp-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+}
+.mcp-input-row .input {
+  flex: 1;
+  min-width: 0;
+}
+.mcp-input-row .input[readonly] {
+  opacity: 1;
+  cursor: text;
+}
+.mcp-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+.mcp-callout-text {
+  flex: 1 1 0;
+  margin: 0;
+  line-height: 1.55;
+}
+.mcp-callout-text strong {
+  font-weight: 600;
+  color: var(--text);
+}
+.mcp-tabs {
+  align-self: flex-start;
+}
+.mcp-snippet {
+  position: relative;
+}
+.mcp-snippet .code-preview {
+  padding-right: 6.5rem;
+}
+.mcp-copy--overlay {
+  position: absolute;
+  top: var(--s-2);
+  right: var(--s-2);
+}
+.mcp-copy--copied {
+  color: var(--success);
+}
+.mcp-copy--failed {
+  color: var(--critical);
+}
+.mcp-tls-hint {
+  display: flex;
+  gap: var(--s-2);
+}
+.mcp-tls-hint svg {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  color: var(--info);
+}
+.mcp-count {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.mcp-tool-group {
+  overflow: hidden;
+  border: 0.0625rem solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--bg-2);
+}
+.mcp-tool-group-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+}
+.mcp-tool-group-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+.mcp-tool-group-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+.mcp-tool-group-title h4 {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.mcp-tool-group-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-shrink: 0;
+}
+.mcp-tool-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mcp-tool {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border-top: 0.0625rem solid var(--border);
+}
+.mcp-tool-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+.mcp-tool-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+.mcp-tool-name {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+.mcp-tool-name[data-enabled='true'] {
+  color: var(--text);
+}
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 45rem) {
   .overlay {
@@ -2659,6 +2823,9 @@ h4 {
   }
   .settings-body {
     padding: var(--s-4);
+  }
+  .mcp-tool-group-head {
+    flex-wrap: wrap;
   }
   .kv-row {
     grid-template-columns: minmax(0, 1fr) 1.75rem;

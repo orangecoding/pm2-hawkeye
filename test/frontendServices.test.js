@@ -5,6 +5,14 @@
 
 import { expect } from 'chai';
 import * as api from '../src/services/api.js';
+import {
+  maskKey,
+  buildCliSnippet,
+  buildJsonSnippet,
+  buildExportLine,
+  groupTools,
+  isPlainHttpRemote,
+} from '../src/services/mcp.js';
 
 describe('frontend services', () => {
   describe('fetchWithCsrf', () => {
@@ -194,5 +202,53 @@ describe('frontend services', () => {
       sockets[1].onclose();
       expect(scheduled).to.have.length(1);
     });
+  });
+});
+
+describe('MCP settings helpers', () => {
+  const key = 'hk_8fJ2kQ9xVb3mZt7LwP0sR4nY6cHd1eGu5aTqWiKoXyE';
+  const url = 'http://10.0.0.12:3030/mcp';
+
+  it('masks a key but keeps its prefix and last four characters', () => {
+    const masked = maskKey(key);
+    expect(masked.startsWith('hk_')).to.equal(true);
+    expect(masked.endsWith('oXyE')).to.equal(true);
+    expect(masked).to.not.contain('8fJ2');
+    expect(maskKey('')).to.equal('');
+  });
+
+  it('builds a claude mcp add command with the endpoint and the key header', () => {
+    const snippet = buildCliSnippet(url, key);
+    expect(snippet).to.contain('claude mcp add --transport http --scope user pm2-hawkeye');
+    expect(snippet).to.contain(url);
+    expect(snippet).to.contain(`--header "Authorization: Bearer ${key}"`);
+  });
+
+  it('builds a .mcp.json entry that reads the key from the environment', () => {
+    const config = JSON.parse(buildJsonSnippet(url));
+    expect(config.mcpServers['pm2-hawkeye']).to.deep.equal({
+      type: 'http',
+      url,
+      headers: { Authorization: 'Bearer ${HAWKEYE_MCP_KEY}' },
+    });
+    expect(buildExportLine(key)).to.equal(`export HAWKEYE_MCP_KEY=${key}`);
+  });
+
+  it('groups tools by access in read, write, destructive order', () => {
+    const groups = groupTools([
+      { name: 'delete_process', access: 'destructive', enabled: false },
+      { name: 'list_processes', access: 'read', enabled: true },
+      { name: 'restart_process', access: 'write', enabled: true },
+      { name: 'redeploy', access: 'write', enabled: false },
+    ]);
+    expect(groups.map((g) => g.group.access)).to.deep.equal(['read', 'write', 'destructive']);
+    expect(groups[1].enabledCount).to.equal(1);
+    expect(groups[1].tools).to.have.length(2);
+  });
+
+  it('flags plain HTTP only when the page comes from another machine', () => {
+    expect(isPlainHttpRemote({ protocol: 'http:', hostname: '10.0.0.12' })).to.equal(true);
+    expect(isPlainHttpRemote({ protocol: 'http:', hostname: 'localhost' })).to.equal(false);
+    expect(isPlainHttpRemote({ protocol: 'https:', hostname: 'hawkeye.example.com' })).to.equal(false);
   });
 });

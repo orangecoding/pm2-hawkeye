@@ -160,6 +160,34 @@ describe('POST /api/alerting/test/alerta', () => {
     expect(res.body.error).to.be.a('string');
   });
 
+  it('still saves when an old browser tab sends the retired targets key', async () => {
+    const { cookie, csrfToken } = await getAuthSession();
+    const res = await request(app)
+      .post('/api/alerting/settings')
+      .set('Cookie', cookie)
+      .set('X-CSRF-Token', csrfToken)
+      .send({
+        settings: {
+          'reporter.alerta.url': 'https://alerta.example.com',
+          'reporter.alerta.targets': 'chriz, katha',
+        },
+      });
+    expect(res.status).to.equal(200);
+    const value = (key) => getDb().prepare('SELECT value FROM alerting_settings WHERE key = ?').get(key)?.value;
+    expect(value('reporter.alerta.url')).to.equal('https://alerta.example.com');
+    expect(value('reporter.alerta.targets')).to.equal(undefined);
+  });
+
+  it('never hands a stale stored key to the UI', async () => {
+    getDb()
+      .prepare('INSERT INTO alerting_settings (key, value, updated_at) VALUES (?, ?, ?)')
+      .run('reporter.alerta.targets', 'chriz, katha', Date.now());
+    const { cookie } = await getAuthSession();
+    const res = await request(app).get('/api/alerting/settings').set('Cookie', cookie);
+    expect(res.status).to.equal(200);
+    expect(res.body.settings).to.not.have.property('reporter.alerta.targets');
+  });
+
   it('saves the alerta settings keys', async () => {
     const { cookie, csrfToken } = await getAuthSession();
     const res = await request(app)

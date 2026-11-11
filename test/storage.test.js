@@ -238,6 +238,21 @@ describe('logStorage', () => {
     assert.equal(entries.length, 3);
   });
 
+  it('getLogEntries keeps only the requested levels', () => {
+    const { id } = addMonitored('log-app');
+    const now = Date.now();
+    ['info', 'error', 'warn', 'error', null].forEach((logLevel, i) => {
+      insertLogEntry(id, { loggedAt: now + i, logLevel, log: `line ${i}` });
+    });
+    const errors = getLogEntries(id, { levels: ['error'] });
+    assert.deepEqual(
+      errors.map((e) => e.log),
+      ['line 3', 'line 1'],
+    );
+    assert.equal(getLogEntries(id, { levels: ['error', 'warn'] }).length, 3);
+    assert.equal(getLogEntries(id, { levels: [] }).length, 5);
+  });
+
   it('getLogEntries respects the before parameter', () => {
     const { id } = addMonitored('log-app');
     const base = Date.now();

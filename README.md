@@ -35,6 +35,7 @@
 - **Secure by default** - scrypt password hashing, CSRF protection, rate limiting, CSP headers
 - **Single WebSocket connection** - process list, live stats, log lines and deploy progress share one multiplexed stream; only stored history is refreshed over HTTP
 - **Alerting** - webhook and ntfy notifications when monitored processes log errors, with per-process mute and throttle support
+- **MCP server** - let Claude Code and other AI agents read logs and metrics, restart processes and deploy apps, with a rotatable key and a switch per tool
 - **Dark-mode UI** - clean, responsive dashboard that works on desktop and mobile
 
 ### How the dashboard is laid out
@@ -562,6 +563,75 @@ The directory is created automatically on first deploy. Use an absolute path to 
 
 ---
 
+## MCP server
+
+PM2-Hawkeye has a built-in [MCP](https://modelcontextprotocol.io) server, so an AI agent such as Claude Code can look at your processes, read their logs and metrics, and, if you allow it, restart processes and deploy apps. It is off until you turn it on.
+
+### Turning it on
+
+Open **Settings - MCP server** and switch the server on. The first time, PM2-Hawkeye creates an access key (`hk_...`). The page shows:
+
+- **Endpoint** - `<the address you opened Hawkeye at>/mcp`
+- **Access key** - masked, with a button to show it and one to copy it. **Rotate key** replaces it; clients using the old key are refused from their next request on.
+- **Connect Claude Code** - a ready-to-copy command, or a `.mcp.json` entry for a single project
+- **Tools** - one switch per tool. A tool that is off is not listed to agents and cannot be called. Changes apply to the next request.
+
+The command to register Hawkeye for every project looks like this:
+
+```bash
+claude mcp add --transport http --scope user pm2-hawkeye https://hawkeye.example.com/mcp --header "Authorization: Bearer hk_..."
+```
+
+For a project, put this in `.mcp.json` and set `HAWKEYE_MCP_KEY` in the shell that starts Claude Code, so the key stays out of the repository:
+
+```json
+{
+  "mcpServers": {
+    "pm2-hawkeye": {
+      "type": "http",
+      "url": "https://hawkeye.example.com/mcp",
+      "headers": { "Authorization": "Bearer ${HAWKEYE_MCP_KEY}" }
+    }
+  }
+}
+```
+
+Check the connection with `claude mcp list`.
+
+### Tools
+
+Read tools are on by default. Write and destructive tools are off until you turn them on one by one.
+
+| Tool | Kind | What it does |
+|---|---|---|
+| `list_processes` | read | Every PM2 process with status, CPU, memory, uptime, restarts, plus host CPU/RAM/disk |
+| `get_process` | read | Details and live application metrics of one process |
+| `get_logs` | read | Recent log lines, filterable by level. Stored history (paged) for monitored processes, the PM2 log files otherwise |
+| `get_metrics` | read | CPU, memory and application metric history of a monitored process |
+| `get_host_metrics` | read | Host CPU, RAM and disk, current and history |
+| `list_deployments` | read | Deployments with repo, branch, watch state and last run. Environment variable values are never returned, only their names |
+| `get_deployment_status` | read | Status, stage, output tail and open question of the latest deploy run |
+| `list_actions` | read | Custom actions a process registered |
+| `get_log_level` | read | Current log level of a process that supports it |
+| `restart_process`, `stop_process`, `start_process` | write | PM2 lifecycle |
+| `set_monitoring` | write | Turn stored logs and metrics on or off |
+| `set_log_level` | write | Change the log level of a running process |
+| `trigger_action` | write | Run a custom action |
+| `create_deployment` | write | Clone, install, build and start a new app (runs code) |
+| `update_deployment` | write | Change fields of a deployment; env vars are merged, not replaced |
+| `redeploy` | write | Fetch, install, build and restart (runs code). `discardLocalChanges` skips the local-changes question |
+| `confirm_deployment` | write | Answer the local-changes question of a running deploy |
+| `delete_process` | destructive | Remove a process, optionally with its deployment and directory |
+| `delete_deployment` | destructive | Delete a deployment record |
+
+Deploys run in the background. The agent starts one, then follows it with `get_deployment_status`, which reads a run log the server keeps in memory for the latest run of every deployment.
+
+### Security
+
+The key is stored in the database in plain text so the settings page can always show it. Treat it like your password: an agent with the key can do everything the enabled tools allow, and with the deploy tools on that includes running code on the server. Over plain HTTP the key travels unencrypted, so put PM2-Hawkeye behind a reverse proxy with TLS before you connect from another machine. While the server is off, `/mcp` answers 404. Every request without a valid key is refused with 401 and logged as an error with the reason (no key, malformed header, invalid key) and the client identity, never with the key it sent. Those requests count against the same per-client rate limit as unauthenticated dashboard requests; a client over the limit gets 429, and only the moment it crosses the limit is logged, so a client that keeps guessing cannot flood the log. Every call of a write or destructive tool is logged with the client identity.
+
+---
+
 ## Security
 
 - **CSRF tokens** - one-time-use tokens rotated after every state-changing request
@@ -569,6 +639,7 @@ The directory is created automatically on first deploy. Use an absolute path to 
 - **CSP headers** - strict Content-Security-Policy including `ws:`/`wss:` for WebSockets
 - **Timing-attack mitigation** - constant-time credential comparison with a minimum response delay
 - **Secure cookies** - `HttpOnly`, `SameSite=Strict`, optional `Secure` flag
+- **MCP access** - off by default, bearer key compared in constant time, write and destructive tools off until enabled one by one
 
 ---
 

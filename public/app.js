@@ -8,8 +8,8 @@
   var __commonJS = (cb, mod) => function __require() {
     try {
       return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-    } catch (e40) {
-      throw mod = 0, e40;
+    } catch (e42) {
+      throw mod = 0, e42;
     }
   };
   var __export = (target, all2) => {
@@ -87,7 +87,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e40) {
+          } catch (e42) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -649,11 +649,11 @@
             );
           },
           count: function(children) {
-            var n9 = 0;
+            var n10 = 0;
             mapChildren(children, function() {
-              n9++;
+              n10++;
             });
-            return n9;
+            return n10;
           },
           toArray: function(children) {
             return mapChildren(children, function(child) {
@@ -1132,9 +1132,9 @@
           }
           return first;
         }
-        function compare(a28, b) {
-          var diff = a28.sortIndex - b.sortIndex;
-          return 0 !== diff ? diff : a28.id - b.id;
+        function compare(a29, b) {
+          var diff = a29.sortIndex - b.sortIndex;
+          return 0 !== diff ? diff : a29.id - b.id;
         }
         function advanceTimers(currentTime) {
           for (var timer = peek(timerQueue); null !== timer; ) {
@@ -1331,7 +1331,7 @@
             try {
               testStringCoercion(key);
               var JSCompiler_inline_result = false;
-            } catch (e40) {
+            } catch (e42) {
               JSCompiler_inline_result = true;
             }
             JSCompiler_inline_result && (console.error(
@@ -1367,7 +1367,7 @@
           return dispatcher;
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var React21 = require_react(), Internals = {
+        var React22 = require_react(), Internals = {
           d: {
             f: noop,
             r: function() {
@@ -1385,7 +1385,7 @@
           },
           p: 0,
           findDOMNode: null
-        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), REACT_OPTIMISTIC_KEY = /* @__PURE__ */ Symbol.for("react.optimistic_key"), ReactSharedInternals = React21.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+        }, REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), REACT_OPTIMISTIC_KEY = /* @__PURE__ */ Symbol.for("react.optimistic_key"), ReactSharedInternals = React22.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
         "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
           "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
         );
@@ -1553,8 +1553,8 @@
         exports.requestFormReset = function(form) {
           Internals.d.r(form);
         };
-        exports.unstable_batchedUpdates = function(fn, a28) {
-          return fn(a28);
+        exports.unstable_batchedUpdates = function(fn, a29) {
+          return fn(a29);
         };
         exports.useFormState = function(action, initialState, permalink) {
           return resolveDispatcher().useFormState(action, initialState, permalink);
@@ -1714,55 +1714,55 @@
               throw Error("Unable to find node on an unmounted component.");
             return alternate !== fiber ? null : fiber;
           }
-          for (var a28 = fiber, b = alternate; ; ) {
-            var parentA = a28.return;
+          for (var a29 = fiber, b = alternate; ; ) {
+            var parentA = a29.return;
             if (null === parentA) break;
             var parentB = parentA.alternate;
             if (null === parentB) {
               b = parentA.return;
               if (null !== b) {
-                a28 = b;
+                a29 = b;
                 continue;
               }
               break;
             }
             if (parentA.child === parentB.child) {
               for (parentB = parentA.child; parentB; ) {
-                if (parentB === a28) return assertIsMounted(parentA), fiber;
+                if (parentB === a29) return assertIsMounted(parentA), fiber;
                 if (parentB === b) return assertIsMounted(parentA), alternate;
                 parentB = parentB.sibling;
               }
               throw Error("Unable to find node on an unmounted component.");
             }
-            if (a28.return !== b.return) a28 = parentA, b = parentB;
+            if (a29.return !== b.return) a29 = parentA, b = parentB;
             else {
               for (var didFindChild = false, _child = parentA.child; _child; ) {
-                if (_child === a28) {
+                if (_child === a29) {
                   didFindChild = true;
-                  a28 = parentA;
+                  a29 = parentA;
                   b = parentB;
                   break;
                 }
                 if (_child === b) {
                   didFindChild = true;
                   b = parentA;
-                  a28 = parentB;
+                  a29 = parentB;
                   break;
                 }
                 _child = _child.sibling;
               }
               if (!didFindChild) {
                 for (_child = parentB.child; _child; ) {
-                  if (_child === a28) {
+                  if (_child === a29) {
                     didFindChild = true;
-                    a28 = parentB;
+                    a29 = parentB;
                     b = parentA;
                     break;
                   }
                   if (_child === b) {
                     didFindChild = true;
                     b = parentB;
-                    a28 = parentA;
+                    a29 = parentA;
                     break;
                   }
                   _child = _child.sibling;
@@ -1773,14 +1773,14 @@
                   );
               }
             }
-            if (a28.alternate !== b)
+            if (a29.alternate !== b)
               throw Error(
                 "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue."
               );
           }
-          if (3 !== a28.tag)
+          if (3 !== a29.tag)
             throw Error("Unable to find node on an unmounted component.");
-          return a28.stateNode.current === a28 ? fiber : alternate;
+          return a29.stateNode.current === a29 ? fiber : alternate;
         }
         function findCurrentHostFiberImpl(node2) {
           var tag = node2.tag;
@@ -1792,23 +1792,23 @@
           }
           return null;
         }
-        function traverseFragmentInstancesAndTextInstances(fragmentFiber, fn, a28, b, c9) {
+        function traverseFragmentInstancesAndTextInstances(fragmentFiber, fn, a29, b, c9) {
           traverseVisibleInstancesAndTextInstances(
             fragmentFiber.child,
             false,
             fn,
-            a28,
+            a29,
             b,
             c9
           );
         }
-        function traverseVisibleInstancesAndTextInstances(child, searchWithinHosts, fn, a28, b, c9) {
+        function traverseVisibleInstancesAndTextInstances(child, searchWithinHosts, fn, a29, b, c9) {
           for (; null !== child; ) {
-            if ((5 === child.tag || 27 === child.tag || 6 === child.tag) && fn(child, a28, b, c9) || (22 !== child.tag || null === child.memoizedState) && (searchWithinHosts || 5 !== child.tag && 27 !== child.tag) && traverseVisibleInstancesAndTextInstances(
+            if ((5 === child.tag || 27 === child.tag || 6 === child.tag) && fn(child, a29, b, c9) || (22 !== child.tag || null === child.memoizedState) && (searchWithinHosts || 5 !== child.tag && 27 !== child.tag) && traverseVisibleInstancesAndTextInstances(
               child.child,
               searchWithinHosts,
               fn,
-              a28,
+              a29,
               b,
               c9
             ))
@@ -2453,7 +2453,7 @@
         function willCoercionThrow(value) {
           try {
             return testStringCoercion(value), false;
-          } catch (e40) {
+          } catch (e42) {
             return true;
           }
         }
@@ -3071,7 +3071,7 @@
           node2.defaultValue !== "" + value && (node2.defaultValue = "" + value);
         }
         function validateOptionProps(element3, props) {
-          null == props.value && ("object" === typeof props.children && null !== props.children ? React21.Children.forEach(props.children, function(child) {
+          null == props.value && ("object" === typeof props.children && null !== props.children ? React22.Children.forEach(props.children, function(child) {
             null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
               "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
             ));
@@ -4064,16 +4064,16 @@
             }
           }
         }
-        function batchedUpdates$1(fn, a28, b) {
-          if (isInsideEventHandler) return fn(a28, b);
+        function batchedUpdates$1(fn, a29, b) {
+          if (isInsideEventHandler) return fn(a29, b);
           isInsideEventHandler = true;
           try {
-            var JSCompiler_inline_result = fn(a28);
+            var JSCompiler_inline_result = fn(a29);
             return JSCompiler_inline_result;
           } finally {
             if (isInsideEventHandler = false, null !== restoreTarget || null !== restoreQueue) {
-              if (flushSyncWork$1(), restoreTarget && (a28 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a28), fn))
-                for (a28 = 0; a28 < fn.length; a28++) restoreStateOfTarget(fn[a28]);
+              if (flushSyncWork$1(), restoreTarget && (a29 = restoreTarget, fn = restoreQueue, restoreQueue = restoreTarget = null, restoreStateOfTarget(a29), fn))
+                for (a29 = 0; a29 < fn.length; a29++) restoreStateOfTarget(fn[a29]);
             }
           }
         }
@@ -6097,8 +6097,8 @@
               "Hooks are not supported inside an async component. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server."
             );
         }
-        function areSameKeyPath(a28, b) {
-          return a28 === b ? true : a28.tag !== b.tag || a28.type !== b.type || a28.key !== b.key || a28.index !== b.index || 3 === a28.tag && a28.stateNode !== b.stateNode || null === a28.return || null === b.return ? false : areSameKeyPath(a28.return, b.return);
+        function areSameKeyPath(a29, b) {
+          return a29 === b ? true : a29.tag !== b.tag || a29.type !== b.type || a29.key !== b.key || a29.index !== b.index || 3 === a29.tag && a29.stateNode !== b.stateNode || null === a29.return || null === b.return ? false : areSameKeyPath(a29.return, b.return);
         }
         function pushDebugInfo(debugInfo) {
           var previousDebugInfo = currentDebugInfo;
@@ -11083,11 +11083,11 @@
                   addendum = null === lastEffect ? " You returned null. If your effect does not require clean up, return undefined (or nothing)." : "function" === typeof lastEffect.then ? "\n\nIt looks like you wrote " + hookName + "(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:\n\n" + hookName + "(() => {\n  async function fetchData() {\n    // You can await here\n    const response = await MyAPI.getData(someId);\n    // ...\n  }\n  fetchData();\n}, [someId]); // Or [] if effect doesn't need props or state\n\nLearn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching" : " You returned: " + lastEffect;
                   runWithFiberInDEV(
                     finishedWork,
-                    function(n9, a28) {
+                    function(n10, a29) {
                       console.error(
                         "%s must not return anything besides a function, which is used for clean-up.%s",
-                        n9,
-                        a28
+                        n10,
+                        a29
                       );
                     },
                     hookName,
@@ -19692,8 +19692,8 @@
         function markRetryLaneImpl(fiber, retryLane) {
           fiber = fiber.memoizedState;
           if (null !== fiber && null !== fiber.dehydrated) {
-            var a28 = fiber.retryLane;
-            fiber.retryLane = 0 !== a28 && a28 < retryLane ? a28 : retryLane;
+            var a29 = fiber.retryLane;
+            fiber.retryLane = 0 !== a29 && a29 < retryLane ? a29 : retryLane;
           }
         }
         function markRetryLaneIfNotHydrated(fiber, retryLane) {
@@ -20219,11 +20219,11 @@
           ));
         }
         "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-        var Scheduler = require_scheduler(), React21 = require_react(), ReactDOM = require_react_dom(), searchTarget = null, searchBoundary = null, assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
+        var Scheduler = require_scheduler(), React22 = require_react(), ReactDOM = require_react_dom(), searchTarget = null, searchBoundary = null, assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element"), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy");
         /* @__PURE__ */ Symbol.for("react.scope");
         var REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_LEGACY_HIDDEN_TYPE = /* @__PURE__ */ Symbol.for("react.legacy_hidden");
         /* @__PURE__ */ Symbol.for("react.tracing_marker");
-        var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React21.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+        var REACT_MEMO_CACHE_SENTINEL = /* @__PURE__ */ Symbol.for("react.memo_cache_sentinel"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_RECOVERABLE_TYPE = /* @__PURE__ */ Symbol.for("react.recoverable"), MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React22.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
           pending: false,
           data: null,
           method: null,
@@ -21115,7 +21115,7 @@
             });
             window.addEventListener("test", options$jscomp$0, options$jscomp$0);
             window.removeEventListener("test", options$jscomp$0, options$jscomp$0);
-          } catch (e40) {
+          } catch (e42) {
             passiveBrowserEventsSupported = false;
           }
         var root3 = null, startText = null, fallbackText = null, EventInterface = {
@@ -23415,7 +23415,7 @@
           }
         };
         (function() {
-          var isomorphicReactPackageVersion = React21.version;
+          var isomorphicReactPackageVersion = React22.version;
           if ("19.3.1" !== isomorphicReactPackageVersion)
             throw Error(
               'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.3.1\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -23853,7 +23853,7 @@
           try {
             testStringCoercion(value);
             var JSCompiler_inline_result = false;
-          } catch (e40) {
+          } catch (e42) {
             JSCompiler_inline_result = true;
           }
           if (JSCompiler_inline_result) {
@@ -24009,18 +24009,18 @@
         function isValidElement2(object) {
           return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        var React21 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React21.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+        var React22 = require_react(), REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = /* @__PURE__ */ Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = /* @__PURE__ */ Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = /* @__PURE__ */ Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = /* @__PURE__ */ Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = /* @__PURE__ */ Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = /* @__PURE__ */ Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = /* @__PURE__ */ Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = /* @__PURE__ */ Symbol.for("react.memo"), REACT_LAZY_TYPE = /* @__PURE__ */ Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = /* @__PURE__ */ Symbol.for("react.activity"), REACT_VIEW_TRANSITION_TYPE = /* @__PURE__ */ Symbol.for("react.view_transition"), REACT_CLIENT_REFERENCE = /* @__PURE__ */ Symbol.for("react.client.reference"), ReactSharedInternals = React22.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty2 = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
           return null;
         };
-        React21 = {
+        React22 = {
           react_stack_bottom_frame: function(callStackForError) {
             return callStackForError();
           }
         };
         var specialPropKeyWarningShown;
         var didWarnAboutElementRef = {};
-        var unknownOwnerDebugStack = React21.react_stack_bottom_frame.bind(
-          React21,
+        var unknownOwnerDebugStack = React22.react_stack_bottom_frame.bind(
+          React22,
           UnknownOwner
         )();
         var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -24168,11 +24168,11 @@
   });
 
   // src/main.jsx
-  var import_react25 = __toESM(require_react(), 1);
+  var import_react26 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // src/components/App.jsx
-  var import_react24 = __toESM(require_react(), 1);
+  var import_react25 = __toESM(require_react(), 1);
 
   // src/services/api.js
   async function fetchJson(url, options = {}) {
@@ -24341,10 +24341,10 @@
     return `${value.toFixed(digits)} ${units[i]}`;
   }
   function formatBytesOf(used, total) {
-    const a28 = formatBytes(used);
+    const a29 = formatBytes(used);
     const b = formatBytes(total);
-    const [aValue, aUnit] = a28.split(" ");
-    return aUnit === b.split(" ")[1] ? `${aValue} of ${b}` : `${a28} of ${b}`;
+    const [aValue, aUnit] = a29.split(" ");
+    return aUnit === b.split(" ")[1] ? `${aValue} of ${b}` : `${a29} of ${b}`;
   }
   function parseMemorySize(value) {
     if (value == null) return null;
@@ -24870,532 +24870,567 @@ git checkout -B ${branch} FETCH_HEAD`,
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/GearSix.es.js
+  // node_modules/@phosphor-icons/react/dist/defs/EyeSlash.es.js
   var a9 = __toESM(require_react(), 1);
-  var l = /* @__PURE__ */ new Map([
+  var e10 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.55,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M56.88,31.93A12,12,0,1,0,39.12,48.07l16,17.65C20.67,88.66,5.72,121.58,5,123.13a12.08,12.08,0,0,0,0,9.75c.37.82,9.13,20.26,28.49,39.61C59.37,198.34,92,212,128,212a131.34,131.34,0,0,0,51-10l20.09,22.1a12,12,0,0,0,17.76-16.14ZM128,188c-29.59,0-55.47-10.73-76.91-31.88A130.69,130.69,0,0,1,29.52,128c5.27-9.31,18.79-29.9,42-44.29l90.09,99.11A109.33,109.33,0,0,1,128,188Zm123-55.12c-.36.81-9,20-28,39.16a12,12,0,1,1-17-16.9A130.48,130.48,0,0,0,226.48,128a130.36,130.36,0,0,0-21.57-28.12C183.46,78.73,157.59,68,128,68c-3.35,0-6.7.14-10,.42a12,12,0,1,1-2-23.91c3.93-.34,8-.51,12-.51,36,0,68.63,13.67,94.49,39.52,19.35,19.35,28.11,38.8,28.48,39.61A12.08,12.08,0,0,1,251,132.88Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement(
         "path",
         {
-          d: "M230.1,108.76,198.25,90.62c-.64-1.16-1.31-2.29-2-3.41l-.12-36A104.61,104.61,0,0,0,162,32L130,49.89c-1.34,0-2.69,0-4,0L94,32A104.58,104.58,0,0,0,59.89,51.25l-.16,36c-.7,1.12-1.37,2.26-2,3.41l-31.84,18.1a99.15,99.15,0,0,0,0,38.46l31.85,18.14c.64,1.16,1.31,2.29,2,3.41l.12,36A104.61,104.61,0,0,0,94,224l32-17.87c1.34,0,2.69,0,4,0L162,224a104.58,104.58,0,0,0,34.08-19.25l.16-36c.7-1.12,1.37-2.26,2-3.41l31.84-18.1A99.15,99.15,0,0,0,230.1,108.76ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z",
+          d: "M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Zm0,112a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a9.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.1,8.1,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8,8,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
+      ), /* @__PURE__ */ a9.createElement("path", { d: "M53.92,34.62A8,8,0,1,0,42.08,45.38L61.32,66.55C25,88.84,9.38,123.2,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208a127.11,127.11,0,0,0,52.07-10.83l22,24.21a8,8,0,1,0,11.84-10.76Zm47.33,75.84,41.67,45.85a32,32,0,0,1-41.67-45.85ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.16,133.16,0,0,1,25,128c4.69-8.79,19.66-33.39,47.35-49.38l18,19.75a48,48,0,0,0,63.66,70l14.73,16.2A112,112,0,0,1,128,192Zm6-95.43a8,8,0,0,1,3-15.72,48.16,48.16,0,0,1,38.77,42.64,8,8,0,0,1-7.22,8.71,6.39,6.39,0,0,1-.75,0,8,8,0,0,1-8-7.26A32.09,32.09,0,0,0,134,96.57Zm113.28,34.69c-.42.94-10.55,23.37-33.36,43.8a8,8,0,1,1-10.67-11.92A132.77,132.77,0,0,0,231.05,128a133.15,133.15,0,0,0-23.12-30.77C185.67,75.19,158.78,64,128,64a118.37,118.37,0,0,0-19.36,1.57A8,8,0,1,1,106,49.79,134,134,0,0,1,128,48c34.88,0,66.57,13.26,91.66,38.35,18.83,18.83,27.3,37.62,27.65,38.41A8,8,0,0,1,247.31,131.26Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M237.94,107.21a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M96.68,57.87a4,4,0,0,1,2.08-6.6A130.13,130.13,0,0,1,128,48c34.88,0,66.57,13.26,91.66,38.35,18.83,18.83,27.3,37.62,27.65,38.41a8,8,0,0,1,0,6.5c-.35.79-8.82,19.57-27.65,38.4q-4.28,4.26-8.79,8.07a4,4,0,0,1-5.55-.36ZM213.92,210.62a8,8,0,1,1-11.84,10.76L180,197.13A127.21,127.21,0,0,1,128,208c-34.88,0-66.57-13.26-91.66-38.34C17.51,150.83,9,132.05,8.69,131.26a8,8,0,0,1,0-6.5C9,124,17.51,105.18,36.34,86.35a135,135,0,0,1,25-19.78L42.08,45.38A8,8,0,1,1,53.92,34.62Zm-65.49-48.25-52.69-58a40,40,0,0,0,52.69,58Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,82a46,46,0,1,0,46,46A46.06,46.06,0,0,0,128,82Zm0,80a34,34,0,1,1,34-34A34,34,0,0,1,128,162Zm108-54.4a6,6,0,0,0-2.92-4L202.64,86.22l-.42-.71L202.1,51.2A6,6,0,0,0,200,46.64a110.12,110.12,0,0,0-36.07-20.31,6,6,0,0,0-4.84.45L128.46,43.86h-1L96.91,26.76a6,6,0,0,0-4.86-.44A109.92,109.92,0,0,0,56,46.68a6,6,0,0,0-2.12,4.55l-.16,34.34c-.14.23-.28.47-.41.71L22.91,103.57A6,6,0,0,0,20,107.62a104.81,104.81,0,0,0,0,40.78,6,6,0,0,0,2.92,4l30.42,17.33.42.71.12,34.31A6,6,0,0,0,56,209.36a110.12,110.12,0,0,0,36.07,20.31,6,6,0,0,0,4.84-.45l30.61-17.08h1l30.56,17.1A6.09,6.09,0,0,0,162,230a5.83,5.83,0,0,0,1.93-.32,109.92,109.92,0,0,0,36-20.36,6,6,0,0,0,2.12-4.55l.16-34.34c.14-.23.28-.47.41-.71l30.42-17.29a6,6,0,0,0,2.92-4.05A104.81,104.81,0,0,0,236,107.6Zm-11.25,35.79L195.32,160.1a6.07,6.07,0,0,0-2.28,2.3c-.59,1-1.21,2.11-1.86,3.14a6,6,0,0,0-.91,3.16l-.16,33.21a98.15,98.15,0,0,1-27.52,15.53L133,200.88a6,6,0,0,0-2.93-.77h-.14c-1.24,0-2.5,0-3.74,0a6,6,0,0,0-3.07.76L93.45,217.43a98,98,0,0,1-27.56-15.49l-.12-33.17a6,6,0,0,0-.91-3.16c-.64-1-1.27-2.08-1.86-3.14a6,6,0,0,0-2.27-2.3L31.3,143.4a93,93,0,0,1,0-30.79L60.68,95.9A6.07,6.07,0,0,0,63,93.6c.59-1,1.21-2.11,1.86-3.14a6,6,0,0,0,.91-3.16l.16-33.21A98.15,98.15,0,0,1,93.41,38.56L123,55.12a5.81,5.81,0,0,0,3.07.76c1.24,0,2.5,0,3.74,0a6,6,0,0,0,3.07-.76l29.65-16.56a98,98,0,0,1,27.56,15.49l.12,33.17a6,6,0,0,0,.91,3.16c.64,1,1.27,2.08,1.86,3.14a6,6,0,0,0,2.27,2.3L224.7,112.6A93,93,0,0,1,224.73,143.39Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M52.44,36A6,6,0,0,0,43.56,44L64.44,67c-37.28,21.9-53.23,57-53.92,58.57a6,6,0,0,0,0,4.88c.34.77,8.66,19.22,27.24,37.8C55,185.47,84.62,206,128,206a124.91,124.91,0,0,0,52.57-11.25l23,25.29a6,6,0,0,0,8.88-8.08Zm48.62,71.32,45,49.52a34,34,0,0,1-45-49.52ZM128,194c-31.38,0-58.78-11.42-81.45-33.93A134.57,134.57,0,0,1,22.69,128c4.29-8.2,20.1-35.18,50-51.91L92.89,98.3a46,46,0,0,0,61.35,67.48l17.81,19.6A113.47,113.47,0,0,1,128,194Zm6.4-99.4a6,6,0,0,1,2.25-11.79,46.17,46.17,0,0,1,37.15,40.87,6,6,0,0,1-5.42,6.53l-.56,0a6,6,0,0,1-6-5.45A34.1,34.1,0,0,0,134.4,94.6Zm111.08,35.85c-.41.92-10.37,23-32.86,43.12a6,6,0,1,1-8-8.94A134.07,134.07,0,0,0,233.31,128a134.67,134.67,0,0,0-23.86-32.07C186.78,73.42,159.38,62,128,62a120.19,120.19,0,0,0-19.69,1.6,6,6,0,1,1-2-11.83A131.12,131.12,0,0,1,128,50c43.38,0,73,20.54,90.24,37.76,18.58,18.58,26.9,37,27.24,37.81A6,6,0,0,1,245.48,130.45Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M53.92,34.62A8,8,0,1,0,42.08,45.38L61.32,66.55C25,88.84,9.38,123.2,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208a127.11,127.11,0,0,0,52.07-10.83l22,24.21a8,8,0,1,0,11.84-10.76Zm47.33,75.84,41.67,45.85a32,32,0,0,1-41.67-45.85ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.16,133.16,0,0,1,25,128c4.69-8.79,19.66-33.39,47.35-49.38l18,19.75a48,48,0,0,0,63.66,70l14.73,16.2A112,112,0,0,1,128,192Zm6-95.43a8,8,0,0,1,3-15.72,48.16,48.16,0,0,1,38.77,42.64,8,8,0,0,1-7.22,8.71,6.39,6.39,0,0,1-.75,0,8,8,0,0,1-8-7.26A32.09,32.09,0,0,0,134,96.57Zm113.28,34.69c-.42.94-10.55,23.37-33.36,43.8a8,8,0,1,1-10.67-11.92A132.77,132.77,0,0,0,231.05,128a133.15,133.15,0,0,0-23.12-30.77C185.67,75.19,158.78,64,128,64a118.37,118.37,0,0,0-19.36,1.57A8,8,0,1,1,106,49.79,134,134,0,0,1,128,48c34.88,0,66.57,13.26,91.66,38.35,18.83,18.83,27.3,37.62,27.65,38.41A8,8,0,0,1,247.31,131.26Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164Zm106-56a4,4,0,0,0-2-2.7l-30.89-17.6q-.47-.82-1-1.62L200.1,51.2a3.94,3.94,0,0,0-1.42-3,107.8,107.8,0,0,0-35.41-19.94,4,4,0,0,0-3.23.29L129,45.87h-2l-31-17.36a4,4,0,0,0-3.23-.3,108.05,108.05,0,0,0-35.39,20,4,4,0,0,0-1.41,3l-.16,34.9-1,1.62L23.9,105.3A4,4,0,0,0,22,108a102.76,102.76,0,0,0,0,40,4,4,0,0,0,1.95,2.7l30.89,17.6q.47.83,1,1.62l.12,34.87a3.94,3.94,0,0,0,1.42,3,107.8,107.8,0,0,0,35.41,19.94,4,4,0,0,0,3.23-.29L127,210.13h2l31,17.36a4,4,0,0,0,3.23.3,108.05,108.05,0,0,0,35.39-20,4,4,0,0,0,1.41-3l.16-34.9,1-1.62L232.1,150.7a4,4,0,0,0,2-2.71A102.76,102.76,0,0,0,234,108Zm-7.48,36.67L196.3,161.84a4,4,0,0,0-1.51,1.53c-.61,1.09-1.25,2.17-1.91,3.24a3.92,3.92,0,0,0-.61,2.1l-.16,34.15a99.8,99.8,0,0,1-29.7,16.77l-30.4-17a4.06,4.06,0,0,0-2-.51H130c-1.28,0-2.57,0-3.84,0a4.1,4.1,0,0,0-2.05.51l-30.45,17A100.23,100.23,0,0,1,63.89,202.9l-.12-34.12a3.93,3.93,0,0,0-.61-2.11c-.66-1-1.3-2.14-1.91-3.23a4,4,0,0,0-1.51-1.53L29.49,144.68a94.78,94.78,0,0,1,0-33.34L59.7,94.16a4,4,0,0,0,1.51-1.53c.61-1.09,1.25-2.17,1.91-3.23a4,4,0,0,0,.61-2.11l.16-34.15a99.8,99.8,0,0,1,29.7-16.77l30.4,17a4.1,4.1,0,0,0,2.05.51c1.28,0,2.57,0,3.84,0a4,4,0,0,0,2.05-.51l30.45-17A100.23,100.23,0,0,1,192.11,53.1l.12,34.12a3.93,3.93,0,0,0,.61,2.11c.66,1,1.3,2.14,1.91,3.23a4,4,0,0,0,1.51,1.53l30.25,17.23A94.78,94.78,0,0,1,226.54,144.66Z" }))
+      /* @__PURE__ */ a9.createElement(a9.Fragment, null, /* @__PURE__ */ a9.createElement("path", { d: "M51,37.31A4,4,0,0,0,45,42.69L67.59,67.5C29.34,89,13,124.81,12.34,126.38a4.08,4.08,0,0,0,0,3.25c.34.77,8.52,18.89,26.83,37.2,17,17,46.14,37.17,88.83,37.17a122.59,122.59,0,0,0,53.06-11.69l24,26.38a4,4,0,1,0,5.92-5.38ZM149.1,157.16A36,36,0,0,1,101,104.22ZM128,196c-32,0-59.89-11.65-83-34.62A135.81,135.81,0,0,1,20.44,128c3.65-7.23,20.09-36.81,52.68-54.43l22.45,24.7a44,44,0,0,0,59,64.83l20.89,23A114.94,114.94,0,0,1,128,196Zm6.78-103.36a4,4,0,0,1,1.49-7.86,44.15,44.15,0,0,1,35.54,39.09,4,4,0,0,1-3.61,4.35l-.38,0a4,4,0,0,1-4-3.63A36.1,36.1,0,0,0,134.78,92.64Zm108.88,37c-.41.91-10.2,22.58-32.38,42.45a4,4,0,0,1-2.67,1,4,4,0,0,1-2.67-7A136.71,136.71,0,0,0,235.56,128,136.07,136.07,0,0,0,211,94.62C187.89,71.65,160,60,128,60a122,122,0,0,0-20,1.63,4,4,0,0,1-1.32-7.89A129.3,129.3,0,0,1,128,52c42.7,0,71.87,20.22,88.83,37.18,18.31,18.31,26.49,36.44,26.83,37.2A4.08,4.08,0,0,1,243.66,129.63Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/GearSix.es.js
+  var a10 = __toESM(require_react(), 1);
+  var l = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M128,76a52,52,0,1,0,52,52A52.06,52.06,0,0,0,128,76Zm0,80a28,28,0,1,1,28-28A28,28,0,0,1,128,156Zm113.86-49.57A12,12,0,0,0,236,98.34L208.21,82.49l-.11-31.31a12,12,0,0,0-4.25-9.12,116,116,0,0,0-38-21.41,12,12,0,0,0-9.68.89L128,37.27,99.83,21.53a12,12,0,0,0-9.7-.9,116.06,116.06,0,0,0-38,21.47,12,12,0,0,0-4.24,9.1l-.14,31.34L20,98.35a12,12,0,0,0-5.85,8.11,110.7,110.7,0,0,0,0,43.11A12,12,0,0,0,20,157.66l27.82,15.85.11,31.31a12,12,0,0,0,4.25,9.12,116,116,0,0,0,38,21.41,12,12,0,0,0,9.68-.89L128,218.73l28.14,15.74a12,12,0,0,0,9.7.9,116.06,116.06,0,0,0,38-21.47,12,12,0,0,0,4.24-9.1l.14-31.34,27.81-15.81a12,12,0,0,0,5.85-8.11A110.7,110.7,0,0,0,241.86,106.43Zm-22.63,33.18-26.88,15.28a11.94,11.94,0,0,0-4.55,4.59c-.54,1-1.11,1.93-1.7,2.88a12,12,0,0,0-1.83,6.31L184.13,199a91.83,91.83,0,0,1-21.07,11.87l-27.15-15.19a12,12,0,0,0-5.86-1.53h-.29c-1.14,0-2.3,0-3.44,0a12.08,12.08,0,0,0-6.14,1.51L93,210.82A92.27,92.27,0,0,1,71.88,199l-.11-30.24a12,12,0,0,0-1.83-6.32c-.58-.94-1.16-1.91-1.7-2.88A11.92,11.92,0,0,0,63.7,155L36.8,139.63a86.53,86.53,0,0,1,0-23.24l26.88-15.28a12,12,0,0,0,4.55-4.58c.54-1,1.11-1.94,1.7-2.89a12,12,0,0,0,1.83-6.31L71.87,57A91.83,91.83,0,0,1,92.94,45.17l27.15,15.19a11.92,11.92,0,0,0,6.15,1.52c1.14,0,2.3,0,3.44,0a12.08,12.08,0,0,0,6.14-1.51L163,45.18A92.27,92.27,0,0,1,184.12,57l.11,30.24a12,12,0,0,0,1.83,6.32c.58.94,1.16,1.91,1.7,2.88A11.92,11.92,0,0,0,192.3,101l26.9,15.33A86.53,86.53,0,0,1,219.23,139.61Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement(
+        "path",
+        {
+          d: "M230.1,108.76,198.25,90.62c-.64-1.16-1.31-2.29-2-3.41l-.12-36A104.61,104.61,0,0,0,162,32L130,49.89c-1.34,0-2.69,0-4,0L94,32A104.58,104.58,0,0,0,59.89,51.25l-.16,36c-.7,1.12-1.37,2.26-2,3.41l-31.84,18.1a99.15,99.15,0,0,0,0,38.46l31.85,18.14c.64,1.16,1.31,2.29,2,3.41l.12,36A104.61,104.61,0,0,0,94,224l32-17.87c1.34,0,2.69,0,4,0L162,224a104.58,104.58,0,0,0,34.08-19.25l.16-36c.7-1.12,1.37-2.26,2-3.41l31.84-18.1A99.15,99.15,0,0,0,230.1,108.76ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ a10.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.1,8.1,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8,8,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M237.94,107.21a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A111.92,111.92,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.63a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M128,82a46,46,0,1,0,46,46A46.06,46.06,0,0,0,128,82Zm0,80a34,34,0,1,1,34-34A34,34,0,0,1,128,162Zm108-54.4a6,6,0,0,0-2.92-4L202.64,86.22l-.42-.71L202.1,51.2A6,6,0,0,0,200,46.64a110.12,110.12,0,0,0-36.07-20.31,6,6,0,0,0-4.84.45L128.46,43.86h-1L96.91,26.76a6,6,0,0,0-4.86-.44A109.92,109.92,0,0,0,56,46.68a6,6,0,0,0-2.12,4.55l-.16,34.34c-.14.23-.28.47-.41.71L22.91,103.57A6,6,0,0,0,20,107.62a104.81,104.81,0,0,0,0,40.78,6,6,0,0,0,2.92,4l30.42,17.33.42.71.12,34.31A6,6,0,0,0,56,209.36a110.12,110.12,0,0,0,36.07,20.31,6,6,0,0,0,4.84-.45l30.61-17.08h1l30.56,17.1A6.09,6.09,0,0,0,162,230a5.83,5.83,0,0,0,1.93-.32,109.92,109.92,0,0,0,36-20.36,6,6,0,0,0,2.12-4.55l.16-34.34c.14-.23.28-.47.41-.71l30.42-17.29a6,6,0,0,0,2.92-4.05A104.81,104.81,0,0,0,236,107.6Zm-11.25,35.79L195.32,160.1a6.07,6.07,0,0,0-2.28,2.3c-.59,1-1.21,2.11-1.86,3.14a6,6,0,0,0-.91,3.16l-.16,33.21a98.15,98.15,0,0,1-27.52,15.53L133,200.88a6,6,0,0,0-2.93-.77h-.14c-1.24,0-2.5,0-3.74,0a6,6,0,0,0-3.07.76L93.45,217.43a98,98,0,0,1-27.56-15.49l-.12-33.17a6,6,0,0,0-.91-3.16c-.64-1-1.27-2.08-1.86-3.14a6,6,0,0,0-2.27-2.3L31.3,143.4a93,93,0,0,1,0-30.79L60.68,95.9A6.07,6.07,0,0,0,63,93.6c.59-1,1.21-2.11,1.86-3.14a6,6,0,0,0,.91-3.16l.16-33.21A98.15,98.15,0,0,1,93.41,38.56L123,55.12a5.81,5.81,0,0,0,3.07.76c1.24,0,2.5,0,3.74,0a6,6,0,0,0,3.07-.76l29.65-16.56a98,98,0,0,1,27.56,15.49l.12,33.17a6,6,0,0,0,.91,3.16c.64,1,1.27,2.08,1.86,3.14a6,6,0,0,0,2.27,2.3L224.7,112.6A93,93,0,0,1,224.73,143.39Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M128,84a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,84Zm0,80a36,36,0,1,1,36-36A36,36,0,0,1,128,164Zm106-56a4,4,0,0,0-2-2.7l-30.89-17.6q-.47-.82-1-1.62L200.1,51.2a3.94,3.94,0,0,0-1.42-3,107.8,107.8,0,0,0-35.41-19.94,4,4,0,0,0-3.23.29L129,45.87h-2l-31-17.36a4,4,0,0,0-3.23-.3,108.05,108.05,0,0,0-35.39,20,4,4,0,0,0-1.41,3l-.16,34.9-1,1.62L23.9,105.3A4,4,0,0,0,22,108a102.76,102.76,0,0,0,0,40,4,4,0,0,0,1.95,2.7l30.89,17.6q.47.83,1,1.62l.12,34.87a3.94,3.94,0,0,0,1.42,3,107.8,107.8,0,0,0,35.41,19.94,4,4,0,0,0,3.23-.29L127,210.13h2l31,17.36a4,4,0,0,0,3.23.3,108.05,108.05,0,0,0,35.39-20,4,4,0,0,0,1.41-3l.16-34.9,1-1.62L232.1,150.7a4,4,0,0,0,2-2.71A102.76,102.76,0,0,0,234,108Zm-7.48,36.67L196.3,161.84a4,4,0,0,0-1.51,1.53c-.61,1.09-1.25,2.17-1.91,3.24a3.92,3.92,0,0,0-.61,2.1l-.16,34.15a99.8,99.8,0,0,1-29.7,16.77l-30.4-17a4.06,4.06,0,0,0-2-.51H130c-1.28,0-2.57,0-3.84,0a4.1,4.1,0,0,0-2.05.51l-30.45,17A100.23,100.23,0,0,1,63.89,202.9l-.12-34.12a3.93,3.93,0,0,0-.61-2.11c-.66-1-1.3-2.14-1.91-3.23a4,4,0,0,0-1.51-1.53L29.49,144.68a94.78,94.78,0,0,1,0-33.34L59.7,94.16a4,4,0,0,0,1.51-1.53c.61-1.09,1.25-2.17,1.91-3.23a4,4,0,0,0,.61-2.11l.16-34.15a99.8,99.8,0,0,1,29.7-16.77l30.4,17a4.1,4.1,0,0,0,2.05.51c1.28,0,2.57,0,3.84,0a4,4,0,0,0,2.05-.51l30.45-17A100.23,100.23,0,0,1,192.11,53.1l.12,34.12a3.93,3.93,0,0,0,.61,2.11c.66,1,1.3,2.14,1.91,3.23a4,4,0,0,0,1.51,1.53l30.25,17.23A94.78,94.78,0,0,1,226.54,144.66Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/GitBranch.es.js
-  var a10 = __toESM(require_react(), 1);
-  var e10 = /* @__PURE__ */ new Map([
+  var a11 = __toESM(require_react(), 1);
+  var e11 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z" }))
+      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M236,64a36,36,0,1,0-48,33.94V112a4,4,0,0,1-4,4H96a27.8,27.8,0,0,0-4,.29V97.94a36,36,0,1,0-24,0v60.12a36,36,0,1,0,24,0V144a4,4,0,0,1,4-4h88a28,28,0,0,0,28-28V97.94A36.07,36.07,0,0,0,236,64ZM80,52A12,12,0,1,1,68,64,12,12,0,0,1,80,52Zm0,152a12,12,0,1,1,12-12A12,12,0,0,1,80,204ZM200,76a12,12,0,1,1,12-12A12,12,0,0,1,200,76Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M224,64a24,24,0,1,1-24-24A24,24,0,0,1,224,64Z", opacity: "0.2" }), /* @__PURE__ */ a10.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
+      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M224,64a24,24,0,1,1-24-24A24,24,0,0,1,224,64Z", opacity: "0.2" }), /* @__PURE__ */ a11.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192Z" }))
+      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M230,64a30,30,0,1,0-36,29.4V112a10,10,0,0,1-10,10H96a21.84,21.84,0,0,0-10,2.42v-31a30,30,0,1,0-12,0v69.2a30,30,0,1,0,12,0V144a10,10,0,0,1,10-10h88a22,22,0,0,0,22-22V93.4A30.05,30.05,0,0,0,230,64ZM62,64A18,18,0,1,1,80,82,18,18,0,0,1,62,64ZM98,192a18,18,0,1,1-18-18A18,18,0,0,1,98,192ZM200,82a18,18,0,1,1,18-18A18,18,0,0,1,200,82Z" }))
+      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M230,64a30,30,0,1,0-36,29.4V112a10,10,0,0,1-10,10H96a21.84,21.84,0,0,0-10,2.42v-31a30,30,0,1,0-12,0v69.2a30,30,0,1,0,12,0V144a10,10,0,0,1,10-10h88a22,22,0,0,0,22-22V93.4A30.05,30.05,0,0,0,230,64ZM62,64A18,18,0,1,1,80,82,18,18,0,0,1,62,64ZM98,192a18,18,0,1,1-18-18A18,18,0,0,1,98,192ZM200,82a18,18,0,1,1,18-18A18,18,0,0,1,200,82Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
+      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M232,64a32,32,0,1,0-40,31v17a8,8,0,0,1-8,8H96a23.84,23.84,0,0,0-8,1.38V95a32,32,0,1,0-16,0v66a32,32,0,1,0,16,0V144a8,8,0,0,1,8-8h88a24,24,0,0,0,24-24V95A32.06,32.06,0,0,0,232,64ZM64,64A16,16,0,1,1,80,80,16,16,0,0,1,64,64ZM96,192a16,16,0,1,1-16-16A16,16,0,0,1,96,192ZM200,80a16,16,0,1,1,16-16A16,16,0,0,1,200,80Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a10.createElement(a10.Fragment, null, /* @__PURE__ */ a10.createElement("path", { d: "M228,64a28,28,0,1,0-32,27.71V112a12,12,0,0,1-12,12H96a19.91,19.91,0,0,0-12,4V91.71a28,28,0,1,0-8,0v72.58a28,28,0,1,0,8,0V144a12,12,0,0,1,12-12h88a20,20,0,0,0,20-20V91.71A28,28,0,0,0,228,64ZM60,64A20,20,0,1,1,80,84,20,20,0,0,1,60,64Zm40,128a20,20,0,1,1-20-20A20,20,0,0,1,100,192ZM200,84a20,20,0,1,1,20-20A20,20,0,0,1,200,84Z" }))
+      /* @__PURE__ */ a11.createElement(a11.Fragment, null, /* @__PURE__ */ a11.createElement("path", { d: "M228,64a28,28,0,1,0-32,27.71V112a12,12,0,0,1-12,12H96a19.91,19.91,0,0,0-12,4V91.71a28,28,0,1,0-8,0v72.58a28,28,0,1,0,8,0V144a12,12,0,0,1,12-12h88a20,20,0,0,0,20-20V91.71A28,28,0,0,0,228,64ZM60,64A20,20,0,1,1,80,84,20,20,0,0,1,60,64Zm40,128a20,20,0,1,1-20-20A20,20,0,0,1,100,192ZM200,84a20,20,0,1,1,20-20A20,20,0,0,1,200,84Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Info.es.js
-  var e11 = __toESM(require_react(), 1);
-  var a11 = /* @__PURE__ */ new Map([
+  var e12 = __toESM(require_react(), 1);
+  var a12 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M108,84a16,16,0,1,1,16,16A16,16,0,0,1,108,84Zm128,44A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Zm-72,36.68V132a20,20,0,0,0-20-20,12,12,0,0,0-4,23.32V168a20,20,0,0,0,20,20,12,12,0,0,0,4-23.32Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M108,84a16,16,0,1,1,16,16A16,16,0,0,1,108,84Zm128,44A108,108,0,1,1,128,20,108.12,108.12,0,0,1,236,128Zm-24,0a84,84,0,1,0-84,84A84.09,84.09,0,0,0,212,128Zm-72,36.68V132a20,20,0,0,0-20-20,12,12,0,0,0-4,23.32V168a20,20,0,0,0,20,20,12,12,0,0,0,4-23.32Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e11.createElement("path", { d: "M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e12.createElement("path", { d: "M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M142,176a6,6,0,0,1-6,6,14,14,0,0,1-14-14V128a2,2,0,0,0-2-2,6,6,0,0,1,0-12,14,14,0,0,1,14,14v40a2,2,0,0,0,2,2A6,6,0,0,1,142,176ZM124,94a10,10,0,1,0-10-10A10,10,0,0,0,124,94Zm106,34A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M142,176a6,6,0,0,1-6,6,14,14,0,0,1-14-14V128a2,2,0,0,0-2-2,6,6,0,0,1,0-12,14,14,0,0,1,14,14v40a2,2,0,0,0,2,2A6,6,0,0,1,142,176ZM124,94a10,10,0,1,0-10-10A10,10,0,0,0,124,94Zm106,34A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e11.createElement(e11.Fragment, null, /* @__PURE__ */ e11.createElement("path", { d: "M140,176a4,4,0,0,1-4,4,12,12,0,0,1-12-12V128a4,4,0,0,0-4-4,4,4,0,0,1,0-8,12,12,0,0,1,12,12v40a4,4,0,0,0,4,4A4,4,0,0,1,140,176ZM124,92a8,8,0,1,0-8-8A8,8,0,0,0,124,92Zm104,36A100,100,0,1,1,128,28,100.11,100.11,0,0,1,228,128Zm-8,0a92,92,0,1,0-92,92A92.1,92.1,0,0,0,220,128Z" }))
+      /* @__PURE__ */ e12.createElement(e12.Fragment, null, /* @__PURE__ */ e12.createElement("path", { d: "M140,176a4,4,0,0,1-4,4,12,12,0,0,1-12-12V128a4,4,0,0,0-4-4,4,4,0,0,1,0-8,12,12,0,0,1,12,12v40a4,4,0,0,0,4,4A4,4,0,0,1,140,176ZM124,92a8,8,0,1,0-8-8A8,8,0,0,0,124,92Zm104,36A100,100,0,1,1,128,28,100.11,100.11,0,0,1,228,128Zm-8,0a92,92,0,1,0-92,92A92.1,92.1,0,0,0,220,128Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/List.es.js
-  var a12 = __toESM(require_react(), 1);
-  var e12 = /* @__PURE__ */ new Map([
+  var a13 = __toESM(require_react(), 1);
+  var e13 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z" }))
+      /* @__PURE__ */ a13.createElement(a13.Fragment, null, /* @__PURE__ */ a13.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M216,64V192H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a12.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a13.createElement(a13.Fragment, null, /* @__PURE__ */ a13.createElement("path", { d: "M216,64V192H40V64Z", opacity: "0.2" }), /* @__PURE__ */ a13.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM192,184H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ a13.createElement(a13.Fragment, null, /* @__PURE__ */ a13.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM192,184H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128ZM40,70H216a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12ZM216,186H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Z" }))
+      /* @__PURE__ */ a13.createElement(a13.Fragment, null, /* @__PURE__ */ a13.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128ZM40,70H216a6,6,0,0,0,0-12H40a6,6,0,0,0,0,12ZM216,186H40a6,6,0,0,0,0,12H216a6,6,0,0,0,0-12Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
+      /* @__PURE__ */ a13.createElement(a13.Fragment, null, /* @__PURE__ */ a13.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a12.createElement(a12.Fragment, null, /* @__PURE__ */ a12.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H40a4,4,0,0,1,0-8H216A4,4,0,0,1,220,128ZM40,68H216a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8ZM216,188H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Z" }))
+      /* @__PURE__ */ a13.createElement(a13.Fragment, null, /* @__PURE__ */ a13.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H40a4,4,0,0,1,0-8H216A4,4,0,0,1,220,128ZM40,68H216a4,4,0,0,0,0-8H40a4,4,0,0,0,0,8ZM216,188H40a4,4,0,0,0,0,8H216a4,4,0,0,0,0-8Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/MagnifyingGlass.es.js
-  var e13 = __toESM(require_react(), 1);
-  var a13 = /* @__PURE__ */ new Map([
+  var e14 = __toESM(require_react(), 1);
+  var a14 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z" }))
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z", opacity: "0.2" }), /* @__PURE__ */ e13.createElement("path", { d: "M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M192,112a80,80,0,1,1-80-80A80,80,0,0,1,192,112Z", opacity: "0.2" }), /* @__PURE__ */ e14.createElement("path", { d: "M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z" }))
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z" }))
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M228.24,219.76l-51.38-51.38a86.15,86.15,0,1,0-8.48,8.48l51.38,51.38a6,6,0,0,0,8.48-8.48ZM38,112a74,74,0,1,1,74,74A74.09,74.09,0,0,1,38,112Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e13.createElement(e13.Fragment, null, /* @__PURE__ */ e13.createElement("path", { d: "M226.83,221.17l-52.7-52.7a84.1,84.1,0,1,0-5.66,5.66l52.7,52.7a4,4,0,0,0,5.66-5.66ZM36,112a76,76,0,1,1,76,76A76.08,76.08,0,0,1,36,112Z" }))
+      /* @__PURE__ */ e14.createElement(e14.Fragment, null, /* @__PURE__ */ e14.createElement("path", { d: "M226.83,221.17l-52.7-52.7a84.1,84.1,0,1,0-5.66,5.66l52.7,52.7a4,4,0,0,0,5.66-5.66ZM36,112a76,76,0,1,1,76,76A76.08,76.08,0,0,1,36,112Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Pause.es.js
-  var a14 = __toESM(require_react(), 1);
-  var e14 = /* @__PURE__ */ new Map([
-    [
-      "bold",
-      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z" }))
-    ],
-    [
-      "duotone",
-      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement(
-        "path",
-        {
-          d: "M208,48V208a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8h40A8,8,0,0,1,208,48ZM96,40H56a8,8,0,0,0-8,8V208a8,8,0,0,0,8,8H96a8,8,0,0,0,8-8V48A8,8,0,0,0,96,40Z",
-          opacity: "0.2"
-        }
-      ), /* @__PURE__ */ a14.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
-    ],
-    [
-      "fill",
-      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z" }))
-    ],
-    [
-      "light",
-      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z" }))
-    ],
-    [
-      "regular",
-      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
-    ],
-    [
-      "thin",
-      /* @__PURE__ */ a14.createElement(a14.Fragment, null, /* @__PURE__ */ a14.createElement("path", { d: "M200,36H160a12,12,0,0,0-12,12V208a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V48A12,12,0,0,0,200,36Zm4,172a4,4,0,0,1-4,4H160a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4ZM96,36H56A12,12,0,0,0,44,48V208a12,12,0,0,0,12,12H96a12,12,0,0,0,12-12V48A12,12,0,0,0,96,36Zm4,172a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4H96a4,4,0,0,1,4,4Z" }))
-    ]
-  ]);
-
-  // node_modules/@phosphor-icons/react/dist/defs/PencilSimple.es.js
   var a15 = __toESM(require_react(), 1);
   var e15 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M230.14,70.54,185.46,25.85a20,20,0,0,0-28.29,0L33.86,149.17A19.85,19.85,0,0,0,28,163.31V208a20,20,0,0,0,20,20H92.69a19.86,19.86,0,0,0,14.14-5.86L230.14,98.82a20,20,0,0,0,0-28.28ZM91,204H52V165l84-84,39,39ZM192,103,153,64l18.34-18.34,39,39Z" }))
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M200,28H160a20,20,0,0,0-20,20V208a20,20,0,0,0,20,20h40a20,20,0,0,0,20-20V48A20,20,0,0,0,200,28Zm-4,176H164V52h32ZM96,28H56A20,20,0,0,0,36,48V208a20,20,0,0,0,20,20H96a20,20,0,0,0,20-20V48A20,20,0,0,0,96,28ZM92,204H60V52H92Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement(
         "path",
         {
-          d: "M221.66,90.34,192,120,136,64l29.66-29.66a8,8,0,0,1,11.31,0L221.66,79A8,8,0,0,1,221.66,90.34Z",
+          d: "M208,48V208a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8h40A8,8,0,0,1,208,48ZM96,40H56a8,8,0,0,0-8,8V208a8,8,0,0,0,8,8H96a8,8,0,0,0,8-8V48A8,8,0,0,0,96,40Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a15.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+      ), /* @__PURE__ */ a15.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M216,48V208a16,16,0,0,1-16,16H160a16,16,0,0,1-16-16V48a16,16,0,0,1,16-16h40A16,16,0,0,1,216,48ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M225.9,74.78,181.21,30.09a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H92.69a13.94,13.94,0,0,0,9.9-4.1L225.9,94.58a14,14,0,0,0,0-19.8ZM94.1,209.41a2,2,0,0,1-1.41.59H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.48,183.51,120ZM217.41,86.1,192,111.51,144.49,64,169.9,38.58a2,2,0,0,1,2.83,0l44.68,44.69a2,2,0,0,1,0,2.83Z" }))
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M200,34H160a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14h40a14,14,0,0,0,14-14V48A14,14,0,0,0,200,34Zm2,174a2,2,0,0,1-2,2H160a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2h40a2,2,0,0,1,2,2ZM96,34H56A14,14,0,0,0,42,48V208a14,14,0,0,0,14,14H96a14,14,0,0,0,14-14V48A14,14,0,0,0,96,34Zm2,174a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V48a2,2,0,0,1,2-2H96a2,2,0,0,1,2,2Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm0,176H160V48h40ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Zm0,176H56V48H96Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M224.49,76.2,179.8,31.51a12,12,0,0,0-17,0L133.17,61.17h0L39.52,154.83A11.9,11.9,0,0,0,36,163.31V208a12,12,0,0,0,12,12H92.69a12,12,0,0,0,8.48-3.51L224.48,93.17a12,12,0,0,0,0-17Zm-129,134.63A4,4,0,0,1,92.69,212H48a4,4,0,0,1-4-4V163.31a4,4,0,0,1,1.17-2.83L136,69.65,186.34,120ZM218.83,87.51,192,114.34,141.66,64l26.82-26.83a4,4,0,0,1,5.66,0l44.69,44.68a4,4,0,0,1,0,5.66Z" }))
+      /* @__PURE__ */ a15.createElement(a15.Fragment, null, /* @__PURE__ */ a15.createElement("path", { d: "M200,36H160a12,12,0,0,0-12,12V208a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V48A12,12,0,0,0,200,36Zm4,172a4,4,0,0,1-4,4H160a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4ZM96,36H56A12,12,0,0,0,44,48V208a12,12,0,0,0,12,12H96a12,12,0,0,0,12-12V48A12,12,0,0,0,96,36Zm4,172a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V48a4,4,0,0,1,4-4H96a4,4,0,0,1,4,4Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/PencilSimple.es.js
+  var a16 = __toESM(require_react(), 1);
+  var e16 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M230.14,70.54,185.46,25.85a20,20,0,0,0-28.29,0L33.86,149.17A19.85,19.85,0,0,0,28,163.31V208a20,20,0,0,0,20,20H92.69a19.86,19.86,0,0,0,14.14-5.86L230.14,98.82a20,20,0,0,0,0-28.28ZM91,204H52V165l84-84,39,39ZM192,103,153,64l18.34-18.34,39,39Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement(
+        "path",
+        {
+          d: "M221.66,90.34,192,120,136,64l29.66-29.66a8,8,0,0,1,11.31,0L221.66,79A8,8,0,0,1,221.66,90.34Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ a16.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M225.9,74.78,181.21,30.09a14,14,0,0,0-19.8,0L38.1,153.41a13.94,13.94,0,0,0-4.1,9.9V208a14,14,0,0,0,14,14H92.69a13.94,13.94,0,0,0,9.9-4.1L225.9,94.58a14,14,0,0,0,0-19.8ZM94.1,209.41a2,2,0,0,1-1.41.59H48a2,2,0,0,1-2-2V163.31a2,2,0,0,1,.59-1.41L136,72.48,183.51,120ZM217.41,86.1,192,111.51,144.49,64,169.9,38.58a2,2,0,0,1,2.83,0l44.68,44.69a2,2,0,0,1,0,2.83Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ a16.createElement(a16.Fragment, null, /* @__PURE__ */ a16.createElement("path", { d: "M224.49,76.2,179.8,31.51a12,12,0,0,0-17,0L133.17,61.17h0L39.52,154.83A11.9,11.9,0,0,0,36,163.31V208a12,12,0,0,0,12,12H92.69a12,12,0,0,0,8.48-3.51L224.48,93.17a12,12,0,0,0,0-17Zm-129,134.63A4,4,0,0,1,92.69,212H48a4,4,0,0,1-4-4V163.31a4,4,0,0,1,1.17-2.83L136,69.65,186.34,120ZM218.83,87.51,192,114.34,141.66,64l26.82-26.83a4,4,0,0,1,5.66,0l44.69,44.68a4,4,0,0,1,0,5.66Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/Play.es.js
-  var e16 = __toESM(require_react(), 1);
-  var a16 = /* @__PURE__ */ new Map([
-    [
-      "bold",
-      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M234.49,111.07,90.41,22.94A20,20,0,0,0,60,39.87V216.13a20,20,0,0,0,30.41,16.93l144.08-88.13a19.82,19.82,0,0,0,0-33.86ZM84,208.85V47.15L216.16,128Z" }))
-    ],
-    [
-      "duotone",
-      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement(
-        "path",
-        {
-          d: "M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z",
-          opacity: "0.2"
-        }
-      ), /* @__PURE__ */ e16.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
-    ],
-    [
-      "fill",
-      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z" }))
-    ],
-    [
-      "light",
-      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z" }))
-    ],
-    [
-      "regular",
-      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
-    ],
-    [
-      "thin",
-      /* @__PURE__ */ e16.createElement(e16.Fragment, null, /* @__PURE__ */ e16.createElement("path", { d: "M230.32,117.9,86.24,29.79a11.91,11.91,0,0,0-12.17-.23A11.71,11.71,0,0,0,68,39.89V216.11a11.71,11.71,0,0,0,6.07,10.33,11.91,11.91,0,0,0,12.17-.23L230.32,138.1a11.82,11.82,0,0,0,0-20.2Zm-4.18,13.37L82.06,219.39a4,4,0,0,1-4.07.07,3.77,3.77,0,0,1-2-3.35V39.89a3.77,3.77,0,0,1,2-3.35,4,4,0,0,1,4.07.07l144.08,88.12a3.8,3.8,0,0,1,0,6.54Z" }))
-    ]
-  ]);
-
-  // node_modules/@phosphor-icons/react/dist/defs/Plus.es.js
   var e17 = __toESM(require_react(), 1);
   var a17 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M234.49,111.07,90.41,22.94A20,20,0,0,0,60,39.87V216.13a20,20,0,0,0,30.41,16.93l144.08-88.13a19.82,19.82,0,0,0,0-33.86ZM84,208.85V47.15L216.16,128Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement(
         "path",
         {
-          d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
+          d: "M228.23,134.69,84.15,222.81A8,8,0,0,1,72,216.12V39.88a8,8,0,0,1,12.15-6.69l144.08,88.12A7.82,7.82,0,0,1,228.23,134.69Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e17.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+      ), /* @__PURE__ */ e17.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H136v48a8,8,0,0,1-16,0V136H72a8,8,0,0,1,0-16h48V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M231.36,116.19,87.28,28.06a14,14,0,0,0-14.18-.27A13.69,13.69,0,0,0,66,39.87V216.13a13.69,13.69,0,0,0,7.1,12.08,14,14,0,0,0,14.18-.27l144.08-88.13a13.82,13.82,0,0,0,0-23.62Zm-6.26,13.38L81,217.7a2,2,0,0,1-2.06,0,1.78,1.78,0,0,1-1-1.61V39.87a1.78,1.78,0,0,1,1-1.61A2.06,2.06,0,0,1,80,38a2,2,0,0,1,1,.31L225.1,126.43a1.82,1.82,0,0,1,0,3.14Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H132v84a4,4,0,0,1-8,0V132H40a4,4,0,0,1,0-8h84V40a4,4,0,0,1,8,0v84h84A4,4,0,0,1,220,128Z" }))
+      /* @__PURE__ */ e17.createElement(e17.Fragment, null, /* @__PURE__ */ e17.createElement("path", { d: "M230.32,117.9,86.24,29.79a11.91,11.91,0,0,0-12.17-.23A11.71,11.71,0,0,0,68,39.89V216.11a11.71,11.71,0,0,0,6.07,10.33,11.91,11.91,0,0,0,12.17-.23L230.32,138.1a11.82,11.82,0,0,0,0-20.2Zm-4.18,13.37L82.06,219.39a4,4,0,0,1-4.07.07,3.77,3.77,0,0,1-2-3.35V39.89a3.77,3.77,0,0,1,2-3.35,4,4,0,0,1,4.07.07l144.08,88.12a3.8,3.8,0,0,1,0,6.54Z" }))
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/Record.es.js
+  // node_modules/@phosphor-icons/react/dist/defs/Plus.es.js
   var e18 = __toESM(require_react(), 1);
   var a18 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm0-148a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64Zm0,104a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M192,128a64,64,0,1,1-64-64A64,64,0,0,1,192,128Z", opacity: "0.2" }), /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement(
+        "path",
+        {
+          d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ e18.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm72-88a72,72,0,1,1-72-72A72.08,72.08,0,0,1,200,128Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM184,136H136v48a8,8,0,0,1-16,0V136H72a8,8,0,0,1,0-16h48V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm0-160a70,70,0,1,0,70,70A70.08,70.08,0,0,0,128,58Zm0,128a58,58,0,1,1,58-58A58.07,58.07,0,0,1,128,186Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M222,128a6,6,0,0,1-6,6H134v82a6,6,0,0,1-12,0V134H40a6,6,0,0,1,0-12h82V40a6,6,0,0,1,12,0v82h82A6,6,0,0,1,222,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm0-160a68,68,0,1,0,68,68A68.07,68.07,0,0,0,128,60Zm0,128a60,60,0,1,1,60-60A60.07,60.07,0,0,1,128,188Z" }))
+      /* @__PURE__ */ e18.createElement(e18.Fragment, null, /* @__PURE__ */ e18.createElement("path", { d: "M220,128a4,4,0,0,1-4,4H132v84a4,4,0,0,1-8,0V132H40a4,4,0,0,1,0-8h84V40a4,4,0,0,1,8,0v84h84A4,4,0,0,1,220,128Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/Record.es.js
+  var e19 = __toESM(require_react(), 1);
+  var a19 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm0-148a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64Zm0,104a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M192,128a64,64,0,1,1-64-64A64,64,0,0,1,192,128Z", opacity: "0.2" }), /* @__PURE__ */ e19.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm72-88a72,72,0,1,1-72-72A72.08,72.08,0,0,1,200,128Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm0-160a70,70,0,1,0,70,70A70.08,70.08,0,0,0,128,58Zm0,128a58,58,0,1,1,58-58A58.07,58.07,0,0,1,128,186Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm0-160a72,72,0,1,0,72,72A72.08,72.08,0,0,0,128,56Zm0,128a56,56,0,1,1,56-56A56.06,56.06,0,0,1,128,184Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e19.createElement(e19.Fragment, null, /* @__PURE__ */ e19.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm0-160a68,68,0,1,0,68,68A68.07,68.07,0,0,0,128,60Zm0,128a60,60,0,1,1,60-60A60.07,60.07,0,0,1,128,188Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/RocketLaunch.es.js
-  var a19 = __toESM(require_react(), 1);
-  var e19 = /* @__PURE__ */ new Map([
-    [
-      "bold",
-      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M227.85,46.89a20,20,0,0,0-18.74-18.74c-13.13-.77-46.65.42-74.48,28.24L131,60H74.36a19.83,19.83,0,0,0-14.14,5.86L25.87,100.19a20,20,0,0,0,11.35,33.95l37.14,5.18,42.32,42.32,5.19,37.18A19.88,19.88,0,0,0,135.34,235a20.13,20.13,0,0,0,6.37,1,19.9,19.9,0,0,0,14.1-5.87l34.34-34.35A19.85,19.85,0,0,0,196,181.64V125l3.6-3.59C227.43,93.54,228.62,60,227.85,46.89ZM76,84h31L75.75,115.28l-27.23-3.8ZM151.6,73.37A72.27,72.27,0,0,1,204,52a72.17,72.17,0,0,1-21.38,52.41L128,159,97,128ZM172,180l-27.49,27.49-3.8-27.23L172,149Zm-72,22c-8.71,11.85-26.19,26-60,26a12,12,0,0,1-12-12c0-33.84,14.12-51.32,26-60A12,12,0,1,1,68.18,175.3C62.3,179.63,55.51,187.8,53,203c15.21-2.51,23.37-9.3,27.7-15.18A12,12,0,1,1,100,202Z" }))
-    ],
-    [
-      "duotone",
-      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement(
-        "path",
-        {
-          d: "M184,120v61.65a8,8,0,0,1-2.34,5.65l-34.35,34.35a8,8,0,0,1-13.57-4.53L128,176ZM136,72H74.35a8,8,0,0,0-5.65,2.34L34.35,108.69a8,8,0,0,0,4.53,13.57L80,128ZM40,216c37.65,0,50.69-19.69,54.56-28.18L68.18,161.44C59.69,165.31,40,178.35,40,216Z",
-          opacity: "0.2"
-        }
-      ), /* @__PURE__ */ a19.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
-    ],
-    [
-      "fill",
-      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M101.85,191.14C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Zm122-144a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.4,27.07h0L88,108.7A8,8,0,0,1,76.67,97.39l26.56-26.57A4,4,0,0,0,100.41,64H74.35A15.9,15.9,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A16,16,0,0,0,192,181.65V155.59a4,4,0,0,0-6.83-2.82l-26.57,26.56a8,8,0,0,1-11.71-.42,8.2,8.2,0,0,1,.6-11.1l49.27-49.27h0C223.45,91.86,224.6,59.71,223.85,47.12Z" }))
-    ],
-    [
-      "light",
-      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.44a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.89V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.87,121.64l-38.14-5.32A1.93,1.93,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.87-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.47,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.91,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z" }))
-    ],
-    [
-      "regular",
-      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
-    ],
-    [
-      "thin",
-      /* @__PURE__ */ a19.createElement(a19.Fragment, null, /* @__PURE__ */ a19.createElement("path", { d: "M219.86,47.36a12,12,0,0,0-11.22-11.22c-12-.71-42.82.38-68.35,25.91L134.35,68h-60a11.9,11.9,0,0,0-8.48,3.52L31.52,105.85a12,12,0,0,0,6.81,20.37l39.79,5.55,46.11,46.11,5.55,39.81a12,12,0,0,0,20.37,6.79l34.34-34.35a11.9,11.9,0,0,0,3.52-8.48v-60l5.94-5.94C219.48,90.18,220.57,59.41,219.86,47.36ZM36.21,115.6a3.94,3.94,0,0,1,1-4.09L71.53,77.17A4,4,0,0,1,74.35,76h52L78.58,123.76,39.44,118.3A3.94,3.94,0,0,1,36.21,115.6ZM180,181.65a4,4,0,0,1-1.17,2.83l-34.35,34.34a4,4,0,0,1-6.79-2.25l-5.46-39.15L180,129.65Zm-52-11.31L85.66,128l60.28-60.29c23.24-23.24,51.25-24.23,62.22-23.58a3.93,3.93,0,0,1,3.71,3.71c.65,11-.35,39-23.58,62.22ZM98.21,189.48C94,198.66,80,220,40,220a4,4,0,0,1-4-4c0-40,21.34-54,30.52-58.21a4,4,0,0,1,3.32,7.28c-7.46,3.41-24.43,14.66-25.76,46.85,32.19-1.33,43.44-18.3,46.85-25.76a4,4,0,1,1,7.28,3.32Z" }))
-    ]
-  ]);
-
-  // node_modules/@phosphor-icons/react/dist/defs/SignOut.es.js
   var a20 = __toESM(require_react(), 1);
   var e20 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M227.85,46.89a20,20,0,0,0-18.74-18.74c-13.13-.77-46.65.42-74.48,28.24L131,60H74.36a19.83,19.83,0,0,0-14.14,5.86L25.87,100.19a20,20,0,0,0,11.35,33.95l37.14,5.18,42.32,42.32,5.19,37.18A19.88,19.88,0,0,0,135.34,235a20.13,20.13,0,0,0,6.37,1,19.9,19.9,0,0,0,14.1-5.87l34.34-34.35A19.85,19.85,0,0,0,196,181.64V125l3.6-3.59C227.43,93.54,228.62,60,227.85,46.89ZM76,84h31L75.75,115.28l-27.23-3.8ZM151.6,73.37A72.27,72.27,0,0,1,204,52a72.17,72.17,0,0,1-21.38,52.41L128,159,97,128ZM172,180l-27.49,27.49-3.8-27.23L172,149Zm-72,22c-8.71,11.85-26.19,26-60,26a12,12,0,0,1-12-12c0-33.84,14.12-51.32,26-60A12,12,0,1,1,68.18,175.3C62.3,179.63,55.51,187.8,53,203c15.21-2.51,23.37-9.3,27.7-15.18A12,12,0,1,1,100,202Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement(
         "path",
         {
-          d: "M224,56V200a16,16,0,0,1-16,16H48V40H208A16,16,0,0,1,224,56Z",
+          d: "M184,120v61.65a8,8,0,0,1-2.34,5.65l-34.35,34.35a8,8,0,0,1-13.57-4.53L128,176ZM136,72H74.35a8,8,0,0,0-5.65,2.34L34.35,108.69a8,8,0,0,0,4.53,13.57L80,128ZM40,216c37.65,0,50.69-19.69,54.56-28.18L68.18,161.44C59.69,165.31,40,178.35,40,216Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a20.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      ), /* @__PURE__ */ a20.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40A8,8,0,0,0,176,88v32H112a8,8,0,0,0,0,16h64v32a8,8,0,0,0,13.66,5.66l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M101.85,191.14C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Zm122-144a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.4,27.07h0L88,108.7A8,8,0,0,1,76.67,97.39l26.56-26.57A4,4,0,0,0,100.41,64H74.35A15.9,15.9,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A16,16,0,0,0,192,181.65V155.59a4,4,0,0,0-6.83-2.82l-26.57,26.56a8,8,0,0,1-11.71-.42,8.2,8.2,0,0,1,.6-11.1l49.27-49.27h0C223.45,91.86,224.6,59.71,223.85,47.12Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M118,216a6,6,0,0,1-6,6H48a6,6,0,0,1-6-6V40a6,6,0,0,1,6-6h64a6,6,0,0,1,0,12H54V210h58A6,6,0,0,1,118,216Zm110.24-92.24-40-40a6,6,0,0,0-8.48,8.48L209.51,122H112a6,6,0,0,0,0,12h97.51l-29.75,29.76a6,6,0,1,0,8.48,8.48l40-40A6,6,0,0,0,228.24,123.76Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M221.86,47.24a14,14,0,0,0-13.11-13.1c-12.31-.73-43.77.39-69.88,26.5L133.52,66H74.35a13.9,13.9,0,0,0-9.89,4.1L30.11,104.44a14,14,0,0,0,7.94,23.76l39.13,5.46,45.16,45.16L127.8,218a14,14,0,0,0,23.76,7.92l34.35-34.35a13.91,13.91,0,0,0,4.1-9.89V122.48l5.35-5.35h0C221.46,91,222.59,59.56,221.86,47.24ZM38.11,115a2,2,0,0,1,.49-2L72.94,78.58A2,2,0,0,1,74.35,78h47.17L77.87,121.64l-38.14-5.32A1.93,1.93,0,0,1,38.11,115ZM178,181.65a2,2,0,0,1-.59,1.41L143.08,217.4a2,2,0,0,1-3.4-1.11l-5.32-38.16L178,134.48Zm8.87-73h0L128,167.51,88.49,128l58.87-58.88a78.47,78.47,0,0,1,60.69-23A2,2,0,0,1,209.88,48,78.47,78.47,0,0,1,186.88,108.64ZM100,190.31C95.68,199.84,81.13,222,40,222a6,6,0,0,1-6-6c0-41.13,22.16-55.68,31.69-60a6,6,0,1,1,5,10.92c-7,3.17-22.53,13.52-24.47,42.91,29.39-1.94,39.74-17.52,42.91-24.47a6,6,0,1,1,10.92,5Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.94,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M116,216a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V40a4,4,0,0,1,4-4h64a4,4,0,0,1,0,8H52V212h60A4,4,0,0,1,116,216Zm110.83-90.83-40-40a4,4,0,0,0-5.66,5.66L214.34,124H112a4,4,0,0,0,0,8H214.34l-33.17,33.17a4,4,0,0,0,5.66,5.66l40-40A4,4,0,0,0,226.83,125.17Z" }))
+      /* @__PURE__ */ a20.createElement(a20.Fragment, null, /* @__PURE__ */ a20.createElement("path", { d: "M219.86,47.36a12,12,0,0,0-11.22-11.22c-12-.71-42.82.38-68.35,25.91L134.35,68h-60a11.9,11.9,0,0,0-8.48,3.52L31.52,105.85a12,12,0,0,0,6.81,20.37l39.79,5.55,46.11,46.11,5.55,39.81a12,12,0,0,0,20.37,6.79l34.34-34.35a11.9,11.9,0,0,0,3.52-8.48v-60l5.94-5.94C219.48,90.18,220.57,59.41,219.86,47.36ZM36.21,115.6a3.94,3.94,0,0,1,1-4.09L71.53,77.17A4,4,0,0,1,74.35,76h52L78.58,123.76,39.44,118.3A3.94,3.94,0,0,1,36.21,115.6ZM180,181.65a4,4,0,0,1-1.17,2.83l-34.35,34.34a4,4,0,0,1-6.79-2.25l-5.46-39.15L180,129.65Zm-52-11.31L85.66,128l60.28-60.29c23.24-23.24,51.25-24.23,62.22-23.58a3.93,3.93,0,0,1,3.71,3.71c.65,11-.35,39-23.58,62.22ZM98.21,189.48C94,198.66,80,220,40,220a4,4,0,0,1-4-4c0-40,21.34-54,30.52-58.21a4,4,0,0,1,3.32,7.28c-7.46,3.41-24.43,14.66-25.76,46.85,32.19-1.33,43.44-18.3,46.85-25.76a4,4,0,1,1,7.28,3.32Z" }))
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/SquaresFour.es.js
+  // node_modules/@phosphor-icons/react/dist/defs/SignOut.es.js
   var a21 = __toESM(require_react(), 1);
   var e21 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M124,216a12,12,0,0,1-12,12H48a12,12,0,0,1-12-12V40A12,12,0,0,1,48,28h64a12,12,0,0,1,0,24H60V204h52A12,12,0,0,1,124,216Zm108.49-96.49-40-40a12,12,0,0,0-17,17L195,116H112a12,12,0,0,0,0,24h83l-19.52,19.51a12,12,0,0,0,17,17l40-40A12,12,0,0,0,232.49,119.51Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement(
         "path",
         {
-          d: "M112,56v48a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8h48A8,8,0,0,1,112,56Zm88-8H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V56A8,8,0,0,0,200,48Zm-96,96H56a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,104,144Zm96,0H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,200,144Z",
+          d: "M224,56V200a16,16,0,0,1-16,16H48V40H208A16,16,0,0,1,224,56Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a21.createElement("path", { d: "M200,136H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48ZM104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Z" }))
+      ), /* @__PURE__ */ a21.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M120,56v48a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40h48A16,16,0,0,1,120,56Zm80-16H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm-96,96H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm96,0H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40A8,8,0,0,0,176,88v32H112a8,8,0,0,0,0,16h64v32a8,8,0,0,0,13.66,5.66l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M104,42H56A14,14,0,0,0,42,56v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V56A14,14,0,0,0,104,42Zm2,62a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm94-62H152a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V56A14,14,0,0,0,200,42Zm2,62a2,2,0,0,1-2,2H152a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm-98,34H56a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V152A14,14,0,0,0,104,138Zm2,62a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V152a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm94-62H152a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V152A14,14,0,0,0,200,138Zm2,62a2,2,0,0,1-2,2H152a2,2,0,0,1-2-2V152a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M118,216a6,6,0,0,1-6,6H48a6,6,0,0,1-6-6V40a6,6,0,0,1,6-6h64a6,6,0,0,1,0,12H54V210h58A6,6,0,0,1,118,216Zm110.24-92.24-40-40a6,6,0,0,0-8.48,8.48L209.51,122H112a6,6,0,0,0,0,12h97.51l-29.75,29.76a6,6,0,1,0,8.48,8.48l40-40A6,6,0,0,0,228.24,123.76Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M104,44H56A12,12,0,0,0,44,56v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V56A12,12,0,0,0,104,44Zm4,60a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V56a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Zm92-60H152a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V56A12,12,0,0,0,200,44Zm4,60a4,4,0,0,1-4,4H152a4,4,0,0,1-4-4V56a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4ZM104,140H56a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V152A12,12,0,0,0,104,140Zm4,60a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V152a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Zm92-60H152a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V152A12,12,0,0,0,200,140Zm4,60a4,4,0,0,1-4,4H152a4,4,0,0,1-4-4V152a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Z" }))
+      /* @__PURE__ */ a21.createElement(a21.Fragment, null, /* @__PURE__ */ a21.createElement("path", { d: "M116,216a4,4,0,0,1-4,4H48a4,4,0,0,1-4-4V40a4,4,0,0,1,4-4h64a4,4,0,0,1,0,8H52V212h60A4,4,0,0,1,116,216Zm110.83-90.83-40-40a4,4,0,0,0-5.66,5.66L214.34,124H112a4,4,0,0,0,0,8H214.34l-33.17,33.17a4,4,0,0,0,5.66,5.66l40-40A4,4,0,0,0,226.83,125.17Z" }))
     ]
   ]);
 
-  // node_modules/@phosphor-icons/react/dist/defs/Warning.es.js
+  // node_modules/@phosphor-icons/react/dist/defs/SquaresFour.es.js
   var a22 = __toESM(require_react(), 1);
   var e22 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z" }))
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M100,36H56A20,20,0,0,0,36,56v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,100,36ZM96,96H60V60H96ZM200,36H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V56A20,20,0,0,0,200,36Zm-4,60H160V60h36Zm-96,40H56a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,100,136Zm-4,60H60V160H96Zm104-60H156a20,20,0,0,0-20,20v44a20,20,0,0,0,20,20h44a20,20,0,0,0,20-20V156A20,20,0,0,0,200,136Zm-4,60H160V160h36Z" }))
     ],
     [
       "duotone",
       /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement(
         "path",
         {
-          d: "M215.46,216H40.54C27.92,216,20,202.79,26.13,192.09L113.59,40.22c6.3-11,22.52-11,28.82,0l87.46,151.87C236,202.79,228.08,216,215.46,216Z",
+          d: "M112,56v48a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V56a8,8,0,0,1,8-8h48A8,8,0,0,1,112,56Zm88-8H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V56A8,8,0,0,0,200,48Zm-96,96H56a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,104,144Zm96,0H152a8,8,0,0,0-8,8v48a8,8,0,0,0,8,8h48a8,8,0,0,0,8-8V152A8,8,0,0,0,200,144Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ a22.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z" }))
+      ), /* @__PURE__ */ a22.createElement("path", { d: "M200,136H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48ZM104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z" }))
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M120,56v48a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40h48A16,16,0,0,1,120,56Zm80-16H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm-96,96H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm96,0H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M235.07,189.09,147.61,37.22h0a22.75,22.75,0,0,0-39.22,0L20.93,189.09a21.53,21.53,0,0,0,0,21.72A22.35,22.35,0,0,0,40.55,222h174.9a22.35,22.35,0,0,0,19.6-11.19A21.53,21.53,0,0,0,235.07,189.09ZM224.66,204.8a10.46,10.46,0,0,1-9.21,5.2H40.55a10.46,10.46,0,0,1-9.21-5.2,9.51,9.51,0,0,1,0-9.72L118.79,43.21a10.75,10.75,0,0,1,18.42,0l87.46,151.87A9.51,9.51,0,0,1,224.66,204.8ZM122,144V104a6,6,0,0,1,12,0v40a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,180Z" }))
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M104,42H56A14,14,0,0,0,42,56v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V56A14,14,0,0,0,104,42Zm2,62a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm94-62H152a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V56A14,14,0,0,0,200,42Zm2,62a2,2,0,0,1-2,2H152a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm-98,34H56a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V152A14,14,0,0,0,104,138Zm2,62a2,2,0,0,1-2,2H56a2,2,0,0,1-2-2V152a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Zm94-62H152a14,14,0,0,0-14,14v48a14,14,0,0,0,14,14h48a14,14,0,0,0,14-14V152A14,14,0,0,0,200,138Zm2,62a2,2,0,0,1-2,2H152a2,2,0,0,1-2-2V152a2,2,0,0,1,2-2h48a2,2,0,0,1,2,2Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z" }))
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M233.34,190.09,145.88,38.22h0a20.75,20.75,0,0,0-35.76,0L22.66,190.09a19.52,19.52,0,0,0,0,19.71A20.36,20.36,0,0,0,40.54,220H215.46a20.36,20.36,0,0,0,17.86-10.2A19.52,19.52,0,0,0,233.34,190.09ZM226.4,205.8a12.47,12.47,0,0,1-10.94,6.2H40.54a12.47,12.47,0,0,1-10.94-6.2,11.45,11.45,0,0,1,0-11.72L117.05,42.21a12.76,12.76,0,0,1,21.9,0L226.4,194.08A11.45,11.45,0,0,1,226.4,205.8ZM124,144V104a4,4,0,0,1,8,0v40a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,180Z" }))
+      /* @__PURE__ */ a22.createElement(a22.Fragment, null, /* @__PURE__ */ a22.createElement("path", { d: "M104,44H56A12,12,0,0,0,44,56v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V56A12,12,0,0,0,104,44Zm4,60a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V56a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Zm92-60H152a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V56A12,12,0,0,0,200,44Zm4,60a4,4,0,0,1-4,4H152a4,4,0,0,1-4-4V56a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4ZM104,140H56a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V152A12,12,0,0,0,104,140Zm4,60a4,4,0,0,1-4,4H56a4,4,0,0,1-4-4V152a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Zm92-60H152a12,12,0,0,0-12,12v48a12,12,0,0,0,12,12h48a12,12,0,0,0,12-12V152A12,12,0,0,0,200,140Zm4,60a4,4,0,0,1-4,4H152a4,4,0,0,1-4-4V152a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/Warning.es.js
+  var a23 = __toESM(require_react(), 1);
+  var e23 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ a23.createElement(a23.Fragment, null, /* @__PURE__ */ a23.createElement("path", { d: "M240.26,186.1,152.81,34.23h0a28.74,28.74,0,0,0-49.62,0L15.74,186.1a27.45,27.45,0,0,0,0,27.71A28.31,28.31,0,0,0,40.55,228h174.9a28.31,28.31,0,0,0,24.79-14.19A27.45,27.45,0,0,0,240.26,186.1Zm-20.8,15.7a4.46,4.46,0,0,1-4,2.2H40.55a4.46,4.46,0,0,1-4-2.2,3.56,3.56,0,0,1,0-3.73L124,46.2a4.77,4.77,0,0,1,8,0l87.44,151.87A3.56,3.56,0,0,1,219.46,201.8ZM116,136V104a12,12,0,0,1,24,0v32a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,176Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ a23.createElement(a23.Fragment, null, /* @__PURE__ */ a23.createElement(
+        "path",
+        {
+          d: "M215.46,216H40.54C27.92,216,20,202.79,26.13,192.09L113.59,40.22c6.3-11,22.52-11,28.82,0l87.46,151.87C236,202.79,228.08,216,215.46,216Z",
+          opacity: "0.2"
+        }
+      ), /* @__PURE__ */ a23.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ a23.createElement(a23.Fragment, null, /* @__PURE__ */ a23.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ a23.createElement(a23.Fragment, null, /* @__PURE__ */ a23.createElement("path", { d: "M235.07,189.09,147.61,37.22h0a22.75,22.75,0,0,0-39.22,0L20.93,189.09a21.53,21.53,0,0,0,0,21.72A22.35,22.35,0,0,0,40.55,222h174.9a22.35,22.35,0,0,0,19.6-11.19A21.53,21.53,0,0,0,235.07,189.09ZM224.66,204.8a10.46,10.46,0,0,1-9.21,5.2H40.55a10.46,10.46,0,0,1-9.21-5.2,9.51,9.51,0,0,1,0-9.72L118.79,43.21a10.75,10.75,0,0,1,18.42,0l87.46,151.87A9.51,9.51,0,0,1,224.66,204.8ZM122,144V104a6,6,0,0,1,12,0v40a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,180Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ a23.createElement(a23.Fragment, null, /* @__PURE__ */ a23.createElement("path", { d: "M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ a23.createElement(a23.Fragment, null, /* @__PURE__ */ a23.createElement("path", { d: "M233.34,190.09,145.88,38.22h0a20.75,20.75,0,0,0-35.76,0L22.66,190.09a19.52,19.52,0,0,0,0,19.71A20.36,20.36,0,0,0,40.54,220H215.46a20.36,20.36,0,0,0,17.86-10.2A19.52,19.52,0,0,0,233.34,190.09ZM226.4,205.8a12.47,12.47,0,0,1-10.94,6.2H40.54a12.47,12.47,0,0,1-10.94-6.2,11.45,11.45,0,0,1,0-11.72L117.05,42.21a12.76,12.76,0,0,1,21.9,0L226.4,194.08A11.45,11.45,0,0,1,226.4,205.8ZM124,144V104a4,4,0,0,1,8,0v40a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,180Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/defs/WarningCircle.es.js
-  var e23 = __toESM(require_react(), 1);
-  var a23 = /* @__PURE__ */ new Map([
-    [
-      "bold",
-      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z" }))
-    ],
-    [
-      "duotone",
-      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e23.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
-    ],
-    [
-      "fill",
-      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z" }))
-    ],
-    [
-      "light",
-      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm-6-82V80a6,6,0,0,1,12,0v56a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,172Z" }))
-    ],
-    [
-      "regular",
-      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
-    ],
-    [
-      "thin",
-      /* @__PURE__ */ e23.createElement(e23.Fragment, null, /* @__PURE__ */ e23.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm-4-84V80a4,4,0,0,1,8,0v56a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,172Z" }))
-    ]
-  ]);
-
-  // node_modules/@phosphor-icons/react/dist/defs/X.es.js
   var e24 = __toESM(require_react(), 1);
   var a24 = /* @__PURE__ */ new Map([
     [
       "bold",
-      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" }))
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z" }))
     ],
     [
       "duotone",
-      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement(
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z", opacity: "0.2" }), /* @__PURE__ */ e24.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
+    ],
+    [
+      "fill",
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z" }))
+    ],
+    [
+      "light",
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm-6-82V80a6,6,0,0,1,12,0v56a6,6,0,0,1-12,0Zm16,36a10,10,0,1,1-10-10A10,10,0,0,1,138,172Z" }))
+    ],
+    [
+      "regular",
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z" }))
+    ],
+    [
+      "thin",
+      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220Zm-4-84V80a4,4,0,0,1,8,0v56a4,4,0,0,1-8,0Zm12,36a8,8,0,1,1-8-8A8,8,0,0,1,136,172Z" }))
+    ]
+  ]);
+
+  // node_modules/@phosphor-icons/react/dist/defs/X.es.js
+  var e25 = __toESM(require_react(), 1);
+  var a25 = /* @__PURE__ */ new Map([
+    [
+      "bold",
+      /* @__PURE__ */ e25.createElement(e25.Fragment, null, /* @__PURE__ */ e25.createElement("path", { d: "M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z" }))
+    ],
+    [
+      "duotone",
+      /* @__PURE__ */ e25.createElement(e25.Fragment, null, /* @__PURE__ */ e25.createElement(
         "path",
         {
           d: "M216,56V200a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V56A16,16,0,0,1,56,40H200A16,16,0,0,1,216,56Z",
           opacity: "0.2"
         }
-      ), /* @__PURE__ */ e24.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      ), /* @__PURE__ */ e25.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "fill",
-      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM181.66,170.34a8,8,0,0,1-11.32,11.32L128,139.31,85.66,181.66a8,8,0,0,1-11.32-11.32L116.69,128,74.34,85.66A8,8,0,0,1,85.66,74.34L128,116.69l42.34-42.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      /* @__PURE__ */ e25.createElement(e25.Fragment, null, /* @__PURE__ */ e25.createElement("path", { d: "M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM181.66,170.34a8,8,0,0,1-11.32,11.32L128,139.31,85.66,181.66a8,8,0,0,1-11.32-11.32L116.69,128,74.34,85.66A8,8,0,0,1,85.66,74.34L128,116.69l42.34-42.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "light",
-      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z" }))
+      /* @__PURE__ */ e25.createElement(e25.Fragment, null, /* @__PURE__ */ e25.createElement("path", { d: "M204.24,195.76a6,6,0,1,1-8.48,8.48L128,136.49,60.24,204.24a6,6,0,0,1-8.48-8.48L119.51,128,51.76,60.24a6,6,0,0,1,8.48-8.48L128,119.51l67.76-67.75a6,6,0,0,1,8.48,8.48L136.49,128Z" }))
     ],
     [
       "regular",
-      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
+      /* @__PURE__ */ e25.createElement(e25.Fragment, null, /* @__PURE__ */ e25.createElement("path", { d: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z" }))
     ],
     [
       "thin",
-      /* @__PURE__ */ e24.createElement(e24.Fragment, null, /* @__PURE__ */ e24.createElement("path", { d: "M202.83,197.17a4,4,0,0,1-5.66,5.66L128,133.66,58.83,202.83a4,4,0,0,1-5.66-5.66L122.34,128,53.17,58.83a4,4,0,0,1,5.66-5.66L128,122.34l69.17-69.17a4,4,0,1,1,5.66,5.66L133.66,128Z" }))
+      /* @__PURE__ */ e25.createElement(e25.Fragment, null, /* @__PURE__ */ e25.createElement("path", { d: "M202.83,197.17a4,4,0,0,1-5.66,5.66L128,133.66,58.83,202.83a4,4,0,0,1-5.66-5.66L122.34,128,53.17,58.83a4,4,0,0,1,5.66-5.66L128,122.34l69.17-69.17a4,4,0,1,1,5.66,5.66L133.66,128Z" }))
     ]
   ]);
 
   // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
-  var e25 = __toESM(require_react(), 1);
+  var e26 = __toESM(require_react(), 1);
 
   // node_modules/@phosphor-icons/react/dist/lib/context.es.js
   var import_react = __toESM(require_react(), 1);
@@ -25407,13 +25442,13 @@ git checkout -B ${branch} FETCH_HEAD`,
   });
 
   // node_modules/@phosphor-icons/react/dist/lib/IconBase.es.js
-  var p = e25.forwardRef(
-    (s7, a28) => {
+  var p = e26.forwardRef(
+    (s7, a29) => {
       const {
-        alt: n9,
+        alt: n10,
         color: r8,
         size: t5,
-        weight: o24,
+        weight: o25,
         mirrored: c9,
         children: i,
         weights: m4,
@@ -25424,11 +25459,11 @@ git checkout -B ${branch} FETCH_HEAD`,
         weight: f2 = "regular",
         mirrored: g = false,
         ...w
-      } = e25.useContext(o);
-      return /* @__PURE__ */ e25.createElement(
+      } = e26.useContext(o);
+      return /* @__PURE__ */ e26.createElement(
         "svg",
         {
-          ref: a28,
+          ref: a29,
           xmlns: "http://www.w3.org/2000/svg",
           width: t5 != null ? t5 : l3,
           height: t5 != null ? t5 : l3,
@@ -25438,9 +25473,9 @@ git checkout -B ${branch} FETCH_HEAD`,
           ...w,
           ...x
         },
-        !!n9 && /* @__PURE__ */ e25.createElement("title", null, n9),
+        !!n10 && /* @__PURE__ */ e26.createElement("title", null, n10),
         i,
-        m4.get(o24 != null ? o24 : f2)
+        m4.get(o25 != null ? o25 : f2)
       );
     }
   );
@@ -25448,153 +25483,159 @@ git checkout -B ${branch} FETCH_HEAD`,
 
   // node_modules/@phosphor-icons/react/dist/csr/ArrowClockwise.es.js
   var o2 = __toESM(require_react(), 1);
-  var r2 = o2.forwardRef((e40, c9) => /* @__PURE__ */ o2.createElement(p, { ref: c9, ...e40, weights: a }));
+  var r2 = o2.forwardRef((e42, c9) => /* @__PURE__ */ o2.createElement(p, { ref: c9, ...e42, weights: a }));
   r2.displayName = "ArrowClockwiseIcon";
   var m = r2;
 
   // node_modules/@phosphor-icons/react/dist/csr/ArrowDown.es.js
   var o3 = __toESM(require_react(), 1);
-  var r3 = o3.forwardRef((e40, t5) => /* @__PURE__ */ o3.createElement(p, { ref: t5, ...e40, weights: a2 }));
+  var r3 = o3.forwardRef((e42, t5) => /* @__PURE__ */ o3.createElement(p, { ref: t5, ...e42, weights: a2 }));
   r3.displayName = "ArrowDownIcon";
   var c = r3;
 
   // node_modules/@phosphor-icons/react/dist/csr/CaretRight.es.js
   var t2 = __toESM(require_react(), 1);
-  var e26 = t2.forwardRef((o24, r8) => /* @__PURE__ */ t2.createElement(p, { ref: r8, ...o24, weights: t }));
-  e26.displayName = "CaretRightIcon";
-  var s = e26;
+  var e27 = t2.forwardRef((o25, r8) => /* @__PURE__ */ t2.createElement(p, { ref: r8, ...o25, weights: t }));
+  e27.displayName = "CaretRightIcon";
+  var s = e27;
 
   // node_modules/@phosphor-icons/react/dist/csr/Check.es.js
-  var e27 = __toESM(require_react(), 1);
-  var o4 = e27.forwardRef((c9, r8) => /* @__PURE__ */ e27.createElement(p, { ref: r8, ...c9, weights: a3 }));
+  var e28 = __toESM(require_react(), 1);
+  var o4 = e28.forwardRef((c9, r8) => /* @__PURE__ */ e28.createElement(p, { ref: r8, ...c9, weights: a3 }));
   o4.displayName = "CheckIcon";
   var n = o4;
 
   // node_modules/@phosphor-icons/react/dist/csr/CheckCircle.es.js
-  var e28 = __toESM(require_react(), 1);
-  var c2 = e28.forwardRef((o24, r8) => /* @__PURE__ */ e28.createElement(p, { ref: r8, ...o24, weights: a4 }));
+  var e29 = __toESM(require_react(), 1);
+  var c2 = e29.forwardRef((o25, r8) => /* @__PURE__ */ e29.createElement(p, { ref: r8, ...o25, weights: a4 }));
   c2.displayName = "CheckCircleIcon";
   var s2 = c2;
 
   // node_modules/@phosphor-icons/react/dist/csr/CircleNotch.es.js
   var o5 = __toESM(require_react(), 1);
-  var c3 = o5.forwardRef((e40, r8) => /* @__PURE__ */ o5.createElement(p, { ref: r8, ...e40, weights: a5 }));
+  var c3 = o5.forwardRef((e42, r8) => /* @__PURE__ */ o5.createElement(p, { ref: r8, ...e42, weights: a5 }));
   c3.displayName = "CircleNotchIcon";
   var s3 = c3;
 
   // node_modules/@phosphor-icons/react/dist/csr/Copy.es.js
   var o6 = __toESM(require_react(), 1);
-  var e29 = o6.forwardRef((r8, t5) => /* @__PURE__ */ o6.createElement(p, { ref: t5, ...r8, weights: e7 }));
-  e29.displayName = "CopyIcon";
-  var s4 = e29;
+  var e30 = o6.forwardRef((r8, t5) => /* @__PURE__ */ o6.createElement(p, { ref: t5, ...r8, weights: e7 }));
+  e30.displayName = "CopyIcon";
+  var s4 = e30;
 
   // node_modules/@phosphor-icons/react/dist/csr/DownloadSimple.es.js
   var o7 = __toESM(require_react(), 1);
-  var e30 = o7.forwardRef((a28, m4) => /* @__PURE__ */ o7.createElement(p, { ref: m4, ...a28, weights: e8 }));
-  e30.displayName = "DownloadSimpleIcon";
-  var l2 = e30;
+  var e31 = o7.forwardRef((a29, m4) => /* @__PURE__ */ o7.createElement(p, { ref: m4, ...a29, weights: e8 }));
+  e31.displayName = "DownloadSimpleIcon";
+  var l2 = e31;
 
   // node_modules/@phosphor-icons/react/dist/csr/Eye.es.js
-  var e31 = __toESM(require_react(), 1);
-  var o8 = e31.forwardRef((r8, t5) => /* @__PURE__ */ e31.createElement(p, { ref: t5, ...r8, weights: a8 }));
+  var e32 = __toESM(require_react(), 1);
+  var o8 = e32.forwardRef((r8, t5) => /* @__PURE__ */ e32.createElement(p, { ref: t5, ...r8, weights: a8 }));
   o8.displayName = "EyeIcon";
   var n2 = o8;
 
+  // node_modules/@phosphor-icons/react/dist/csr/EyeSlash.es.js
+  var e33 = __toESM(require_react(), 1);
+  var o9 = e33.forwardRef((a29, r8) => /* @__PURE__ */ e33.createElement(p, { ref: r8, ...a29, weights: e10 }));
+  o9.displayName = "EyeSlashIcon";
+  var n3 = o9;
+
   // node_modules/@phosphor-icons/react/dist/csr/GearSix.es.js
-  var e32 = __toESM(require_react(), 1);
-  var o9 = e32.forwardRef((r8, a28) => /* @__PURE__ */ e32.createElement(p, { ref: a28, ...r8, weights: l }));
-  o9.displayName = "GearSixIcon";
-  var s5 = o9;
+  var e34 = __toESM(require_react(), 1);
+  var o10 = e34.forwardRef((r8, a29) => /* @__PURE__ */ e34.createElement(p, { ref: a29, ...r8, weights: l }));
+  o10.displayName = "GearSixIcon";
+  var s5 = o10;
 
   // node_modules/@phosphor-icons/react/dist/csr/GitBranch.es.js
-  var o10 = __toESM(require_react(), 1);
-  var r4 = o10.forwardRef((t5, a28) => /* @__PURE__ */ o10.createElement(p, { ref: a28, ...t5, weights: e10 }));
+  var o11 = __toESM(require_react(), 1);
+  var r4 = o11.forwardRef((t5, a29) => /* @__PURE__ */ o11.createElement(p, { ref: a29, ...t5, weights: e11 }));
   r4.displayName = "GitBranchIcon";
   var m2 = r4;
 
   // node_modules/@phosphor-icons/react/dist/csr/Info.es.js
-  var o11 = __toESM(require_react(), 1);
-  var e33 = o11.forwardRef((r8, t5) => /* @__PURE__ */ o11.createElement(p, { ref: t5, ...r8, weights: a11 }));
-  e33.displayName = "InfoIcon";
-  var c4 = e33;
+  var o12 = __toESM(require_react(), 1);
+  var e35 = o12.forwardRef((r8, t5) => /* @__PURE__ */ o12.createElement(p, { ref: t5, ...r8, weights: a12 }));
+  e35.displayName = "InfoIcon";
+  var c4 = e35;
 
   // node_modules/@phosphor-icons/react/dist/csr/List.es.js
-  var o12 = __toESM(require_react(), 1);
-  var t3 = o12.forwardRef((e40, r8) => /* @__PURE__ */ o12.createElement(p, { ref: r8, ...e40, weights: e12 }));
+  var o13 = __toESM(require_react(), 1);
+  var t3 = o13.forwardRef((e42, r8) => /* @__PURE__ */ o13.createElement(p, { ref: r8, ...e42, weights: e13 }));
   t3.displayName = "ListIcon";
   var c5 = t3;
 
   // node_modules/@phosphor-icons/react/dist/csr/MagnifyingGlass.es.js
-  var a25 = __toESM(require_react(), 1);
-  var o13 = a25.forwardRef((s7, n9) => /* @__PURE__ */ a25.createElement(p, { ref: n9, ...s7, weights: a13 }));
-  o13.displayName = "MagnifyingGlassIcon";
-  var f = o13;
+  var a26 = __toESM(require_react(), 1);
+  var o14 = a26.forwardRef((s7, n10) => /* @__PURE__ */ a26.createElement(p, { ref: n10, ...s7, weights: a14 }));
+  o14.displayName = "MagnifyingGlassIcon";
+  var f = o14;
 
   // node_modules/@phosphor-icons/react/dist/csr/Pause.es.js
-  var e34 = __toESM(require_react(), 1);
-  var o14 = e34.forwardRef((a28, r8) => /* @__PURE__ */ e34.createElement(p, { ref: r8, ...a28, weights: e14 }));
-  o14.displayName = "PauseIcon";
-  var n3 = o14;
+  var e36 = __toESM(require_react(), 1);
+  var o15 = e36.forwardRef((a29, r8) => /* @__PURE__ */ e36.createElement(p, { ref: r8, ...a29, weights: e15 }));
+  o15.displayName = "PauseIcon";
+  var n4 = o15;
 
   // node_modules/@phosphor-icons/react/dist/csr/PencilSimple.es.js
-  var e35 = __toESM(require_react(), 1);
-  var o15 = e35.forwardRef((i, m4) => /* @__PURE__ */ e35.createElement(p, { ref: m4, ...i, weights: e15 }));
-  o15.displayName = "PencilSimpleIcon";
-  var a26 = o15;
+  var e37 = __toESM(require_react(), 1);
+  var o16 = e37.forwardRef((i, m4) => /* @__PURE__ */ e37.createElement(p, { ref: m4, ...i, weights: e16 }));
+  o16.displayName = "PencilSimpleIcon";
+  var a27 = o16;
 
   // node_modules/@phosphor-icons/react/dist/csr/Play.es.js
-  var o16 = __toESM(require_react(), 1);
-  var a27 = o16.forwardRef((e40, r8) => /* @__PURE__ */ o16.createElement(p, { ref: r8, ...e40, weights: a16 }));
-  a27.displayName = "PlayIcon";
-  var n4 = a27;
+  var o17 = __toESM(require_react(), 1);
+  var a28 = o17.forwardRef((e42, r8) => /* @__PURE__ */ o17.createElement(p, { ref: r8, ...e42, weights: a17 }));
+  a28.displayName = "PlayIcon";
+  var n5 = a28;
 
   // node_modules/@phosphor-icons/react/dist/csr/Plus.es.js
-  var o17 = __toESM(require_react(), 1);
-  var e36 = o17.forwardRef((r8, s7) => /* @__PURE__ */ o17.createElement(p, { ref: s7, ...r8, weights: a17 }));
-  e36.displayName = "PlusIcon";
-  var n5 = e36;
+  var o18 = __toESM(require_react(), 1);
+  var e38 = o18.forwardRef((r8, s7) => /* @__PURE__ */ o18.createElement(p, { ref: s7, ...r8, weights: a18 }));
+  e38.displayName = "PlusIcon";
+  var n6 = e38;
 
   // node_modules/@phosphor-icons/react/dist/csr/Record.es.js
-  var o18 = __toESM(require_react(), 1);
-  var e37 = o18.forwardRef((r8, c9) => /* @__PURE__ */ o18.createElement(p, { ref: c9, ...r8, weights: a18 }));
-  e37.displayName = "RecordIcon";
-  var n6 = e37;
+  var o19 = __toESM(require_react(), 1);
+  var e39 = o19.forwardRef((r8, c9) => /* @__PURE__ */ o19.createElement(p, { ref: c9, ...r8, weights: a19 }));
+  e39.displayName = "RecordIcon";
+  var n7 = e39;
 
   // node_modules/@phosphor-icons/react/dist/csr/RocketLaunch.es.js
-  var o19 = __toESM(require_react(), 1);
-  var c6 = o19.forwardRef((e40, t5) => /* @__PURE__ */ o19.createElement(p, { ref: t5, ...e40, weights: e19 }));
+  var o20 = __toESM(require_react(), 1);
+  var c6 = o20.forwardRef((e42, t5) => /* @__PURE__ */ o20.createElement(p, { ref: t5, ...e42, weights: e20 }));
   c6.displayName = "RocketLaunchIcon";
   var s6 = c6;
 
   // node_modules/@phosphor-icons/react/dist/csr/SignOut.es.js
-  var o20 = __toESM(require_react(), 1);
-  var t4 = o20.forwardRef((e40, r8) => /* @__PURE__ */ o20.createElement(p, { ref: r8, ...e40, weights: e20 }));
+  var o21 = __toESM(require_react(), 1);
+  var t4 = o21.forwardRef((e42, r8) => /* @__PURE__ */ o21.createElement(p, { ref: r8, ...e42, weights: e21 }));
   t4.displayName = "SignOutIcon";
   var c7 = t4;
 
   // node_modules/@phosphor-icons/react/dist/csr/SquaresFour.es.js
-  var o21 = __toESM(require_react(), 1);
-  var r5 = o21.forwardRef((e40, a28) => /* @__PURE__ */ o21.createElement(p, { ref: a28, ...e40, weights: e21 }));
+  var o22 = __toESM(require_react(), 1);
+  var r5 = o22.forwardRef((e42, a29) => /* @__PURE__ */ o22.createElement(p, { ref: a29, ...e42, weights: e22 }));
   r5.displayName = "SquaresFourIcon";
-  var n7 = r5;
+  var n8 = r5;
 
   // node_modules/@phosphor-icons/react/dist/csr/Warning.es.js
-  var o22 = __toESM(require_react(), 1);
-  var r6 = o22.forwardRef((n9, a28) => /* @__PURE__ */ o22.createElement(p, { ref: a28, ...n9, weights: e22 }));
+  var o23 = __toESM(require_react(), 1);
+  var r6 = o23.forwardRef((n10, a29) => /* @__PURE__ */ o23.createElement(p, { ref: a29, ...n10, weights: e23 }));
   r6.displayName = "WarningIcon";
   var c8 = r6;
 
   // node_modules/@phosphor-icons/react/dist/csr/WarningCircle.es.js
   var r7 = __toESM(require_react(), 1);
-  var e38 = r7.forwardRef((o24, n9) => /* @__PURE__ */ r7.createElement(p, { ref: n9, ...o24, weights: a23 }));
-  e38.displayName = "WarningCircleIcon";
-  var m3 = e38;
+  var e40 = r7.forwardRef((o25, n10) => /* @__PURE__ */ r7.createElement(p, { ref: n10, ...o25, weights: a24 }));
+  e40.displayName = "WarningCircleIcon";
+  var m3 = e40;
 
   // node_modules/@phosphor-icons/react/dist/csr/X.es.js
-  var o23 = __toESM(require_react(), 1);
-  var e39 = o23.forwardRef((r8, t5) => /* @__PURE__ */ o23.createElement(p, { ref: t5, ...r8, weights: a24 }));
-  e39.displayName = "XIcon";
-  var n8 = e39;
+  var o24 = __toESM(require_react(), 1);
+  var e41 = o24.forwardRef((r8, t5) => /* @__PURE__ */ o24.createElement(p, { ref: t5, ...r8, weights: a25 }));
+  e41.displayName = "XIcon";
+  var n9 = e41;
 
   // src/components/Icon.jsx
   var ICON_DEFAULTS = { size: 15, weight: "bold" };
@@ -25625,7 +25666,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       /* @__PURE__ */ import_react4.default.createElement("span", { className: "status-dot", "data-status": dot }),
       /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-name" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-label" }, name2), isDeployed && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-deployed", title: "Deployed by Hawkeye" }, /* @__PURE__ */ import_react4.default.createElement(m2, { size: 10, weight: "bold", "aria-label": "Deployed by Hawkeye" }))),
-      meta && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-meta" }, meta.cpu != null && /* @__PURE__ */ import_react4.default.createElement("span", null, meta.cpu.toFixed(0), "%"), meta.memory != null && /* @__PURE__ */ import_react4.default.createElement("span", null, formatBytes(meta.memory)), meta.isMonitored && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-rec", title: "Monitored - logs and metrics are being stored" }, /* @__PURE__ */ import_react4.default.createElement(n6, { size: 9, weight: "fill" }))),
+      meta && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-meta" }, meta.cpu != null && /* @__PURE__ */ import_react4.default.createElement("span", null, meta.cpu.toFixed(0), "%"), meta.memory != null && /* @__PURE__ */ import_react4.default.createElement("span", null, formatBytes(meta.memory)), meta.isMonitored && /* @__PURE__ */ import_react4.default.createElement("span", { className: "process-item-rec", title: "Monitored - logs and metrics are being stored" }, /* @__PURE__ */ import_react4.default.createElement(n7, { size: 9, weight: "fill" }))),
       tag && /* @__PURE__ */ import_react4.default.createElement("span", { className: `tag${tag.tone ? ` tag--${tag.tone}` : ""}` }, tag.label)
     );
   }
@@ -25698,7 +25739,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         "aria-current": selection == null ? "page" : void 0,
         onClick: () => onSelect(null)
       },
-      /* @__PURE__ */ import_react4.default.createElement(n7, { size: 15 }),
+      /* @__PURE__ */ import_react4.default.createElement(n8, { size: 15 }),
       "Overview",
       attentionCount > 0 && /* @__PURE__ */ import_react4.default.createElement(
         "span",
@@ -25716,7 +25757,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         value: filter,
         placeholder: "Filter processes",
         "aria-label": "Filter processes",
-        onChange: (e40) => setFilter(e40.target.value)
+        onChange: (e42) => setFilter(e42.target.value)
       }
     ))), /* @__PURE__ */ import_react4.default.createElement("div", { className: "process-list" }, running.length + notRunning.length === 0 && /* @__PURE__ */ import_react4.default.createElement("p", { className: "sidebar-empty" }, total === 0 ? "No PM2 processes found." : `Nothing matches "${filter.trim()}".`), group("Running", running), group("Not running", notRunning)));
   }
@@ -25786,9 +25827,9 @@ git checkout -B ${branch} FETCH_HEAD`,
         className: "confirm",
         role: "group",
         "aria-label": question,
-        onKeyDown: (e40) => {
-          if (e40.key === "Escape" && !busy) {
-            e40.stopPropagation();
+        onKeyDown: (e42) => {
+          if (e42.key === "Escape" && !busy) {
+            e42.stopPropagation();
             close();
           }
         }
@@ -25908,8 +25949,8 @@ git checkout -B ${branch} FETCH_HEAD`,
   var LEFT_EDGE_PX = 16;
   var RIGHT_EDGE_PX = 44;
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  function pad(n9) {
-    return String(n9).padStart(2, "0");
+  function pad(n10) {
+    return String(n10).padStart(2, "0");
   }
   function formatClock(t5) {
     const d = new Date(t5);
@@ -26035,16 +26076,16 @@ git checkout -B ${branch} FETCH_HEAD`,
     const rows = hoverT == null ? [] : series.map((s7) => ({ ...s7, sample: s7 === series[0] ? primary[index2] : sampleAt(s7.samples, hoverT) })).filter((s7) => s7.sample);
     const current = primary.at(-1).v;
     const ariaLabel = `${label}, now ${formatValue(current)}. Use the arrow keys to read values.`;
-    const onPointerMove = (e40) => {
-      const rect = e40.currentTarget.getBoundingClientRect();
-      const share = Math.max(0, Math.min(1, (e40.clientX - rect.left) / (rect.width || 1)));
+    const onPointerMove = (e42) => {
+      const rect = e42.currentTarget.getBoundingClientRect();
+      const share = Math.max(0, Math.min(1, (e42.clientX - rect.left) / (rect.width || 1)));
       setHover(nearestIndex(primary, t0 + share * span));
     };
-    const onKeyDown = (e40) => {
-      if (e40.key !== "ArrowLeft" && e40.key !== "ArrowRight") return;
-      e40.preventDefault();
+    const onKeyDown = (e42) => {
+      if (e42.key !== "ArrowLeft" && e42.key !== "ArrowRight") return;
+      e42.preventDefault();
       const from = index2 ?? primary.length - 1;
-      const next = from + (e40.key === "ArrowLeft" ? -1 : 1);
+      const next = from + (e42.key === "ArrowLeft" ? -1 : 1);
       setHover(Math.max(0, Math.min(primary.length - 1, next)));
     };
     let tooltipStyle;
@@ -26158,7 +26199,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         samples: withLivePoint(entry.samples, metric.value, now)
       });
     }
-    return [...byName.values()].sort((a28, b) => a28.name.localeCompare(b.name));
+    return [...byName.values()].sort((a29, b) => a29.name.localeCompare(b.name));
   }
   function ProcessChartCard({ id, label, value, peak, series, children }) {
     return /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card", id }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card-head" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-label" }, label), peak && /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-peak" }, peak)), /* @__PURE__ */ import_react8.default.createElement("span", { className: "chart-card-value" }, value), series.length > 1 && /* @__PURE__ */ import_react8.default.createElement("div", { className: "chart-card-legend" }, series.map((s7) => /* @__PURE__ */ import_react8.default.createElement("span", { key: s7.name }, /* @__PURE__ */ import_react8.default.createElement(
@@ -26272,8 +26313,8 @@ git checkout -B ${branch} FETCH_HEAD`,
       "a",
       {
         href: "#host",
-        onClick: (e40) => {
-          e40.preventDefault();
+        onClick: (e42) => {
+          e42.preventDefault();
           onShowHost();
         }
       },
@@ -26323,7 +26364,7 @@ git checkout -B ${branch} FETCH_HEAD`,
           value: params[name2] ?? "",
           placeholder: "parameter",
           "aria-label": `Parameter for ${name2}`,
-          onChange: (e40) => setParams((prev) => ({ ...prev, [name2]: e40.target.value }))
+          onChange: (e42) => setParams((prev) => ({ ...prev, [name2]: e42.target.value }))
         }
       ), /* @__PURE__ */ import_react9.default.createElement(
         ConfirmButton,
@@ -26395,8 +26436,8 @@ git checkout -B ${branch} FETCH_HEAD`,
         "a",
         {
           href: "#settings-alerting",
-          onClick: (e40) => {
-            e40.preventDefault();
+          onClick: (e42) => {
+            e42.preventDefault();
             onOpenAlerting();
           }
         },
@@ -26407,7 +26448,7 @@ git checkout -B ${branch} FETCH_HEAD`,
           type: "checkbox",
           checked: alertsEnabled,
           "aria-label": `Alerts for ${name2}`,
-          onChange: (e40) => onToggleAlerts(name2, e40.target.checked)
+          onChange: (e42) => onToggleAlerts(name2, e42.target.checked)
         }
       ), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "toggle-label" }, alertsEnabled ? "Enabled" : "Disabled")))
     ), isOnline && /* @__PURE__ */ import_react10.default.createElement(
@@ -26462,6 +26503,40 @@ git checkout -B ${branch} FETCH_HEAD`,
 
   // src/components/LogStream.jsx
   var import_react11 = __toESM(require_react(), 1);
+
+  // src/services/clipboard.js
+  async function copyText(text5) {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text5);
+        return true;
+      } catch {
+      }
+    }
+    const previousFocus = document.activeElement;
+    const host = previousFocus?.closest?.('[role="dialog"]') ?? document.body;
+    const textarea = document.createElement("textarea");
+    textarea.value = text5;
+    textarea.setAttribute("readonly", "");
+    textarea.setAttribute("aria-hidden", "true");
+    textarea.style.position = "fixed";
+    textarea.style.top = "0";
+    textarea.style.left = "0";
+    textarea.style.opacity = "0";
+    host.appendChild(textarea);
+    textarea.select();
+    let copied;
+    try {
+      copied = document.execCommand("copy");
+    } catch {
+      copied = false;
+    }
+    textarea.remove();
+    if (previousFocus instanceof HTMLElement) previousFocus.focus();
+    return copied;
+  }
+
+  // src/components/LogStream.jsx
   function isContinuationLine(text5) {
     return /^\s+at\s/.test(text5);
   }
@@ -26529,25 +26604,16 @@ git checkout -B ${branch} FETCH_HEAD`,
     const isFiltered = filteredLines.length !== allLines.length;
     const copyLogs = async () => {
       const text5 = filteredLines.map((l3) => l3.text).join("\n");
-      if (!navigator.clipboard) {
-        setCopyStatus("Clipboard access is unavailable.");
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(text5);
-        setCopyStatus("Copied.");
-      } catch {
-        setCopyStatus("Copy failed.");
-      }
+      setCopyStatus(await copyText(text5) ? "Copied." : "Copy failed.");
     };
     const downloadLogs = () => {
       const text5 = filteredLines.map((l3) => l3.text).join("\n");
       const blob = new Blob([text5], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
-      const a28 = document.createElement("a");
-      a28.href = url;
-      a28.download = `${details?.process?.name ?? "logs"}.log`;
-      a28.click();
+      const a29 = document.createElement("a");
+      a29.href = url;
+      a29.download = `${details?.process?.name ?? "logs"}.log`;
+      a29.click();
       URL.revokeObjectURL(url);
     };
     return /* @__PURE__ */ import_react11.default.createElement("section", { className: "log-panel" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-filters", role: "group", "aria-label": "Filter by log level" }, FILTER_LEVELS.map((level) => /* @__PURE__ */ import_react11.default.createElement(
@@ -26569,7 +26635,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         placeholder: "Search",
         "aria-label": "Search logs",
         value: logSearch,
-        onChange: (e40) => onSearchChange(e40.target.value)
+        onChange: (e42) => onSearchChange(e42.target.value)
       }
     )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar-status" }, copyStatus && /* @__PURE__ */ import_react11.default.createElement("span", { role: "status" }, copyStatus), /* @__PURE__ */ import_react11.default.createElement("span", { className: "log-status-dot", "data-paused": logPaused }), /* @__PURE__ */ import_react11.default.createElement("span", null, logPaused ? `Paused${pausedCount > 0 ? `, ${pausedCount} held` : ""}` : "Live"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "log-count" }, isFiltered ? `${filteredLines.length} of ${allLines.length}` : `${allLines.length}`, " lines")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "log-toolbar-actions" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
@@ -26581,7 +26647,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         "aria-label": logPaused ? "Resume the stream" : "Pause the stream",
         onClick: onTogglePause
       },
-      logPaused ? /* @__PURE__ */ import_react11.default.createElement(n4, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react11.default.createElement(n3, { size: 13, weight: "fill" })
+      logPaused ? /* @__PURE__ */ import_react11.default.createElement(n5, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react11.default.createElement(n4, { size: 13, weight: "fill" })
     ), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -29917,13 +29983,13 @@ git checkout -B ${branch} FETCH_HEAD`,
      * @return {undefined}
      *   Nothing.
      */
-    setCursor(n9) {
-      if (n9 === this.left.length || n9 > this.left.length && this.right.length === 0 || n9 < 0 && this.left.length === 0) return;
-      if (n9 < this.left.length) {
-        const removed = this.left.splice(n9, Number.POSITIVE_INFINITY);
+    setCursor(n10) {
+      if (n10 === this.left.length || n10 > this.left.length && this.right.length === 0 || n10 < 0 && this.left.length === 0) return;
+      if (n10 < this.left.length) {
+        const removed = this.left.splice(n10, Number.POSITIVE_INFINITY);
         chunkedPush(this.right, removed.reverse());
       } else {
-        const removed = this.right.splice(this.left.length + this.right.length - n9, Number.POSITIVE_INFINITY);
+        const removed = this.right.splice(this.left.length + this.right.length - n10, Number.POSITIVE_INFINITY);
         chunkedPush(this.left, removed.reverse());
       }
     }
@@ -36226,8 +36292,8 @@ git checkout -B ${branch} FETCH_HEAD`,
     }, []);
     (0, import_react13.useEffect)(() => {
       if (!open) return;
-      const handler = (e40) => {
-        if (panelRef.current && !panelRef.current.contains(e40.target)) {
+      const handler = (e42) => {
+        if (panelRef.current && !panelRef.current.contains(e42.target)) {
           setOpen(false);
         }
       };
@@ -36236,8 +36302,8 @@ git checkout -B ${branch} FETCH_HEAD`,
     }, [open]);
     (0, import_react13.useEffect)(() => {
       if (!open) return;
-      const handler = (e40) => {
-        if (e40.key === "Escape") setOpen(false);
+      const handler = (e42) => {
+        if (e42.key === "Escape") setOpen(false);
       };
       document.addEventListener("keydown", handler);
       return () => document.removeEventListener("keydown", handler);
@@ -36296,7 +36362,7 @@ git checkout -B ${branch} FETCH_HEAD`,
   }
 
   // src/components/Settings.jsx
-  var import_react19 = __toESM(require_react(), 1);
+  var import_react20 = __toESM(require_react(), 1);
 
   // src/services/dialog.js
   var import_react15 = __toESM(require_react(), 1);
@@ -36467,8 +36533,8 @@ git checkout -B ${branch} FETCH_HEAD`,
     function set(key, value) {
       setFields((prev) => ({ ...prev, [key]: value }));
     }
-    async function handleSave(e40) {
-      e40.preventDefault();
+    async function handleSave(e42) {
+      e42.preventDefault();
       if (!csrfToken || !fields) return;
       setSaving(true);
       setNotice(null);
@@ -36512,7 +36578,7 @@ git checkout -B ${branch} FETCH_HEAD`,
           className: "input",
           type: "text",
           value: fields[key] ?? "",
-          onChange: (e40) => set(key, e40.target.value),
+          onChange: (e42) => set(key, e42.target.value),
           autoComplete: "off"
         }
       ), /* @__PURE__ */ import_react16.default.createElement("p", { className: "hint" }, meta?.hint ? `${meta.hint} ` : "", /* @__PURE__ */ import_react16.default.createElement("code", null, key)));
@@ -36524,7 +36590,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         type: "password",
         value: newPassword,
         placeholder: "Leave blank to keep the current one",
-        onChange: (e40) => setNewPassword(e40.target.value),
+        onChange: (e42) => setNewPassword(e42.target.value),
         autoComplete: "new-password"
       }
     ), /* @__PURE__ */ import_react16.default.createElement("p", { className: "hint" }, "A new salt and hash are derived on save. The plaintext is never stored.")))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "settings-actions" }, /* @__PURE__ */ import_react16.default.createElement("button", { className: "btn btn--primary", type: "submit", disabled: saving }, saving ? "Saving" : "Save changes")));
@@ -36555,7 +36621,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         placeholder: keyPlaceholder,
         "aria-label": `${itemLabel} name ${i + 1}`,
         value: row.key,
-        onChange: (e40) => onUpdate(i, "key", e40.target.value)
+        onChange: (e42) => onUpdate(i, "key", e42.target.value)
       }
     ), /* @__PURE__ */ import_react17.default.createElement(
       "input",
@@ -36565,7 +36631,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         placeholder: valuePlaceholder,
         "aria-label": `${itemLabel} value ${i + 1}`,
         value: row.value,
-        onChange: (e40) => onUpdate(i, "value", e40.target.value)
+        onChange: (e42) => onUpdate(i, "value", e42.target.value)
       }
     ), /* @__PURE__ */ import_react17.default.createElement(
       "button",
@@ -36575,8 +36641,8 @@ git checkout -B ${branch} FETCH_HEAD`,
         "aria-label": `Remove ${itemLabel.toLowerCase()} ${i + 1}`,
         onClick: () => onRemove(i)
       },
-      /* @__PURE__ */ import_react17.default.createElement(n8, { size: 13 })
-    ))), /* @__PURE__ */ import_react17.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: onAdd }, /* @__PURE__ */ import_react17.default.createElement(n5, { size: 12, weight: "bold" }), addLabel));
+      /* @__PURE__ */ import_react17.default.createElement(n9, { size: 13 })
+    ))), /* @__PURE__ */ import_react17.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: onAdd }, /* @__PURE__ */ import_react17.default.createElement(n6, { size: 12, weight: "bold" }), addLabel));
   }
 
   // src/components/settings/AlertingSettings.jsx
@@ -36651,11 +36717,19 @@ git checkout -B ${branch} FETCH_HEAD`,
     const ntfyTopic = settings["reporter.ntfy.topic"] ?? "";
     const ntfyPriority = settings["reporter.ntfy.priority"] ?? "default";
     const ntfyToken = settings["reporter.ntfy.token"] ?? "";
+    const alertaEnabled = settings["reporter.alerta.enabled"] === "1";
+    const alertaUrl = settings["reporter.alerta.url"] ?? "";
+    const alertaApiKey = settings["reporter.alerta.apiKey"] ?? "";
+    const alertaEndpoints = settings["reporter.alerta.endpoints"] ?? "";
+    const alertaPriority = settings["reporter.alerta.priority"] ?? "active";
     const [showNtfyToken, setShowNtfyToken] = (0, import_react18.useState)(false);
+    const [showAlertaApiKey, setShowAlertaApiKey] = (0, import_react18.useState)(false);
     const [webhookTestResult, setWebhookTestResult] = (0, import_react18.useState)(null);
     const [webhookTesting, setWebhookTesting] = (0, import_react18.useState)(false);
     const [ntfyTestResult, setNtfyTestResult] = (0, import_react18.useState)(null);
     const [ntfyTesting, setNtfyTesting] = (0, import_react18.useState)(false);
+    const [alertaTestResult, setAlertaTestResult] = (0, import_react18.useState)(null);
+    const [alertaTesting, setAlertaTesting] = (0, import_react18.useState)(false);
     function set(key, value) {
       onChange({ ...settings, [key]: value });
     }
@@ -36719,6 +36793,29 @@ git checkout -B ${branch} FETCH_HEAD`,
         setNtfyTesting(false);
       }
     }
+    async function sendAlertaTest() {
+      if (!csrfToken) return;
+      setAlertaTesting(true);
+      setAlertaTestResult(null);
+      try {
+        const result = await fetchWithCsrf("/api/alerting/test/alerta", {
+          onCsrfRefresh,
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            url: alertaUrl,
+            apiKey: alertaApiKey,
+            endpoints: alertaEndpoints,
+            priority: alertaPriority
+          })
+        });
+        setAlertaTestResult(result);
+      } catch (err) {
+        setAlertaTestResult({ ok: false, error: err.message });
+      } finally {
+        setAlertaTesting(false);
+      }
+    }
     const testResult = (result) => result && /* @__PURE__ */ import_react18.default.createElement("span", { className: "action-result", "data-ok": result.ok }, result.ok ? /* @__PURE__ */ import_react18.default.createElement(s2, { size: 13, weight: "fill" }) : /* @__PURE__ */ import_react18.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react18.default.createElement("span", null, result.ok ? `Delivered, HTTP ${result.status}` : `Failed: ${result.error ?? `HTTP ${result.status}`}`));
     return /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-page" }, /* @__PURE__ */ import_react18.default.createElement("p", { className: "hint" }, "These rules apply to every process that has monitoring and alerts turned on. Alerts are switched on per process in its Manage tab."), saveError && /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-notice settings-notice--error" }, saveError), /* @__PURE__ */ import_react18.default.createElement("section", { className: "settings-group" }, /* @__PURE__ */ import_react18.default.createElement("h3", { className: "settings-group-title" }, "When to alert"), /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "choice-list" }, /* @__PURE__ */ import_react18.default.createElement("label", { className: "choice" }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36746,7 +36843,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         type: "number",
         min: "1",
         value: throttleMinutes,
-        onChange: (e40) => set("alert.throttleMinutes", e40.target.value)
+        onChange: (e42) => set("alert.throttleMinutes", e42.target.value)
       }
     ), /* @__PURE__ */ import_react18.default.createElement("span", null, "minutes"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", null, "Trigger on these levels"), /* @__PURE__ */ import_react18.default.createElement("div", { className: "checkbox-row" }, ["error", "warn", "info", "debug"].map((level) => /* @__PURE__ */ import_react18.default.createElement("label", { className: "checkbox", key: level }, /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36760,7 +36857,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       {
         type: "checkbox",
         checked: webhookEnabled,
-        onChange: (e40) => set("reporter.webhook.enabled", e40.target.checked ? "1" : "0")
+        onChange: (e42) => set("reporter.webhook.enabled", e42.target.checked ? "1" : "0")
       }
     ), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-label" }, webhookEnabled ? "Enabled" : "Disabled"))), webhookEnabled && /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "wh-url" }, "URL"), /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36770,7 +36867,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         type: "url",
         value: webhookUrl,
         placeholder: "https://hooks.example.com/alert",
-        onChange: (e40) => set("reporter.webhook.url", e40.target.value)
+        onChange: (e42) => set("reporter.webhook.url", e42.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement(
       KeyValueList,
@@ -36800,7 +36897,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       {
         type: "checkbox",
         checked: ntfyEnabled,
-        onChange: (e40) => set("reporter.ntfy.enabled", e40.target.checked ? "1" : "0")
+        onChange: (e42) => set("reporter.ntfy.enabled", e42.target.checked ? "1" : "0")
       }
     ), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-label" }, ntfyEnabled ? "Enabled" : "Disabled"))), ntfyEnabled && /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "ntfy-server" }, "Server URL"), /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36809,7 +36906,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         className: "input",
         type: "url",
         value: ntfyServerUrl,
-        onChange: (e40) => set("reporter.ntfy.serverUrl", e40.target.value)
+        onChange: (e42) => set("reporter.ntfy.serverUrl", e42.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "ntfy-topic" }, "Topic"), /* @__PURE__ */ import_react18.default.createElement(
       "input",
@@ -36818,7 +36915,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         className: "input",
         value: ntfyTopic,
         placeholder: "my-alerts",
-        onChange: (e40) => set("reporter.ntfy.topic", e40.target.value)
+        onChange: (e42) => set("reporter.ntfy.topic", e42.target.value)
       }
     )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "ntfy-priority" }, "Priority"), /* @__PURE__ */ import_react18.default.createElement(
       "select",
@@ -36826,7 +36923,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         id: "ntfy-priority",
         className: "select",
         value: ntfyPriority,
-        onChange: (e40) => set("reporter.ntfy.priority", e40.target.value)
+        onChange: (e42) => set("reporter.ntfy.priority", e42.target.value)
       },
       /* @__PURE__ */ import_react18.default.createElement("option", { value: "min" }, "min"),
       /* @__PURE__ */ import_react18.default.createElement("option", { value: "low" }, "low"),
@@ -36841,28 +36938,333 @@ git checkout -B ${branch} FETCH_HEAD`,
         type: showNtfyToken ? "text" : "password",
         value: ntfyToken,
         placeholder: "Optional",
-        onChange: (e40) => set("reporter.ntfy.token", e40.target.value),
+        onChange: (e42) => set("reporter.ntfy.token", e42.target.value),
         autoComplete: "off"
       }
-    ), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: () => setShowNtfyToken((v) => !v) }, showNtfyToken ? "Hide" : "Show"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn", onClick: sendNtfyTest, disabled: ntfyTesting || !ntfyTopic }, ntfyTesting ? "Sending" : "Send a test"), testResult(ntfyTestResult)))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-actions" }, /* @__PURE__ */ import_react18.default.createElement("button", { className: "btn btn--primary", type: "button", onClick: onSave, disabled: saving }, saving ? "Saving" : "Save changes")));
+    ), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: () => setShowNtfyToken((v) => !v) }, showNtfyToken ? "Hide" : "Show"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn", onClick: sendNtfyTest, disabled: ntfyTesting || !ntfyTopic }, ntfyTesting ? "Sending" : "Send a test"), testResult(ntfyTestResult)))), /* @__PURE__ */ import_react18.default.createElement("section", { className: "settings-group" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "reporter-head" }, /* @__PURE__ */ import_react18.default.createElement("h3", { className: "settings-group-title" }, "alerta"), /* @__PURE__ */ import_react18.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react18.default.createElement(
+      "input",
+      {
+        type: "checkbox",
+        checked: alertaEnabled,
+        onChange: (e42) => set("reporter.alerta.enabled", e42.target.checked ? "1" : "0")
+      }
+    ), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react18.default.createElement("span", { className: "toggle-label" }, alertaEnabled ? "Enabled" : "Disabled"))), alertaEnabled && /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-group-fields" }, /* @__PURE__ */ import_react18.default.createElement("p", { className: "hint" }, "Every process gets its own topic in alerta, named hawkeye-<process name>."), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "alerta-url" }, "Server URL"), /* @__PURE__ */ import_react18.default.createElement(
+      "input",
+      {
+        id: "alerta-url",
+        className: "input",
+        type: "url",
+        value: alertaUrl,
+        placeholder: "https://alerta.example.com",
+        onChange: (e42) => set("reporter.alerta.url", e42.target.value)
+      }
+    )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "alerta-api-key" }, "API key"), /* @__PURE__ */ import_react18.default.createElement("div", { className: "input-suffix" }, /* @__PURE__ */ import_react18.default.createElement(
+      "input",
+      {
+        id: "alerta-api-key",
+        className: "input",
+        type: showAlertaApiKey ? "text" : "password",
+        value: alertaApiKey,
+        onChange: (e42) => set("reporter.alerta.apiKey", e42.target.value),
+        autoComplete: "off"
+      }
+    ), /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn btn--sm", onClick: () => setShowAlertaApiKey((v) => !v) }, showAlertaApiKey ? "Hide" : "Show"))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "alerta-endpoints" }, "Endpoints"), /* @__PURE__ */ import_react18.default.createElement(
+      "input",
+      {
+        id: "alerta-endpoints",
+        className: "input",
+        value: alertaEndpoints,
+        placeholder: "homeassistant_zu_hause, telegram_familie",
+        autoCapitalize: "none",
+        spellCheck: "false",
+        onChange: (e42) => set("reporter.alerta.endpoints", e42.target.value)
+      }
+    ), /* @__PURE__ */ import_react18.default.createElement("p", { className: "hint" }, "Names of your endpoints in alerta, comma separated.")), /* @__PURE__ */ import_react18.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react18.default.createElement("label", { htmlFor: "alerta-priority" }, "Priority"), /* @__PURE__ */ import_react18.default.createElement(
+      "select",
+      {
+        id: "alerta-priority",
+        className: "select",
+        value: alertaPriority,
+        onChange: (e42) => set("reporter.alerta.priority", e42.target.value)
+      },
+      /* @__PURE__ */ import_react18.default.createElement("option", { value: "passive" }, "passive"),
+      /* @__PURE__ */ import_react18.default.createElement("option", { value: "active" }, "active"),
+      /* @__PURE__ */ import_react18.default.createElement("option", { value: "time-sensitive" }, "time-sensitive"),
+      /* @__PURE__ */ import_react18.default.createElement("option", { value: "critical" }, "critical")
+    )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "test-row" }, /* @__PURE__ */ import_react18.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn",
+        onClick: sendAlertaTest,
+        disabled: alertaTesting || !alertaUrl || !alertaApiKey || !alertaEndpoints.trim()
+      },
+      alertaTesting ? "Sending" : "Send a test"
+    ), testResult(alertaTestResult)))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "settings-actions" }, /* @__PURE__ */ import_react18.default.createElement("button", { className: "btn btn--primary", type: "button", onClick: onSave, disabled: saving }, saving ? "Saving" : "Save changes")));
+  }
+
+  // src/components/settings/McpSettings.jsx
+  var import_react19 = __toESM(require_react(), 1);
+
+  // src/services/mcp.js
+  var MCP_SERVER_NAME = "pm2-hawkeye";
+  var MCP_KEY_ENV = "HAWKEYE_MCP_KEY";
+  var TOOL_GROUPS = [
+    {
+      access: "read",
+      label: "Read",
+      description: "Look at processes, logs, metrics and deployments. Never changes anything.",
+      tag: null
+    },
+    {
+      access: "write",
+      label: "Write",
+      description: "Start, stop and restart processes, deploy apps and change their settings.",
+      tag: { label: "Changes state", tone: "warning" }
+    },
+    {
+      access: "destructive",
+      label: "Destructive",
+      description: "Delete processes, deploy directories and deployment records.",
+      tag: { label: "Deletes data", tone: "critical" }
+    }
+  ];
+  function maskKey(key) {
+    if (!key) return "";
+    return `${key.slice(0, 3)}${"\u2022".repeat(24)}${key.slice(-4)}`;
+  }
+  function buildCliSnippet(url, key) {
+    return [
+      `claude mcp add --transport http --scope user ${MCP_SERVER_NAME} \\`,
+      `  ${url} \\`,
+      `  --header "Authorization: Bearer ${key}"`
+    ].join("\n");
+  }
+  function buildJsonSnippet(url) {
+    const config = {
+      mcpServers: {
+        [MCP_SERVER_NAME]: {
+          type: "http",
+          url,
+          headers: { Authorization: `Bearer \${${MCP_KEY_ENV}}` }
+        }
+      }
+    };
+    return JSON.stringify(config, null, 2);
+  }
+  function buildExportLine(key) {
+    return `export ${MCP_KEY_ENV}=${key}`;
+  }
+  function groupTools(tools) {
+    return TOOL_GROUPS.map((group) => {
+      const members = tools.filter((tool) => tool.access === group.access);
+      return { group, tools: members, enabledCount: members.filter((tool) => tool.enabled).length };
+    }).filter((entry) => entry.tools.length > 0);
+  }
+  function isPlainHttpRemote(location) {
+    if (location.protocol !== "http:") return false;
+    return !["localhost", "127.0.0.1", "[::1]", "::1"].includes(location.hostname);
+  }
+
+  // src/components/settings/McpSettings.jsx
+  var SNIPPET_TABS = [
+    { id: "cli", label: "Command line" },
+    { id: "json", label: ".mcp.json" }
+  ];
+  var COPY_FEEDBACK_MS = 1600;
+  function CopyButton({ text: text5, label, iconOnly = false }) {
+    const [result, setResult] = (0, import_react19.useState)(null);
+    (0, import_react19.useEffect)(() => {
+      if (!result) return void 0;
+      const timer = setTimeout(() => setResult(null), COPY_FEEDBACK_MS);
+      return () => clearTimeout(timer);
+    }, [result]);
+    async function copy() {
+      setResult(await copyText(text5) ? "copied" : "failed");
+    }
+    const icon = result === "copied" ? /* @__PURE__ */ import_react19.default.createElement(n, { size: iconOnly ? 15 : 13 }) : /* @__PURE__ */ import_react19.default.createElement(s4, { size: iconOnly ? 15 : 13 });
+    const state = result ? ` mcp-copy--${result}` : "";
+    if (iconOnly) {
+      return /* @__PURE__ */ import_react19.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: `btn btn--icon mcp-copy${state}`,
+          "aria-label": label,
+          title: label,
+          onClick: copy
+        },
+        icon
+      );
+    }
+    return /* @__PURE__ */ import_react19.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `btn btn--sm mcp-copy mcp-copy--overlay${state}`,
+        "aria-label": label,
+        onClick: copy
+      },
+      icon,
+      result === "copied" ? "Copied" : result === "failed" ? "Copy failed" : "Copy"
+    );
+  }
+  function Toggle({ checked, onChange, label, text: text5, disabled = false }) {
+    return /* @__PURE__ */ import_react19.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react19.default.createElement(
+      "input",
+      {
+        type: "checkbox",
+        checked,
+        disabled,
+        "aria-label": label,
+        onChange: (e42) => onChange(e42.target.checked)
+      }
+    ), /* @__PURE__ */ import_react19.default.createElement("span", { className: "toggle-track" }), text5 && /* @__PURE__ */ import_react19.default.createElement("span", { className: "toggle-label" }, text5));
+  }
+  function McpSettings({ csrfToken, onCsrfRefresh }) {
+    const [settings, setSettings] = (0, import_react19.useState)(null);
+    const [loading, setLoading] = (0, import_react19.useState)(true);
+    const [notice, setNotice] = (0, import_react19.useState)(null);
+    const [revealed, setRevealed] = (0, import_react19.useState)(false);
+    const [tab2, setTab] = (0, import_react19.useState)("cli");
+    (0, import_react19.useEffect)(() => {
+      fetchJson("/api/mcp/settings").then(setSettings).catch((err) => setNotice({ type: "error", text: `Failed to load MCP settings: ${err.message}` })).finally(() => setLoading(false));
+    }, []);
+    async function save(url2, body, optimistic) {
+      const previous2 = settings;
+      setNotice(null);
+      setSettings(optimistic);
+      try {
+        const next = await fetchWithCsrf(url2, {
+          onCsrfRefresh,
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        setSettings(next);
+        return true;
+      } catch (err) {
+        setSettings(previous2);
+        setNotice({ type: "error", text: err.message ?? "Save failed." });
+        return false;
+      }
+    }
+    function setServerEnabled(enabled) {
+      save("/api/mcp/settings", { enabled }, { ...settings, enabled });
+    }
+    function setTools(changes) {
+      const tools = settings.tools.map(
+        (tool) => tool.name in changes ? { ...tool, enabled: changes[tool.name] } : tool
+      );
+      save("/api/mcp/settings", { tools: changes }, { ...settings, tools });
+    }
+    async function rotateKey() {
+      if (await save("/api/mcp/key/rotate", {}, settings)) {
+        setRevealed(true);
+        setNotice({
+          type: "success",
+          text: "New key created. Clients that still use the old key are refused until you update them with the snippet below."
+        });
+      }
+    }
+    if (loading) {
+      return /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-page" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-skeleton" }), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-skeleton" }), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-skeleton" }));
+    }
+    if (!settings) {
+      return /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-page" }, notice && /* @__PURE__ */ import_react19.default.createElement("div", { className: `settings-notice settings-notice--${notice.type}` }, notice.text));
+    }
+    const disabled = !csrfToken;
+    const url = `${window.location.origin}/mcp`;
+    const key = settings.key ?? "";
+    const shownKey = revealed ? key : maskKey(key);
+    const groups = groupTools(settings.tools);
+    const enabledCount = settings.tools.filter((tool) => tool.enabled).length;
+    return /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-page mcp-page" }, notice && /* @__PURE__ */ import_react19.default.createElement(
+      "div",
+      {
+        className: `settings-notice settings-notice--${notice.type}`,
+        role: notice.type === "error" ? "alert" : "status"
+      },
+      notice.text
+    ), /* @__PURE__ */ import_react19.default.createElement("section", { className: "settings-group", "aria-labelledby": "mcp-server-title" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "reporter-head" }, /* @__PURE__ */ import_react19.default.createElement("h3", { id: "mcp-server-title", className: "settings-group-title" }, "Server"), /* @__PURE__ */ import_react19.default.createElement(
+      Toggle,
+      {
+        checked: settings.enabled,
+        onChange: setServerEnabled,
+        label: "MCP server enabled",
+        text: settings.enabled ? "Enabled" : "Disabled",
+        disabled
+      }
+    )), /* @__PURE__ */ import_react19.default.createElement("p", { className: "subtle mcp-lead" }, "Lets AI agents such as Claude Code read and control your PM2 processes through Hawkeye. Agents connect to the endpoint below and sign in with the access key."), settings.enabled ? /* @__PURE__ */ import_react19.default.createElement(import_react19.default.Fragment, null, /* @__PURE__ */ import_react19.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-field-head" }, /* @__PURE__ */ import_react19.default.createElement("label", { htmlFor: "mcp-endpoint" }, "Endpoint"), /* @__PURE__ */ import_react19.default.createElement("span", { className: "mcp-status" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "status-dot", "data-status": "online" }), /* @__PURE__ */ import_react19.default.createElement("span", { className: "status-text", "data-status": "online" }, "Accepting connections"))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-input-row" }, /* @__PURE__ */ import_react19.default.createElement("input", { id: "mcp-endpoint", className: "input mcp-mono", type: "text", readOnly: true, value: url }), /* @__PURE__ */ import_react19.default.createElement(CopyButton, { text: url, label: "Copy endpoint", iconOnly: true }))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "callout callout--warning callout--row" }, /* @__PURE__ */ import_react19.default.createElement(c8, { className: "callout-icon", size: 15 }), /* @__PURE__ */ import_react19.default.createElement("p", { className: "callout-body callout-text mcp-callout-text" }, /* @__PURE__ */ import_react19.default.createElement("strong", null, "The key is as strong as your password."), " An agent with it can do everything the enabled tools allow. With the deploy tools on, that includes running code on this server."))) : /* @__PURE__ */ import_react19.default.createElement("div", { className: "callout callout--stack" }, /* @__PURE__ */ import_react19.default.createElement("p", { className: "callout-title" }, "The MCP server is off."), /* @__PURE__ */ import_react19.default.createElement("p", { className: "callout-text" }, "Hawkeye answers ", /* @__PURE__ */ import_react19.default.createElement("code", null, "/mcp"), " with 404 and accepts no key."), /* @__PURE__ */ import_react19.default.createElement("p", { className: "callout-text" }, settings.key ? "Your access key and tool choices stay as they are when you turn the server back on." : "Turning it on creates an access key and enables the read tools. Tools that change or delete something stay off until you turn them on one by one."))), settings.enabled && /* @__PURE__ */ import_react19.default.createElement(import_react19.default.Fragment, null, /* @__PURE__ */ import_react19.default.createElement("section", { className: "settings-group", "aria-labelledby": "mcp-key-title" }, /* @__PURE__ */ import_react19.default.createElement("h3", { id: "mcp-key-title", className: "settings-group-title" }, "Access key"), /* @__PURE__ */ import_react19.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react19.default.createElement("label", { htmlFor: "mcp-key" }, "Key"), /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-input-row" }, /* @__PURE__ */ import_react19.default.createElement("input", { id: "mcp-key", className: "input mcp-mono", type: "text", readOnly: true, value: shownKey }), /* @__PURE__ */ import_react19.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn btn--icon",
+        "aria-label": revealed ? "Hide key" : "Show key",
+        title: revealed ? "Hide key" : "Show key",
+        "aria-pressed": revealed,
+        onClick: () => setRevealed((value) => !value)
+      },
+      revealed ? /* @__PURE__ */ import_react19.default.createElement(n3, { size: 15 }) : /* @__PURE__ */ import_react19.default.createElement(n2, { size: 15 })
+    ), /* @__PURE__ */ import_react19.default.createElement(CopyButton, { text: key, label: "Copy key", iconOnly: true })), /* @__PURE__ */ import_react19.default.createElement("p", { className: "hint" }, "Stored on this server. The eye also unmasks the key in the snippet below. Copy always copies the full key.")), /* @__PURE__ */ import_react19.default.createElement("div", null, /* @__PURE__ */ import_react19.default.createElement(
+      ConfirmButton,
+      {
+        label: "Rotate key",
+        icon: /* @__PURE__ */ import_react19.default.createElement(m, { size: 14 }),
+        question: "Rotate the key? Clients using the old one stop working.",
+        choices: [{ label: "Rotate", danger: true, onConfirm: rotateKey }],
+        disabled
+      }
+    ))), /* @__PURE__ */ import_react19.default.createElement("section", { className: "settings-group", "aria-labelledby": "mcp-connect-title" }, /* @__PURE__ */ import_react19.default.createElement("h3", { id: "mcp-connect-title", className: "settings-group-title" }, "Connect Claude Code"), /* @__PURE__ */ import_react19.default.createElement("div", { className: "segmented mcp-tabs", role: "group", "aria-label": "Snippet format" }, SNIPPET_TABS.map((option) => /* @__PURE__ */ import_react19.default.createElement(
+      "button",
+      {
+        key: option.id,
+        type: "button",
+        className: "segmented-item",
+        "aria-pressed": tab2 === option.id,
+        onClick: () => setTab(option.id)
+      },
+      option.label
+    ))), tab2 === "cli" ? /* @__PURE__ */ import_react19.default.createElement(import_react19.default.Fragment, null, /* @__PURE__ */ import_react19.default.createElement("p", { className: "subtle mcp-lead" }, "Run once in a terminal on the machine where you use Claude Code. ", /* @__PURE__ */ import_react19.default.createElement("code", null, "--scope user"), " makes Hawkeye available in every project."), /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-snippet" }, /* @__PURE__ */ import_react19.default.createElement("pre", { className: "code-preview" }, buildCliSnippet(url, shownKey)), /* @__PURE__ */ import_react19.default.createElement(CopyButton, { text: buildCliSnippet(url, key), label: "Copy command" }))) : /* @__PURE__ */ import_react19.default.createElement(import_react19.default.Fragment, null, /* @__PURE__ */ import_react19.default.createElement("p", { className: "subtle mcp-lead" }, "Put this in ", /* @__PURE__ */ import_react19.default.createElement("code", null, ".mcp.json"), " at a project root to share the server with that project. Claude Code reads the key from the environment, so it never lands in the repository."), /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-snippet" }, /* @__PURE__ */ import_react19.default.createElement("pre", { className: "code-preview" }, buildJsonSnippet(url)), /* @__PURE__ */ import_react19.default.createElement(CopyButton, { text: buildJsonSnippet(url), label: "Copy .mcp.json" })), /* @__PURE__ */ import_react19.default.createElement("p", { className: "subtle mcp-lead" }, "Set the key in the shell that starts Claude Code, for example in ", /* @__PURE__ */ import_react19.default.createElement("code", null, "~/.zshrc"), ":"), /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-snippet" }, /* @__PURE__ */ import_react19.default.createElement("pre", { className: "code-preview" }, buildExportLine(shownKey)), /* @__PURE__ */ import_react19.default.createElement(CopyButton, { text: buildExportLine(key), label: "Copy export line" }))), /* @__PURE__ */ import_react19.default.createElement("p", { className: "hint" }, "Check the connection with ", /* @__PURE__ */ import_react19.default.createElement("code", null, "claude mcp list"), ". Hawkeye should show as connected."), isPlainHttpRemote(window.location) && /* @__PURE__ */ import_react19.default.createElement("p", { className: "hint mcp-tls-hint" }, /* @__PURE__ */ import_react19.default.createElement(c4, { size: 14 }), /* @__PURE__ */ import_react19.default.createElement("span", null, "You opened Hawkeye over plain HTTP, so the key travels unencrypted. Put Hawkeye behind a reverse proxy with TLS before connecting from another machine."))), /* @__PURE__ */ import_react19.default.createElement("section", { className: "settings-group", "aria-labelledby": "mcp-tools-title" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "reporter-head" }, /* @__PURE__ */ import_react19.default.createElement("h3", { id: "mcp-tools-title", className: "settings-group-title" }, "Tools"), /* @__PURE__ */ import_react19.default.createElement("span", { className: "num mcp-count" }, enabledCount, " of ", settings.tools.length, " on")), /* @__PURE__ */ import_react19.default.createElement("p", { className: "hint" }, "A tool that is off is hidden from agents and cannot be called. Changes apply to the next request, no restart."), groups.map(({ group, tools, enabledCount: groupOn }) => {
+      const allOn = groupOn === tools.length;
+      return /* @__PURE__ */ import_react19.default.createElement("div", { key: group.access, className: "mcp-tool-group" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-tool-group-head" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-tool-group-text" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-tool-group-title" }, /* @__PURE__ */ import_react19.default.createElement("h4", null, group.label), group.tag && /* @__PURE__ */ import_react19.default.createElement("span", { className: `tag tag--${group.tag.tone}` }, group.tag.label)), /* @__PURE__ */ import_react19.default.createElement("p", { className: "hint" }, group.description)), /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-tool-group-actions" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "num mcp-count" }, groupOn, " / ", tools.length), /* @__PURE__ */ import_react19.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "btn btn--sm btn--quiet",
+          disabled,
+          onClick: () => setTools(Object.fromEntries(tools.map((tool) => [tool.name, !allOn])))
+        },
+        allOn ? "Turn all off" : "Turn all on"
+      ))), /* @__PURE__ */ import_react19.default.createElement("ul", { className: "mcp-tool-list" }, tools.map((tool) => /* @__PURE__ */ import_react19.default.createElement("li", { key: tool.name, className: "mcp-tool" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-tool-text" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "mcp-tool-name-row" }, /* @__PURE__ */ import_react19.default.createElement("code", { className: "mcp-tool-name", "data-enabled": tool.enabled }, tool.name), tool.runsCode && /* @__PURE__ */ import_react19.default.createElement("span", { className: "tag tag--warning" }, "runs code")), /* @__PURE__ */ import_react19.default.createElement("span", { className: "hint" }, tool.summary)), /* @__PURE__ */ import_react19.default.createElement(
+        Toggle,
+        {
+          checked: tool.enabled,
+          onChange: (checked) => setTools({ [tool.name]: checked }),
+          label: `Enable ${tool.name}`,
+          disabled
+        }
+      )))));
+    }))));
   }
 
   // src/components/Settings.jsx
   var PAGES = [
     { id: "General", label: "General", desc: "Server, sign in, retention" },
-    { id: "Alerting", label: "Alerting", desc: "When and where to notify" }
+    { id: "Alerting", label: "Alerting", desc: "When and where to notify" },
+    { id: "MCP", label: "MCP server", desc: "Agent access, key, tools" }
   ];
   function Settings({ onClose, csrfToken, onCsrfRefresh, initialPage = "General" }) {
-    const [activePage, setActivePage] = (0, import_react19.useState)(initialPage);
-    const [alertingSettings, setAlertingSettings] = (0, import_react19.useState)({});
-    const [alertingSettingsLoaded, setAlertingSettingsLoaded] = (0, import_react19.useState)(false);
-    const [isDirty, setIsDirty] = (0, import_react19.useState)(false);
-    const [saving, setSaving] = (0, import_react19.useState)(false);
-    const [saveError, setSaveError] = (0, import_react19.useState)(null);
-    const [saveSuccess, setSaveSuccess] = (0, import_react19.useState)(false);
-    const [confirmingClose, setConfirmingClose] = (0, import_react19.useState)(false);
-    const modalRef = (0, import_react19.useRef)(null);
-    (0, import_react19.useEffect)(() => {
+    const [activePage, setActivePage] = (0, import_react20.useState)(initialPage);
+    const [alertingSettings, setAlertingSettings] = (0, import_react20.useState)({});
+    const [alertingSettingsLoaded, setAlertingSettingsLoaded] = (0, import_react20.useState)(false);
+    const [isDirty, setIsDirty] = (0, import_react20.useState)(false);
+    const [saving, setSaving] = (0, import_react20.useState)(false);
+    const [saveError, setSaveError] = (0, import_react20.useState)(null);
+    const [saveSuccess, setSaveSuccess] = (0, import_react20.useState)(false);
+    const [confirmingClose, setConfirmingClose] = (0, import_react20.useState)(false);
+    const modalRef = (0, import_react20.useRef)(null);
+    (0, import_react20.useEffect)(() => {
       fetchJson("/api/alerting/settings").then((payload) => {
         setAlertingSettings(payload.settings ?? {});
         setAlertingSettingsLoaded(true);
@@ -36871,7 +37273,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         setAlertingSettingsLoaded(true);
       });
     }, []);
-    const handleClose = (0, import_react19.useCallback)(() => {
+    const handleClose = (0, import_react20.useCallback)(() => {
       if (isDirty) {
         setConfirmingClose(true);
         return;
@@ -36904,10 +37306,10 @@ git checkout -B ${branch} FETCH_HEAD`,
         setSaving(false);
       }
     }
-    function handleOverlayClick(e40) {
-      if (e40.target === e40.currentTarget) handleClose();
+    function handleOverlayClick(e42) {
+      if (e42.target === e42.currentTarget) handleClose();
     }
-    return /* @__PURE__ */ import_react19.default.createElement("div", { className: "overlay", onClick: handleOverlayClick, role: "dialog", "aria-modal": "true", "aria-label": "Settings" }, /* @__PURE__ */ import_react19.default.createElement("div", { ref: modalRef, className: "modal modal--settings", tabIndex: -1 }, /* @__PURE__ */ import_react19.default.createElement("nav", { className: "settings-sidebar" }, /* @__PURE__ */ import_react19.default.createElement("p", { className: "section-label settings-sidebar-title" }, "Settings"), PAGES.map((page) => /* @__PURE__ */ import_react19.default.createElement(
+    return /* @__PURE__ */ import_react20.default.createElement("div", { className: "overlay", onClick: handleOverlayClick, role: "dialog", "aria-modal": "true", "aria-label": "Settings" }, /* @__PURE__ */ import_react20.default.createElement("div", { ref: modalRef, className: "modal modal--settings", tabIndex: -1 }, /* @__PURE__ */ import_react20.default.createElement("nav", { className: "settings-sidebar" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "section-label settings-sidebar-title" }, "Settings"), PAGES.map((page) => /* @__PURE__ */ import_react20.default.createElement(
       "button",
       {
         key: page.id,
@@ -36915,9 +37317,9 @@ git checkout -B ${branch} FETCH_HEAD`,
         type: "button",
         onClick: () => setActivePage(page.id)
       },
-      /* @__PURE__ */ import_react19.default.createElement("span", { className: "settings-nav-label" }, page.label),
-      /* @__PURE__ */ import_react19.default.createElement("span", { className: "settings-nav-desc" }, page.desc)
-    ))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-main" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "modal-header" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "modal-title" }, activePage), confirmingClose ? /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm-label" }, "Discard unsaved changes?"), /* @__PURE__ */ import_react19.default.createElement("span", { className: "confirm-actions" }, /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--sm btn--danger", onClick: onClose }, "Discard"), /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setConfirmingClose(false) }, "Keep editing"))) : /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": "Close settings", onClick: handleClose }, /* @__PURE__ */ import_react19.default.createElement(n8, { size: 15 }))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-body" }, saveSuccess && activePage === "Alerting" && /* @__PURE__ */ import_react19.default.createElement("div", { className: "settings-notice settings-notice--success" }, "Alerting settings saved."), activePage === "General" && /* @__PURE__ */ import_react19.default.createElement(GeneralSettings, { csrfToken, onCsrfRefresh }), activePage === "Alerting" && alertingSettingsLoaded && /* @__PURE__ */ import_react19.default.createElement(
+      /* @__PURE__ */ import_react20.default.createElement("span", { className: "settings-nav-label" }, page.label),
+      /* @__PURE__ */ import_react20.default.createElement("span", { className: "settings-nav-desc" }, page.desc)
+    ))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "settings-main" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "modal-header" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "modal-title" }, PAGES.find((page) => page.id === activePage)?.label ?? activePage), confirmingClose ? /* @__PURE__ */ import_react20.default.createElement("span", { className: "confirm" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "confirm-label" }, "Discard unsaved changes?"), /* @__PURE__ */ import_react20.default.createElement("span", { className: "confirm-actions" }, /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--sm btn--danger", onClick: onClose }, "Discard"), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setConfirmingClose(false) }, "Keep editing"))) : /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": "Close settings", onClick: handleClose }, /* @__PURE__ */ import_react20.default.createElement(n9, { size: 15 }))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "settings-body" }, saveSuccess && activePage === "Alerting" && /* @__PURE__ */ import_react20.default.createElement("div", { className: "settings-notice settings-notice--success" }, "Alerting settings saved."), activePage === "General" && /* @__PURE__ */ import_react20.default.createElement(GeneralSettings, { csrfToken, onCsrfRefresh }), activePage === "MCP" && /* @__PURE__ */ import_react20.default.createElement(McpSettings, { csrfToken, onCsrfRefresh }), activePage === "Alerting" && alertingSettingsLoaded && /* @__PURE__ */ import_react20.default.createElement(
       AlertingSettings,
       {
         settings: alertingSettings,
@@ -36932,19 +37334,19 @@ git checkout -B ${branch} FETCH_HEAD`,
   }
 
   // src/components/DeployModal.jsx
-  var import_react21 = __toESM(require_react(), 1);
+  var import_react22 = __toESM(require_react(), 1);
 
   // src/components/DeployPanel.jsx
-  var import_react20 = __toESM(require_react(), 1);
+  var import_react21 = __toESM(require_react(), 1);
   var WATCH_TICK_MS = 6e4;
   function ActionLink({ onClick, children }) {
-    return /* @__PURE__ */ import_react20.default.createElement(
+    return /* @__PURE__ */ import_react21.default.createElement(
       "a",
       {
         href: "#",
         className: "card-link",
-        onClick: (e40) => {
-          e40.preventDefault();
+        onClick: (e42) => {
+          e42.preventDefault();
           onClick();
         }
       },
@@ -36952,7 +37354,7 @@ git checkout -B ${branch} FETCH_HEAD`,
     );
   }
   function EditButton({ onClick, sunken = true }) {
-    return /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: `btn${sunken ? " btn--sunken" : ""}`, onClick }, /* @__PURE__ */ import_react20.default.createElement(a26, { size: 13 }), "Edit configuration");
+    return /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: `btn${sunken ? " btn--sunken" : ""}`, onClick }, /* @__PURE__ */ import_react21.default.createElement(a27, { size: 13 }), "Edit configuration");
   }
   function stepNote(step, deployment, firstDeploy) {
     if (step.stage === "install" && step.skipped) return "Skipped";
@@ -36963,29 +37365,29 @@ git checkout -B ${branch} FETCH_HEAD`,
     return "";
   }
   function StepList({ steps, compact = false }) {
-    return /* @__PURE__ */ import_react20.default.createElement("ol", { className: `step-list${compact ? " step-list--compact" : ""}` }, steps.map((step, i) => /* @__PURE__ */ import_react20.default.createElement("li", { key: step.stage, className: "step-list-item", "data-skipped": step.skipped }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "step-list-number" }, i + 1), /* @__PURE__ */ import_react20.default.createElement("div", { className: "step-list-body" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "step-list-head" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "step-list-title" }, step.title), step.note && /* @__PURE__ */ import_react20.default.createElement("span", { className: "step-list-note" }, step.note)), step.code && /* @__PURE__ */ import_react20.default.createElement("code", { className: "step-list-code" }, step.code)))));
+    return /* @__PURE__ */ import_react21.default.createElement("ol", { className: `step-list${compact ? " step-list--compact" : ""}` }, steps.map((step, i) => /* @__PURE__ */ import_react21.default.createElement("li", { key: step.stage, className: "step-list-item", "data-skipped": step.skipped }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "step-list-number" }, i + 1), /* @__PURE__ */ import_react21.default.createElement("div", { className: "step-list-body" }, /* @__PURE__ */ import_react21.default.createElement("p", { className: "step-list-head" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "step-list-title" }, step.title), step.note && /* @__PURE__ */ import_react21.default.createElement("span", { className: "step-list-note" }, step.note)), step.code && /* @__PURE__ */ import_react21.default.createElement("code", { className: "step-list-code" }, step.code)))));
   }
   function ConfirmCallout({ deployment, changes, onConfirm, onEdit }) {
-    const [busy, setBusy] = (0, import_react20.useState)(false);
-    const ref = (0, import_react20.useRef)(null);
-    (0, import_react20.useEffect)(() => setBusy(false), [changes]);
-    (0, import_react20.useEffect)(() => {
+    const [busy, setBusy] = (0, import_react21.useState)(false);
+    const ref = (0, import_react21.useRef)(null);
+    (0, import_react21.useEffect)(() => setBusy(false), [changes]);
+    (0, import_react21.useEffect)(() => {
       ref.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, []);
     const answer = async (confirmed) => {
       setBusy(true);
       await onConfirm(confirmed);
     };
-    return /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout callout--warning callout--stack", role: "alert", ref }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "callout-title" }, "The deploy folder has local changes"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "callout-text" }, "Updating to the latest ", /* @__PURE__ */ import_react20.default.createElement("span", { className: "num" }, deployment.branch), " would overwrite these files. Discard them to continue, or cancel the deployment. Untracked files stay either way."), /* @__PURE__ */ import_react20.default.createElement("pre", { className: "code-block" }, changes), /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout-actions" }, /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--danger", disabled: busy, onClick: () => answer(true) }, "Discard changes and continue"), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn", disabled: busy, onClick: () => answer(false) }, "Cancel deployment")), /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint" }, "Do not want to be asked again? Set Local changes to Discard without asking in the", " ", /* @__PURE__ */ import_react20.default.createElement(ActionLink, { onClick: onEdit }, "configuration"), "."));
+    return /* @__PURE__ */ import_react21.default.createElement("div", { className: "callout callout--warning callout--stack", role: "alert", ref }, /* @__PURE__ */ import_react21.default.createElement("p", { className: "callout-title" }, "The deploy folder has local changes"), /* @__PURE__ */ import_react21.default.createElement("p", { className: "callout-text" }, "Updating to the latest ", /* @__PURE__ */ import_react21.default.createElement("span", { className: "num" }, deployment.branch), " would overwrite these files. Discard them to continue, or cancel the deployment. Untracked files stay either way."), /* @__PURE__ */ import_react21.default.createElement("pre", { className: "code-block" }, changes), /* @__PURE__ */ import_react21.default.createElement("div", { className: "callout-actions" }, /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--danger", disabled: busy, onClick: () => answer(true) }, "Discard changes and continue"), /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn", disabled: busy, onClick: () => answer(false) }, "Cancel deployment")), /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, "Do not want to be asked again? Set Local changes to Discard without asking in the", " ", /* @__PURE__ */ import_react21.default.createElement(ActionLink, { onClick: onEdit }, "configuration"), "."));
   }
   var STEP_ICONS = {
-    done: /* @__PURE__ */ import_react20.default.createElement(s2, { size: 16, weight: "fill", "aria-label": "Done" }),
-    active: /* @__PURE__ */ import_react20.default.createElement(s3, { size: 16, className: "spin", "aria-label": "Running" }),
-    wait: /* @__PURE__ */ import_react20.default.createElement(c8, { size: 16, weight: "fill", "aria-label": "Waiting for you" }),
-    fail: /* @__PURE__ */ import_react20.default.createElement(m3, { size: 16, weight: "fill", "aria-label": "Failed" })
+    done: /* @__PURE__ */ import_react21.default.createElement(s2, { size: 16, weight: "fill", "aria-label": "Done" }),
+    active: /* @__PURE__ */ import_react21.default.createElement(s3, { size: 16, className: "spin", "aria-label": "Running" }),
+    wait: /* @__PURE__ */ import_react21.default.createElement(c8, { size: 16, weight: "fill", "aria-label": "Waiting for you" }),
+    fail: /* @__PURE__ */ import_react21.default.createElement(m3, { size: 16, weight: "fill", "aria-label": "Failed" })
   };
   function DeployRun({ deployment, run, hasProcess, onRedeploy, onEdit, onConfirm, onDismiss, onOpenLogs }) {
-    const outputRef = (0, import_react20.useRef)(null);
+    const outputRef = (0, import_react21.useRef)(null);
     const name2 = deployment.pm2_name;
     const firstDeploy = isFirstDeploy(deployment, run);
     const startsProcess = firstDeploy || (run?.startsProcess ?? !hasProcess);
@@ -36996,7 +37398,7 @@ git checkout -B ${branch} FETCH_HEAD`,
     const activeIndex = states.findIndex((s7) => s7 === "active");
     const failedStep = steps[failedIndex];
     const finishedAt = run?.finishedAt ? formatClock(run.finishedAt) : "";
-    (0, import_react20.useEffect)(() => {
+    (0, import_react21.useEffect)(() => {
       const el = outputRef.current;
       if (el) el.scrollTop = el.scrollHeight;
     }, [lines.length]);
@@ -37004,11 +37406,11 @@ git checkout -B ${branch} FETCH_HEAD`,
     let title;
     let sub;
     if (outcome === "confirm") {
-      icon = /* @__PURE__ */ import_react20.default.createElement(c8, { size: 18, weight: "fill" });
+      icon = /* @__PURE__ */ import_react21.default.createElement(c8, { size: 18, weight: "fill" });
       title = "Redeploy is waiting for you";
       sub = `Nothing has changed yet. ${name2} keeps running the old version.`;
     } else if (outcome === "failed") {
-      icon = /* @__PURE__ */ import_react20.default.createElement(m3, { size: 18, weight: "fill" });
+      icon = /* @__PURE__ */ import_react21.default.createElement(m3, { size: 18, weight: "fill" });
       if (failedStep?.stage === "start") {
         title = `${failedStep.title} failed`;
         sub = "Check the output below.";
@@ -37017,11 +37419,11 @@ git checkout -B ${branch} FETCH_HEAD`,
         sub = startsProcess ? `The steps after ${failedStep?.title} did not run, so nothing runs in PM2 yet.` : `The steps after ${failedStep?.title} did not run. ${name2} was not restarted and still runs the previous version.`;
       }
     } else if (outcome === "success") {
-      icon = /* @__PURE__ */ import_react20.default.createElement(s2, { size: 18, weight: "fill" });
+      icon = /* @__PURE__ */ import_react21.default.createElement(s2, { size: 18, weight: "fill" });
       title = firstDeploy ? "Deployed" : "Redeployed";
       sub = startsProcess ? `${name2} started at ${finishedAt}.` : `${name2} restarted at ${finishedAt} with the latest ${deployment.branch}.`;
     } else {
-      icon = /* @__PURE__ */ import_react20.default.createElement(s3, { size: 18, className: "spin" });
+      icon = /* @__PURE__ */ import_react21.default.createElement(s3, { size: 18, className: "spin" });
       title = `${firstDeploy ? "Deploying" : "Redeploying"} ${name2}`;
       const keeps = startsProcess ? "" : ` ${name2} keeps serving the old version until the restart.`;
       if (startedBeforeLoad) {
@@ -37041,7 +37443,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       if (state === "fail") return exitCode != null ? `Exited with code ${exitCode}` : "Failed";
       return step.command;
     };
-    return /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("section", { className: "card deploy-run", "aria-labelledby": "deploy-run-title", "data-outcome": outcome }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-head" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "deploy-run-icon" }, icon), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-heading", "aria-live": "polite" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-run-title", className: "card-title" }, title), /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-hint card-hint--tight" }, sub)), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-actions" }, outcome === "failed" && /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement(EditButton, { onClick: () => onEdit(deployment) }), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onRedeploy(deployment) }, "Try again")), outcome === "success" && hasProcess && /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--sunken", onClick: onOpenLogs }, "Open logs"), finished && /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--quiet", onClick: () => onDismiss(deployment.id) }, "Dismiss"))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-body" }, /* @__PURE__ */ import_react20.default.createElement("ol", { className: "run-steps", "aria-label": "Deployment steps" }, steps.map((step, i) => /* @__PURE__ */ import_react20.default.createElement("li", { key: step.stage, className: "run-step", "data-state": states[i] }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "run-step-icon" }, STEP_ICONS[states[i]] ?? /* @__PURE__ */ import_react20.default.createElement("span", { className: "run-step-ring", role: "img", "aria-label": "Not started" })), /* @__PURE__ */ import_react20.default.createElement("div", { className: "run-step-text" }, /* @__PURE__ */ import_react20.default.createElement("p", { className: "run-step-title" }, step.title), /* @__PURE__ */ import_react20.default.createElement("p", { className: "run-step-note" }, runNote(step, states[i])))))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-run-main" }, outcome === "confirm" && run?.confirmChanges && /* @__PURE__ */ import_react20.default.createElement(
+    return /* @__PURE__ */ import_react21.default.createElement(import_react21.default.Fragment, null, /* @__PURE__ */ import_react21.default.createElement("section", { className: "card deploy-run", "aria-labelledby": "deploy-run-title", "data-outcome": outcome }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-run-head" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-run-icon" }, icon), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-run-heading", "aria-live": "polite" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: "deploy-run-title", className: "card-title" }, title), /* @__PURE__ */ import_react21.default.createElement("p", { className: "card-hint card-hint--tight" }, sub)), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-run-actions" }, outcome === "failed" && /* @__PURE__ */ import_react21.default.createElement(import_react21.default.Fragment, null, /* @__PURE__ */ import_react21.default.createElement(EditButton, { onClick: () => onEdit(deployment) }), /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onRedeploy(deployment) }, "Try again")), outcome === "success" && hasProcess && /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--sunken", onClick: onOpenLogs }, "Open logs"), finished && /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--quiet", onClick: () => onDismiss(deployment.id) }, "Dismiss"))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-run-body" }, /* @__PURE__ */ import_react21.default.createElement("ol", { className: "run-steps", "aria-label": "Deployment steps" }, steps.map((step, i) => /* @__PURE__ */ import_react21.default.createElement("li", { key: step.stage, className: "run-step", "data-state": states[i] }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "run-step-icon" }, STEP_ICONS[states[i]] ?? /* @__PURE__ */ import_react21.default.createElement("span", { className: "run-step-ring", role: "img", "aria-label": "Not started" })), /* @__PURE__ */ import_react21.default.createElement("div", { className: "run-step-text" }, /* @__PURE__ */ import_react21.default.createElement("p", { className: "run-step-title" }, step.title), /* @__PURE__ */ import_react21.default.createElement("p", { className: "run-step-note" }, runNote(step, states[i])))))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-run-main" }, outcome === "confirm" && run?.confirmChanges && /* @__PURE__ */ import_react21.default.createElement(
       ConfirmCallout,
       {
         deployment,
@@ -37049,21 +37451,21 @@ git checkout -B ${branch} FETCH_HEAD`,
         onConfirm: (confirmed) => onConfirm(deployment.id, confirmed),
         onEdit: () => onEdit(deployment)
       }
-    ), /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-box" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-box-head" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "output-box-title" }, "Output"), /* @__PURE__ */ import_react20.default.createElement("span", null, outputState)), /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-box-body", ref: outputRef }, shownLines.map((entry, i) => /* @__PURE__ */ import_react20.default.createElement("div", { key: i, className: "output-line", "data-tone": outputTone(entry) }, entry.stage === "done" ? "Deployed." : entry.line)), outcome === "running" && /* @__PURE__ */ import_react20.default.createElement("div", { className: "output-line", "data-tone": "detail" }, "Working")))))), !finished && /* @__PURE__ */ import_react20.default.createElement("p", { className: "hint" }, "You can switch to another process or tab while this runs. The deployment keeps running on the server even if you close the page."));
+    ), /* @__PURE__ */ import_react21.default.createElement("div", { className: "output-box" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "output-box-head" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "output-box-title" }, "Output"), /* @__PURE__ */ import_react21.default.createElement("span", null, outputState)), /* @__PURE__ */ import_react21.default.createElement("div", { className: "output-box-body", ref: outputRef }, shownLines.map((entry, i) => /* @__PURE__ */ import_react21.default.createElement("div", { key: i, className: "output-line", "data-tone": outputTone(entry) }, entry.stage === "done" ? "Deployed." : entry.line)), outcome === "running" && /* @__PURE__ */ import_react21.default.createElement("div", { className: "output-line", "data-tone": "detail" }, "Working")))))), !finished && /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, "You can switch to another process or tab while this runs. The deployment keeps running on the server even if you close the page."));
   }
   function OfflineCallout({ deployment, onRedeploy, onEdit, onDelete }) {
     const broken = offlineStatus(deployment) === "broken";
     const name2 = deployment.pm2_name;
-    return /* @__PURE__ */ import_react20.default.createElement(
+    return /* @__PURE__ */ import_react21.default.createElement(
       "section",
       {
         className: `callout callout--row${broken ? " callout--critical" : ""}`,
         role: "alert",
         "aria-labelledby": "offline-title"
       },
-      broken ? /* @__PURE__ */ import_react20.default.createElement(m3, { size: 18, weight: "fill", className: "callout-icon" }) : /* @__PURE__ */ import_react20.default.createElement(c4, { size: 18, className: "callout-icon" }),
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout-body" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "offline-title", className: "card-title" }, broken ? "The first deployment did not finish" : `${name2} is not in PM2`), /* @__PURE__ */ import_react20.default.createElement("p", { className: "callout-text" }, broken ? "Nothing runs in PM2 yet. Fix the cause, then deploy again. The output of the failed run is not kept after a page reload, so deploying again also shows you the error." : "It was deployed before, but PM2 no longer has a process for it. Deploy again to start it, or delete the deployment.")),
-      /* @__PURE__ */ import_react20.default.createElement("div", { className: "callout-actions" }, /* @__PURE__ */ import_react20.default.createElement(
+      broken ? /* @__PURE__ */ import_react21.default.createElement(m3, { size: 18, weight: "fill", className: "callout-icon" }) : /* @__PURE__ */ import_react21.default.createElement(c4, { size: 18, className: "callout-icon" }),
+      /* @__PURE__ */ import_react21.default.createElement("div", { className: "callout-body" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: "offline-title", className: "card-title" }, broken ? "The first deployment did not finish" : `${name2} is not in PM2`), /* @__PURE__ */ import_react21.default.createElement("p", { className: "callout-text" }, broken ? "Nothing runs in PM2 yet. Fix the cause, then deploy again. The output of the failed run is not kept after a page reload, so deploying again also shows you the error." : "It was deployed before, but PM2 no longer has a process for it. Deploy again to start it, or delete the deployment.")),
+      /* @__PURE__ */ import_react21.default.createElement("div", { className: "callout-actions" }, /* @__PURE__ */ import_react21.default.createElement(
         ConfirmButton,
         {
           label: "Delete deployment",
@@ -37071,11 +37473,11 @@ git checkout -B ${branch} FETCH_HEAD`,
           variant: "danger",
           choices: [{ label: "Delete", danger: true, onConfirm: () => onDelete(deployment.id) }]
         }
-      ), /* @__PURE__ */ import_react20.default.createElement(EditButton, { onClick: () => onEdit(deployment), sunken: false }), /* @__PURE__ */ import_react20.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onRedeploy(deployment) }, /* @__PURE__ */ import_react20.default.createElement(s6, { size: 13 }), "Deploy again"))
+      ), /* @__PURE__ */ import_react21.default.createElement(EditButton, { onClick: () => onEdit(deployment), sunken: false }), /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--primary", onClick: () => onRedeploy(deployment) }, /* @__PURE__ */ import_react21.default.createElement(s6, { size: 13 }), "Deploy again"))
     );
   }
   function Row2({ label, children }) {
-    return /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("dt", null, label), /* @__PURE__ */ import_react20.default.createElement("dd", null, children));
+    return /* @__PURE__ */ import_react21.default.createElement(import_react21.default.Fragment, null, /* @__PURE__ */ import_react21.default.createElement("dt", null, label), /* @__PURE__ */ import_react21.default.createElement("dd", null, children));
   }
   function DeployPanel({
     deployment,
@@ -37106,7 +37508,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       const due = lastCheck + deployment.watch_interval_minutes * 6e4;
       nextCheck = due <= Date.now() + WATCH_TICK_MS ? "Within a minute" : formatClock(due);
     }
-    return /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-panel fade-in" }, showRun && /* @__PURE__ */ import_react20.default.createElement(
+    return /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-panel fade-in" }, showRun && /* @__PURE__ */ import_react21.default.createElement(
       DeployRun,
       {
         deployment,
@@ -37118,18 +37520,18 @@ git checkout -B ${branch} FETCH_HEAD`,
         onDismiss,
         onOpenLogs
       }
-    ), !hasProcess && !showRun && /* @__PURE__ */ import_react20.default.createElement(OfflineCallout, { deployment, onRedeploy, onEdit, onDelete }), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-columns" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-column deploy-column--main" }, /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-source" }, hasProcess ? /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head card-head--actions" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head-text" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-source", className: "card-title" }, "Deployment"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-hint" }, "Hawkeye cloned ", name2, " from Git and runs it under PM2.")), /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head-buttons" }, /* @__PURE__ */ import_react20.default.createElement(EditButton, { onClick: edit }), /* @__PURE__ */ import_react20.default.createElement(
+    ), !hasProcess && !showRun && /* @__PURE__ */ import_react21.default.createElement(OfflineCallout, { deployment, onRedeploy, onEdit, onDelete }), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-columns" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-column deploy-column--main" }, /* @__PURE__ */ import_react21.default.createElement("section", { className: "card", "aria-labelledby": "deploy-source" }, hasProcess ? /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-head card-head--actions" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-head-text" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: "deploy-source", className: "card-title" }, "Deployment"), /* @__PURE__ */ import_react21.default.createElement("p", { className: "card-hint" }, "Hawkeye cloned ", name2, " from Git and runs it under PM2.")), /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-head-buttons" }, /* @__PURE__ */ import_react21.default.createElement(EditButton, { onClick: edit }), /* @__PURE__ */ import_react21.default.createElement(
       ConfirmButton,
       {
         label: "Redeploy now",
         question: `Redeploy ${name2} from ${deployment.branch}?`,
         variant: "primary",
-        icon: /* @__PURE__ */ import_react20.default.createElement(m, { size: 13 }),
+        icon: /* @__PURE__ */ import_react21.default.createElement(m, { size: 13 }),
         disabled: active,
         title: active ? "A deployment of this app is running" : void 0,
         choices: [{ label: "Redeploy", onConfirm: () => onRedeploy(deployment) }]
       }
-    ))) : /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-source", className: "card-title" }, "Deployment")), /* @__PURE__ */ import_react20.default.createElement("dl", { className: "card-dl" }, /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Repository" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "num card-dl-break" }, deployment.repo_url)), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Branch" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "code-chip" }, deployment.branch)), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Folder on this server" }, /* @__PURE__ */ import_react20.default.createElement("span", { className: "num card-dl-break card-dl-dim" }, deployment.deploy_path)), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Last deployed" }, deployment.last_deployed_at ? /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("span", { className: "card-dl-ok" }, /* @__PURE__ */ import_react20.default.createElement(s2, { size: 13, weight: "fill" }), formatDateTime(deployment.last_deployed_at)), /* @__PURE__ */ import_react20.default.createElement("span", { className: "card-dl-muted" }, " (", formatAgo(deployment.last_deployed_at), ")")) : /* @__PURE__ */ import_react20.default.createElement("span", { className: "card-dl-bad" }, "Never")), hasProcess && /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Local changes" }, deployment.discard_local_changes ? "Discards them without asking" : "Asks before discarding them"))), /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-steps" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-steps", className: "card-title" }, hasProcess ? "What a redeploy does" : "What a deploy does"), /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-hint" }, hasProcess ? "These steps run in order. Steps that are not set up are skipped. If one fails, the steps after it do not run and the running process stays as it is." : "The first deploy clones the repository. Later redeploys fetch the branch instead.")), /* @__PURE__ */ import_react20.default.createElement(StepList, { steps }))), /* @__PURE__ */ import_react20.default.createElement("div", { className: "deploy-column deploy-column--side" }, /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-auto" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head card-head--side" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-auto", className: "card-title" }, "Auto-deploy"), /* @__PURE__ */ import_react20.default.createElement("span", { className: `tag${watching ? " tag--accent" : ""}` }, watching ? "On" : "Off"), /* @__PURE__ */ import_react20.default.createElement(ActionLink, { onClick: edit }, "Change")), watching ? /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text" }, "Checks ", /* @__PURE__ */ import_react20.default.createElement("span", { className: "num" }, deployment.branch), " every ", deployment.watch_interval_minutes, " min and redeploys when it has new commits. Local changes are discarded without asking, since nobody is there to confirm."), /* @__PURE__ */ import_react20.default.createElement("dl", { className: "card-dl card-dl--side" }, /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Last check" }, lastCheck ? formatClock(lastCheck) : "Not checked yet"), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Next check" }, nextCheck), deployment.watch_last_commit && /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Last deployed commit" }, deployment.watch_last_commit.slice(0, 7)))) : /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text card-side-text--last" }, "Deploys only when you start it here."), deployment.watch_last_error && /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-warning" }, /* @__PURE__ */ import_react20.default.createElement(c8, { size: 14, weight: "fill" }), /* @__PURE__ */ import_react20.default.createElement("span", null, "The last check failed: ", /* @__PURE__ */ import_react20.default.createElement("span", { className: "num" }, deployment.watch_last_error)))), /* @__PURE__ */ import_react20.default.createElement("section", { className: "card", "aria-labelledby": "deploy-env" }, /* @__PURE__ */ import_react20.default.createElement("div", { className: "card-head card-head--side" }, /* @__PURE__ */ import_react20.default.createElement("h2", { id: "deploy-env", className: "card-title" }, "Environment"), /* @__PURE__ */ import_react20.default.createElement(ActionLink, { onClick: edit }, "Change")), envFile || envKeys.length > 0 ? /* @__PURE__ */ import_react20.default.createElement(import_react20.default.Fragment, null, /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text card-side-text--muted" }, "Applied on every deploy. Values are not shown here."), /* @__PURE__ */ import_react20.default.createElement("dl", { className: "card-dl card-dl--side" }, /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Env file" }, envFile || "None"), /* @__PURE__ */ import_react20.default.createElement(Row2, { label: "Variables" }, envKeys.length > 0 ? /* @__PURE__ */ import_react20.default.createElement("span", { className: "code-chips" }, envKeys.map((key) => /* @__PURE__ */ import_react20.default.createElement("span", { key, className: "code-chip code-chip--dim" }, key))) : "None"))) : /* @__PURE__ */ import_react20.default.createElement("p", { className: "card-side-text card-side-text--muted card-side-text--last" }, "No env file and no variables set.")))));
+    ))) : /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-head" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: "deploy-source", className: "card-title" }, "Deployment")), /* @__PURE__ */ import_react21.default.createElement("dl", { className: "card-dl" }, /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Repository" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "num card-dl-break" }, deployment.repo_url)), /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Branch" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "code-chip" }, deployment.branch)), /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Folder on this server" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "num card-dl-break card-dl-dim" }, deployment.deploy_path)), /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Last deployed" }, deployment.last_deployed_at ? /* @__PURE__ */ import_react21.default.createElement(import_react21.default.Fragment, null, /* @__PURE__ */ import_react21.default.createElement("span", { className: "card-dl-ok" }, /* @__PURE__ */ import_react21.default.createElement(s2, { size: 13, weight: "fill" }), formatDateTime(deployment.last_deployed_at)), /* @__PURE__ */ import_react21.default.createElement("span", { className: "card-dl-muted" }, " (", formatAgo(deployment.last_deployed_at), ")")) : /* @__PURE__ */ import_react21.default.createElement("span", { className: "card-dl-bad" }, "Never")), hasProcess && /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Local changes" }, deployment.discard_local_changes ? "Discards them without asking" : "Asks before discarding them"))), /* @__PURE__ */ import_react21.default.createElement("section", { className: "card", "aria-labelledby": "deploy-steps" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-head" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: "deploy-steps", className: "card-title" }, hasProcess ? "What a redeploy does" : "What a deploy does"), /* @__PURE__ */ import_react21.default.createElement("p", { className: "card-hint" }, hasProcess ? "These steps run in order. Steps that are not set up are skipped. If one fails, the steps after it do not run and the running process stays as it is." : "The first deploy clones the repository. Later redeploys fetch the branch instead.")), /* @__PURE__ */ import_react21.default.createElement(StepList, { steps }))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-column deploy-column--side" }, /* @__PURE__ */ import_react21.default.createElement("section", { className: "card", "aria-labelledby": "deploy-auto" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-head card-head--side" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: "deploy-auto", className: "card-title" }, "Auto-deploy"), /* @__PURE__ */ import_react21.default.createElement("span", { className: `tag${watching ? " tag--accent" : ""}` }, watching ? "On" : "Off"), /* @__PURE__ */ import_react21.default.createElement(ActionLink, { onClick: edit }, "Change")), watching ? /* @__PURE__ */ import_react21.default.createElement(import_react21.default.Fragment, null, /* @__PURE__ */ import_react21.default.createElement("p", { className: "card-side-text" }, "Checks ", /* @__PURE__ */ import_react21.default.createElement("span", { className: "num" }, deployment.branch), " every ", deployment.watch_interval_minutes, " min and redeploys when it has new commits. Local changes are discarded without asking, since nobody is there to confirm."), /* @__PURE__ */ import_react21.default.createElement("dl", { className: "card-dl card-dl--side" }, /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Last check" }, lastCheck ? formatClock(lastCheck) : "Not checked yet"), /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Next check" }, nextCheck), deployment.watch_last_commit && /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Last deployed commit" }, deployment.watch_last_commit.slice(0, 7)))) : /* @__PURE__ */ import_react21.default.createElement("p", { className: "card-side-text card-side-text--last" }, "Deploys only when you start it here."), deployment.watch_last_error && /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-warning" }, /* @__PURE__ */ import_react21.default.createElement(c8, { size: 14, weight: "fill" }), /* @__PURE__ */ import_react21.default.createElement("span", null, "The last check failed: ", /* @__PURE__ */ import_react21.default.createElement("span", { className: "num" }, deployment.watch_last_error)))), /* @__PURE__ */ import_react21.default.createElement("section", { className: "card", "aria-labelledby": "deploy-env" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "card-head card-head--side" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: "deploy-env", className: "card-title" }, "Environment"), /* @__PURE__ */ import_react21.default.createElement(ActionLink, { onClick: edit }, "Change")), envFile || envKeys.length > 0 ? /* @__PURE__ */ import_react21.default.createElement(import_react21.default.Fragment, null, /* @__PURE__ */ import_react21.default.createElement("p", { className: "card-side-text card-side-text--muted" }, "Applied on every deploy. Values are not shown here."), /* @__PURE__ */ import_react21.default.createElement("dl", { className: "card-dl card-dl--side" }, /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Env file" }, envFile || "None"), /* @__PURE__ */ import_react21.default.createElement(Row2, { label: "Variables" }, envKeys.length > 0 ? /* @__PURE__ */ import_react21.default.createElement("span", { className: "code-chips" }, envKeys.map((key) => /* @__PURE__ */ import_react21.default.createElement("span", { key, className: "code-chip code-chip--dim" }, key))) : "None"))) : /* @__PURE__ */ import_react21.default.createElement("p", { className: "card-side-text card-side-text--muted card-side-text--last" }, "No env file and no variables set.")))));
   }
 
   // src/components/DeployModal.jsx
@@ -37160,10 +37562,10 @@ git checkout -B ${branch} FETCH_HEAD`,
     env_file: ""
   };
   function Option({ title, summary, defaultOpen = false, children }) {
-    return /* @__PURE__ */ import_react21.default.createElement("details", { className: "deploy-option", open: defaultOpen }, /* @__PURE__ */ import_react21.default.createElement("summary", null, /* @__PURE__ */ import_react21.default.createElement(s, { size: 12, className: "deploy-option-caret" }), /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-option-title" }, title), /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-option-summary" }, summary)), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-option-body" }, children));
+    return /* @__PURE__ */ import_react22.default.createElement("details", { className: "deploy-option", open: defaultOpen }, /* @__PURE__ */ import_react22.default.createElement("summary", null, /* @__PURE__ */ import_react22.default.createElement(s, { size: 12, className: "deploy-option-caret" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "deploy-option-title" }, title), /* @__PURE__ */ import_react22.default.createElement("span", { className: "deploy-option-summary" }, summary)), /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-option-body" }, children));
   }
   function Section({ number: number2, title, note, quiet = false, children }) {
-    return /* @__PURE__ */ import_react21.default.createElement("fieldset", { className: "deploy-section" }, /* @__PURE__ */ import_react21.default.createElement("legend", null, /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-section-number", "data-quiet": quiet }, number2), title, note && /* @__PURE__ */ import_react21.default.createElement("span", { className: "deploy-section-note" }, note)), children);
+    return /* @__PURE__ */ import_react22.default.createElement("fieldset", { className: "deploy-section" }, /* @__PURE__ */ import_react22.default.createElement("legend", null, /* @__PURE__ */ import_react22.default.createElement("span", { className: "deploy-section-number", "data-quiet": quiet }, number2), title, note && /* @__PURE__ */ import_react22.default.createElement("span", { className: "deploy-section-note" }, note)), children);
   }
   var INSTALL_BASES = ["npm install", "npm ci", "yarn install", "yarn", "pnpm install", "skip"];
   function splitInstallCmd(stored) {
@@ -37173,13 +37575,13 @@ git checkout -B ${branch} FETCH_HEAD`,
     return { base, args: stored.length > base.length ? stored.slice(base.length + 1) : "" };
   }
   function Field({ label, hint, required, children }) {
-    const id = (0, import_react21.useId)();
+    const id = (0, import_react22.useId)();
     const hintId = `${id}-hint`;
-    const control = (0, import_react21.isValidElement)(children) ? (0, import_react21.cloneElement)(children, { id, "aria-describedby": hint ? hintId : void 0 }) : children;
-    return /* @__PURE__ */ import_react21.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react21.default.createElement("label", { htmlFor: id }, label, required && /* @__PURE__ */ import_react21.default.createElement("span", { className: "field-req", "aria-label": "required" }, "*")), control, hint && /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint", id: hintId }, hint));
+    const control = (0, import_react22.isValidElement)(children) ? (0, import_react22.cloneElement)(children, { id, "aria-describedby": hint ? hintId : void 0 }) : children;
+    return /* @__PURE__ */ import_react22.default.createElement("div", { className: "field" }, /* @__PURE__ */ import_react22.default.createElement("label", { htmlFor: id }, label, required && /* @__PURE__ */ import_react22.default.createElement("span", { className: "field-req", "aria-label": "required" }, "*")), control, hint && /* @__PURE__ */ import_react22.default.createElement("p", { className: "hint", id: hintId }, hint));
   }
-  function Toggle({ label, hint, checked, onChange }) {
-    return /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react21.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react21.default.createElement("input", { type: "checkbox", checked, onChange: (e40) => onChange(e40.target.checked) }), /* @__PURE__ */ import_react21.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react21.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, hint));
+  function Toggle2({ label, hint, checked, onChange }) {
+    return /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-toggle-row" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "toggle" }, /* @__PURE__ */ import_react22.default.createElement("input", { type: "checkbox", checked, onChange: (e42) => onChange(e42.target.checked) }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "toggle-track" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "toggle-label" }, label)), hint && /* @__PURE__ */ import_react22.default.createElement("p", { className: "hint" }, hint));
   }
   function envObjToRows(obj) {
     const entries = Object.entries(obj || {});
@@ -37214,34 +37616,34 @@ git checkout -B ${branch} FETCH_HEAD`,
   }) {
     const isEdit = Boolean(editingDeployment);
     const firstDeploy = !isEdit || editingDeployment.last_deployed_at == null;
-    const modalRef = (0, import_react21.useRef)(null);
-    const titleId = (0, import_react21.useId)();
+    const modalRef = (0, import_react22.useRef)(null);
+    const titleId = (0, import_react22.useId)();
     useDialogFocus(modalRef, onClose);
-    const [appName, setAppName] = (0, import_react21.useState)(() => editingDeployment?.pm2_name ?? "");
-    const [appNameTouched, setAppNameTouched] = (0, import_react21.useState)(isEdit);
-    const [repoUrl, setRepoUrl] = (0, import_react21.useState)(() => editingDeployment?.repo_url ?? "");
-    const [branch, setBranch] = (0, import_react21.useState)(() => editingDeployment?.branch ?? "master");
-    const [startScript, setStartScript] = (0, import_react21.useState)(() => editingDeployment?.start_script ?? "index.js");
-    const [installCmd, setInstallCmd] = (0, import_react21.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).base);
-    const [installArgs, setInstallArgs] = (0, import_react21.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).args);
-    const [buildCmd, setBuildCmd] = (0, import_react21.useState)(() => editingDeployment?.build_cmd ?? "");
-    const [preSetupScript, setPreSetupScript] = (0, import_react21.useState)(() => editingDeployment?.pre_setup_script ?? "");
-    const [postSetupScript, setPostSetupScript] = (0, import_react21.useState)(() => editingDeployment?.post_setup_script ?? "");
-    const [envVars, setEnvVars] = (0, import_react21.useState)(
+    const [appName, setAppName] = (0, import_react22.useState)(() => editingDeployment?.pm2_name ?? "");
+    const [appNameTouched, setAppNameTouched] = (0, import_react22.useState)(isEdit);
+    const [repoUrl, setRepoUrl] = (0, import_react22.useState)(() => editingDeployment?.repo_url ?? "");
+    const [branch, setBranch] = (0, import_react22.useState)(() => editingDeployment?.branch ?? "master");
+    const [startScript, setStartScript] = (0, import_react22.useState)(() => editingDeployment?.start_script ?? "index.js");
+    const [installCmd, setInstallCmd] = (0, import_react22.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).base);
+    const [installArgs, setInstallArgs] = (0, import_react22.useState)(() => splitInstallCmd(editingDeployment?.install_cmd).args);
+    const [buildCmd, setBuildCmd] = (0, import_react22.useState)(() => editingDeployment?.build_cmd ?? "");
+    const [preSetupScript, setPreSetupScript] = (0, import_react22.useState)(() => editingDeployment?.pre_setup_script ?? "");
+    const [postSetupScript, setPostSetupScript] = (0, import_react22.useState)(() => editingDeployment?.post_setup_script ?? "");
+    const [envVars, setEnvVars] = (0, import_react22.useState)(
       () => isEdit ? envObjToRows(editingDeployment.env_vars) : [{ key: "", value: "" }]
     );
-    const [pm2Opts, setPm2Opts] = (0, import_react21.useState)(
+    const [pm2Opts, setPm2Opts] = (0, import_react22.useState)(
       () => isEdit ? pm2OptsFromStored(editingDeployment.pm2_options) : { ...DEFAULT_PM2_OPTIONS }
     );
-    const [watchEnabled, setWatchEnabled] = (0, import_react21.useState)(() => Boolean(editingDeployment?.watch_enabled));
-    const [watchIntervalMinutes, setWatchIntervalMinutes] = (0, import_react21.useState)(
+    const [watchEnabled, setWatchEnabled] = (0, import_react22.useState)(() => Boolean(editingDeployment?.watch_enabled));
+    const [watchIntervalMinutes, setWatchIntervalMinutes] = (0, import_react22.useState)(
       () => editingDeployment?.watch_interval_minutes ?? DEFAULT_WATCH_INTERVAL_MINUTES
     );
-    const [discardLocalChanges, setDiscardLocalChanges] = (0, import_react21.useState)(
+    const [discardLocalChanges, setDiscardLocalChanges] = (0, import_react22.useState)(
       () => Boolean(editingDeployment?.discard_local_changes)
     );
-    const [submitting, setSubmitting] = (0, import_react21.useState)(false);
-    const [error, setError] = (0, import_react21.useState)("");
+    const [submitting, setSubmitting] = (0, import_react22.useState)(false);
+    const [error, setError] = (0, import_react22.useState)("");
     const setOpt = (key, val) => setPm2Opts((prev) => ({ ...prev, [key]: val }));
     const addEnvVar = () => setEnvVars((prev) => [...prev, { key: "", value: "" }]);
     const removeEnvVar = (i) => setEnvVars((prev) => prev.filter((_, idx) => idx !== i));
@@ -37250,7 +37652,7 @@ git checkout -B ${branch} FETCH_HEAD`,
     const shownName = name2.trim() || "my-app";
     const envCount = envVars.filter((v) => v.key.trim()).length;
     const fullInstallCmd = installArgs.trim() ? `${installCmd} ${installArgs.trim()}` : installCmd;
-    const buildPayload = (0, import_react21.useCallback)(() => {
+    const buildPayload = (0, import_react22.useCallback)(() => {
       const envVarsObj = {};
       for (const { key, value } of envVars) {
         if (key.trim()) envVarsObj[key.trim()] = value;
@@ -37293,9 +37695,9 @@ git checkout -B ${branch} FETCH_HEAD`,
       watchIntervalMinutes,
       discardLocalChanges
     ]);
-    const onSubmit = (0, import_react21.useCallback)(
-      async (e40) => {
-        e40.preventDefault();
+    const onSubmit = (0, import_react22.useCallback)(
+      async (e42) => {
+        e42.preventDefault();
         setError("");
         setSubmitting(true);
         try {
@@ -37323,7 +37725,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [isEdit, editingDeployment, name2, buildPayload, onCsrfRefresh, onDeployStarted, onEditSaved]
     );
-    const onRedeployClick = (0, import_react21.useCallback)(async () => {
+    const onRedeployClick = (0, import_react22.useCallback)(async () => {
       if (!modalRef.current?.querySelector("form")?.reportValidity()) return;
       setError("");
       setSubmitting(true);
@@ -37353,23 +37755,23 @@ git checkout -B ${branch} FETCH_HEAD`,
     if (preSetupScript.trim() && postSetupScript.trim()) setupSummary = "Pre-setup and post-setup";
     else if (preSetupScript.trim()) setupSummary = "Pre-setup";
     else if (postSetupScript.trim()) setupSummary = "Post-setup";
-    return /* @__PURE__ */ import_react21.default.createElement(
+    return /* @__PURE__ */ import_react22.default.createElement(
       "div",
       {
         className: "overlay overlay--top",
-        onClick: (e40) => e40.target === e40.currentTarget && !submitting && onClose(),
+        onClick: (e42) => e42.target === e42.currentTarget && !submitting && onClose(),
         role: "dialog",
         "aria-modal": "true",
         "aria-labelledby": titleId
       },
-      /* @__PURE__ */ import_react21.default.createElement("div", { ref: modalRef, className: "modal modal--deploy", tabIndex: -1 }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "modal-header modal-header--stacked" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "modal-heading" }, /* @__PURE__ */ import_react21.default.createElement("h2", { id: titleId, className: "modal-title" }, isEdit ? `Edit ${editingDeployment.pm2_name}` : "New deployment"), /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, isEdit ? "Changes apply on the next deploy." : "Hawkeye clones a Git repository onto this server and runs it under PM2.")), /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": "Close", onClick: onClose }, /* @__PURE__ */ import_react21.default.createElement(n8, { size: 15 }))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-modal-body" }, /* @__PURE__ */ import_react21.default.createElement("form", { id: "deploy-form", className: "deploy-form", onSubmit }, /* @__PURE__ */ import_react21.default.createElement(Section, { number: 1, title: "Where the code comes from" }, /* @__PURE__ */ import_react21.default.createElement(
+      /* @__PURE__ */ import_react22.default.createElement("div", { ref: modalRef, className: "modal modal--deploy", tabIndex: -1 }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-header modal-header--stacked" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-heading" }, /* @__PURE__ */ import_react22.default.createElement("h2", { id: titleId, className: "modal-title" }, isEdit ? `Edit ${editingDeployment.pm2_name}` : "New deployment"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "hint" }, isEdit ? "Changes apply on the next deploy." : "Hawkeye clones a Git repository onto this server and runs it under PM2.")), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "btn btn--icon", "aria-label": "Close", onClick: onClose }, /* @__PURE__ */ import_react22.default.createElement(n9, { size: 15 }))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-modal-body" }, /* @__PURE__ */ import_react22.default.createElement("form", { id: "deploy-form", className: "deploy-form", onSubmit }, /* @__PURE__ */ import_react22.default.createElement(Section, { number: 1, title: "Where the code comes from" }, /* @__PURE__ */ import_react22.default.createElement(
         Field,
         {
           label: "Repository URL",
           required: true,
           hint: "HTTPS or SSH. A private repository needs a deploy key on this server."
         },
-        /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
@@ -37377,26 +37779,26 @@ git checkout -B ${branch} FETCH_HEAD`,
             required: true,
             placeholder: "https://github.com/owner/repo",
             value: repoUrl,
-            onChange: (e40) => setRepoUrl(e40.target.value)
+            onChange: (e42) => setRepoUrl(e42.target.value)
           }
         )
-      ), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Branch", hint: "Fetched again on every redeploy." }, /* @__PURE__ */ import_react21.default.createElement(
+      ), /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Branch", hint: "Fetched again on every redeploy." }, /* @__PURE__ */ import_react22.default.createElement(
         "input",
         {
           className: "input",
           type: "text",
           placeholder: "master",
           value: branch,
-          onChange: (e40) => setBranch(e40.target.value)
+          onChange: (e42) => setBranch(e42.target.value)
         }
-      )), /* @__PURE__ */ import_react21.default.createElement(
+      )), /* @__PURE__ */ import_react22.default.createElement(
         Field,
         {
           label: "App name",
           required: !isEdit,
           hint: isEdit ? "Tied to the deploy path, so it cannot change after the first deployment." : "Taken from the repository name. It becomes the PM2 process name and the folder name, and cannot change later."
         },
-        /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
@@ -37405,31 +37807,31 @@ git checkout -B ${branch} FETCH_HEAD`,
             placeholder: "my-api",
             value: name2,
             readOnly: isEdit,
-            onChange: isEdit ? void 0 : (e40) => {
+            onChange: isEdit ? void 0 : (e42) => {
               setAppNameTouched(true);
-              setAppName(e40.target.value);
+              setAppName(e42.target.value);
             }
           }
         )
-      ))), /* @__PURE__ */ import_react21.default.createElement(Section, { number: 2, title: "How to build and start it" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Install command" }, /* @__PURE__ */ import_react21.default.createElement("select", { className: "select", value: installCmd, onChange: (e40) => setInstallCmd(e40.target.value) }, /* @__PURE__ */ import_react21.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "npm ci" }, "npm ci"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react21.default.createElement("option", { value: "skip" }, "Skip installing"))), installCmd !== "skip" && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Extra install flags" }, /* @__PURE__ */ import_react21.default.createElement(
+      ))), /* @__PURE__ */ import_react22.default.createElement(Section, { number: 2, title: "How to build and start it" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Install command" }, /* @__PURE__ */ import_react22.default.createElement("select", { className: "select", value: installCmd, onChange: (e42) => setInstallCmd(e42.target.value) }, /* @__PURE__ */ import_react22.default.createElement("option", { value: "npm install" }, "npm install"), /* @__PURE__ */ import_react22.default.createElement("option", { value: "npm ci" }, "npm ci"), /* @__PURE__ */ import_react22.default.createElement("option", { value: "yarn install" }, "yarn install"), /* @__PURE__ */ import_react22.default.createElement("option", { value: "yarn" }, "yarn"), /* @__PURE__ */ import_react22.default.createElement("option", { value: "pnpm install" }, "pnpm install"), /* @__PURE__ */ import_react22.default.createElement("option", { value: "skip" }, "Skip installing"))), installCmd !== "skip" && /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Extra install flags" }, /* @__PURE__ */ import_react22.default.createElement(
         "input",
         {
           className: "input",
           type: "text",
           placeholder: "--omit=dev",
           value: installArgs,
-          onChange: (e40) => setInstallArgs(e40.target.value)
+          onChange: (e42) => setInstallArgs(e42.target.value)
         }
-      ))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Build command", hint: "Leave empty to skip the build step." }, /* @__PURE__ */ import_react21.default.createElement(
+      ))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Build command", hint: "Leave empty to skip the build step." }, /* @__PURE__ */ import_react22.default.createElement(
         "input",
         {
           className: "input",
           type: "text",
           placeholder: "npm run build",
           value: buildCmd,
-          onChange: (e40) => setBuildCmd(e40.target.value)
+          onChange: (e42) => setBuildCmd(e42.target.value)
         }
-      )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Start script", required: true, hint: "Entry point, relative to the repository root." }, /* @__PURE__ */ import_react21.default.createElement(
+      )), /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Start script", required: true, hint: "Entry point, relative to the repository root." }, /* @__PURE__ */ import_react22.default.createElement(
         "input",
         {
           className: "input",
@@ -37437,33 +37839,33 @@ git checkout -B ${branch} FETCH_HEAD`,
           required: true,
           placeholder: "index.js",
           value: startScript,
-          onChange: (e40) => setStartScript(e40.target.value)
+          onChange: (e42) => setStartScript(e42.target.value)
         }
-      )))), /* @__PURE__ */ import_react21.default.createElement(Section, { number: 3, title: "Options", note: "The defaults work for most apps.", quiet: true }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-options" }, /* @__PURE__ */ import_react21.default.createElement(
+      )))), /* @__PURE__ */ import_react22.default.createElement(Section, { number: 3, title: "Options", note: "The defaults work for most apps.", quiet: true }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-options" }, /* @__PURE__ */ import_react22.default.createElement(
         Option,
         {
           title: "Environment",
           summary: envCount ? `${envCount} variable(s)` : "None set",
           defaultOpen: envCount > 0 || Boolean(pm2Opts.env_file)
         },
-        /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement(
           Field,
           {
             label: "Env file",
             hint: "Relative to the repository root, or an absolute path on this server. Read on every deploy."
           },
-          /* @__PURE__ */ import_react21.default.createElement(
+          /* @__PURE__ */ import_react22.default.createElement(
             "input",
             {
               className: "input",
               type: "text",
               placeholder: ".env.production",
               value: pm2Opts.env_file,
-              onChange: (e40) => setOpt("env_file", e40.target.value)
+              onChange: (e42) => setOpt("env_file", e42.target.value)
             }
           )
         ),
-        /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement(
           KeyValueList,
           {
             label: "Variables",
@@ -37478,14 +37880,14 @@ git checkout -B ${branch} FETCH_HEAD`,
             onRemove: removeEnvVar
           }
         )
-      ), /* @__PURE__ */ import_react21.default.createElement(
+      ), /* @__PURE__ */ import_react22.default.createElement(
         Option,
         {
           title: "Auto-deploy",
           summary: watchEnabled ? `Every ${watchIntervalMinutes} min on ${branch.trim() || "master"}` : "Off"
         },
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Deploy automatically when the branch gets new commits",
             hint: "Hawkeye polls the remote branch and runs the same redeploy it runs when you click Redeploy now. Local changes in the deploy folder are discarded without asking, since nobody is there to confirm.",
@@ -37493,7 +37895,7 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: setWatchEnabled
           }
         ),
-        watchEnabled && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Check every", hint: "Minutes between polls, 1 to 1440." }, /* @__PURE__ */ import_react21.default.createElement(
+        watchEnabled && /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Check every", hint: "Minutes between polls, 1 to 1440." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
@@ -37501,17 +37903,17 @@ git checkout -B ${branch} FETCH_HEAD`,
             min: 1,
             max: 1440,
             value: watchIntervalMinutes,
-            onChange: (e40) => setWatchIntervalMinutes(e40.target.value)
+            onChange: (e42) => setWatchIntervalMinutes(e42.target.value)
           }
         ))
-      ), /* @__PURE__ */ import_react21.default.createElement(
+      ), /* @__PURE__ */ import_react22.default.createElement(
         Option,
         {
           title: "Local changes on redeploy",
           summary: discardLocalChanges ? "Discards local changes" : "Asks first"
         },
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Discard local changes without asking",
             hint: "When a redeploy finds modified tracked files in the deploy folder, it runs git reset --hard before updating instead of pausing to ask. Untracked files are kept.",
@@ -37519,94 +37921,94 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: setDiscardLocalChanges
           }
         )
-      ), /* @__PURE__ */ import_react21.default.createElement(Option, { title: "Setup scripts", summary: setupSummary }, /* @__PURE__ */ import_react21.default.createElement(
+      ), /* @__PURE__ */ import_react22.default.createElement(Option, { title: "Setup scripts", summary: setupSummary }, /* @__PURE__ */ import_react22.default.createElement(
         Field,
         {
           label: "Pre-setup script",
           hint: "Shell script run in the deploy base folder before cloning. Use it to check that required tools exist."
         },
-        /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement(
           "textarea",
           {
             className: "textarea",
             rows: 3,
             placeholder: "#!/bin/sh\nwhich ffmpeg || exit 1",
             value: preSetupScript,
-            onChange: (e40) => setPreSetupScript(e40.target.value)
+            onChange: (e42) => setPreSetupScript(e42.target.value)
           }
         )
-      ), /* @__PURE__ */ import_react21.default.createElement(
+      ), /* @__PURE__ */ import_react22.default.createElement(
         Field,
         {
           label: "Post-setup script",
           hint: "Shell script run inside the repository after building and before PM2 starts. Use it for migrations."
         },
-        /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement(
           "textarea",
           {
             className: "textarea",
             rows: 3,
             placeholder: "#!/bin/sh\nnode scripts/migrate.js",
             value: postSetupScript,
-            onChange: (e40) => setPostSetupScript(e40.target.value)
+            onChange: (e42) => setPostSetupScript(e42.target.value)
           }
         )
-      )), /* @__PURE__ */ import_react21.default.createElement(
+      )), /* @__PURE__ */ import_react22.default.createElement(
         Option,
         {
           title: "How PM2 runs it",
           summary: `${pm2Opts.exec_mode}, ${pm2Opts.instances} instance${Number(pm2Opts.instances) === 1 ? "" : "s"}`
         },
-        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Interpreter", hint: "Leave as node for standard Node.js." }, /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Interpreter", hint: "Leave as node for standard Node.js." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
             placeholder: "node",
             value: pm2Opts.interpreter,
-            onChange: (e40) => setOpt("interpreter", e40.target.value)
+            onChange: (e42) => setOpt("interpreter", e42.target.value)
           }
-        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Interpreter args", hint: "Flags passed to Node before the script." }, /* @__PURE__ */ import_react21.default.createElement(
+        )), /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Interpreter args", hint: "Flags passed to Node before the script." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
             placeholder: "--max-old-space-size=4096",
             value: pm2Opts.interpreter_args,
-            onChange: (e40) => setOpt("interpreter_args", e40.target.value)
+            onChange: (e42) => setOpt("interpreter_args", e42.target.value)
           }
         ))),
-        /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Script args", hint: "Arguments forwarded to your application." }, /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Script args", hint: "Arguments forwarded to your application." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
             placeholder: "--port 8080",
             value: pm2Opts.args,
-            onChange: (e40) => setOpt("args", e40.target.value)
+            onChange: (e42) => setOpt("args", e42.target.value)
           }
         )),
-        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Exec mode", hint: "Cluster spawns several workers sharing one port." }, /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Exec mode", hint: "Cluster spawns several workers sharing one port." }, /* @__PURE__ */ import_react22.default.createElement(
           "select",
           {
             className: "select",
             value: pm2Opts.exec_mode,
-            onChange: (e40) => setOpt("exec_mode", e40.target.value)
+            onChange: (e42) => setOpt("exec_mode", e42.target.value)
           },
-          /* @__PURE__ */ import_react21.default.createElement("option", { value: "fork" }, "fork"),
-          /* @__PURE__ */ import_react21.default.createElement("option", { value: "cluster" }, "cluster")
-        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Instances", hint: "Use -1 for one per CPU core. Above 1 needs cluster mode." }, /* @__PURE__ */ import_react21.default.createElement(
+          /* @__PURE__ */ import_react22.default.createElement("option", { value: "fork" }, "fork"),
+          /* @__PURE__ */ import_react22.default.createElement("option", { value: "cluster" }, "cluster")
+        )), /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Instances", hint: "Use -1 for one per CPU core. Above 1 needs cluster mode." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "number",
             min: "-1",
             value: pm2Opts.instances,
-            onChange: (e40) => setOpt("instances", e40.target.value)
+            onChange: (e42) => setOpt("instances", e42.target.value)
           }
         ))),
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Source map support",
             hint: "Stack traces from transpiled code point at the original source lines.",
@@ -37614,14 +38016,14 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: (v) => setOpt("source_map_support", v)
           }
         )
-      ), /* @__PURE__ */ import_react21.default.createElement(
+      ), /* @__PURE__ */ import_react22.default.createElement(
         Option,
         {
           title: "Crash recovery",
           summary: pm2Opts.autorestart ? `Auto-restart, max ${pm2Opts.max_restarts}` : "Auto-restart off"
         },
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Restart on crash",
             hint: "Restart whenever the process exits, whatever the exit code.",
@@ -37629,35 +38031,35 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: (v) => setOpt("autorestart", v)
           }
         ),
-        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Restart above memory", hint: "For example 200M or 1G. Blank disables this." }, /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Restart above memory", hint: "For example 200M or 1G. Blank disables this." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
             placeholder: "200M",
             value: pm2Opts.max_memory_restart,
-            onChange: (e40) => setOpt("max_memory_restart", e40.target.value)
+            onChange: (e42) => setOpt("max_memory_restart", e42.target.value)
           }
-        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Max consecutive restarts", hint: "After this many, PM2 marks the app errored." }, /* @__PURE__ */ import_react21.default.createElement(
+        )), /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Max consecutive restarts", hint: "After this many, PM2 marks the app errored." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "number",
             min: "0",
             value: pm2Opts.max_restarts,
-            onChange: (e40) => setOpt("max_restarts", e40.target.value)
+            onChange: (e42) => setOpt("max_restarts", e42.target.value)
           }
         ))),
-        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Delay between restarts (ms)", hint: "Avoids hammering a downstream dependency." }, /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Delay between restarts (ms)", hint: "Avoids hammering a downstream dependency." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "number",
             min: "0",
             value: pm2Opts.restart_delay,
-            onChange: (e40) => setOpt("restart_delay", e40.target.value)
+            onChange: (e42) => setOpt("restart_delay", e42.target.value)
           }
-        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Minimum uptime (ms)", hint: "Below this, a start counts as a failure." }, /* @__PURE__ */ import_react21.default.createElement(
+        )), /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Minimum uptime (ms)", hint: "Below this, a start counts as a failure." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
@@ -37665,30 +38067,30 @@ git checkout -B ${branch} FETCH_HEAD`,
             min: "0",
             placeholder: "1000",
             value: pm2Opts.min_uptime,
-            onChange: (e40) => setOpt("min_uptime", e40.target.value)
+            onChange: (e42) => setOpt("min_uptime", e42.target.value)
           }
         ))),
-        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Shutdown grace period (ms)", hint: "Time after SIGINT before PM2 sends SIGKILL." }, /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Shutdown grace period (ms)", hint: "Time after SIGINT before PM2 sends SIGKILL." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "number",
             min: "0",
             value: pm2Opts.kill_timeout,
-            onChange: (e40) => setOpt("kill_timeout", e40.target.value)
+            onChange: (e42) => setOpt("kill_timeout", e42.target.value)
           }
-        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Scheduled restart", hint: "Cron expression. 0 2 * * * restarts nightly at 2 AM." }, /* @__PURE__ */ import_react21.default.createElement(
+        )), /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Scheduled restart", hint: "Cron expression. 0 2 * * * restarts nightly at 2 AM." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
             placeholder: "0 2 * * *",
             value: pm2Opts.cron_restart,
-            onChange: (e40) => setOpt("cron_restart", e40.target.value)
+            onChange: (e42) => setOpt("cron_restart", e42.target.value)
           }
         ))),
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Wait for a ready signal",
             hint: "Startup finishes only once the app calls process.send('ready').",
@@ -37696,18 +38098,18 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: (v) => setOpt("wait_ready", v)
           }
         ),
-        pm2Opts.wait_ready && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Ready signal timeout (ms)", hint: "Past this, the start counts as failed." }, /* @__PURE__ */ import_react21.default.createElement(
+        pm2Opts.wait_ready && /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Ready signal timeout (ms)", hint: "Past this, the start counts as failed." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "number",
             min: "0",
             value: pm2Opts.listen_timeout,
-            onChange: (e40) => setOpt("listen_timeout", e40.target.value)
+            onChange: (e42) => setOpt("listen_timeout", e42.target.value)
           }
         )),
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Shut down with an IPC message",
             hint: "Sends process.send('shutdown') instead of SIGINT when stopping.",
@@ -37715,14 +38117,14 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: (v) => setOpt("shutdown_with_message", v)
           }
         )
-      ), /* @__PURE__ */ import_react21.default.createElement(
+      ), /* @__PURE__ */ import_react22.default.createElement(
         Option,
         {
           title: "Logging and file watching",
           summary: `${pm2Opts.time ? "Timestamps on" : "Timestamps off"}, ${pm2Opts.watch ? "watching" : "not watching"}`
         },
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Timestamp every log line",
             hint: "Required for Hawkeye to sort stdout and stderr chronologically. Keep this on.",
@@ -37730,8 +38132,8 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: (v) => setOpt("time", v)
           }
         ),
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Combine stdout and stderr",
             hint: "Writes both streams to one file.",
@@ -37739,27 +38141,27 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: (v) => setOpt("combine_logs", v)
           }
         ),
-        /* @__PURE__ */ import_react21.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Stdout file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react21.default.createElement(
+        /* @__PURE__ */ import_react22.default.createElement("div", { className: "deploy-grid" }, /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Stdout file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
             placeholder: "/var/log/my-app/out.log",
             value: pm2Opts.out_file,
-            onChange: (e40) => setOpt("out_file", e40.target.value)
+            onChange: (e42) => setOpt("out_file", e42.target.value)
           }
-        )), /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Stderr file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react21.default.createElement(
+        )), /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Stderr file", hint: "Blank uses the PM2 default." }, /* @__PURE__ */ import_react22.default.createElement(
           "input",
           {
             className: "input",
             type: "text",
             placeholder: "/var/log/my-app/error.log",
             value: pm2Opts.error_file,
-            onChange: (e40) => setOpt("error_file", e40.target.value)
+            onChange: (e42) => setOpt("error_file", e42.target.value)
           }
         ))),
-        /* @__PURE__ */ import_react21.default.createElement(
-          Toggle,
+        /* @__PURE__ */ import_react22.default.createElement(
+          Toggle2,
           {
             label: "Restart on file changes",
             hint: "Useful in development, generally wrong in production.",
@@ -37767,21 +38169,21 @@ git checkout -B ${branch} FETCH_HEAD`,
             onChange: (v) => setOpt("watch", v)
           }
         ),
-        pm2Opts.watch && /* @__PURE__ */ import_react21.default.createElement(Field, { label: "Ignore these paths", hint: "One pattern per line." }, /* @__PURE__ */ import_react21.default.createElement(
+        pm2Opts.watch && /* @__PURE__ */ import_react22.default.createElement(Field, { label: "Ignore these paths", hint: "One pattern per line." }, /* @__PURE__ */ import_react22.default.createElement(
           "textarea",
           {
             className: "textarea",
             rows: 3,
             value: pm2Opts.ignore_watch,
-            onChange: (e40) => setOpt("ignore_watch", e40.target.value)
+            onChange: (e42) => setOpt("ignore_watch", e42.target.value)
           }
         ))
-      )))), /* @__PURE__ */ import_react21.default.createElement("aside", { className: "deploy-preview", "aria-labelledby": `${titleId}-preview` }, /* @__PURE__ */ import_react21.default.createElement("div", null, /* @__PURE__ */ import_react21.default.createElement("h3", { id: `${titleId}-preview`, className: "deploy-preview-title" }, isEdit ? "What a redeploy will do" : "What Hawkeye will do"), /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint" }, "Updates as you fill in the form.")), /* @__PURE__ */ import_react21.default.createElement(StepList, { steps: previewSteps(draft, { firstDeploy, name: shownName }), compact: true }), /* @__PURE__ */ import_react21.default.createElement("p", { className: "deploy-preview-after" }, isEdit ? `${firstDeploy ? "Save only stores the configuration." : `Save keeps ${shownName} running as it is.`} Save and redeploy runs these steps now.` : `After that, ${shownName} appears in the sidebar and its Deploy tab shows the progress.`))), /* @__PURE__ */ import_react21.default.createElement("div", { className: "modal-footer" }, error ? /* @__PURE__ */ import_react21.default.createElement("span", { className: "action-result modal-footer-text", "data-ok": "false" }, /* @__PURE__ */ import_react21.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react21.default.createElement("span", null, error)) : /* @__PURE__ */ import_react21.default.createElement("p", { className: "hint modal-footer-text" }, isEdit ? "Save does not touch the running process." : "The deployment runs on the server. You can close this window once it has started."), /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--quiet", onClick: onClose }, "Cancel"), isEdit && /* @__PURE__ */ import_react21.default.createElement("button", { type: "submit", form: "deploy-form", className: "btn", disabled: submitting }, submitting ? "Saving" : "Save"), isEdit ? /* @__PURE__ */ import_react21.default.createElement("button", { type: "button", className: "btn btn--primary", disabled: submitting, onClick: onRedeployClick }, /* @__PURE__ */ import_react21.default.createElement(m, { size: 13 }), submitting ? "Saving" : "Save and redeploy") : /* @__PURE__ */ import_react21.default.createElement("button", { type: "submit", form: "deploy-form", className: "btn btn--primary", disabled: submitting }, /* @__PURE__ */ import_react21.default.createElement(s6, { size: 13 }), submitting ? "Starting" : "Deploy")))
+      )))), /* @__PURE__ */ import_react22.default.createElement("aside", { className: "deploy-preview", "aria-labelledby": `${titleId}-preview` }, /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("h3", { id: `${titleId}-preview`, className: "deploy-preview-title" }, isEdit ? "What a redeploy will do" : "What Hawkeye will do"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "hint" }, "Updates as you fill in the form.")), /* @__PURE__ */ import_react22.default.createElement(StepList, { steps: previewSteps(draft, { firstDeploy, name: shownName }), compact: true }), /* @__PURE__ */ import_react22.default.createElement("p", { className: "deploy-preview-after" }, isEdit ? `${firstDeploy ? "Save only stores the configuration." : `Save keeps ${shownName} running as it is.`} Save and redeploy runs these steps now.` : `After that, ${shownName} appears in the sidebar and its Deploy tab shows the progress.`))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-footer" }, error ? /* @__PURE__ */ import_react22.default.createElement("span", { className: "action-result modal-footer-text", "data-ok": "false" }, /* @__PURE__ */ import_react22.default.createElement(m3, { size: 13, weight: "fill" }), /* @__PURE__ */ import_react22.default.createElement("span", null, error)) : /* @__PURE__ */ import_react22.default.createElement("p", { className: "hint modal-footer-text" }, isEdit ? "Save does not touch the running process." : "The deployment runs on the server. You can close this window once it has started."), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "btn btn--quiet", onClick: onClose }, "Cancel"), isEdit && /* @__PURE__ */ import_react22.default.createElement("button", { type: "submit", form: "deploy-form", className: "btn", disabled: submitting }, submitting ? "Saving" : "Save"), isEdit ? /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "btn btn--primary", disabled: submitting, onClick: onRedeployClick }, /* @__PURE__ */ import_react22.default.createElement(m, { size: 13 }), submitting ? "Saving" : "Save and redeploy") : /* @__PURE__ */ import_react22.default.createElement("button", { type: "submit", form: "deploy-form", className: "btn btn--primary", disabled: submitting }, /* @__PURE__ */ import_react22.default.createElement(s6, { size: 13 }), submitting ? "Starting" : "Deploy")))
     );
   }
 
   // src/components/HostMetrics.jsx
-  var import_react22 = __toESM(require_react(), 1);
+  var import_react23 = __toESM(require_react(), 1);
   function pressure(pct2) {
     if (pct2 == null) return "normal";
     if (pct2 >= 90) return "critical";
@@ -37795,29 +38197,29 @@ git checkout -B ${branch} FETCH_HEAD`,
       { label: "RAM", value: current?.ram ?? latest?.ram ?? null },
       { label: "Disk", value: current?.disk ?? latest?.disk ?? null }
     ];
-    return /* @__PURE__ */ import_react22.default.createElement(
+    return /* @__PURE__ */ import_react23.default.createElement(
       "a",
       {
         className: "host-readout",
         href: "#host",
         title: "Host CPU, RAM and disk on the Overview",
-        onClick: (e40) => {
-          e40.preventDefault();
+        onClick: (e42) => {
+          e42.preventDefault();
           onShowHost();
         }
       },
-      /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-readout-label" }, "Host"),
-      stats.map((stat) => /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-stat", key: stat.label }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-stat-label" }, stat.label), /* @__PURE__ */ import_react22.default.createElement("span", { className: "host-stat-value", "data-level": pressure(stat.value) }, stat.value != null ? `${stat.value.toFixed(0)}%` : "--")))
+      /* @__PURE__ */ import_react23.default.createElement("span", { className: "host-readout-label" }, "Host"),
+      stats.map((stat) => /* @__PURE__ */ import_react23.default.createElement("span", { className: "host-stat", key: stat.label }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "host-stat-label" }, stat.label), /* @__PURE__ */ import_react23.default.createElement("span", { className: "host-stat-value", "data-level": pressure(stat.value) }, stat.value != null ? `${stat.value.toFixed(0)}%` : "--")))
     );
   }
 
   // src/components/Overview.jsx
-  var import_react23 = __toESM(require_react(), 1);
+  var import_react24 = __toESM(require_react(), 1);
   var pct = (v) => `${Math.round(v)}%`;
   function HostCard({ label, color: color2, samples, current, sub, windowLabel }) {
     const level = pressure(current);
     const peak = findPeak(samples);
-    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card-head" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "chart-card-label" }, label), level !== "normal" && /* @__PURE__ */ import_react23.default.createElement("span", { className: `tag ${level === "critical" ? "tag--critical" : "tag--warning"}` }, /* @__PURE__ */ import_react23.default.createElement(m3, { size: 11, weight: "fill" }), level === "critical" ? "Critical" : "High")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card-reading" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "chart-card-value" }, current != null ? pct(current) : "--"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "hint" }, sub)), peak && /* @__PURE__ */ import_react23.default.createElement("p", { className: "chart-card-peak" }, windowLabel, " peak ", /* @__PURE__ */ import_react23.default.createElement("span", { className: "num" }, pct(peak.v)), " at ", formatClock(peak.t)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "chart-card-plot" }, /* @__PURE__ */ import_react23.default.createElement(
+    return /* @__PURE__ */ import_react24.default.createElement("div", { className: "chart-card" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "chart-card-head" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "chart-card-label" }, label), level !== "normal" && /* @__PURE__ */ import_react24.default.createElement("span", { className: `tag ${level === "critical" ? "tag--critical" : "tag--warning"}` }, /* @__PURE__ */ import_react24.default.createElement(m3, { size: 11, weight: "fill" }), level === "critical" ? "Critical" : "High")), /* @__PURE__ */ import_react24.default.createElement("div", { className: "chart-card-reading" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "chart-card-value" }, current != null ? pct(current) : "--"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "hint" }, sub)), peak && /* @__PURE__ */ import_react24.default.createElement("p", { className: "chart-card-peak" }, windowLabel, " peak ", /* @__PURE__ */ import_react24.default.createElement("span", { className: "num" }, pct(peak.v)), " at ", formatClock(peak.t)), /* @__PURE__ */ import_react24.default.createElement("div", { className: "chart-card-plot" }, /* @__PURE__ */ import_react24.default.createElement(
       TimeSeriesChart,
       {
         series: [{ name: `Host ${label}`, color: color2, samples }],
@@ -37851,7 +38253,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       else if (action.kind === "deployment") onOpenDeployment(action.deploymentId);
       else onShowHost();
     };
-    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "overview fade-in" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h1", { className: "overview-title" }, "Overview"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "overview-sub" }, total, " ", total === 1 ? "process" : "processes", ". ", running, " running, ", total - running, " not running.")), /* @__PURE__ */ import_react23.default.createElement("section", { className: "card", "aria-labelledby": "attention-title" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "attention-head" }, /* @__PURE__ */ import_react23.default.createElement("h2", { id: "attention-title", className: "card-title" }, "Needs attention"), attentionItems.length > 0 && /* @__PURE__ */ import_react23.default.createElement("span", { className: "tag tag--critical num" }, attentionItems.length)), /* @__PURE__ */ import_react23.default.createElement("ul", { className: "attention-list" }, attentionItems.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("li", { className: "attention-row" }, /* @__PURE__ */ import_react23.default.createElement(s2, { size: 16, weight: "fill", className: "attention-icon", "data-level": "ok", "aria-hidden": "true" }), /* @__PURE__ */ import_react23.default.createElement("div", { className: "attention-text" }, /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-title" }, "Nothing needs attention"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-detail" }, "Stopped processes are not counted."))) : attentionItems.map((item) => /* @__PURE__ */ import_react23.default.createElement("li", { className: "attention-row", key: item.key }, item.level === "critical" ? /* @__PURE__ */ import_react23.default.createElement(
+    return /* @__PURE__ */ import_react24.default.createElement("div", { className: "overview fade-in" }, /* @__PURE__ */ import_react24.default.createElement("div", null, /* @__PURE__ */ import_react24.default.createElement("h1", { className: "overview-title" }, "Overview"), /* @__PURE__ */ import_react24.default.createElement("p", { className: "overview-sub" }, total, " ", total === 1 ? "process" : "processes", ". ", running, " running, ", total - running, " not running.")), /* @__PURE__ */ import_react24.default.createElement("section", { className: "card", "aria-labelledby": "attention-title" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "attention-head" }, /* @__PURE__ */ import_react24.default.createElement("h2", { id: "attention-title", className: "card-title" }, "Needs attention"), attentionItems.length > 0 && /* @__PURE__ */ import_react24.default.createElement("span", { className: "tag tag--critical num" }, attentionItems.length)), /* @__PURE__ */ import_react24.default.createElement("ul", { className: "attention-list" }, attentionItems.length === 0 ? /* @__PURE__ */ import_react24.default.createElement("li", { className: "attention-row" }, /* @__PURE__ */ import_react24.default.createElement(s2, { size: 16, weight: "fill", className: "attention-icon", "data-level": "ok", "aria-hidden": "true" }), /* @__PURE__ */ import_react24.default.createElement("div", { className: "attention-text" }, /* @__PURE__ */ import_react24.default.createElement("p", { className: "attention-title" }, "Nothing needs attention"), /* @__PURE__ */ import_react24.default.createElement("p", { className: "attention-detail" }, "Stopped processes are not counted."))) : attentionItems.map((item) => /* @__PURE__ */ import_react24.default.createElement("li", { className: "attention-row", key: item.key }, item.level === "critical" ? /* @__PURE__ */ import_react24.default.createElement(
       m3,
       {
         size: 16,
@@ -37860,7 +38262,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         "data-level": "critical",
         "aria-label": "Critical"
       }
-    ) : /* @__PURE__ */ import_react23.default.createElement(
+    ) : /* @__PURE__ */ import_react24.default.createElement(
       c8,
       {
         size: 16,
@@ -37869,7 +38271,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         "data-level": "warning",
         "aria-label": "Warning"
       }
-    ), /* @__PURE__ */ import_react23.default.createElement("div", { className: "attention-text" }, /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-title" }, item.title), /* @__PURE__ */ import_react23.default.createElement("p", { className: "attention-detail" }, item.detail)), /* @__PURE__ */ import_react23.default.createElement("button", { type: "button", className: "btn btn--sm btn--sunken", onClick: () => act(item.action) }, item.action.label))))), /* @__PURE__ */ import_react23.default.createElement("section", { id: "host", className: "overview-host", "aria-labelledby": "host-title" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "section-head" }, /* @__PURE__ */ import_react23.default.createElement("h2", { id: "host-title", className: "card-title" }, "Host"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "hint" }, "This machine. Sampled every 20 s, kept for ", windowLabel, ". Hover a chart for exact values.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "host-grid" }, /* @__PURE__ */ import_react23.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement("div", { className: "attention-text" }, /* @__PURE__ */ import_react24.default.createElement("p", { className: "attention-title" }, item.title), /* @__PURE__ */ import_react24.default.createElement("p", { className: "attention-detail" }, item.detail)), /* @__PURE__ */ import_react24.default.createElement("button", { type: "button", className: "btn btn--sm btn--sunken", onClick: () => act(item.action) }, item.action.label))))), /* @__PURE__ */ import_react24.default.createElement("section", { id: "host", className: "overview-host", "aria-labelledby": "host-title" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "section-head" }, /* @__PURE__ */ import_react24.default.createElement("h2", { id: "host-title", className: "card-title" }, "Host"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "hint" }, "This machine. Sampled every 20 s, kept for ", windowLabel, ". Hover a chart for exact values.")), /* @__PURE__ */ import_react24.default.createElement("div", { className: "host-grid" }, /* @__PURE__ */ import_react24.default.createElement(
       HostCard,
       {
         label: "CPU",
@@ -37879,7 +38281,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         sub: "average across all cores",
         windowLabel
       }
-    ), /* @__PURE__ */ import_react23.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement(
       HostCard,
       {
         label: "RAM",
@@ -37889,7 +38291,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         sub: used("ramUsed", "ramTotal"),
         windowLabel
       }
-    ), /* @__PURE__ */ import_react23.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement(
       HostCard,
       {
         label: "Disk",
@@ -38010,7 +38412,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       });
     }
     const rank = { critical: 0, warning: 1 };
-    return items.sort((a28, b) => rank[a28.level] - rank[b.level] || a28.name.localeCompare(b.name));
+    return items.sort((a29, b) => rank[a29.level] - rank[b.level] || a29.name.localeCompare(b.name));
   }
 
   // src/components/App.jsx
@@ -38038,59 +38440,59 @@ git checkout -B ${branch} FETCH_HEAD`,
     { id: "manage", label: "Manage" }
   ];
   function App() {
-    const [csrfToken, setCsrfToken] = (0, import_react24.useState)(null);
-    const [processes, setProcesses] = (0, import_react24.useState)([]);
-    const [selection, setSelection] = (0, import_react24.useState)(null);
-    const [details, setDetails] = (0, import_react24.useState)(null);
-    const [error, setError] = (0, import_react24.useState)("");
-    const [wsConnected, setWsConnected] = (0, import_react24.useState)(false);
-    const [appVersion, setAppVersion] = (0, import_react24.useState)(null);
-    const [liveLines, setLiveLines] = (0, import_react24.useState)([]);
-    const [actions, setActions] = (0, import_react24.useState)([]);
-    const [metricsHistory, setMetricsHistory] = (0, import_react24.useState)([]);
-    const [customMetricsHistory, setCustomMetricsHistory] = (0, import_react24.useState)([]);
-    const [hostMetrics, setHostMetrics] = (0, import_react24.useState)([]);
-    const [hostCurrent, setHostCurrent] = (0, import_react24.useState)(null);
-    const [storedLogs, setStoredLogs] = (0, import_react24.useState)([]);
-    const [storedLogsReady, setStoredLogsReady] = (0, import_react24.useState)(false);
-    const [storedLogsCursor, setStoredLogsCursor] = (0, import_react24.useState)(null);
-    const [loadingOlderLogs, setLoadingOlderLogs] = (0, import_react24.useState)(false);
-    const [unreadLogCount, setUnreadLogCount] = (0, import_react24.useState)(0);
-    const [settingsPage, setSettingsPage] = (0, import_react24.useState)(null);
-    const [appConfig, setAppConfig] = (0, import_react24.useState)(null);
-    const [deployOpen, setDeployOpen] = (0, import_react24.useState)(false);
-    const [deployments, setDeployments] = (0, import_react24.useState)([]);
-    const [deploymentsLoaded, setDeploymentsLoaded] = (0, import_react24.useState)(false);
-    const [deployRuns, setDeployRuns] = (0, import_react24.useState)({});
-    const [editingDeployment, setEditingDeployment] = (0, import_react24.useState)(null);
-    const [drawerOpen, setDrawerOpen] = (0, import_react24.useState)(false);
-    const [logFilters, setLogFilters] = (0, import_react24.useState)(/* @__PURE__ */ new Set(["info", "warn", "error"]));
-    const [logSearch, setLogSearch] = (0, import_react24.useState)("");
-    const [logPaused, setLogPaused] = (0, import_react24.useState)(false);
-    const [pausedCount, setPausedCount] = (0, import_react24.useState)(0);
-    const [logLevel, setLogLevel] = (0, import_react24.useState)({ supported: null, level: null, busy: false });
-    const [activeTab, setActiveTab] = (0, import_react24.useState)("logs");
-    const logRef = (0, import_react24.useRef)(null);
-    const autoStickRef = (0, import_react24.useRef)(true);
-    const wsRef = (0, import_react24.useRef)(null);
-    const selectedProcessIdRef = (0, import_react24.useRef)(null);
-    const liveQueueRef = (0, import_react24.useRef)([]);
-    const liveFrameRef = (0, import_react24.useRef)(null);
-    const liveSequenceRef = (0, import_react24.useRef)(0);
-    const olderLogsControllerRef = (0, import_react24.useRef)(null);
-    const logPausedRef = (0, import_react24.useRef)(false);
-    const pausedBufferRef = (0, import_react24.useRef)([]);
-    const selectionRef = (0, import_react24.useRef)(null);
+    const [csrfToken, setCsrfToken] = (0, import_react25.useState)(null);
+    const [processes, setProcesses] = (0, import_react25.useState)([]);
+    const [selection, setSelection] = (0, import_react25.useState)(null);
+    const [details, setDetails] = (0, import_react25.useState)(null);
+    const [error, setError] = (0, import_react25.useState)("");
+    const [wsConnected, setWsConnected] = (0, import_react25.useState)(false);
+    const [appVersion, setAppVersion] = (0, import_react25.useState)(null);
+    const [liveLines, setLiveLines] = (0, import_react25.useState)([]);
+    const [actions, setActions] = (0, import_react25.useState)([]);
+    const [metricsHistory, setMetricsHistory] = (0, import_react25.useState)([]);
+    const [customMetricsHistory, setCustomMetricsHistory] = (0, import_react25.useState)([]);
+    const [hostMetrics, setHostMetrics] = (0, import_react25.useState)([]);
+    const [hostCurrent, setHostCurrent] = (0, import_react25.useState)(null);
+    const [storedLogs, setStoredLogs] = (0, import_react25.useState)([]);
+    const [storedLogsReady, setStoredLogsReady] = (0, import_react25.useState)(false);
+    const [storedLogsCursor, setStoredLogsCursor] = (0, import_react25.useState)(null);
+    const [loadingOlderLogs, setLoadingOlderLogs] = (0, import_react25.useState)(false);
+    const [unreadLogCount, setUnreadLogCount] = (0, import_react25.useState)(0);
+    const [settingsPage, setSettingsPage] = (0, import_react25.useState)(null);
+    const [appConfig, setAppConfig] = (0, import_react25.useState)(null);
+    const [deployOpen, setDeployOpen] = (0, import_react25.useState)(false);
+    const [deployments, setDeployments] = (0, import_react25.useState)([]);
+    const [deploymentsLoaded, setDeploymentsLoaded] = (0, import_react25.useState)(false);
+    const [deployRuns, setDeployRuns] = (0, import_react25.useState)({});
+    const [editingDeployment, setEditingDeployment] = (0, import_react25.useState)(null);
+    const [drawerOpen, setDrawerOpen] = (0, import_react25.useState)(false);
+    const [logFilters, setLogFilters] = (0, import_react25.useState)(/* @__PURE__ */ new Set(["info", "warn", "error"]));
+    const [logSearch, setLogSearch] = (0, import_react25.useState)("");
+    const [logPaused, setLogPaused] = (0, import_react25.useState)(false);
+    const [pausedCount, setPausedCount] = (0, import_react25.useState)(0);
+    const [logLevel, setLogLevel] = (0, import_react25.useState)({ supported: null, level: null, busy: false });
+    const [activeTab, setActiveTab] = (0, import_react25.useState)("logs");
+    const logRef = (0, import_react25.useRef)(null);
+    const autoStickRef = (0, import_react25.useRef)(true);
+    const wsRef = (0, import_react25.useRef)(null);
+    const selectedProcessIdRef = (0, import_react25.useRef)(null);
+    const liveQueueRef = (0, import_react25.useRef)([]);
+    const liveFrameRef = (0, import_react25.useRef)(null);
+    const liveSequenceRef = (0, import_react25.useRef)(0);
+    const olderLogsControllerRef = (0, import_react25.useRef)(null);
+    const logPausedRef = (0, import_react25.useRef)(false);
+    const pausedBufferRef = (0, import_react25.useRef)([]);
+    const selectionRef = (0, import_react25.useRef)(null);
     const selectedProcessId = deploymentIdFromKey(selection) ? null : selection;
     const selectedDeploymentId = deploymentIdFromKey(selection);
-    const select = (0, import_react24.useCallback)((key, tab2) => {
+    const select = (0, import_react25.useCallback)((key, tab2) => {
       if (tab2) setActiveTab(tab2);
       else if (String(selectionRef.current) !== String(key)) setActiveTab("logs");
       selectionRef.current = key;
       setSelection(key);
       setDrawerOpen(false);
     }, []);
-    const loadProcesses = (0, import_react24.useCallback)(async () => {
+    const loadProcesses = (0, import_react25.useCallback)(async () => {
       try {
         const payload = await fetchJson("/api/processes");
         setProcesses(payload.items);
@@ -38101,20 +38503,20 @@ git checkout -B ${branch} FETCH_HEAD`,
         setError(loadError.message);
       }
     }, []);
-    const loadDeployments = (0, import_react24.useCallback)(
+    const loadDeployments = (0, import_react25.useCallback)(
       () => fetchJson("/api/deployments").then((payload) => {
         setDeployments(payload.deployments || []);
         setDeploymentsLoaded(true);
       }).catch((loadError) => setError(`Failed to load deployments: ${loadError.message}`)),
       []
     );
-    const loadHostMetrics = (0, import_react24.useCallback)(() => {
+    const loadHostMetrics = (0, import_react25.useCallback)(() => {
       fetchJson("/api/host-metrics").then((payload) => {
         setHostMetrics(payload.samples || []);
         setHostCurrent(payload.current || null);
       }).catch((loadError) => setError(`Failed to load host metrics: ${loadError.message}`));
     }, []);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       fetchJson("/api/auth/session").then((payload) => {
         setCsrfToken(payload.csrfToken);
         if (payload.version) setAppVersion(payload.version);
@@ -38122,21 +38524,21 @@ git checkout -B ${branch} FETCH_HEAD`,
         return Promise.all([loadProcesses(), loadDeployments(), loadHostMetrics()]);
       }).catch((sessionError) => setError(sessionError.message));
     }, [loadProcesses, loadDeployments, loadHostMetrics]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const interval = setInterval(loadHostMetrics, 2e4);
       return () => clearInterval(interval);
     }, [loadHostMetrics]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       selectedProcessIdRef.current = selectedProcessId;
     }, [selectedProcessId]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       selectionRef.current = selection;
     }, [selection]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const interval = setInterval(loadDeployments, 6e4);
       return () => clearInterval(interval);
     }, [loadDeployments]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const flushLiveQueue = () => {
         liveFrameRef.current = null;
@@ -38198,25 +38600,25 @@ git checkout -B ${branch} FETCH_HEAD`,
         liveQueueRef.current = [];
       };
     }, [loadDeployments]);
-    const selectedProcess = (0, import_react24.useMemo)(
+    const selectedProcess = (0, import_react25.useMemo)(
       () => processes.find((item) => String(processKey(item)) === String(selectedProcessId)) || null,
       [processes, selectedProcessId]
     );
     const isSelectedMonitored = selectedProcess?.isMonitored ?? false;
-    const selectedDeployment = (0, import_react24.useMemo)(
+    const selectedDeployment = (0, import_react25.useMemo)(
       () => deployments.find((d) => d.pm2_name === selectedProcess?.name) ?? null,
       [deployments, selectedProcess]
     );
-    const deployedNames = (0, import_react24.useMemo)(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
-    const offlineDeployments = (0, import_react24.useMemo)(() => {
+    const deployedNames = (0, import_react25.useMemo)(() => new Set(deployments.map((d) => d.pm2_name)), [deployments]);
+    const offlineDeployments = (0, import_react25.useMemo)(() => {
       const pm2Names = new Set(processes.map((p2) => p2.name));
       return deployments.filter((d) => !pm2Names.has(d.pm2_name)).map((d) => !d.deploying && isRunActive(d, deployRuns[d.id]) ? { ...d, deploying: 1 } : d);
     }, [deployments, processes, deployRuns]);
-    const selectedOfflineDeployment = (0, import_react24.useMemo)(
+    const selectedOfflineDeployment = (0, import_react25.useMemo)(
       () => selectedDeploymentId ? offlineDeployments.find((d) => d.id === selectedDeploymentId) ?? null : null,
       [offlineDeployments, selectedDeploymentId]
     );
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       if (!selectedDeploymentId || !deploymentsLoaded) return;
       const deployment = deployments.find((d) => d.id === selectedDeploymentId);
       if (!deployment) {
@@ -38226,11 +38628,11 @@ git checkout -B ${branch} FETCH_HEAD`,
       const proc = processes.find((p2) => p2.name === deployment.pm2_name);
       if (proc) select(processKey(proc), "deploy");
     }, [selectedDeploymentId, deployments, deploymentsLoaded, processes, select]);
-    const attentionItems = (0, import_react24.useMemo)(
+    const attentionItems = (0, import_react25.useMemo)(
       () => buildAttentionItems({ processes, offlineDeployments, deployments, deployRuns, hostCurrent }),
       [processes, offlineDeployments, deployments, deployRuns, hostCurrent]
     );
-    const loadMetrics = (0, import_react24.useCallback)((processId, signal, failureLabel) => {
+    const loadMetrics = (0, import_react25.useCallback)((processId, signal, failureLabel) => {
       fetchJson(`/api/processes/${encodeURIComponent(processId)}/metrics`, { signal }).then((payload) => {
         setMetricsHistory(payload.samples || []);
         setCustomMetricsHistory(payload.custom || []);
@@ -38238,7 +38640,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         if (loadError.name !== "AbortError") setError(`${failureLabel}: ${loadError.message}`);
       });
     }, []);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const controller = new AbortController();
       olderLogsControllerRef.current?.abort();
       olderLogsControllerRef.current = null;
@@ -38262,7 +38664,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       });
       return () => controller.abort();
     }, [selectedProcessId]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const controller = new AbortController();
       setDetails(null);
       setLiveLines([]);
@@ -38289,7 +38691,7 @@ git checkout -B ${branch} FETCH_HEAD`,
     }, [selectedProcessId, loadMetrics]);
     const selectedIsOnline = String(selectedProcess?.status ?? "").toLowerCase() === "online";
     const selectedUptime = details?.process?.uptime ?? null;
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       setLogLevel({ supported: null, level: null, busy: false });
       if (selectedProcessId == null || !selectedIsOnline || selectedUptime == null) return void 0;
       const controller = new AbortController();
@@ -38302,13 +38704,13 @@ git checkout -B ${branch} FETCH_HEAD`,
       });
       return () => controller.abort();
     }, [selectedProcessId, selectedIsOnline, selectedUptime]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const ws = wsRef.current;
       if (!wsConnected || ws?.readyState !== WebSocket.OPEN) return;
       const message = selectedProcessId === null || selectedProcessId === void 0 ? { type: "deselect" } : { type: "select", data: { processId: String(selectedProcessId) } };
       ws.send(JSON.stringify(message));
     }, [selectedProcessId, wsConnected]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       if (selectedProcessId === null || selectedProcessId === void 0 || !isSelectedMonitored) return;
       let controller = null;
       const interval = setInterval(() => {
@@ -38321,7 +38723,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         controller?.abort();
       };
     }, [selectedProcessId, isSelectedMonitored, loadMetrics]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const container = logRef.current;
       if (!container) return void 0;
       const onScroll = () => {
@@ -38330,17 +38732,17 @@ git checkout -B ${branch} FETCH_HEAD`,
       container.addEventListener("scroll", onScroll);
       return () => container.removeEventListener("scroll", onScroll);
     }, [activeTab, selectedProcessId]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       autoStickRef.current = true;
       setUnreadLogCount(0);
     }, [activeTab]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react25.useEffect)(() => {
       const container = logRef.current;
       if (container && autoStickRef.current) {
         container.scrollTop = container.scrollHeight;
       }
     }, [storedLogs, liveLines, activeTab]);
-    const onTogglePause = (0, import_react24.useCallback)(() => {
+    const onTogglePause = (0, import_react25.useCallback)(() => {
       setLogPaused((paused) => {
         const next = !paused;
         logPausedRef.current = next;
@@ -38354,7 +38756,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         return next;
       });
     }, []);
-    const scrollToLogBottom = (0, import_react24.useCallback)(() => {
+    const scrollToLogBottom = (0, import_react25.useCallback)(() => {
       const container = logRef.current;
       if (container) {
         container.scrollTop = container.scrollHeight;
@@ -38362,13 +38764,13 @@ git checkout -B ${branch} FETCH_HEAD`,
         setUnreadLogCount(0);
       }
     }, []);
-    const allLines = (0, import_react24.useMemo)(() => {
+    const allLines = (0, import_react25.useMemo)(() => {
       if (isSelectedMonitored && storedLogsReady) {
         return [...storedLogs, ...liveLines];
       }
       return liveLines;
     }, [isSelectedMonitored, storedLogsReady, storedLogs, liveLines]);
-    const loadOlderLogs = (0, import_react24.useCallback)(async () => {
+    const loadOlderLogs = (0, import_react25.useCallback)(async () => {
       const processId = selectedProcessIdRef.current;
       if (processId == null || !storedLogsCursor || loadingOlderLogs) return;
       const controller = new AbortController();
@@ -38393,20 +38795,20 @@ git checkout -B ${branch} FETCH_HEAD`,
         }
       }
     }, [loadingOlderLogs, storedLogsCursor]);
-    const refreshCsrf = (0, import_react24.useCallback)(async () => {
+    const refreshCsrf = (0, import_react25.useCallback)(async () => {
       const session = await fetchJson("/api/auth/session");
       setCsrfToken(session.csrfToken);
       return session.csrfToken;
     }, []);
-    const showMetric = (0, import_react24.useCallback)((chartId) => {
+    const showMetric = (0, import_react25.useCallback)((chartId) => {
       setActiveTab("metrics");
       if (chartId) scrollToWhenRendered(chartId);
     }, []);
-    const showHost = (0, import_react24.useCallback)(() => {
+    const showHost = (0, import_react25.useCallback)(() => {
       select(null);
       scrollToWhenRendered("host");
     }, [select]);
-    const openDeployment = (0, import_react24.useCallback)(
+    const openDeployment = (0, import_react25.useCallback)(
       (deploymentId) => {
         const deployment = deployments.find((d) => d.id === deploymentId);
         const proc = deployment && processes.find((p2) => p2.name === deployment.pm2_name);
@@ -38414,10 +38816,10 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [deployments, processes, select]
     );
-    const failRun = (0, import_react24.useCallback)((deploymentId, message) => {
+    const failRun = (0, import_react25.useCallback)((deploymentId, message) => {
       setDeployRuns((runs) => recordDeployEvent(runs, { deploymentId, stage: "error", line: message, status: "error" }));
     }, []);
-    const onRedeploy = (0, import_react24.useCallback)(
+    const onRedeploy = (0, import_react25.useCallback)(
       async (deployment) => {
         setDeployRuns(
           (runs) => startRun(runs, deployment.id, {
@@ -38436,7 +38838,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [refreshCsrf, failRun, processes]
     );
-    const onDeployStarted = (0, import_react24.useCallback)(
+    const onDeployStarted = (0, import_react25.useCallback)(
       async (deploymentId) => {
         setDeployOpen(false);
         setEditingDeployment(null);
@@ -38446,7 +38848,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [loadDeployments, select]
     );
-    const onSaveAndRedeploy = (0, import_react24.useCallback)(
+    const onSaveAndRedeploy = (0, import_react25.useCallback)(
       async (deploymentId) => {
         const deployment = deployments.find((d) => d.id === deploymentId);
         setDeployOpen(false);
@@ -38457,7 +38859,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [deployments, openDeployment, loadDeployments, onRedeploy]
     );
-    const onConfirmDeploy = (0, import_react24.useCallback)(
+    const onConfirmDeploy = (0, import_react25.useCallback)(
       async (deploymentId, confirmed) => {
         try {
           await fetchWithCsrf(`/api/deployments/${deploymentId}/confirm`, {
@@ -38472,16 +38874,16 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [refreshCsrf, failRun]
     );
-    const onDismissRun = (0, import_react24.useCallback)((deploymentId) => {
+    const onDismissRun = (0, import_react25.useCallback)((deploymentId) => {
       setDeployRuns(
         (runs) => runs[deploymentId] ? { ...runs, [deploymentId]: { ...runs[deploymentId], dismissed: true } } : runs
       );
     }, []);
-    const onEditDeployment = (0, import_react24.useCallback)((deployment) => {
+    const onEditDeployment = (0, import_react25.useCallback)((deployment) => {
       setEditingDeployment(deployment);
       setDeployOpen(true);
     }, []);
-    const onDeleteDeployment = (0, import_react24.useCallback)(
+    const onDeleteDeployment = (0, import_react25.useCallback)(
       async (deploymentId) => {
         if (!csrfToken) return;
         try {
@@ -38496,7 +38898,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [csrfToken, refreshCsrf, loadDeployments]
     );
-    const onEditSaved = (0, import_react24.useCallback)(async () => {
+    const onEditSaved = (0, import_react25.useCallback)(async () => {
       loadDeployments();
       setDeployOpen(false);
       setEditingDeployment(null);
@@ -38557,7 +38959,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       }
       window.location.replace("/login");
     };
-    const onToggleMonitoring = (0, import_react24.useCallback)(
+    const onToggleMonitoring = (0, import_react25.useCallback)(
       async (pm2Name, currentlyMonitored) => {
         if (!csrfToken) return;
         try {
@@ -38575,7 +38977,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [csrfToken, refreshCsrf]
     );
-    const onToggleAlerts = (0, import_react24.useCallback)(
+    const onToggleAlerts = (0, import_react25.useCallback)(
       async (pm2Name, alertsEnabled) => {
         if (!csrfToken) return;
         setProcesses((prev) => prev.map((p2) => p2.name === pm2Name ? { ...p2, alertsEnabled } : p2));
@@ -38593,7 +38995,7 @@ git checkout -B ${branch} FETCH_HEAD`,
       },
       [csrfToken, refreshCsrf]
     );
-    const onSetLogLevel = (0, import_react24.useCallback)(
+    const onSetLogLevel = (0, import_react25.useCallback)(
       async (level) => {
         if (!csrfToken || selectedProcessId == null) return;
         const processId = selectedProcessId;
@@ -38621,7 +39023,7 @@ git checkout -B ${branch} FETCH_HEAD`,
     const deployDot = deployTabDot(shownDeployment, shownRun);
     const tabs = TABS.filter((tab2) => tab2.id !== "deploy" || shownDeployment);
     const visibleTab = tabs.some((tab2) => tab2.id === activeTab) ? activeTab : "logs";
-    const renderTabs = (list3, current) => /* @__PURE__ */ import_react24.default.createElement("div", { className: "tabs", role: "tablist", "aria-label": "Process views" }, list3.map((tab2) => /* @__PURE__ */ import_react24.default.createElement(
+    const renderTabs = (list3, current) => /* @__PURE__ */ import_react25.default.createElement("div", { className: "tabs", role: "tablist", "aria-label": "Process views" }, list3.map((tab2) => /* @__PURE__ */ import_react25.default.createElement(
       "button",
       {
         key: tab2.id,
@@ -38634,11 +39036,11 @@ git checkout -B ${branch} FETCH_HEAD`,
         onClick: () => setActiveTab(tab2.id)
       },
       tab2.label,
-      tab2.id === "logs" && allLines.length > 0 && /* @__PURE__ */ import_react24.default.createElement("span", { className: "tab-count" }, allLines.length.toLocaleString("en-US")),
-      tab2.id === "deploy" && deployDot && /* @__PURE__ */ import_react24.default.createElement("span", { className: "tab-dot", "data-tone": deployDot.tone, title: deployDot.label }),
-      tab2.id === "manage" && !isSelectedMonitored && /* @__PURE__ */ import_react24.default.createElement("span", { className: "tab-flag", title: "Monitoring is off for this process" })
+      tab2.id === "logs" && allLines.length > 0 && /* @__PURE__ */ import_react25.default.createElement("span", { className: "tab-count" }, allLines.length.toLocaleString("en-US")),
+      tab2.id === "deploy" && deployDot && /* @__PURE__ */ import_react25.default.createElement("span", { className: "tab-dot", "data-tone": deployDot.tone, title: deployDot.label }),
+      tab2.id === "manage" && !isSelectedMonitored && /* @__PURE__ */ import_react25.default.createElement("span", { className: "tab-flag", title: "Monitoring is off for this process" })
     )));
-    const deployPanel = shownDeployment && /* @__PURE__ */ import_react24.default.createElement(
+    const deployPanel = shownDeployment && /* @__PURE__ */ import_react25.default.createElement(
       DeployPanel,
       {
         deployment: shownDeployment,
@@ -38654,9 +39056,9 @@ git checkout -B ${branch} FETCH_HEAD`,
     );
     let content3;
     if (selectedOfflineDeployment) {
-      content3 = /* @__PURE__ */ import_react24.default.createElement(import_react24.default.Fragment, null, /* @__PURE__ */ import_react24.default.createElement(ProcessHeader, { offlineDeployment: selectedOfflineDeployment }, renderTabs([{ id: "deploy", label: "Deploy" }], "deploy")), /* @__PURE__ */ import_react24.default.createElement("div", { className: "tab-panel tab-panel--scroll", role: "tabpanel", id: "panel-deploy", "aria-labelledby": "tab-deploy" }, deployPanel));
+      content3 = /* @__PURE__ */ import_react25.default.createElement(import_react25.default.Fragment, null, /* @__PURE__ */ import_react25.default.createElement(ProcessHeader, { offlineDeployment: selectedOfflineDeployment }, renderTabs([{ id: "deploy", label: "Deploy" }], "deploy")), /* @__PURE__ */ import_react25.default.createElement("div", { className: "tab-panel tab-panel--scroll", role: "tabpanel", id: "panel-deploy", "aria-labelledby": "tab-deploy" }, deployPanel));
     } else if (selectedProcess) {
-      content3 = /* @__PURE__ */ import_react24.default.createElement(import_react24.default.Fragment, null, /* @__PURE__ */ import_react24.default.createElement(
+      content3 = /* @__PURE__ */ import_react25.default.createElement(import_react25.default.Fragment, null, /* @__PURE__ */ import_react25.default.createElement(
         ProcessHeader,
         {
           selectedProcess,
@@ -38669,7 +39071,7 @@ git checkout -B ${branch} FETCH_HEAD`,
           onShowMetrics: showMetric
         },
         renderTabs(tabs, visibleTab)
-      ), /* @__PURE__ */ import_react24.default.createElement(
+      ), /* @__PURE__ */ import_react25.default.createElement(
         "div",
         {
           className: visibleTab === "logs" ? "tab-panel" : "tab-panel tab-panel--scroll",
@@ -38677,7 +39079,7 @@ git checkout -B ${branch} FETCH_HEAD`,
           id: `panel-${visibleTab}`,
           "aria-labelledby": `tab-${visibleTab}`
         },
-        visibleTab === "logs" && /* @__PURE__ */ import_react24.default.createElement(
+        visibleTab === "logs" && /* @__PURE__ */ import_react25.default.createElement(
           LogStream,
           {
             details,
@@ -38703,7 +39105,7 @@ git checkout -B ${branch} FETCH_HEAD`,
             onLoadOlderLogs: loadOlderLogs
           }
         ),
-        visibleTab === "metrics" && /* @__PURE__ */ import_react24.default.createElement(
+        visibleTab === "metrics" && /* @__PURE__ */ import_react25.default.createElement(
           MetricsPanel,
           {
             processName: selectedProcess.name,
@@ -38719,7 +39121,7 @@ git checkout -B ${branch} FETCH_HEAD`,
           }
         ),
         visibleTab === "deploy" && deployPanel,
-        visibleTab === "manage" && /* @__PURE__ */ import_react24.default.createElement(
+        visibleTab === "manage" && /* @__PURE__ */ import_react25.default.createElement(
           ManagePanel,
           {
             selectedProcess,
@@ -38742,7 +39144,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         )
       ));
     } else {
-      content3 = /* @__PURE__ */ import_react24.default.createElement(
+      content3 = /* @__PURE__ */ import_react25.default.createElement(
         Overview,
         {
           processes,
@@ -38757,30 +39159,30 @@ git checkout -B ${branch} FETCH_HEAD`,
         }
       );
     }
-    return /* @__PURE__ */ import_react24.default.createElement(o.Provider, { value: ICON_DEFAULTS }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react24.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react24.default.createElement("header", { className: "app-topbar" }, /* @__PURE__ */ import_react24.default.createElement(
+    return /* @__PURE__ */ import_react25.default.createElement(o.Provider, { value: ICON_DEFAULTS }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "app-shell" }, /* @__PURE__ */ import_react25.default.createElement(UpdateBanner, null), /* @__PURE__ */ import_react25.default.createElement("header", { className: "app-topbar" }, /* @__PURE__ */ import_react25.default.createElement(
       "button",
       {
         className: "topbar-menu-btn",
         type: "button",
         "aria-label": "Toggle process list",
         "aria-expanded": drawerOpen,
-        onClick: () => setDrawerOpen((o24) => !o24)
+        onClick: () => setDrawerOpen((o25) => !o25)
       },
-      /* @__PURE__ */ import_react24.default.createElement(c5, { size: 15, weight: "bold" })
-    ), /* @__PURE__ */ import_react24.default.createElement(
+      /* @__PURE__ */ import_react25.default.createElement(c5, { size: 15, weight: "bold" })
+    ), /* @__PURE__ */ import_react25.default.createElement(
       "a",
       {
         className: "topbar-brand",
         href: "/",
         "aria-label": "pm2-hawkeye home",
-        onClick: (e40) => {
-          e40.preventDefault();
+        onClick: (e42) => {
+          e42.preventDefault();
           select(null);
         }
       },
-      /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react24.default.createElement(n2, { size: 15, weight: "bold", color: "var(--accent)" })),
-      /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye"))
-    ), /* @__PURE__ */ import_react24.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent, onShowHost: showHost }), /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react24.default.createElement("div", { className: "conn-state", "data-connected": wsConnected, title: wsConnected ? "Live" : "Reconnecting" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "conn-dot" }), /* @__PURE__ */ import_react24.default.createElement("span", null, wsConnected ? "Live" : "Reconnecting")), /* @__PURE__ */ import_react24.default.createElement("span", { className: "topbar-divider" }), /* @__PURE__ */ import_react24.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react24.default.createElement(
+      /* @__PURE__ */ import_react25.default.createElement("span", { className: "topbar-brand-logo" }, /* @__PURE__ */ import_react25.default.createElement(n2, { size: 15, weight: "bold", color: "var(--accent)" })),
+      /* @__PURE__ */ import_react25.default.createElement("span", { className: "topbar-brand-wordmark" }, /* @__PURE__ */ import_react25.default.createElement("span", { className: "brand-pm2" }, "pm2"), /* @__PURE__ */ import_react25.default.createElement("span", { className: "brand-hawkeye" }, "-hawkeye"))
+    ), /* @__PURE__ */ import_react25.default.createElement(HostMetrics, { samples: hostMetrics, current: hostCurrent, onShowHost: showHost }), /* @__PURE__ */ import_react25.default.createElement("span", { className: "topbar-spacer" }), /* @__PURE__ */ import_react25.default.createElement("div", { className: "conn-state", "data-connected": wsConnected, title: wsConnected ? "Live" : "Reconnecting" }, /* @__PURE__ */ import_react25.default.createElement("span", { className: "conn-dot" }), /* @__PURE__ */ import_react25.default.createElement("span", null, wsConnected ? "Live" : "Reconnecting")), /* @__PURE__ */ import_react25.default.createElement("span", { className: "topbar-divider" }), /* @__PURE__ */ import_react25.default.createElement("div", { className: "topbar-actions" }, /* @__PURE__ */ import_react25.default.createElement(
       "button",
       {
         className: "btn btn--primary btn--sm",
@@ -38791,9 +39193,9 @@ git checkout -B ${branch} FETCH_HEAD`,
           setDeployOpen(true);
         }
       },
-      /* @__PURE__ */ import_react24.default.createElement(n5, { size: 13, weight: "bold" }),
-      /* @__PURE__ */ import_react24.default.createElement("span", null, "New deployment")
-    ), /* @__PURE__ */ import_react24.default.createElement(
+      /* @__PURE__ */ import_react25.default.createElement(n6, { size: 13, weight: "bold" }),
+      /* @__PURE__ */ import_react25.default.createElement("span", null, "New deployment")
+    ), /* @__PURE__ */ import_react25.default.createElement(
       "button",
       {
         className: "btn btn--icon",
@@ -38802,8 +39204,8 @@ git checkout -B ${branch} FETCH_HEAD`,
         "aria-label": "Settings",
         onClick: () => setSettingsPage("General")
       },
-      /* @__PURE__ */ import_react24.default.createElement(s5, { size: 15 })
-    ), /* @__PURE__ */ import_react24.default.createElement("button", { className: "btn btn--icon", type: "button", title: "Sign out", "aria-label": "Sign out", onClick: onLogout }, /* @__PURE__ */ import_react24.default.createElement(c7, { size: 15 })))), drawerOpen && /* @__PURE__ */ import_react24.default.createElement("div", { className: "topbar-drawer-overlay", onClick: () => setDrawerOpen(false) }), /* @__PURE__ */ import_react24.default.createElement(
+      /* @__PURE__ */ import_react25.default.createElement(s5, { size: 15 })
+    ), /* @__PURE__ */ import_react25.default.createElement("button", { className: "btn btn--icon", type: "button", title: "Sign out", "aria-label": "Sign out", onClick: onLogout }, /* @__PURE__ */ import_react25.default.createElement(c7, { size: 15 })))), drawerOpen && /* @__PURE__ */ import_react25.default.createElement("div", { className: "topbar-drawer-overlay", onClick: () => setDrawerOpen(false) }), /* @__PURE__ */ import_react25.default.createElement(
       ProcessList,
       {
         processes,
@@ -38814,7 +39216,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         attentionCount: attentionItems.length,
         drawerOpen
       }
-    ), /* @__PURE__ */ import_react24.default.createElement("main", { className: "content" }, error && /* @__PURE__ */ import_react24.default.createElement("div", { className: "action-result", "data-ok": "false", style: { margin: "var(--s-3) var(--s-5) 0" } }, /* @__PURE__ */ import_react24.default.createElement("span", null, error), /* @__PURE__ */ import_react24.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setError("") }, "Dismiss")), content3), /* @__PURE__ */ import_react24.default.createElement(Footer, { version: appVersion }), settingsPage && /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react25.default.createElement("main", { className: "content" }, error && /* @__PURE__ */ import_react25.default.createElement("div", { className: "action-result", "data-ok": "false", style: { margin: "var(--s-3) var(--s-5) 0" } }, /* @__PURE__ */ import_react25.default.createElement("span", null, error), /* @__PURE__ */ import_react25.default.createElement("button", { type: "button", className: "btn btn--sm btn--quiet", onClick: () => setError("") }, "Dismiss")), content3), /* @__PURE__ */ import_react25.default.createElement(Footer, { version: appVersion }), settingsPage && /* @__PURE__ */ import_react25.default.createElement(
       Settings,
       {
         initialPage: settingsPage,
@@ -38822,7 +39224,7 @@ git checkout -B ${branch} FETCH_HEAD`,
         csrfToken,
         onCsrfRefresh: refreshCsrf
       }
-    ), deployOpen && /* @__PURE__ */ import_react24.default.createElement(
+    ), deployOpen && /* @__PURE__ */ import_react25.default.createElement(
       DeployModal,
       {
         onCsrfRefresh: refreshCsrf,
@@ -38840,7 +39242,7 @@ git checkout -B ${branch} FETCH_HEAD`,
   }
 
   // src/main.jsx
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react25.default.createElement(App, null));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react26.default.createElement(App, null));
 })();
 /*! Bundled license information:
 

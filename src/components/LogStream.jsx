@@ -6,6 +6,7 @@
 import React, { memo, useMemo, useState } from 'react';
 import { detectLogLevel } from '../services/format.js';
 import { ArrowDown, Copy, DownloadSimple, MagnifyingGlass, Pause, Play } from './Icon.jsx';
+import { copyText } from '../services/clipboard.js';
 
 /** @param {string} text */
 function isContinuationLine(text) {
@@ -140,16 +141,7 @@ export default function LogStream({
   /** Copy filtered log lines to clipboard. */
   const copyLogs = async () => {
     const text = filteredLines.map((l) => l.text).join('\n');
-    if (!navigator.clipboard) {
-      setCopyStatus('Clipboard access is unavailable.');
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopyStatus('Copied.');
-    } catch {
-      setCopyStatus('Copy failed.');
-    }
+    setCopyStatus((await copyText(text)) ? 'Copied.' : 'Copy failed.');
   };
 
   /** Download filtered log lines as a plain-text file. */

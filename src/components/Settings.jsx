@@ -8,11 +8,13 @@ import { fetchJson, fetchWithCsrf } from '../services/api.js';
 import { useDialogFocus } from '../services/dialog.js';
 import GeneralSettings from './settings/GeneralSettings.jsx';
 import AlertingSettings from './settings/AlertingSettings.jsx';
+import McpSettings from './settings/McpSettings.jsx';
 import { X } from './Icon.jsx';
 
 const PAGES = [
   { id: 'General', label: 'General', desc: 'Server, sign in, retention' },
   { id: 'Alerting', label: 'Alerting', desc: 'When and where to notify' },
+  { id: 'MCP', label: 'MCP server', desc: 'Agent access, key, tools' },
 ];
 
 /**
@@ -27,7 +29,7 @@ const PAGES = [
  *   onClose: () => void,
  *   csrfToken: string | null,
  *   onCsrfRefresh: () => Promise<void>,
- *   initialPage?: 'General' | 'Alerting',
+ *   initialPage?: 'General' | 'Alerting' | 'MCP',
  * }} props - `initialPage` is the page shown on open, e.g. Alerting when
  *   the Manage tab links to the alert rules.
  */
@@ -134,7 +136,7 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh, initialPag
 
         <div className="settings-main">
           <div className="modal-header">
-            <span className="modal-title">{activePage}</span>
+            <span className="modal-title">{PAGES.find((page) => page.id === activePage)?.label ?? activePage}</span>
             {confirmingClose ? (
               <span className="confirm">
                 <span className="confirm-label">Discard unsaved changes?</span>
@@ -160,6 +162,8 @@ export default function Settings({ onClose, csrfToken, onCsrfRefresh, initialPag
             )}
 
             {activePage === 'General' && <GeneralSettings csrfToken={csrfToken} onCsrfRefresh={onCsrfRefresh} />}
+
+            {activePage === 'MCP' && <McpSettings csrfToken={csrfToken} onCsrfRefresh={onCsrfRefresh} />}
 
             {activePage === 'Alerting' && alertingSettingsLoaded && (
               <AlertingSettings

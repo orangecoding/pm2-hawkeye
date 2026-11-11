@@ -192,7 +192,7 @@ function proxyRequest(req, res, targetHost, targetPort, injectReload) {
  * @returns {boolean}
  */
 function isBackendRoute(url) {
-  return url.startsWith('/api/') || url.startsWith('/ws/') || url === '/login' || url === '/';
+  return url.startsWith('/api/') || url.startsWith('/ws/') || url === '/mcp' || url === '/login' || url === '/';
 }
 
 // ── Dev HTTP server ───────────────────────────────────────────────────────────
