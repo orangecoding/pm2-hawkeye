@@ -144,6 +144,17 @@ describe('frontend services', () => {
       ]);
     });
 
+    it('splits stored multi-line entries into display lines, oldest entry first', async () => {
+      const logs = await import('../src/services/logs.js');
+      const lines = logs.convertEntriesToLines([
+        { id: 2, log_level: 'error', log: 'Error: boom\n    at a.js:1:1' },
+        { id: 1, log_level: 'info', log: '{"msg":"ready"}' },
+      ]);
+      expect(lines.map((line) => line.text)).to.deep.equal(['{"msg":"ready"}', 'Error: boom', '    at a.js:1:1']);
+      expect(lines.map((line) => line.key)).to.deep.equal(['stored-1-0', 'stored-2-0', 'stored-2-1']);
+      expect(lines[2].logLevel).to.equal('error');
+    });
+
     it('bounds a queued background-tab log burst', async () => {
       const logs = await import('../src/services/logs.js');
       const queued = logs.appendBounded(

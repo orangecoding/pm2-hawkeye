@@ -53,16 +53,15 @@ describe('log backfill ordering', () => {
     );
 
     assert.equal(groups.length, 1);
-    assert.deepEqual(JSON.parse(groups[0].log).lines, [
-      '2026-01-01T10:00:02.000Z Error: boom',
-      '    at first.js:1:1',
-      '    at second.js:2:1',
-    ]);
+    assert.equal(
+      groups[0].log,
+      ['2026-01-01T10:00:02.000Z Error: boom', '    at first.js:1:1', '    at second.js:2:1'].join('\n'),
+    );
   });
 
   it('deduplicates stored boundary groups by occurrence count', () => {
     const boundary = Date.parse('2026-01-01T10:00:02.000Z');
-    const repeated = JSON.stringify({ lines: ['same'], raw: 'same' });
+    const repeated = 'same';
     const groups = [
       { loggedAt: boundary, logLevel: 'info', log: repeated },
       { loggedAt: boundary, logLevel: 'info', log: repeated },
@@ -74,7 +73,7 @@ describe('log backfill ordering', () => {
 
   it('deduplicates groups already captured by the live bus after the boundary', () => {
     const boundary = Date.parse('2026-01-01T10:00:02.000Z');
-    const liveLog = JSON.stringify({ lines: ['live'], raw: 'live' });
+    const liveLog = 'live';
     const groups = [{ loggedAt: boundary + 1, logLevel: 'info', log: liveLog }];
 
     assert.deepEqual(excludeStoredGroups(groups, [{ logged_at: boundary + 1, log: liveLog }]), []);
@@ -82,7 +81,7 @@ describe('log backfill ordering', () => {
 
   it('deduplicates live bus groups when no prior backfill boundary exists', () => {
     const loggedAt = Date.parse('2026-01-01T10:00:02.000Z');
-    const liveLog = JSON.stringify({ lines: ['first'], raw: 'first' });
+    const liveLog = 'first';
     const groups = [{ loggedAt, logLevel: 'info', log: liveLog }];
 
     assert.deepEqual(excludeStoredGroups(groups, [{ logged_at: loggedAt, log: liveLog }]), []);

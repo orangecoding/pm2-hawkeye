@@ -11,7 +11,7 @@
  */
 
 import { strict as assert } from 'node:assert';
-import { evaluateAndDispatch } from '../lib/service/alertingService.js';
+import { ALERTING_LOG_TAG, evaluateAndDispatch } from '../lib/service/alertingService.js';
 import { setSetting, setSettings } from '../lib/storage/alertingSettingsStorage.js';
 import { addMonitored, setAlertsEnabled } from '../lib/storage/monitoringStorage.js';
 import { getDb } from '../lib/storage/db.js';
@@ -80,6 +80,16 @@ describe('alertingService', () => {
     assert.strictEqual(reporter.calls[0].log_level, 'error');
     assert.strictEqual(reporter.calls[0].process_name, 'test-app');
     assert.strictEqual(reporter.calls[0].log, 'something broke');
+  });
+
+  it("never alerts on Hawkeye's own alerting lines, so a failing reporter cannot feed itself", async () => {
+    setSetting('alert.logLevelThreshold', '["error","warn"]');
+    const reporter = mockReporter();
+    const line = `2026-11-15T09:12:11: [2026-11-15 09:12:11] WARN: ${ALERTING_LOG_TAG} Reporter "alerta" failed for test-app: fetch failed`;
+
+    await evaluateAndDispatch('test-app', 'warn', line, [reporter]);
+
+    assert.strictEqual(reporter.calls.length, 0);
   });
 
   it('dispatches for both error and warn with multi-value threshold', async () => {

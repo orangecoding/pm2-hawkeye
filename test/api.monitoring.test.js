@@ -197,7 +197,7 @@ describe('Monitoring API', () => {
       insertLogEntry(id, {
         loggedAt: Date.now(),
         logLevel: 'info',
-        log: JSON.stringify({ lines: ['hello'], raw: 'hello' }),
+        log: 'hello',
       });
 
       const res = await request(app).get('/api/processes/some-app/logs/stored').set('Cookie', auth.cookie);
@@ -214,7 +214,7 @@ describe('Monitoring API', () => {
         insertLogEntry(id, {
           loggedAt: index,
           logLevel: 'info',
-          log: JSON.stringify({ lines: [`line ${index}`], raw: `line ${index}` }),
+          log: `line ${index}`,
         });
       }
 

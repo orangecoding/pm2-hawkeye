@@ -25,8 +25,10 @@ import {
   insertCustomMetrics,
   getCustomMetrics,
 } from '../lib/storage/metricsStorage.js';
+import Database from 'better-sqlite3';
 import { insertLogEntry, getLogEntries, purgeOldLogs } from '../lib/storage/logStorage.js';
-import { getDb } from '../lib/storage/db.js';
+import { compactDb, getDb } from '../lib/storage/db.js';
+import { up as migrateLogEntries } from '../lib/storage/migrations/009.log-entries-plain-text.js';
 
 // Helper to clean tables between tests.
 function cleanDb() {
@@ -215,7 +217,7 @@ describe('logStorage', () => {
 
   it('insertLogEntry and getLogEntries round-trip', () => {
     const { id } = addMonitored('log-app');
-    const log = JSON.stringify({ lines: ['hello world'], raw: 'hello world' });
+    const log = 'hello world';
     insertLogEntry(id, { loggedAt: Date.now(), logLevel: 'info', log });
 
     const entries = getLogEntries(id);
@@ -231,7 +233,7 @@ describe('logStorage', () => {
       insertLogEntry(id, {
         loggedAt: now + i,
         logLevel: 'info',
-        log: JSON.stringify({ lines: [`line ${i}`], raw: `line ${i}` }),
+        log: `line ${i}`,
       });
     }
     const entries = getLogEntries(id, { limit: 3 });
@@ -260,7 +262,7 @@ describe('logStorage', () => {
       insertLogEntry(id, {
         loggedAt: base + i * 1000,
         logLevel: 'info',
-        log: JSON.stringify({ lines: [`line ${i}`], raw: `line ${i}` }),
+        log: `line ${i}`,
       });
     }
     const entries = getLogEntries(id, { before: base + 3000 });
@@ -275,7 +277,7 @@ describe('logStorage', () => {
       insertLogEntry(id, {
         loggedAt: timestamp,
         logLevel: 'info',
-        log: JSON.stringify({ lines: [`line ${i}`], raw: `line ${i}` }),
+        log: `line ${i}`,
       });
     }
 
@@ -287,7 +289,7 @@ describe('logStorage', () => {
     });
 
     assert.deepEqual(
-      [...first, ...second].map((entry) => JSON.parse(entry.log).raw),
+      [...first, ...second].map((entry) => entry.log),
       ['line 3', 'line 2', 'line 1', 'line 0'],
     );
   });
@@ -306,5 +308,67 @@ describe('logStorage', () => {
     purgeOldLogs(14 * 24 * 60 * 60 * 1000);
     const remaining = getLogEntries(id);
     assert.equal(remaining.length, 1);
+  });
+});
+
+describe('log entry migration to plain text', () => {
+  /**
+   * A bare log_entries table holding the given `log` values.
+   *
+   * @param {string[]} logs
+   * @returns {import('better-sqlite3').Database}
+   */
+  function tableWith(logs) {
+    const db = new Database(':memory:');
+    db.exec('CREATE TABLE log_entries (id INTEGER PRIMARY KEY, log TEXT NOT NULL)');
+    const insert = db.prepare('INSERT INTO log_entries (log) VALUES (?)');
+    for (const log of logs) insert.run(log);
+    return db;
+  }
+
+  it('keeps only the raw text of JSON entries', () => {
+    const db = tableWith([
+      JSON.stringify({ lines: ['Error: "boom"', '    at a.js:1:1'], raw: 'Error: "boom"\n    at a.js:1:1' }),
+    ]);
+
+    migrateLogEntries(db);
+
+    assert.equal(db.prepare('SELECT log FROM log_entries').get().log, 'Error: "boom"\n    at a.js:1:1');
+  });
+
+  it('leaves plain text entries alone, also when they are JSON logged by the app', () => {
+    const appJson = JSON.stringify({ level: 'info', msg: 'ready', raw: 'not ours' });
+    const db = tableWith(['plain line', appJson]);
+
+    migrateLogEntries(db);
+
+    assert.deepEqual(
+      db
+        .prepare('SELECT log FROM log_entries ORDER BY id')
+        .all()
+        .map((row) => row.log),
+      ['plain line', appJson],
+    );
+  });
+});
+
+describe('compactDb', () => {
+  beforeEach(cleanDb);
+
+  it('runs the database with incremental auto-vacuum', () => {
+    assert.equal(getDb().pragma('auto_vacuum', { simple: true }), 2);
+  });
+
+  it('gives the pages of purged rows back', () => {
+    const { id } = addMonitored('log-app');
+    const old = Date.now() - 15 * 24 * 60 * 60 * 1000;
+    const text = 'x'.repeat(2000);
+    for (let i = 0; i < 200; i++) insertLogEntry(id, { loggedAt: old, logLevel: 'info', log: text });
+
+    purgeOldLogs(14 * 24 * 60 * 60 * 1000);
+    assert.ok(getDb().pragma('freelist_count', { simple: true }) > 0);
+
+    compactDb();
+    assert.equal(getDb().pragma('freelist_count', { simple: true }), 0);
   });
 });

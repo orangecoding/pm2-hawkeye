@@ -190,6 +190,9 @@ If PM2-Hawkeye is not running under PM2 when the script finishes, it will print 
 > Create the directory first: `mkdir -p /var/lib/pm2-hawkeye`
 
 > [!NOTE]
+> **Database size** - after every hourly retention purge PM2-Hawkeye hands the freed space back to the file system, so the database stays about as large as the data inside the retention windows. A database created by an older version is rebuilt once on the first start after the update (`[DB] Rebuilding the database once` in the log). On a large database that takes a few minutes, during which the dashboard is not reachable yet, and it needs free disk space of about the database size. If there is not enough, PM2-Hawkeye starts anyway and tries again at the next start.
+
+> [!NOTE]
 > **PM2 timestamps** - PM2-Hawkeye merges stdout and stderr and sorts log lines chronologically. This requires PM2 to prefix each line with a timestamp. Always start your processes with `--time`:
 > ```bash
 > pm2 start app.js --name my-app --time

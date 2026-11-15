@@ -5,9 +5,11 @@
 
 /**
  * Convert DB log entries (newest-first) to flat display lines (oldest-first).
+ * An entry's `log` holds all its lines (a stack trace keeps its frames)
+ * joined with `\n`.
  *
  * @param {object[]} entries
- * @returns {{text: string, source: string, logLevel: string}[]}
+ * @returns {{key: string, text: string, source: string, logLevel: string}[]}
  */
 export function convertEntriesToLines(entries) {
   return entries
@@ -15,17 +17,12 @@ export function convertEntriesToLines(entries) {
     .reverse()
     .flatMap((entry) => {
       const logLevel = entry.log_level || '';
-      try {
-        const parsed = JSON.parse(entry.log);
-        return (parsed.lines || []).map((text, index) => ({
-          key: `stored-${entry.id}-${index}`,
-          text,
-          source: 'stored',
-          logLevel,
-        }));
-      } catch {
-        return [{ key: `stored-${entry.id}-0`, text: entry.log, source: 'stored', logLevel }];
-      }
+      return entry.log.split('\n').map((text, index) => ({
+        key: `stored-${entry.id}-${index}`,
+        text,
+        source: 'stored',
+        logLevel,
+      }));
     });
 }
 
