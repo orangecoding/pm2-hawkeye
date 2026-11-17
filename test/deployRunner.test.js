@@ -21,6 +21,7 @@ import {
   installEnvironment,
   runDeploy,
   getDeployRun,
+  exitMessage,
 } from '../lib/service/deployRunner.js';
 import path from 'node:path';
 import config from '../lib/config.js';
@@ -583,7 +584,7 @@ describe('deployRunner validators', () => {
       const run = getDeployRun(deployment.id);
       assert.equal(run.status, 'error');
       assert.equal(run.stage, 'error');
-      assert.match(run.error, /exited with code 3/);
+      assert.match(run.error, /exited with code 3: preparing the host/);
       assert.match(run.output, /Running pre-setup script/);
       assert.match(run.output, /preparing the host/);
       assert.ok(run.finishedAt >= run.startedAt);
@@ -591,6 +592,35 @@ describe('deployRunner validators', () => {
 
     it('returns null for a deployment that has not run since the start', () => {
       assert.equal(getDeployRun('00000000-0000-4000-8000-000000000000'), null);
+    });
+  });
+
+  describe('exitMessage', () => {
+    it("keeps the ssh cause of a git failure instead of git's generic hint", () => {
+      const output = [
+        'git@github.com: Permission denied (publickey).',
+        'fatal: Could not read from remote repository.',
+        '',
+        'Please make sure you have the correct access rights',
+        'and the repository exists.',
+        '',
+      ].join('\n');
+      assert.equal(
+        exitMessage('git', 128, output),
+        'git exited with code 128: git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.',
+      );
+    });
+
+    it('uses the last lines when there is no fatal line', () => {
+      const output = 'step one\nstep two\n\nerror Command failed.\ninfo Visit the docs.\n';
+      assert.equal(
+        exitMessage('yarn', 1, output),
+        'yarn exited with code 1: step two error Command failed. info Visit the docs.',
+      );
+    });
+
+    it('names only the exit code when there is no output', () => {
+      assert.equal(exitMessage('sh', 3, ' \n'), 'sh exited with code 3');
     });
   });
 });

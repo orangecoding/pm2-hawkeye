@@ -549,8 +549,8 @@ Every deployment can watch its own branch. Enable **Auto-deploy** in the deploy 
 Three details worth knowing:
 
 - **Local changes are discarded.** A manual redeploy asks before throwing away uncommitted tracked changes in the deploy directory. An auto-deploy has nobody to ask, so it runs `git reset --hard` and continues. Do not edit deployed files in place on a watched deployment.
-- **One deploy per commit.** The SHA that triggered a deploy is recorded before the deploy starts, so a failing deploy waits for the next commit instead of retrying every interval.
-- **Results are notified.** If a webhook or ntfy reporter is enabled under **Settings - Alerting**, each auto-deploy sends one notification with its outcome. Unlike log alerts, this ignores the log-level threshold, the throttle window, and the per-process alerts toggle.
+- **Failed deploys are retried.** A commit counts as deployed only once its deploy went through. When an auto-deploy fails (a network hiccup during the fetch, a registry outage during install), PM2-Hawkeye tries the same commit again after one poll interval, then after two, four and so on, never waiting longer than an hour. It stops once the deploy works, a newer commit arrives, or a manual deploy succeeds. The error stays on the Deploy tab until then. The retry count lives in memory, so a restart of PM2-Hawkeye starts it over.
+- **Results are notified.** If a webhook or ntfy reporter is enabled under **Settings - Alerting**, each auto-deploy sends a notification with its outcome. Retries of a failed commit stay quiet until one of them succeeds. Unlike log alerts, this ignores the log-level threshold, the throttle window, and the per-process alerts toggle.
 
 The **Manage** tab shows the current state under the repository URL: the interval, when the branch was last checked, and the last error if a poll or an auto-deploy failed. Polling uses whatever git credentials the server already has (including `GIT_SSH_COMMAND` or a `core.sshCommand` pointing at a deploy key), with prompts disabled, so a private repository without a usable key fails fast and records the error instead of hanging.
 
